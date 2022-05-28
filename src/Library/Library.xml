@@ -6,7 +6,7 @@
     <members>
         <member name="T:ClassLibrary.Train">
             <summary>
-            Esta clase representa un tren muy básico.
+            Me gusta el arte.
             </summary>
         </member>
         <member name="P:ClassLibrary.Train.IsEngineStarted">
