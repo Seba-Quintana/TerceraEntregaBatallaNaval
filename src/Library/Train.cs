@@ -9,7 +9,7 @@ using System;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase representa un tren muy básico.
+    /// Me gusta el arte.
     /// </summary>
     public class Train
     {
