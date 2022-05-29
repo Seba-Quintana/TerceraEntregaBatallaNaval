@@ -1,4 +1,4 @@
-using System;
+/*using System;
 
 namespace ClassLibrary
 {
@@ -9,7 +9,6 @@ namespace ClassLibrary
     /// </summary>
     public class Jugador
     {
-      public List<EnPartida> enpartida = new List<EnPartida>();
       public void VerPerfil(int perfil)
       {
           Admin.ObtenerPerfil(perfil);
@@ -43,4 +42,4 @@ namespace ClassLibrary
     }
     
 
-}
+}*/

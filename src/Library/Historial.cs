@@ -1,4 +1,4 @@
-using System;
+/*using System;
 
 namespace ClassLibrary
 {
@@ -7,22 +7,12 @@ namespace ClassLibrary
     /// </summary>
     public class Historial
     {
-      public static List<ListadePartidas> partidas;
+      public static List<DatosdePartidas> partidas;
     
-      public void AñadirPartida(partida)
+      public void AlmacenarPartida(DatosdePartidas partida)
       {
         partidas.add(partida);
 
       }
-      public void Ganar()
-      {
-
-        Ganadas+=1;
-      }
-    
-      public void Perder()
-      {
-        Perdidas+=1;
-      }
     }
-}
+}*/
