@@ -50,56 +50,43 @@ namespace ClassLibrary
         /// <param name="nuevovalor"></param>
         public void ActualizarTablero(int filas, int columnas, char nuevovalor)
         {
-            if (nuevovalor == 'B')
+            if (filas <= this.tamaño && columnas <= this.tamaño)
             {
-                matriz[filas, columnas] = nuevovalor;
-            }
-            else if (nuevovalor == 'A')
-            {
-                if (matriz[filas, columnas] == 'B' || matriz[filas, columnas] == 'T')
+                if (nuevovalor == 'B')
                 {
-                    matriz[filas, columnas] = 'T';
+                    matriz[filas, columnas] = nuevovalor;
                 }
-                else
+                else if (nuevovalor == 'A')
                 {
-                    matriz[filas, columnas] = 'W';
+                    if (matriz[filas, columnas] == 'B' || matriz[filas, columnas] == 'T')
+                    {
+                        matriz[filas, columnas] = 'T';
+                    }
+                    else
+                    {
+                        matriz[filas, columnas] = 'W';
+                    }
                 }
             }
         }
         /// <summary>
-        /// Metodo encargado de añadir un barco al tablero, se le asignan el inicio y el final,
-        /// luego se asignan las variables si se cumple la condicion de que se posicionen horizontal o verticalmente
-        /// y que las casillas marcadas esten en la matriz
+        /// Metodo utilizado por logica para ver la casilla donde se esta atacando
         /// </summary>
-        /// <param name="InicioDeBarco"></param>
-        /// <param name="FinalDeBarco"></param>
-        public void Añadirbarco(int[] InicioDeBarco, int[] FinalDeBarco)
+        /// <param name="columna"></param>
+        /// <param name="fila"></param>
+        /// <returns></returns>
+        public string VerCasilla(int columna, int fila)
         {
-            if (InicioDeBarco[0] <= this.tamaño && InicioDeBarco[1] <= this.tamaño && FinalDeBarco[0] <= this.tamaño && FinalDeBarco[1] <= this.tamaño && (InicioDeBarco[0] == FinalDeBarco[0] || InicioDeBarco[1] == FinalDeBarco[1]))
+            switch (matriz[columna, fila])
             {
-                if (InicioDeBarco[0] == FinalDeBarco[0])
-                {
-                    for (int i = InicioDeBarco[1] - 1; i < FinalDeBarco[1]; i++)
-                    {
-                        if (i >= 0)
-                        {
-                            ActualizarTablero(InicioDeBarco[0], i, 'B');
-                        }
-
-                    }
-                }
-
-                if (InicioDeBarco[1] == FinalDeBarco[1])
-                {
-                    for (int i = InicioDeBarco[1] - 1; i < FinalDeBarco[1]; i++)
-                    {
-                        if (i >= 0)
-                        {
-                            ActualizarTablero(i, InicioDeBarco[1], 'B');
-                        }
-                    }
-                }
+                case 'W':
+                    return "La casilla ya habia sido atacada y contiene Agua";
+                case 'T':
+                    return "La casilla ya habia sido atacada y hay una parte de barco dañada";
+                case 'B':
+                    return "Buen tiro, has atacado a un barco";
             }
+            return "Que lastima!! has disparado al agua";
         }
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.
