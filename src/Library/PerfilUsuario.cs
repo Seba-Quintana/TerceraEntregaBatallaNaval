@@ -16,11 +16,11 @@ namespace unicornio
         public int OponenteEnPartida;
         public int Ganadas;
         public int Perdidas;
-        public List<DatosdePartidas> HistorialPersonal;
+        //public List<DatosdePartidas> HistorialPersonal;
 
         public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador, 
                             int OponenteEnPartida, int Ganadas,
-                            int Perdidas, List<DatosdePartidas> HistorialPersonal)
+                            int Perdidas)//, List<DatosdePartidas> HistorialPersonal)
         {
             this.Nombre = Nombre;
             this.ID = ID;
@@ -29,17 +29,17 @@ namespace unicornio
             this.OponenteEnPartida = OponenteEnPartida;
             this.Ganadas = Ganadas;
             this.Perdidas = Perdidas;
-            this.HistorialPersonal = HistorialPersonal;
+            //this.HistorialPersonal = HistorialPersonal;
         }
 
         public PerfilUsuario VerPerfil()
         {
             return this;
         }
-
+/*
         public List<DatosdePartidas> VerHistorialPersonal()
         {
             return this.HistorialPersonal;
-        }
+        }*/
     }
 }

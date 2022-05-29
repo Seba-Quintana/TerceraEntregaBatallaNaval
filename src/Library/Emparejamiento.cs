@@ -33,30 +33,30 @@ namespace unicornio
         {
             if (modo == 0) // modo normal
             {
-                PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
-                ListaEmparejamientosN.Add(perfilJugador);
+                //PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
+                //ListaEmparejamientosN.Add(perfilJugador);
             }
             if (modo == 1) // modo rapido
             {
-                PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
-                ListaEmparejamientosR.Add(perfilJugador);
+                //PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
+                //ListaEmparejamientosR.Add(perfilJugador);
             }
         }
 
         public static PerfilUsuario[] EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
-            PerfilUsuario perfilJugador1 = Admin.ObtenerPerfil(jugador1);
-            PerfilUsuario perfilJugador2 = Admin.ObtenerPerfil(jugador2);
+            //PerfilUsuario perfilJugador1 = Admin.ObtenerPerfil(jugador1);
+            //PerfilUsuario perfilJugador2 = Admin.ObtenerPerfil(jugador2);
             PerfilUsuario[] listaAmigos = new PerfilUsuario[2];
             if (modo == 0) // modo normal
             {
-                listaAmigos[0] = listaAmigos[perfilJugador1];
-                listaAmigos[1] = listaAmigos[perfilJugador2];
+                //listaAmigos[0] = listaAmigos[perfilJugador1];
+                //listaAmigos[1] = listaAmigos[perfilJugador2];
             }
             if (modo == 1) // modo rapido
             {
-                listaAmigos[0] = listaAmigos[perfilJugador1];
-                listaAmigos[1] = listaAmigos[perfilJugador2];
+                //listaAmigos[0] = listaAmigos[perfilJugador1];
+                //listaAmigos[1] = listaAmigos[perfilJugador2];
             }
             return listaAmigos;
         }
