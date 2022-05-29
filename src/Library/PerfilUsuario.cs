@@ -47,7 +47,7 @@ namespace ClassLibrary
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        public List<DatosdePartidas> HistorialPersonal;
+        public List<DatosdePartida> HistorialPersonal;
 
         /// <summary>
         /// constructor del perfil de usuario.
@@ -62,7 +62,7 @@ namespace ClassLibrary
         /// <param name="HistorialPersonal"></param>
         public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador, 
                             int OponenteEnPartida, int Ganadas,
-                            int Perdidas, List<DatosdePartidas> HistorialPersonal)
+                            int Perdidas, List<DatosdePartida> HistorialPersonal)
         {
             this.Nombre = Nombre;
             this.ID = ID;
@@ -78,9 +78,9 @@ namespace ClassLibrary
         /// Añade partidas al historial personal del usuario
         /// </summary>
         /// <param name="partida"></param>
-        public void AñadiralHistorial(DatosdePartidas partida)
+        public void AñadiralHistorial(DatosdePartida partida)
         {
-            this.HistorialPersonal = partida;
+            this.HistorialPersonal.Add(partida);
         }
 
         /// Devuelve el perfil para imprimir
@@ -97,7 +97,7 @@ namespace ClassLibrary
         /// Devuelve el historial personal para imprimir
         /// </summary>
         /// <returns></returns>
-        public List<DatosdePartidas> VerHistorialPersonal()
+        public List<DatosdePartida> VerHistorialPersonal()
         {
             return this.HistorialPersonal;
         }
