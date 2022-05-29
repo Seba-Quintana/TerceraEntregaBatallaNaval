@@ -15,9 +15,9 @@ namespace ClassLibrary
         public int[] Traducir(string coordenada)
         {
             int[] traducido = new int[1];
-            string[] letras = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"];
+            string letras = "ABCDEFGHIJKLMNO";
             int i = 0;
-            while (coordenada.Substring(0).ToUpper() != letras[i])
+            while (coordenada.Substring(0).ToUpper() != letras.Substring(i))
             {
                 i = i + 1;
             }
