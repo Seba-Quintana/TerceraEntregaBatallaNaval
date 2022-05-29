@@ -5,14 +5,14 @@ namespace ClassLibrary
     /// <summary>
     /// 
     /// </summary>
-    public class TraductorDeCoordenadas
+    public static class TraductorDeCoordenadas
     {
         /// <summary>
         /// Transforma las coordenadas introducidas por el usuario en en un int[,]
         /// </summary>
         /// <param name="coordenada"></param>
         /// <returns></returns>
-        public int[] Traducir(string coordenada)
+        public static int[] Traducir(string coordenada)
         {
             int[] traducido = new int[1];
             string letras = "ABCDEFGHIJKLMNO";

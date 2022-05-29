@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -7,12 +8,11 @@ namespace ClassLibrary
     /// </summary>
     public class Historial
     {
-      public static List<DatosdePartidas> partidas;
+      public static List<DatosdePartida> partidas;
     
-      public void AlmacenarPartida(DatosdePartidas partida)
+      public void AlmacenarPartida(DatosdePartida partida)
       {
-        partidas.add(partida);
-
+        partidas.Add(partida);
       }
     }
 }

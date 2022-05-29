@@ -16,33 +16,33 @@ namespace ClassLibrary
     
       public void VerRanking()
       {
-          Admin.ObtenerRanking();
+          //Admin.ObtenerRanking();
       }
     
       public void VerHistorial(int historial)
       {
-          Admin.ObtenerHistorial(historial);
+          //Admin.ObtenerHistorial(historial);
       }
     
       public void PartidaAmistosa(int jugador1, int jugador2)
       {
-        Admin.EmparejarAmigos(jugador1, jugador2);
+        //Admin.EmparejarAmigos(jugador1, jugador2);
       }
     
       public void BuscarPartida(int partida)
       {
-        Admin.BuscaPartida(partida);
+        //Admin.BuscarPartida(partida);
       }
     
       public void VisualizarTablero()
       {
-        Admin.ObtenerTableroAtaque();
-        Admin.ObtenerTableroDefensa();
+        //Admin.ObtenerTableroAtaque();
+        //Admin.ObtenerTableroDefensa();
       }
       public void Atacar(string coordenada)
       {
-        int[] nuevaCoordenada=TraductorDeCoordenadas.Traducir(coordenada);
-        Logica.IndicarCasilla(nuevaCoordenada);
+        int[] nuevaCoordenada = TraductorDeCoordenadas.Traducir(coordenada);
+        //Logica.IndicarCasilla(nuevaCoordenada);
       }
     }
     
