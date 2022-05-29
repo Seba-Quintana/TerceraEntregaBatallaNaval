@@ -39,7 +39,7 @@ namespace ClassLibrary
             {
                 Perdedor = tableroParaAgregar.DueñodelTablero;
             }
-            if (Ganador!=0 & Perdedor!=0)
+            if (Ganador!=0 && Perdedor!=0)
             {
                 //Historial.AlmacenarPartida(this);
             }
