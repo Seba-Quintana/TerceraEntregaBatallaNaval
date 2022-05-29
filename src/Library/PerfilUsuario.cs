@@ -44,10 +44,14 @@ namespace unicornio
         {
             return this;
         }
-        /*
+        
+        /// <summary>
+        /// Devuelve el historial personal para imprimir
+        /// </summary>
+        /// <returns></returns>
         public List<DatosdePartidas> VerHistorialPersonal()
         {
             return this.HistorialPersonal;
-        }*/
+        }
     }
 }
