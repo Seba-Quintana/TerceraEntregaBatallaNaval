@@ -5,7 +5,7 @@
 //--------------------------------------------------------------------------------
 
 using ClassLibrary;
-using NUnit.Framework;
+/*using NUnit.Framework;
 
 namespace Tests
 {
@@ -53,3 +53,4 @@ namespace Tests
         }
     }
 }
+*/
