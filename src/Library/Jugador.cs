@@ -1,4 +1,4 @@
-/*using System;
+using System;
 
 namespace ClassLibrary
 {
@@ -39,7 +39,12 @@ namespace ClassLibrary
         Admin.ObtenerTableroAtaque();
         Admin.ObtenerTableroDefensa();
       }
+      public void Atacar(string coordenada)
+      {
+        int[] nuevaCoordenada=TraductorDeCoordenadas.Traducir(coordenada);
+        Logica.IndicarCasilla(nuevaCoordenada);
+      }
     }
     
 
-}*/
+}

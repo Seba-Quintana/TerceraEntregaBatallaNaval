@@ -1,4 +1,4 @@
-/*using System;
+using System;
 namespace ClassLibrary
 {
     public class Logica
@@ -8,6 +8,10 @@ namespace ClassLibrary
           Tablero.AñadirBarco(InicioBarco,FinBarco);
       }
     
-    
+      public void IndicarCasilla(int[] ubicacion)
+      {
+        Tablero.IndicarCasilla(ubicacion);
+      }    
+
     }
-}*/
+}

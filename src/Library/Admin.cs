@@ -1,4 +1,4 @@
-/*using System;
+using System;
 
 namespace ClassLibrary
 {
@@ -12,12 +12,15 @@ namespace ClassLibrary
             ListaDeUsuarios.add(PerfilUsuario);
 
         }
-        public void Remover(int id)
+        public void Remover(int NumeroDeJugador)
         {
-            foreach (int usuario in ListaDeUsuarios)
+            foreach (PerfilUsuario usuario in ListaDeUsuarios == NumeroDeJugador)
             {
-                if 
+                if (usuario.NumeroDeJugador == NumeroDeJugador)
+                {
+                    ListaDeUsuarios.Remove(usuario);
+                }
             }
         }
     }
-}*/
+}
