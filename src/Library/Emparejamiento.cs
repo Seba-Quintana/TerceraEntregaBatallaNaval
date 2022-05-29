@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace unicornio
+namespace ClassLibrary
 {
     /// <summary>
     /// Esta clase empareja a dos jugadores en una lista.
