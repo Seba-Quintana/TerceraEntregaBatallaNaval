@@ -16,7 +16,7 @@ namespace unicornio
         public int OponenteEnPartida;
         public int Ganadas;
         public int Perdidas;
-        //public List<DatosdePartidas> HistorialPersonal;
+        public List<DatosdePartidas> HistorialPersonal;
 
         public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador, 
                             int OponenteEnPartida, int Ganadas,
@@ -29,14 +29,22 @@ namespace unicornio
             this.OponenteEnPartida = OponenteEnPartida;
             this.Ganadas = Ganadas;
             this.Perdidas = Perdidas;
-            //this.HistorialPersonal = HistorialPersonal;
+            this.HistorialPersonal = HistorialPersonal;
         }
 
+        /// <summary>
+        /// Añade partidas al historial personal del usuario
+        /// </summary>
+        /// <param name="partida"></param>
+        public void AñadiralHistorial(DatosdePartidas partida)
+        {
+            this.HistorialPersonal = partida;
+        }
         public PerfilUsuario VerPerfil()
         {
             return this;
         }
-/*
+        /*
         public List<DatosdePartidas> VerHistorialPersonal()
         {
             return this.HistorialPersonal;
