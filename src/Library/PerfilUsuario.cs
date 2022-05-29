@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace unicornio
+namespace ClassLibrary
 {
     /// <summary>
     /// Esta clase empareja a dos jugadores en una lista.
@@ -9,18 +9,60 @@ namespace unicornio
     /// </summary>
     public class PerfilUsuario
     {
+        /// <summary>
+        /// Nombre del jugador
+        /// </summary>
         public string Nombre;
-        private int ID;
-        public string Contraseña;
-        public int NumeroDeJugador;
-        public int OponenteEnPartida;
-        public int Ganadas;
-        public int Perdidas;
-        //public List<DatosdePartidas> HistorialPersonal;
 
+        /// <summary>
+        /// Identificación del jugador otorgada por el bot
+        /// </summary>
+        private int ID;
+
+        /// <summary>
+        /// Contraseña del usuario
+        /// </summary>
+        public string Contraseña;
+
+        /// <summary>
+        /// Identificación númerica del jugador
+        /// </summary>
+        public int NumeroDeJugador;
+
+        /// <summary>
+        /// Numero de jugador del oponente actual (0 si no hay oponente)
+        /// </summary>
+        public int OponenteEnPartida;
+
+        /// <summary>
+        /// Cantidad de partidas ganadas
+        /// </summary>
+        public int Ganadas;
+
+        /// <summary>
+        /// Cantidad de partidas perdidas
+        /// </summary>
+        public int Perdidas;
+
+        /// <summary>
+        /// historial del usuario en concreto
+        /// </summary>
+        public List<DatosdePartidas> HistorialPersonal;
+
+        /// <summary>
+        /// constructor del perfil de usuario.
+        /// </summary>
+        /// <param name="Nombre"></param>
+        /// <param name="ID"></param>
+        /// <param name="Contraseña"></param>
+        /// <param name="NumeroDeJugador"></param>
+        /// <param name="OponenteEnPartida"></param>
+        /// <param name="Ganadas"></param>
+        /// <param name="Perdidas"></param>
+        /// <param name="HistorialPersonal"></param>
         public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador, 
                             int OponenteEnPartida, int Ganadas,
-                            int Perdidas)//, List<DatosdePartidas> HistorialPersonal)
+                            int Perdidas, List<DatosdePartidas> HistorialPersonal)
         {
             this.Nombre = Nombre;
             this.ID = ID;
@@ -29,17 +71,25 @@ namespace unicornio
             this.OponenteEnPartida = OponenteEnPartida;
             this.Ganadas = Ganadas;
             this.Perdidas = Perdidas;
-            //this.HistorialPersonal = HistorialPersonal;
+            this.HistorialPersonal = HistorialPersonal;
         }
 
+        /// <summary>
+        /// Devuelve el perfil para imprimir
+        /// </summary>
+        /// <returns></returns>
         public PerfilUsuario VerPerfil()
         {
             return this;
         }
-/*
+
+        /// <summary>
+        /// Devuelve el historial del usuario en concreto para imprimir
+        /// </summary>
+        /// <returns></returns>
         public List<DatosdePartidas> VerHistorialPersonal()
         {
             return this.HistorialPersonal;
-        }*/
+        }
     }
 }
