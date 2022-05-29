@@ -43,7 +43,7 @@ namespace ClassLibrary
         /// Cantidad de partidas perdidas
         /// </summary>
         public int Perdidas;
-
+      
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
@@ -75,16 +75,26 @@ namespace ClassLibrary
         }
 
         /// <summary>
+        /// Añade partidas al historial personal del usuario
+        /// </summary>
+        /// <param name="partida"></param>
+        public void AñadiralHistorial(DatosdePartidas partida)
+        {
+            this.HistorialPersonal = partida;
+        }
+
         /// Devuelve el perfil para imprimir
         /// </summary>
         /// <returns></returns>
+      
         public PerfilUsuario VerPerfil()
         {
             return this;
         }
 
+        
         /// <summary>
-        /// Devuelve el historial del usuario en concreto para imprimir
+        /// Devuelve el historial personal para imprimir
         /// </summary>
         /// <returns></returns>
         public List<DatosdePartidas> VerHistorialPersonal()
