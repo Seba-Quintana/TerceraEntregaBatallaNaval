@@ -47,16 +47,16 @@ namespace unicornio
         {
             PerfilUsuario perfilJugador1 = Admin.ObtenerPerfil(jugador1);
             PerfilUsuario perfilJugador2 = Admin.ObtenerPerfil(jugador2);
-            PerfilUsuario[] listaAmigos = new PerfilUsuario[]();
+            PerfilUsuario[] listaAmigos = new PerfilUsuario[2];
             if (modo == 0) // modo normal
             {
-                listaAmigos.Add(perfilJugador1);
-                listaAmigos.Add(perfilJugador2);
+                listaAmigos[0] = listaAmigos[perfilJugador1];
+                listaAmigos[1] = listaAmigos[perfilJugador2];
             }
             if (modo == 1) // modo rapido
             {
-                listaAmigos.Add(perfilJugador1);
-                listaAmigos.Add(perfilJugador2);
+                listaAmigos[0] = listaAmigos[perfilJugador1];
+                listaAmigos[1] = listaAmigos[perfilJugador2];
             }
             return listaAmigos;
         }
