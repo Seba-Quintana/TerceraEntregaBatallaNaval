@@ -45,26 +45,26 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo el cual se ejecuta para cambiar un punto de la matriz.
         /// </summary>
-        /// <param name="filas"></param>
-        /// <param name="columnas"></param>
+        /// <param name="fila"></param>
+        /// <param name="columna"></param>
         /// <param name="nuevovalor"></param>
-        public void ActualizarTablero(int filas, int columnas, char nuevovalor)
+        public void ActualizarTablero(int fila, int columna, char nuevovalor)
         {
-            if (filas <= this.tamaño && columnas <= this.tamaño)
+            if (fila <= this.tamaño && columna <= this.tamaño)
             {
                 if (nuevovalor == 'B')
                 {
-                    matriz[filas, columnas] = nuevovalor;
+                    matriz[fila, columna] = nuevovalor;
                 }
                 else if (nuevovalor == 'A')
                 {
-                    if (matriz[filas, columnas] == 'B' || matriz[filas, columnas] == 'T')
+                    if (matriz[fila, columna] == 'B' || matriz[fila, columna] == 'T')
                     {
-                        matriz[filas, columnas] = 'T';
+                        matriz[fila, columna] = 'T';
                     }
                     else
                     {
-                        matriz[filas, columnas] = 'W';
+                        matriz[fila, columna] = 'W';
                     }
                 }
             }
@@ -75,9 +75,11 @@ namespace ClassLibrary
         /// <param name="columna"></param>
         /// <param name="fila"></param>
         /// <returns></returns>
-        public string VerCasilla(int columna, int fila)
+        public string VerCasilla(int fila, int columna)
         {
-            switch (matriz[columna, fila])
+            if (fila <= this.tamaño && columna <= this.tamaño)
+            {
+            switch (matriz[fila, columna])
             {
                 case 'W':
                     return "La casilla ya habia sido atacada y contiene Agua";
@@ -87,6 +89,8 @@ namespace ClassLibrary
                     return "Buen tiro, has atacado a un barco";
             }
             return "Que lastima!! has disparado al agua";
+            }
+            return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
         }
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.

@@ -12,30 +12,27 @@ namespace ClassLibrary
         /// y que las casillas marcadas esten en la matriz.
         /// </summary>
         /// <param name="tablero"></param>
-        /// <param name="InicioDeBarco"></param>
-        /// <param name="FinalDeBarco"></param>
+        /// <param name="inicioDeBarco"></param>
+        /// <param name="finalDeBarco"></param>
         
-        public void Añadirbarco(Tablero tablero, int[] InicioDeBarco, int[] FinalDeBarco)
+        public static void Añadirbarco(Tablero tablero, int[] inicioDeBarco, int[] finalDeBarco)
         {
-            if (InicioDeBarco[0] == FinalDeBarco[0])
+            if (inicioDeBarco[0] == finalDeBarco[0])
             {
-                for (int i = InicioDeBarco[1] - 1; i < FinalDeBarco[1]; i++)
+                for (int i = inicioDeBarco[1] - 1; i < finalDeBarco[1]; i++)
                 {
-                    if (i >= 0)
-                    {
-                        tablero.ActualizarTablero(InicioDeBarco[0], i, 'B');
-                    }
-
+                        tablero.ActualizarTablero(inicioDeBarco[0], i, 'B');
                 }
             }
 
-            if (InicioDeBarco[1] == FinalDeBarco[1])
+            if (inicioDeBarco[1] == finalDeBarco[1])
             {
-                for (int i = InicioDeBarco[1] - 1; i < FinalDeBarco[1]; i++)
+                for (int i = inicioDeBarco[1] - 1; i < finalDeBarco[1]; i++)
                 {
+                  //Controlador por si el jugador envia una coordenada invalida como por ej A0
                     if (i >= 0)
                     {
-                        tablero.ActualizarTablero(i, InicioDeBarco[1], 'B');
+                        tablero.ActualizarTablero(i, inicioDeBarco[1], 'B');
                     }
                 }
             }
@@ -48,7 +45,7 @@ namespace ClassLibrary
       /// <param name="columna"></param>
       /// <param name="fila"></param>
       /// <returns></returns>
-      public string AtacarCasilla( Tablero tablero, int columna, int fila)
+      public static string AtacarCasilla( Tablero tablero, int columna, int fila)
       {
         string LugardeAtaque = tablero.VerCasilla(columna, fila);
         tablero.ActualizarTablero(columna, fila, 'A');
