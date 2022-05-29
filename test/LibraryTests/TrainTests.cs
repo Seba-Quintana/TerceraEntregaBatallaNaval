@@ -12,7 +12,7 @@ namespace Tests
     /// <summary>
     /// Prueba de la clase <see cref="Train"/>.
     /// </summary>
-    [TestFixture]
+    /*[TestFixture]
     public class TrainTests
     {
         /// <summary>
@@ -51,6 +51,5 @@ namespace Tests
             this.train.StopEngines();
             Assert.False(this.train.IsEngineStarted);
         }
-    }
+    }*/
 }
-*/
