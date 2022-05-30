@@ -45,61 +45,52 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo el cual se ejecuta para cambiar un punto de la matriz.
         /// </summary>
-        /// <param name="filas"></param>
-        /// <param name="columnas"></param>
+        /// <param name="fila"></param>
+        /// <param name="columna"></param>
         /// <param name="nuevovalor"></param>
-        public void ActualizarTablero(int filas, int columnas, char nuevovalor)
+        public void ActualizarTablero(int fila, int columna, char nuevovalor)
         {
-            if (nuevovalor == 'B')
+            if (fila <= this.tamaño && columna <= this.tamaño)
             {
-                matriz[filas, columnas] = nuevovalor;
-            }
-            else if (nuevovalor == 'A')
-            {
-                if (matriz[filas, columnas] == 'B' || matriz[filas, columnas] == 'T')
+                if (nuevovalor == 'B')
                 {
-                    matriz[filas, columnas] = 'T';
+                    matriz[fila, columna] = nuevovalor;
                 }
-                else
+                else if (nuevovalor == 'A')
                 {
-                    matriz[filas, columnas] = 'W';
+                    if (matriz[fila, columna] == 'B' || matriz[fila, columna] == 'T')
+                    {
+                        matriz[fila, columna] = 'T';
+                    }
+                    else
+                    {
+                        matriz[fila, columna] = 'W';
+                    }
                 }
             }
         }
         /// <summary>
-        /// Metodo encargado de añadir un barco al tablero, se le asignan el inicio y el final,
-        /// luego se asignan las variables si se cumple la condicion de que se posicionen horizontal o verticalmente
-        /// y que las casillas marcadas esten en la matriz
+        /// Metodo utilizado por logica para ver la casilla donde se esta atacando
         /// </summary>
-        /// <param name="InicioDeBarco"></param>
-        /// <param name="FinalDeBarco"></param>
-        public void Añadirbarco(int[] InicioDeBarco, int[] FinalDeBarco)
+        /// <param name="columna"></param>
+        /// <param name="fila"></param>
+        /// <returns></returns>
+        public string VerCasilla(int fila, int columna)
         {
-            if (InicioDeBarco[0] <= this.tamaño && InicioDeBarco[1] <= this.tamaño && FinalDeBarco[0] <= this.tamaño && FinalDeBarco[1] <= this.tamaño && (InicioDeBarco[0] == FinalDeBarco[0] || InicioDeBarco[1] == FinalDeBarco[1]))
+            if (fila <= this.tamaño && columna <= this.tamaño)
             {
-                if (InicioDeBarco[0] == FinalDeBarco[0])
+                switch (matriz[fila, columna])
                 {
-                    for (int i = InicioDeBarco[1] - 1; i < FinalDeBarco[1]; i++)
-                    {
-                        if (i >= 0)
-                        {
-                            ActualizarTablero(InicioDeBarco[0], i, 'B');
-                        }
-
-                    }
+                    case 'W':
+                        return "La casilla ya habia sido atacada y contiene Agua";
+                    case 'T':
+                        return "La casilla ya habia sido atacada y hay una parte de barco dañada";
+                    case 'B':
+                        return "Buen tiro, has atacado a un barco";
                 }
-
-                if (InicioDeBarco[1] == FinalDeBarco[1])
-                {
-                    for (int i = InicioDeBarco[1] - 1; i < FinalDeBarco[1]; i++)
-                    {
-                        if (i >= 0)
-                        {
-                            ActualizarTablero(i, InicioDeBarco[1], 'B');
-                        }
-                    }
-                }
+                return "Que lastima!! has disparado al agua";
             }
+            return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
         }
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.
