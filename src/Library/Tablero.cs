@@ -79,16 +79,16 @@ namespace ClassLibrary
         {
             if (fila <= this.tamaño && columna <= this.tamaño)
             {
-            switch (matriz[fila, columna])
-            {
-                case 'W':
-                    return "La casilla ya habia sido atacada y contiene Agua";
-                case 'T':
-                    return "La casilla ya habia sido atacada y hay una parte de barco dañada";
-                case 'B':
-                    return "Buen tiro, has atacado a un barco";
-            }
-            return "Que lastima!! has disparado al agua";
+                switch (matriz[fila, columna])
+                {
+                    case 'W':
+                        return "La casilla ya habia sido atacada y contiene Agua";
+                    case 'T':
+                        return "La casilla ya habia sido atacada y hay una parte de barco dañada";
+                    case 'B':
+                        return "Buen tiro, has atacado a un barco";
+                }
+                return "Que lastima!! has disparado al agua";
             }
             return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
         }
