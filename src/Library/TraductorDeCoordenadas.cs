@@ -24,7 +24,6 @@ namespace ClassLibrary
             }
             traducido[0] = i;
             traducido[1] = (int)Char.GetNumericValue(coordenada[1]) - 1;
-            Console.WriteLine($"{coordenada[1]} y {traducido[1]}");
             return traducido;
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -14,39 +15,38 @@ namespace ClassLibrary
         public static void ImprimirTablero(char[,] tablero)
         {
             string filaImprimir = "  ";
-            string letras = "ABCDEFGHIJKLMNO";
-            string[] numeros = new string[15];
-            for (int j = 0 ; j<9 ; j++)
-            {
-                numeros[j] = $" {j + 1}";
-            }
-            for (int j = 9 ; j<numeros.Length ; j++)
-            {
-                numeros[j] = $"{j + 1}";
-            }
+            List<string> letras = new List<string> () {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"};
+            Console.WriteLine(filaImprimir);
             for (int i = 0; i<tablero.GetLength(1); i++)
             {
-                filaImprimir = filaImprimir + " " + letras[i];
+                if (i<10)
+                {
+                    filaImprimir = filaImprimir + $" {i+1} ";
+                }
+                else
+                {
+                    filaImprimir = filaImprimir + $"{i+1} ";
+                }
             }
             Console.WriteLine(filaImprimir);
             for (int fila = 0; fila<tablero.GetLength(0); fila++)
             {
-                filaImprimir = numeros[fila];
+                filaImprimir = letras[fila] + " ";
                 for (int columna = 0; columna<tablero.GetLength(1); columna++)
                 {
                     switch (tablero[fila, columna])
                     {
                         case 'W' :
-                            filaImprimir = filaImprimir + " " + "W";
+                            filaImprimir = filaImprimir + " " + "W ";
                             break;
                         case 'T':
-                            filaImprimir = filaImprimir + " " + "T";
+                            filaImprimir = filaImprimir + " " + "T ";
                             break;
                         case 'B':
-                            filaImprimir = filaImprimir + " " + "B";
+                            filaImprimir = filaImprimir + " " + "B ";
                             break;
                         default:
-                            filaImprimir = filaImprimir + " " + "X";
+                            filaImprimir = filaImprimir + " " + "X ";
                             break; 
                     }
                 }
