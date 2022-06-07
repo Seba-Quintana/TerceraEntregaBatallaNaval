@@ -54,7 +54,7 @@ namespace ClassLibrary
             {
                 if (nuevovalor == 'B')
                 {
-                    matriz[fila, columna] = nuevovalor;
+                    this.matriz[fila, columna] = nuevovalor;
                 }
                 else if (nuevovalor == 'A')
                 {
