@@ -19,7 +19,7 @@ namespace ClassLibrary
         {
             if (inicioDeBarco[0] == finalDeBarco[0])
             {
-                for (int i = inicioDeBarco[1] - 1; i < finalDeBarco[1]; i++)
+                for (int i = inicioDeBarco[1]; i <= finalDeBarco[1]; i++)
                 {
                         tablero.ActualizarTablero(inicioDeBarco[0], i, 'B');
                 }
@@ -27,7 +27,7 @@ namespace ClassLibrary
 
             if (inicioDeBarco[1] == finalDeBarco[1])
             {
-                for (int i = inicioDeBarco[0] - 1; i < finalDeBarco[0]; i++)
+                for (int i = inicioDeBarco[0]; i <= finalDeBarco[0]; i++)
                 {
                   //Controlador por si el jugador envia una coordenada invalida como por ej A0
                     
