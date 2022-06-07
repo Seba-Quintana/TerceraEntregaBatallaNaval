@@ -1,4 +1,4 @@
-/*using System;
+using System;
 namespace ClassLibrary
 {
   /// <summary>
@@ -27,13 +27,12 @@ namespace ClassLibrary
 
             if (inicioDeBarco[1] == finalDeBarco[1])
             {
-                for (int i = inicioDeBarco[1] - 1; i < finalDeBarco[1]; i++)
+                for (int i = inicioDeBarco[0] - 1; i < finalDeBarco[0]; i++)
                 {
                   //Controlador por si el jugador envia una coordenada invalida como por ej A0
-                    if (i >= 0)
-                    {
+                    
                         tablero.ActualizarTablero(i, inicioDeBarco[1], 'B');
-                    }
+                    
                 }
             }
 
@@ -47,10 +46,10 @@ namespace ClassLibrary
       /// <returns></returns>
       public static string AtacarCasilla( Tablero tablero, int columna, int fila)
       {
-        string LugardeAtaque = tablero.VerCasilla(columna, fila);
+        string LugarAtaque = tablero.VerCasilla(columna, fila);
         tablero.ActualizarTablero(columna, fila, 'A');
-        return LugardeAtaque;
+        return LugarAtaque;
       }
 
     }
-}*/
+}

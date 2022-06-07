@@ -19,8 +19,17 @@ namespace ConsoleApplication
         /// </summary>
         public static void Main()
         {
+            /*Tablero tab = new Tablero(15,1);
+            int[] amanda = TraductorDeCoordenadas.Traducir("E3");
+            int[] franco =TraductorDeCoordenadas.Traducir("E8");
 
-            Console.WriteLine("Hello World!");
+            int[] seba = TraductorDeCoordenadas.Traducir("A1");
+            int[] Santi =TraductorDeCoordenadas.Traducir("A5");
+
+            Console.WriteLine(Logica.AtacarCasilla(tab,seba[0],seba[1]));
+            Logica.Añadirbarco(tab,amanda,franco);
+            Console.WriteLine(Logica.AtacarCasilla(tab,Santi[0],Santi[1]));
+            ImpresoraConsola.ImprimirTablero(tab.VerTablero(1));*/
         }
     }
 }
