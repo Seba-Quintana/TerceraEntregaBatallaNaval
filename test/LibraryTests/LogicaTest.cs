@@ -38,13 +38,13 @@ namespace Tests
         [Test]
         public void PrincipioDeBarcoHorizontal()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 4;
-            amanda[1] = 3;
-            int[] franco = new int[2];
-            franco[0] = 4;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 4;
+            inicioDelBarco[1] = 3;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 4;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero ,inicioDelBarco ,finalDelBarco );
             char expected = 'B';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
             Assert.AreEqual(expected, tableroActualizado[4,3]);
@@ -58,13 +58,13 @@ namespace Tests
         [Test]
         public void FinalDeBarcoHorizontal()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 4;
-            amanda[1] = 3;
-            int[] franco = new int[2];
-            franco[0] = 4;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 4;
+            inicioDelBarco[1] = 3;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 4;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             char expected = 'B';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
             Assert.AreEqual(expected, tableroActualizado[4,7]);
@@ -78,13 +78,13 @@ namespace Tests
         [Test]
         public void PrincipioDeBarcoVertical()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 1;
-            amanda[1] = 7;
-            int[] franco = new int[2];
-            franco[0] = 5;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 1;
+            inicioDelBarco[1] = 7;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 5;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             char expected = 'B';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
             Assert.AreEqual(expected, tableroActualizado[1,7]);
@@ -98,13 +98,13 @@ namespace Tests
         [Test]
         public void FinalDeBarcoVertical()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 1;
-            amanda[1] = 7;
-            int[] franco = new int[2];
-            franco[0] = 5;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 1;
+            inicioDelBarco[1] = 7;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 5;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             char expected = 'B';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
@@ -116,12 +116,12 @@ namespace Tests
         [Test]
         public void AtaqueAlAgua()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 1;
-            amanda[1] = 7;
-            int[] franco = new int[2];
-            franco[0] = 5;
-            franco[1] = 7;
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 1;
+            inicioDelBarco[1] = 7;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 5;
+            finalDelBarco[1] = 7;
             Logica.AtacarCasilla(tablero,0,7);
             char expected = 'W';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
@@ -133,13 +133,13 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVertical()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 1;
-            amanda[1] = 7;
-            int[] franco = new int[2];
-            franco[0] = 5;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 1;
+            inicioDelBarco[1] = 7;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 5;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             Logica.AtacarCasilla(tablero,2,7);
             char expected = 'T';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
@@ -151,13 +151,13 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVerticalEnElMismoLugar()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 1;
-            amanda[1] = 7;
-            int[] franco = new int[2];
-            franco[0] = 5;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 1;
+            inicioDelBarco[1] = 7;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 5;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             Logica.AtacarCasilla(tablero,2,7);
             Logica.AtacarCasilla(tablero,2,7);
             char expected = 'T';
@@ -170,13 +170,13 @@ namespace Tests
         [Test]
         public void AtaqueBarcoHorizontal()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 7;
-            amanda[1] = 3;
-            int[] franco = new int[2];
-            franco[0] = 7;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 7;
+            inicioDelBarco[1] = 3;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 7;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             Logica.AtacarCasilla(tablero,7,4);
             char expected = 'T';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
@@ -188,13 +188,13 @@ namespace Tests
         [Test]
         public void AtaqueBarcoHorizontalEnElMismoLugar()
         {
-            int[] amanda = new int[2];
-            amanda[0] = 7;
-            amanda[1] = 3;
-            int[] franco = new int[2];
-            franco[0] = 7;
-            franco[1] = 7;
-            Logica.Añadirbarco(tablero,amanda,franco);
+            int[] inicioDelBarco = new int[2];
+            inicioDelBarco[0] = 7;
+            inicioDelBarco[1] = 3;
+            int[] finalDelBarco = new int[2];
+            finalDelBarco[0] = 7;
+            finalDelBarco[1] = 7;
+            Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
             Logica.AtacarCasilla(tablero,7,5);
             Logica.AtacarCasilla(tablero,7,5);
             char expected = 'T';
