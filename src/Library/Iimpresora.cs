@@ -9,7 +9,7 @@ using System;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Para evitar tener que preguntar por el destino de la impresión en Program.cs el código que varía según el destino se encuentra en diferentes clases que implementan esta interfaz y mantener el LSP.
+    /// Para evitar tener que preguntar por el destino de la impresión en Program.cs el código que varía según el destino se encuentra en diferentes clases que implementan esta interfaz.
     /// </summary>
     public interface Iimpresora
     {

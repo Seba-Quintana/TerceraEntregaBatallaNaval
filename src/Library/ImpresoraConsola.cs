@@ -68,7 +68,7 @@ namespace ClassLibrary
         /// </summary>
         public static void ImprimirHistorial()
         {
-           /* foreach (DatosdePartida partida in Admin.ObtenerHistorial())
+            /*foreach (DatosdePartida partida in Admin.ObtenerHistorial())
             {
                 foreach (Tablero tablero in partida)
                 {
