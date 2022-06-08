@@ -19,7 +19,14 @@ namespace ConsoleApplication
         /// </summary>
         public static void Main()
         {
-            /*Tablero tab = new Tablero(15,1);
+            
+            /*Admin.Registrar("Juanito",1,"qsoicdwhoi",5);
+            Admin.Registrar("Juanito",1,"qsoicdwhoi",3);
+            Admin.Registrar("Juanito",1,"qsoicdwhoi",2);
+            Admin.Registrar("Juanito",1,"qsoicdwhoi",4);
+            Admin.Registrar("Juanito",1,"qsoicdwhoi",1);
+            Admin.ObtenerRanking();
+            Tablero tab = new Tablero(15,1);
             int[] amanda = TraductorDeCoordenadas.Traducir("E3");
             int[] franco =TraductorDeCoordenadas.Traducir("E8");
 

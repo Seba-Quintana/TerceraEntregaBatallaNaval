@@ -5,14 +5,14 @@ namespace ClassLibrary
 {
     public class Admin
     {
-        public List<PerfilUsuario> ListaDeUsuarios;
-        /*
-            public void Registrar(string nombre, int id, string contraseña)
-            {
-                PerfilUsuario usuario = new PerfilUsuario (nombre,id,contraseña);
-                ListaDeUsuarios.add(usuario);
-
-            }*/
+        public List<PerfilUsuario> ListaDeUsuarios = new List<PerfilUsuario>();
+    
+        public void Registrar(string nombre, int id, string contraseña)
+        {
+                
+            //PerfilUsuario usuario = new PerfilUsuario (nombre,id,contraseña);
+            //ListaDeUsuarios.Add(usuario);
+        }
         public void Remover(int NumeroDeJugador)
         {
             foreach (PerfilUsuario usuario in ListaDeUsuarios)
@@ -31,18 +31,19 @@ namespace ClassLibrary
             {
                 if (ListaDeUsuarios[i].NumeroDeJugador == usuario)
                     return ListaDeUsuarios[i];
+                i++;
             }
             return null;
         }
 
         public void ObtenerTableroOponente(PerfilUsuario PerfilOponente)
         {
-            char[,] matrizImprimir = PerfilOponente.TableroActual.matriz.Clone();
+            //char[,] matrizImprimir = PerfilOponente.TableroActual.matriz.Clone();
         }
 
         void ObtenerTablero(string[] tablero)
         {
-            Iimpresora.ImprimirTablero(tablero);
+            //Iimpresora.ImprimirTablero(tablero);
         }
 
         void ObtenerHistorial(int numerodejugador)
@@ -52,7 +53,7 @@ namespace ClassLibrary
                 if (numerodejugador == 0)
                 {
                     List<DatosdePartida> historial = Historial.partidas;
-                    ImpresoraConsola.ImprimirHistorial(historial);
+                    //ImpresoraConsola.ImprimirHistorial(historial);
                 }
                 else if (ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
                 {
@@ -67,7 +68,7 @@ namespace ClassLibrary
             }
         }
 
-        void ObtenerRanking()
+        public void ObtenerRanking()
         {
 
             List<PerfilUsuario> ranking = new List<PerfilUsuario>();
@@ -83,7 +84,7 @@ namespace ClassLibrary
             while ((actual < ListaDeUsuarios.Count))
             {   i=actual;
                 j= i+1;
-                while ((i <= ListaDeUsuarios.Count)&&(j <= ListaDeUsuarios.Count))
+                while ((i < ListaDeUsuarios.Count)&&(j < ListaDeUsuarios.Count))
                 {
                     if (ranking[i].Ganadas < ranking[j].Ganadas)
                     {
@@ -100,7 +101,8 @@ namespace ClassLibrary
                 ranking[actual] = claseCopia;
                 actual++;
             }   
-            ImpresoraConsola.ImprimirRanking(ranking);
+            //ImpresoraConsola imprimir = new ImpresoraConsola(); 
+            //imprimir.ImprimirRanking(ranking);
         }
 
         public void ActualizarHistorial(DatosdePartida partida)
@@ -109,7 +111,7 @@ namespace ClassLibrary
             {
                 if (partida.Ganador == usuario.NumeroDeJugador || partida.Perdedor == usuario.NumeroDeJugador)
                 {
-                    PerfilUsuario.AñadiralHistorial(partida);
+                    //PerfilUsuario.AñadiralHistorial(partida);
                 }
             }
         }
@@ -121,7 +123,7 @@ namespace ClassLibrary
 
         public void ActualizarTablero(int filas, int columnas, char nuevovalor)
         {
-            Tablero.ActualizarTablero(filas, columnas, nuevovalor);
+            //Tablero.ActualizarTablero(filas, columnas, nuevovalor);
         }
     }
 
