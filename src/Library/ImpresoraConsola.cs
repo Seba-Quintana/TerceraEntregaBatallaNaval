@@ -79,9 +79,9 @@ namespace ClassLibrary
         /// <summary>
         /// Imprime el historial de todas las partidas jugadas en consola
         /// </summary>
-        public void ImprimirHistorial()
+        public void ImprimirHistorial(Historial historial)
         {
-            /*foreach (DatosdePartida partida in Admin.ObtenerHistorial(0))
+            /*foreach (DatosdePartida partida in historial)
             {
                 foreach (Tablero tablero in DatosDePartidas)
                 {
@@ -94,10 +94,10 @@ namespace ClassLibrary
         /// <summary>
         /// Imprime en consola un ranking, en el que los perfiles tienen posiciones ordenados segun batallas ganadas
         /// </summary>
-        public void ImprimirRanking()
+        public void ImprimirRanking(List<PerfilUsuario> perfiles)
         {
             /*int puesto = 1;
-            foreach (PerfilUsuario perfil in Admin.ObtenerRanking())
+            foreach (PerfilUsuario perfil in perfiles)
             {
                 Console.WriteLine($"N° {puesto}: {perfil.Nombre} con {perfil.Ganadas} batallas ganadas");
                 puesto = puesto + 1;
