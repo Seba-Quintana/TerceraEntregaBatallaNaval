@@ -116,16 +116,13 @@ namespace Tests
         [Test]
         public void AtaqueAlAgua()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 1;
-            inicioDelBarco[1] = 7;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 5;
-            finalDelBarco[1] = 7;
-            Logica.AtacarCasilla(tablero,0,7);
+            int[] LugarDeAtacar = new int[2];
+            LugarDeAtacar[0] = 5;
+            LugarDeAtacar[1] = 7;
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
             char expected = 'W';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
-            Assert.AreEqual(expected, tableroActualizado[0,7]);
+            Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -140,10 +137,13 @@ namespace Tests
             finalDelBarco[0] = 5;
             finalDelBarco[1] = 7;
             Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            Logica.AtacarCasilla(tablero,2,7);
+            int[] LugarDeAtacar = new int[2];
+            LugarDeAtacar[0] = 5;
+            LugarDeAtacar[1] = 7;
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
             char expected = 'T';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
-            Assert.AreEqual(expected, tableroActualizado[2,7]);
+            Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -158,11 +158,14 @@ namespace Tests
             finalDelBarco[0] = 5;
             finalDelBarco[1] = 7;
             Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            Logica.AtacarCasilla(tablero,2,7);
-            Logica.AtacarCasilla(tablero,2,7);
+            int[] LugarDeAtacar = new int[2];
+            LugarDeAtacar[0] = 5;
+            LugarDeAtacar[1] = 7;
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
             char expected = 'T';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
-            Assert.AreEqual(expected, tableroActualizado[2,7]);
+            Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -177,7 +180,10 @@ namespace Tests
             finalDelBarco[0] = 7;
             finalDelBarco[1] = 7;
             Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            Logica.AtacarCasilla(tablero,7,4);
+            int[] LugarDeAtacar = new int[2];
+            LugarDeAtacar[0] = 7;
+            LugarDeAtacar[1] = 4;
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
             char expected = 'T';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
             Assert.AreEqual(expected, tableroActualizado[7,4]);
@@ -195,8 +201,11 @@ namespace Tests
             finalDelBarco[0] = 7;
             finalDelBarco[1] = 7;
             Logica.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            Logica.AtacarCasilla(tablero,7,5);
-            Logica.AtacarCasilla(tablero,7,5);
+            int[] LugarDeAtacar = new int[2];
+            LugarDeAtacar[0] = 7;
+            LugarDeAtacar[1] = 5;
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
+            Logica.AtacarCasilla(tablero, LugarDeAtacar);
             char expected = 'T';
             char[ , ]tableroActualizado = tablero.VerTablero(01);
             Assert.AreEqual(expected, tableroActualizado[7,5]);

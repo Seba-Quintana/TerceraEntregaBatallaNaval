@@ -44,12 +44,13 @@ namespace ClassLibrary
     /// <param name="columna"></param>
     /// <param name="fila"></param>
     /// <returns></returns>
-    public static string AtacarCasilla( Tablero tablero, int columna, int fila)
+    public static string AtacarCasilla( Tablero tablero, int[] LugarDeAtaque)
     {
+      int columna = LugarDeAtaque[0];
+      int fila = LugarDeAtaque[1];
       string LugarAtaque = tablero.VerCasilla(columna, fila);
       tablero.ActualizarTablero(columna, fila, 'A');
       return LugarAtaque;
     }
-
   }
 }
