@@ -5,6 +5,7 @@
 //--------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -26,10 +27,10 @@ namespace ClassLibrary
         /// <summary>
         /// 
         /// </summary>
-        public void ImprimirHistorial();
+        public void ImprimirHistorial(Historial historial);
         /// <summary>
         /// 
         /// </summary>
-        public void ImprimirRanking();
+        public void ImprimirRanking(List<PerfilUsuario> perfiles);
     }
 }
