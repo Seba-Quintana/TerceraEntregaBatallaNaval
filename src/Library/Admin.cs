@@ -83,7 +83,7 @@ namespace ClassLibrary
             while ((actual < ListaDeUsuarios.Count))
             {   i=actual;
                 j= i+1;
-                while ((i <= ListaDeUsuarios.Count)&&(j <= ListaDeUsuarios.Count))
+                while ((i < ListaDeUsuarios.Count)&&(j < ListaDeUsuarios.Count))
                 {
                     if (ranking[i].Ganadas < ranking[j].Ganadas)
                     {
