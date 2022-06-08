@@ -17,28 +17,19 @@ namespace ClassLibrary
         /// 
         /// </summary>
         /// <param name="tablero"></param>
-        void ImprimirTablero(string[] tablero);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tablero"></param>
-        void ImprimirTableroOponente(string[] tablero);
+        public void ImprimirTablero(char[,] tablero);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="numeroDeJugador"></param>
-        void ImprimirPerfilUsuario(int numeroDeJugador);
+        public void ImprimirPerfilUsuario(PerfilUsuario perfil);
         /// <summary>
         /// 
         /// </summary>
-        void ImprimirHistorial();
+        public void ImprimirHistorial();
         /// <summary>
         /// 
         /// </summary>
-        void ImprimirRanking();
-        /// <summary>
-        /// 
-        /// </summary>
-        void ImprimirModos();
+        public void ImprimirRanking();
     }
 }
