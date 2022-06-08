@@ -25,9 +25,9 @@ namespace ClassLibrary
         /// <param name="usuario"></param>
         public static void RemoverListaEspera(int usuario)
         {
-            PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
+            //PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
             List<PerfilUsuario> colaCopia = new List<PerfilUsuario>();
-            if (ColaEmparejamientosN.Contains(jugador))
+            /*if (ColaEmparejamientosN.Contains(jugador))
             {
                 int largoCola = ColaEmparejamientosN.Count;
                 int i = 0;
@@ -45,18 +45,18 @@ namespace ClassLibrary
                     ColaEmparejamientosN.Enqueue(colaCopia[i]);
                     i++;
                 }
-            }
-            else if (ColaEmparejamientosR.Contains(jugador))
+            }*/
+            //else if (ColaEmparejamientosR.Contains(jugador))
             {
                 int largoCola = ColaEmparejamientosR.Count;
                 int i = 0;
                 while (i != largoCola)
                 {
-                    colaCopia.Add(ColaEmparejamientosR.Peek());
+                    /*colaCopia.Add(ColaEmparejamientosR.Peek());
                     if (ColaEmparejamientosR.Peek() == jugador)
                         colaCopia.Remove(jugador);
                     ColaEmparejamientosR.Dequeue();
-                    i++;
+                    i++;*/
                 }
                 i = 0;
                 while (i != largoCola - 1)
@@ -82,13 +82,13 @@ namespace ClassLibrary
         {
             if (modo == 0) // modo normal
             {
-                PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
-                ColaEmparejamientosN.Enqueue(perfilJugador);
+                //PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
+                //ColaEmparejamientosN.Enqueue(perfilJugador);
             }
             if (modo == 1) // modo rapido
             {
-                PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
-                ColaEmparejamientosR.Enqueue(perfilJugador);
+                //PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
+                //ColaEmparejamientosR.Enqueue(perfilJugador);
             }
         }
 
@@ -102,18 +102,18 @@ namespace ClassLibrary
         public static Queue<PerfilUsuario> EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
             Queue<PerfilUsuario> colaAmigos = new Queue<PerfilUsuario>();
-            PerfilUsuario perfilJugador1 = Admin.ObtenerPerfil(jugador1);
-            PerfilUsuario perfilJugador2 = Admin.ObtenerPerfil(jugador2);
+            //PerfilUsuario perfilJugador1 = Admin.ObtenerPerfil(jugador1);
+            //PerfilUsuario perfilJugador2 = Admin.ObtenerPerfil(jugador2);
             // Como se diferencian los modos?
             if (modo == 0) // modo normal
             {
-                colaAmigos.Enqueue(perfilJugador1);
-                colaAmigos.Enqueue(perfilJugador2);
+                //colaAmigos.Enqueue(perfilJugador1);
+                //colaAmigos.Enqueue(perfilJugador2);
             }
             else if (modo == 1) // modo rapido
             {
-                colaAmigos.Enqueue(perfilJugador1);
-                colaAmigos.Enqueue(perfilJugador2);
+                //colaAmigos.Enqueue(perfilJugador1);
+                //colaAmigos.Enqueue(perfilJugador2);
             }
             return colaAmigos;
         }

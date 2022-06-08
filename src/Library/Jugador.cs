@@ -11,7 +11,7 @@ namespace ClassLibrary
     {
       public void VerPerfil(int perfil)
       {
-          Admin.ObtenerPerfil(perfil);
+          //PerfilUsuario a = Admin.ObtenerPerfil(perfil);
       }  
     
       public void VerRanking()
