@@ -77,7 +77,6 @@ namespace ClassLibrary
         /// <returns></returns>
         public string VerCasilla(int fila, int columna)
         {
-            Console.WriteLine($"{fila}, {columna} y {this.tamaño}");
             if (fila <= this.tamaño && columna <= this.tamaño)
             {
                 switch (matriz[fila, columna])
