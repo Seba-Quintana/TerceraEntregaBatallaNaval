@@ -24,11 +24,12 @@ namespace ClassLibrary
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             jugadores[1]=jugador2;
             tableros[1] = new Tablero(tamaño,jugador2);
-            cantidadDeBarcos[0]= (tamaño * 2) - 3 ;
-            cantidadDeBarcos[1]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPocicionar[0]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPocicionar[1]= (tamaño * 2) - 3 ;
             tiradas[0]=0;
             tiradas[1]=0;
-            tiradas[1]=0;
+            Segundastiradas[0]=0;
+            Segundastiradas[1]=0;
         }
         /// <summary>
         /// Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar
