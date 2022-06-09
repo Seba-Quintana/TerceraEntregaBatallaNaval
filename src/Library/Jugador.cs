@@ -33,16 +33,30 @@ namespace ClassLibrary
       {
         //Admin.BuscarPartida(partida);
       }
-    
+      /// <summary>
+      /// 
+      /// </summary>
       public void VisualizarTablero()
       {
-        //Admin.ObtenerTableroAtaque();
-        //Admin.ObtenerTableroDefensa();
+        //Admin.ObtenerTableroOponente();
+        //Admin.ObtenerTablero();
       }
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="inicio"></param>
+      /// <param name="final"></param>
+      public void PosicionarBarcos(string inicio, string final)
+      {
+        //LogicaDePartida.añadirBarco(TraductorDeCoordenadas.Traducir(inicio),TraductorDeCoordenadas.Traducir(final));
+      }
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="coordenada"></param>
       public void Atacar(string coordenada)
       {
-        int[] nuevaCoordenada = TraductorDeCoordenadas.Traducir(coordenada);
-        //Logica.IndicarCasilla(nuevaCoordenada);
+        //LogicaDePartida.Atacar(TraductorDeCoordenadas.Traducir(coordenada));
       }
     }
     

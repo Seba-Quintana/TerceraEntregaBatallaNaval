@@ -96,12 +96,12 @@ namespace ClassLibrary
         /// </summary>
         public void ImprimirRanking(List<PerfilUsuario> perfiles)
         {
-            /*int puesto = 1;
+            int puesto = 1;
             foreach (PerfilUsuario perfil in perfiles)
             {
                 Console.WriteLine($"N° {puesto}: {perfil.Nombre} con {perfil.Ganadas} batallas ganadas");
                 puesto = puesto + 1;
-            }*/
+            }
         }
     }
 }

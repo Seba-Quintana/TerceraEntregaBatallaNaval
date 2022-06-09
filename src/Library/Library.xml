@@ -130,38 +130,27 @@
         </member>
         <member name="T:ClassLibrary.Iimpresora">
             <summary>
-            Para evitar tener que preguntar por el destino de la impresión en Program.cs el código que varía según el destino se encuentra en diferentes clases que implementan esta interfaz y mantener el LSP.
+            Para evitar tener que preguntar por el destino de la impresión en Program.cs el código que varía según el destino se encuentra en diferentes clases que implementan esta interfaz.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirTablero(System.String[])">
+        <member name="M:ClassLibrary.Iimpresora.ImprimirTablero(System.Char[0:,0:])">
             <summary>
             
             </summary>
             <param name="tablero"></param>
         </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirTableroOponente(System.String[])">
-            <summary>
-            
-            </summary>
-            <param name="tablero"></param>
-        </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirPerfilUsuario(System.Int32)">
+        <member name="M:ClassLibrary.Iimpresora.ImprimirPerfilUsuario(ClassLibrary.PerfilUsuario)">
             <summary>
             
             </summary>
             <param name="numeroDeJugador"></param>
         </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirHistorial">
+        <member name="M:ClassLibrary.Iimpresora.ImprimirHistorial(ClassLibrary.Historial)">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirRanking">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirModos">
+        <member name="M:ClassLibrary.Iimpresora.ImprimirRanking(System.Collections.Generic.List{ClassLibrary.PerfilUsuario})">
             <summary>
             
             </summary>
@@ -183,14 +172,14 @@
             </summary>
             <param name="perfil"></param>
         </member>
-        <member name="M:ClassLibrary.ImpresoraConsola.ImprimirHistorial">
+        <member name="M:ClassLibrary.ImpresoraConsola.ImprimirHistorial(ClassLibrary.Historial)">
             <summary>
             Imprime el historial de todas las partidas jugadas en consola
             </summary>
         </member>
-        <member name="M:ClassLibrary.ImpresoraConsola.ImprimirRanking">
+        <member name="M:ClassLibrary.ImpresoraConsola.ImprimirRanking(System.Collections.Generic.List{ClassLibrary.PerfilUsuario})">
             <summary>
-            Imprime en consola un rancking, en el que los perfiles tienen posiciones ordenados segun batallas ganadas
+            Imprime en consola un ranking, en el que los perfiles tienen posiciones ordenados segun batallas ganadas
             </summary>
         </member>
         <member name="T:ClassLibrary.Jugador">
