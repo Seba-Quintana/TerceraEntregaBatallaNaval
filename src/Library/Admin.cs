@@ -125,6 +125,15 @@ namespace ClassLibrary
         {
             //Tablero.ActualizarTablero(filas, columnas, nuevovalor);
         }
+
+        public void Emparejar(int modo, int jugador1)
+        {
+            EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
+        }
+        public void EmparejarAmigos(int modo, int jugador1, int jugador2)
+        {
+            EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+        }
     }
 
 }
