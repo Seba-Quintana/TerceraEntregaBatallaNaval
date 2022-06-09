@@ -83,7 +83,7 @@ namespace ClassLibrary
                 }
             }
             return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
-            
+
         }
         /// <summary>
         /// Metodo encargado de formular los ataques en base de 
@@ -236,13 +236,13 @@ namespace ClassLibrary
         {
             if (filainicio == filafinal)
             {
-            for (int i = columnainicio; i <= columnafinal; i++)
-            {
-                if (tablerobjetivo.VerCasilla(filainicio, i) == 'B');
+                for (int i = columnainicio; i <= columnafinal; i++)
                 {
-                    return "Has pocicionado un barco sobre otro, empezaras la partida con la parte que coliciono dañada como si le hubieran disparado";
+                    if (tablerobjetivo.VerCasilla(filainicio, i) == 'B');
+                    {
+                        return "Has pocicionado un barco sobre otro, empezaras la partida con la parte que coliciono dañada como si le hubieran disparado";
+                    }
                 }
-            }
             }
 
             else if (columnainicio == columnafinal)
@@ -259,6 +259,17 @@ namespace ClassLibrary
             return "Se Agrego correctamente el barco";
             //Estaria bueno poner una excepcion aca para que no de el index out of range y se devuelva un msg.
 
+        }
+        public char[ , ] VerTablero(int jugador)
+        {
+            if (tableros[0].DueñodelTablero==jugador)
+            {
+                return tableros[0].VerTablero(jugador);
+            }
+            else 
+            {
+                return tableros[1].VerTablero(jugador);
+            }
         }
     }
 }
