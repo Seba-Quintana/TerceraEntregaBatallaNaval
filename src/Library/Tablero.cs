@@ -10,7 +10,7 @@ namespace ClassLibrary
         /// <summary>
         /// Este atributo sirve para saber el tamaño de la matriz sin tener que recurrir a metodos que midan su tamaño
         /// </summary>
-        protected int tamaño;
+        public int Tamaño{get;}
         /// <summary>
         /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego.
         /// </summary>
@@ -24,6 +24,10 @@ namespace ClassLibrary
         /// </summary>
         public bool terminado = false;
         /// <summary>
+        /// Representa la cantidad de partes de barco sin dañar.
+        /// </summary>
+        public int CantidadDePartesDeBarcosEnteras;
+        /// <summary>
         /// En este atributo se ve el numero de jugador de quien es el dueño del tablero, osea el que puede ver la informacion de los barcos intactos principalmente.
         /// </summary>
         public int DueñodelTablero;
@@ -36,9 +40,9 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="Tamaño"></param>
         /// <param name="dueño"></param>
-        public Tablero(int Tamaño, int dueño)
+        public Tablero(int tamaño, int dueño)
         {
-            this.tamaño = Tamaño;
+            this.Tamaño = tamaño;
             this.matriz = new char[tamaño, tamaño];
             this.DueñodelTablero = dueño;
         }
@@ -50,11 +54,18 @@ namespace ClassLibrary
         /// <param name="nuevovalor"></param>
         public void ActualizarTablero(int fila, int columna, char nuevovalor)
         {
-            if (fila <= this.tamaño && columna <= this.tamaño)
+            if (fila <= this.Tamaño && columna <= this.Tamaño)
             {
                 if (nuevovalor == 'B')
                 {
-                    this.matriz[fila, columna] = nuevovalor;
+                    if (this.matriz[fila, columna]== '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
+                    {
+                        this.matriz[fila, columna] = 'B';
+                    }
+                    else if (this.matriz[fila, columna]== 'B')
+                    {
+                        this.matriz[fila, columna] = 'T';
+                    }
                 }
                 else if (nuevovalor == 'A')
                 {
@@ -89,10 +100,9 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="usuarioqueconsulta"></param>
         /// <returns></returns>
-        public char[,] VerTablero(int usuarioqueconsulta)
+        public char[,] VerTablero()
         {
-            // polimorfismo
-            return matriz;
+            return matriz.Clone() as char[ , ];
         }
     }
 }
