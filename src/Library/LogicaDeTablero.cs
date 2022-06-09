@@ -2,39 +2,39 @@ using System;
 namespace ClassLibrary
 {
 /// <summary>
-///  Clase encargada de manejar la logica pura del juego
+///  Clase encargada de manejar los tableros directamente
 /// </summary>
   public static class LogicaDeTablero
   {
   /// <summary>
   /// Metodo encargado de añadir un barco a un tablero, se le asignan el inicio y el final,
-  /// luego se asignan las variables si se cumple la condicion de que se posicionen horizontal o verticalmente
-  /// y que las casillas marcadas esten en la matriz.
+  /// luego se asignan las variables en caso de que se cumple la condicion de que se posicionen 
+  /// horizontal o verticalmente y que las casillas marcadas esten en la matriz.
   /// </summary>
   /// <param name="tablero"></param>
-  /// <param name="inicioDeBarco"></param>
-  /// <param name="finalDeBarco"></param>
+  /// <param name="filainicio"></param>
+  /// <param name="columnainicio"></param>
+  /// <param name="filafinal"></param>
+  /// <param name="columnafinal"></param>
   
-  public static void Añadirbarco(Tablero tablero, int[] inicioDeBarco, int[] finalDeBarco)
+  public static void Añadirbarco(Tablero tablero, int filainicio, int columnainicio,  int filafinal, int columnafinal)
   {
-    if (inicioDeBarco[0] == finalDeBarco[0])
+    if (filainicio == filafinal)
     {
-      for (int i = inicioDeBarco[1]; i <= finalDeBarco[1]; i++)
+      for (int i = columnainicio; i <= columnafinal; i++)
       {
-        tablero.ActualizarTablero(inicioDeBarco[0], i, 'B');
+        tablero.ActualizarTablero(filafinal, i, 'B');
       }
     }
 
-    else if (inicioDeBarco[1] == finalDeBarco[1])
-      {
-        for (int i = inicioDeBarco[0]; i <= finalDeBarco[0]; i++)
-        {
-          //Controlador por si el jugador envia una coordenada invalida como por ej A0
-          
-          tablero.ActualizarTablero(i, inicioDeBarco[1], 'B');
+    else
+    {
+      for (int i = filainicio; i <= filafinal; i++)
+      {          
+        tablero.ActualizarTablero(i, columnainicio, 'B');
             
-        }
       }
+    }
 
     }
     /// <summary>
@@ -44,13 +44,18 @@ namespace ClassLibrary
     /// <param name="columna"></param>
     /// <param name="fila"></param>
     /// <returns></returns>
-    public static string AtacarCasilla( Tablero tablero, int[] LugarDeAtaque)
+    public static void Atacar( Tablero tablero,  int fila, int columna)
     {
-      int columna = LugarDeAtaque[0];
-      int fila = LugarDeAtaque[1];
-      string LugarAtaque = tablero.VerCasilla(columna, fila);
-      tablero.ActualizarTablero(columna, fila, 'A');
-      return LugarAtaque;
+      tablero.ActualizarTablero(fila, columna, 'A');
+    }
+    /// <summary>
+    /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un atauqe
+    /// </summary>
+    /// <param name="tablero"></param>
+    /// <returns></returns>
+    public static bool Finalizar(Tablero tablero)
+    { 
+      return tablero.terminado;
     }
   }
 }

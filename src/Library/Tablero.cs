@@ -10,19 +10,19 @@ namespace ClassLibrary
         /// <summary>
         /// Este atributo sirve para saber el tamaño de la matriz sin tener que recurrir a metodos que midan su tamaño
         /// </summary>
-        protected int tamaño;
+        public int Tamaño{get;}
         /// <summary>
         /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego.
         /// </summary>
         protected char[,] matriz;
         /// <summary>
-        /// Este atributo contiene el numero de ataques efectuados hacia el tablero.
-        /// </summary>
-        public int tiradas = 0;
-        /// <summary>
         /// Este atributo se encarga de mostrar el estado terminado de la partida, normalmente esta en false.
         /// </summary>
         public bool terminado = false;
+        /// <summary>
+        /// Representa la cantidad de partes de barco sin dañar.
+        /// </summary>
+        public int CantidadDePartesDeBarcosEnteras;
         /// <summary>
         /// En este atributo se ve el numero de jugador de quien es el dueño del tablero, osea el que puede ver la informacion de los barcos intactos principalmente.
         /// </summary>
@@ -30,15 +30,15 @@ namespace ClassLibrary
         /// <summary>
         /// Variable que facilita saber quien es el ganador de la partida cuando se almacena.
         /// </summary>
-        public bool Ganador = false;
+        public int Ganador;
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
-        /// <param name="Tamaño"></param>
+        /// <param name="tamaño"></param>
         /// <param name="dueño"></param>
-        public Tablero(int Tamaño, int dueño)
+        public Tablero(int tamaño, int dueño)
         {
-            this.tamaño = Tamaño;
+            this.Tamaño = tamaño;
             this.matriz = new char[tamaño, tamaño];
             this.DueñodelTablero = dueño;
         }
@@ -50,11 +50,20 @@ namespace ClassLibrary
         /// <param name="nuevovalor"></param>
         public void ActualizarTablero(int fila, int columna, char nuevovalor)
         {
-            if (fila <= this.tamaño && columna <= this.tamaño)
+            if (fila <= this.Tamaño && columna <= this.Tamaño)
             {
                 if (nuevovalor == 'B')
                 {
-                    this.matriz[fila, columna] = nuevovalor;
+                    if (this.matriz[fila, columna] == '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
+                    {
+                        this.matriz[fila, columna] = 'B';
+                        this.CantidadDePartesDeBarcosEnteras+=1;
+                    }
+                    else if (this.matriz[fila, columna]== 'B')
+                    {
+                        this.matriz[fila, columna] = 'T';
+                        this.CantidadDePartesDeBarcosEnteras-=1;
+                    }
                 }
                 else if (nuevovalor == 'A')
                 {
@@ -75,41 +84,22 @@ namespace ClassLibrary
         /// <param name="columna"></param>
         /// <param name="fila"></param>
         /// <returns></returns>
-        public string VerCasilla(int fila, int columna)
+        public char VerCasilla(int fila, int columna)
         {
-            Console.WriteLine($"{fila}, {columna} y {this.tamaño}");
-            if (fila <= this.tamaño && columna <= this.tamaño)
+            
+            return (matriz[fila, columna]);
+            /*if (fila <= this.tamaño && columna <= this.tamaño)
             {
-                switch (matriz[fila, columna])
-                {
-                    case 'W':
-                        return "La casilla ya habia sido atacada y contiene Agua";
-                    case 'T':
-                        return "La casilla ya habia sido atacada y hay una parte de barco dañada";
-                    case 'B':
-                        return "Buen tiro, has atacado a un barco";
-                }
-                return "Que lastima!! has disparado al agua";
-            }
-            return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
+                seria exepcion return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
+            }*/
         }
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.
         /// </summary>
-        /// <param name="usuarioqueconsulta"></param>
         /// <returns></returns>
-        public char[,] VerTablero(int usuarioqueconsulta)
+        public char[,] VerTablero()
         {
-            // polimorfismo
-            return matriz;
-        }
-        /// <summary>
-        /// Metodo llamado para Finalizar
-        /// </summary>
-        public void Finalizar()
-        {
-            DatosdePartida partida = new DatosdePartida();
-            partida.Almacenar(this);
+            return matriz.Clone() as char[ , ];
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Tests
         /// El tablero que va a ser utilizado para los tests.Es necesario ya que Logica solo
         ///  se ejecuta si esta en conjunto de la clase tablero;
         /// </summary>
-        private Tablero tablero;
+        private LogicaDePartida logicaDePartida;
 
         /// <summary>
         /// SetUp Creado con el objetivo de tener un tablero vacio al principio de cada test.
@@ -27,7 +27,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            this.tablero = new Tablero(9, 01);
+            this.logicaDePartida = new LogicaDePartida(9, 01,02);
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
@@ -44,9 +44,9 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 4;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero ,inicioDelBarco ,finalDelBarco );
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,3]);
             Assert.AreEqual('\u0000', tableroActualizado[4,2]);
         }
@@ -64,9 +64,9 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 4;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
             Assert.AreEqual(expected, tableroActualizado[4,7]);
             Assert.AreEqual('\u0000', tableroActualizado[4,8]);
         }
@@ -84,9 +84,9 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 5;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
             Assert.AreEqual(expected, tableroActualizado[1,7]);
             Assert.AreEqual('\u0000', tableroActualizado[0,7]);
         }
@@ -104,9 +104,9 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 5;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
             Assert.AreEqual('\u0000', tableroActualizado[6,7]);
         }
@@ -116,12 +116,12 @@ namespace Tests
         [Test]
         public void AtaqueAlAgua()
         {
-            int[] LugarDeAtacar = new int[2];
-            LugarDeAtacar[0] = 5;
-            LugarDeAtacar[1] = 7;
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
+            int[] LugarAAtacar = new int[2];
+            LugarAAtacar[0] = 5;
+            LugarAAtacar[1] = 7;
+            logicaDePartida.Atacar(LugarAAtacar, 1);
             char expected = 'W';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(2);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
@@ -136,13 +136,13 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 5;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            int[] LugarDeAtacar = new int[2];
-            LugarDeAtacar[0] = 5;
-            LugarDeAtacar[1] = 7;
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            int[] LugarAAtacar = new int[2];
+            LugarAAtacar[0] = 5;
+            LugarAAtacar[1] = 7;
+            logicaDePartida.Atacar(LugarAAtacar,2);
             char expected = 'T';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
@@ -157,14 +157,14 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 5;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            int[] LugarDeAtacar = new int[2];
-            LugarDeAtacar[0] = 5;
-            LugarDeAtacar[1] = 7;
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            int[] LugarAAtacar = new int[2];
+            LugarAAtacar[0] = 5;
+            LugarAAtacar[1] = 7;
+            logicaDePartida.Atacar(LugarAAtacar, 2);
+            logicaDePartida.Atacar(LugarAAtacar, 2);
             char expected = 'T';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
@@ -179,13 +179,13 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 7;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            int[] LugarDeAtacar = new int[2];
-            LugarDeAtacar[0] = 7;
-            LugarDeAtacar[1] = 4;
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            int[] LugarAAtacar = new int[2];
+            LugarAAtacar[0] = 7;
+            LugarAAtacar[1] = 4;
+            logicaDePartida.Atacar(LugarAAtacar,2);
             char expected = 'T';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
             Assert.AreEqual(expected, tableroActualizado[7,4]);
         }
          /// <summary>
@@ -200,14 +200,14 @@ namespace Tests
             int[] finalDelBarco = new int[2];
             finalDelBarco[0] = 7;
             finalDelBarco[1] = 7;
-            LogicaDeTablero.Añadirbarco(tablero,inicioDelBarco,finalDelBarco);
-            int[] LugarDeAtacar = new int[2];
-            LugarDeAtacar[0] = 7;
-            LugarDeAtacar[1] = 5;
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
-            LogicaDeTablero.AtacarCasilla(tablero, LugarDeAtacar);
+            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            int[] LugarAAtacar = new int[2];
+            LugarAAtacar[0] = 7;
+            LugarAAtacar[1] = 5;
+            logicaDePartida.Atacar(LugarAAtacar, 2);
+            logicaDePartida.Atacar(LugarAAtacar, 2);
             char expected = 'T';
-            char[ , ]tableroActualizado = tablero.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[7,5]);
         }
     }
