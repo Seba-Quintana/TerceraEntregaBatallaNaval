@@ -91,8 +91,5 @@ namespace Tests
             expected[1] = 1;
             Assert.AreEqual(expected, a);
         }
-        
-        [Test]
-        public void 
     }
 }
