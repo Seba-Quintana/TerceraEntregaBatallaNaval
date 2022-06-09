@@ -46,7 +46,7 @@ namespace Tests
             finalDelBarco[1] = 7;
             logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(1);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,3]);
             Assert.AreEqual('\u0000', tableroActualizado[4,2]);
         }
@@ -66,7 +66,7 @@ namespace Tests
             finalDelBarco[1] = 7;
             logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
             Assert.AreEqual(expected, tableroActualizado[4,7]);
             Assert.AreEqual('\u0000', tableroActualizado[4,8]);
         }
@@ -86,7 +86,7 @@ namespace Tests
             finalDelBarco[1] = 7;
             logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
             Assert.AreEqual(expected, tableroActualizado[1,7]);
             Assert.AreEqual('\u0000', tableroActualizado[0,7]);
         }
@@ -106,7 +106,7 @@ namespace Tests
             finalDelBarco[1] = 7;
             logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(1);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
             Assert.AreEqual('\u0000', tableroActualizado[6,7]);
         }
@@ -121,7 +121,7 @@ namespace Tests
             LugarAAtacar[1] = 7;
             logicaDePartida.Atacar(LugarAAtacar, 1);
             char expected = 'W';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(2);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(2);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
@@ -142,7 +142,7 @@ namespace Tests
             LugarAAtacar[1] = 7;
             logicaDePartida.Atacar(LugarAAtacar,2);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(1);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
@@ -164,7 +164,7 @@ namespace Tests
             logicaDePartida.Atacar(LugarAAtacar, 2);
             logicaDePartida.Atacar(LugarAAtacar, 2);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(1);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
         }
         /// <summary>
@@ -185,7 +185,7 @@ namespace Tests
             LugarAAtacar[1] = 4;
             logicaDePartida.Atacar(LugarAAtacar,2);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
             Assert.AreEqual(expected, tableroActualizado[7,4]);
         }
          /// <summary>
@@ -207,7 +207,7 @@ namespace Tests
             logicaDePartida.Atacar(LugarAAtacar, 2);
             logicaDePartida.Atacar(LugarAAtacar, 2);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTablero(01);
+            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[7,5]);
         }
     }
