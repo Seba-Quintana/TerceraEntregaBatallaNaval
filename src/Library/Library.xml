@@ -35,13 +35,13 @@
             </summary>
             <param name="tableroParaAgregar"></param>
         </member>
-        <member name="M:ClassLibrary.DatosdePartida.AlmacenarTableros(ClassLibrary.Tablero)">
+        <member name="M:ClassLibrary.DatosdePartida.almacenarTableros(ClassLibrary.Tablero)">
             <summary>
             Metodo encargado de almacenar un tablero
             </summary>
             <param name="tableroParaAgregar"></param>
         </member>
-        <member name="M:ClassLibrary.DatosdePartida.AlmacenarJugador(System.Int32)">
+        <member name="M:ClassLibrary.DatosdePartida.almacenarJugador(System.Int32)">
             <summary>
             Metodo encargado de almacenar un jugador
             </summary>
@@ -143,17 +143,19 @@
             <summary>
             
             </summary>
-            <param name="numeroDeJugador"></param>
+            <param name="perfil"></param>
         </member>
-        <member name="M:ClassLibrary.Iimpresora.ImprimirHistorial(ClassLibrary.Historial)">
+        <member name="M:ClassLibrary.Iimpresora.ImprimirHistorial(System.Collections.Generic.List{ClassLibrary.DatosdePartida})">
             <summary>
             
             </summary>
+            <param name="partidas"></param>
         </member>
         <member name="M:ClassLibrary.Iimpresora.ImprimirRanking(System.Collections.Generic.List{ClassLibrary.PerfilUsuario})">
             <summary>
             
             </summary>
+            <param name="perfiles"></param>
         </member>
         <member name="T:ClassLibrary.ImpresoraConsola">
             <summary>
@@ -172,10 +174,11 @@
             </summary>
             <param name="perfil"></param>
         </member>
-        <member name="M:ClassLibrary.ImpresoraConsola.ImprimirHistorial(ClassLibrary.Historial)">
+        <member name="M:ClassLibrary.ImpresoraConsola.ImprimirHistorial(System.Collections.Generic.List{ClassLibrary.DatosdePartida})">
             <summary>
             Imprime el historial de todas las partidas jugadas en consola
             </summary>
+            <param name="partidas"></param>
         </member>
         <member name="M:ClassLibrary.ImpresoraConsola.ImprimirRanking(System.Collections.Generic.List{ClassLibrary.PerfilUsuario})">
             <summary>
@@ -189,12 +192,30 @@
             Visualiza al tablero.
             </summary>
         </member>
-        <member name="T:ClassLibrary.Logica">
+        <member name="M:ClassLibrary.Jugador.VisualizarTablero">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Jugador.PosicionarBarcos(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="inicio"></param>
+            <param name="final"></param>
+        </member>
+        <member name="M:ClassLibrary.Jugador.Atacar(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="coordenada"></param>
+        </member>
+        <member name="T:ClassLibrary.LogicaDeTablero">
             <summary>
              Clase encargada de manejar la logica pura del juego
             </summary>
         </member>
-        <member name="M:ClassLibrary.Logica.Añadirbarco(ClassLibrary.Tablero,System.Int32[],System.Int32[])">
+        <member name="M:ClassLibrary.LogicaDeTablero.Añadirbarco(ClassLibrary.Tablero,System.Int32[],System.Int32[])">
             <summary>
             Metodo encargado de añadir un barco a un tablero, se le asignan el inicio y el final,
             luego se asignan las variables si se cumple la condicion de que se posicionen horizontal o verticalmente
@@ -204,7 +225,7 @@
             <param name="inicioDeBarco"></param>
             <param name="finalDeBarco"></param>
         </member>
-        <member name="M:ClassLibrary.Logica.AtacarCasilla(ClassLibrary.Tablero,System.Int32,System.Int32)">
+        <member name="M:ClassLibrary.LogicaDeTablero.AtacarCasilla(ClassLibrary.Tablero,System.Int32[])">
             <summary>
             Encargado de realizar un ataque y devolver el resultado del ataque.
             </summary>
@@ -239,7 +260,7 @@
             Identificación númerica del jugador
             </summary>
         </member>
-        <member name="F:ClassLibrary.PerfilUsuario.OponenteEnPartida">
+        <member name="F:ClassLibrary.PerfilUsuario.UsuarioEnPartida">
             <summary>
             Numero de jugador del oponente actual (0 si no hay oponente)
             </summary>
@@ -259,7 +280,7 @@
             historial del usuario en concreto
             </summary>
         </member>
-        <member name="M:ClassLibrary.PerfilUsuario.#ctor(System.String,System.Int32,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{ClassLibrary.DatosdePartida})">
+        <member name="M:ClassLibrary.PerfilUsuario.#ctor(System.String,System.Int32,System.String,System.Int32)">
             <summary>
             constructor del perfil de usuario.
             </summary>
@@ -267,10 +288,6 @@
             <param name="ID"></param>
             <param name="Contraseña"></param>
             <param name="NumeroDeJugador"></param>
-            <param name="OponenteEnPartida"></param>
-            <param name="Ganadas"></param>
-            <param name="Perdidas"></param>
-            <param name="HistorialPersonal"></param>
         </member>
         <member name="M:ClassLibrary.PerfilUsuario.AñadiralHistorial(ClassLibrary.DatosdePartida)">
             <summary>

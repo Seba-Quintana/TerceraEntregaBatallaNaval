@@ -38,7 +38,7 @@ namespace ClassLibrary
 
         public void ObtenerTableroOponente(PerfilUsuario PerfilOponente)
         {
-            //char[,] matrizImprimir = PerfilOponente.TableroActual.matriz.Clone();
+            //char[,] matrizImprimir = PerfilOponente.TableroActual.matriz.Clone() as char[,];
         }
 
         public void ObtenerTablero(int perfil)
@@ -46,9 +46,18 @@ namespace ClassLibrary
             //Iimpresora.ImprimirTablero(tablero);
         }
 
-        void ObtenerHistorial(int numerodejugador)
+        public void ObtenerHistorial(int numerodejugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            try
+            {
+                if (ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)) || (numerodejugador == 0)){}
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("Usuario no encontrado");
+                throw new NullReferenceException("Usuario no encontrado", e);
+            }
             try
             {
                 if (numerodejugador == 0)
@@ -62,10 +71,10 @@ namespace ClassLibrary
                     imprimir.ImprimirHistorial(perfil.VerHistorialPersonal());
                 }
             }
-            catch (NullReferenceException e)
+            catch (Exception e)
             {
-                Console.WriteLine("Usuario no encontrado");
-                throw e;
+                Console.WriteLine("No se pudo ejecutar ObtenerHistorial");
+                throw new Exception("No se pudo ejecutar ObtenerHistorial", e);
             }
         }
 
