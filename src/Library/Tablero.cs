@@ -16,10 +16,6 @@ namespace ClassLibrary
         /// </summary>
         protected char[,] matriz;
         /// <summary>
-        /// Este atributo contiene el numero de ataques efectuados hacia el tablero.
-        /// </summary>
-        public int tiradas = 0;
-        /// <summary>
         /// Este atributo se encarga de mostrar el estado terminado de la partida, normalmente esta en false.
         /// </summary>
         public bool terminado = false;
@@ -38,7 +34,7 @@ namespace ClassLibrary
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
-        /// <param name="Tamaño"></param>
+        /// <param name="tamaño"></param>
         /// <param name="dueño"></param>
         public Tablero(int tamaño, int dueño)
         {
@@ -58,13 +54,15 @@ namespace ClassLibrary
             {
                 if (nuevovalor == 'B')
                 {
-                    if (this.matriz[fila, columna]== '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
+                    if (this.matriz[fila, columna] == '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
                     {
                         this.matriz[fila, columna] = 'B';
+                        this.CantidadDePartesDeBarcosEnteras+=1;
                     }
                     else if (this.matriz[fila, columna]== 'B')
                     {
                         this.matriz[fila, columna] = 'T';
+                        this.CantidadDePartesDeBarcosEnteras-=1;
                     }
                 }
                 else if (nuevovalor == 'A')
@@ -98,7 +96,6 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.
         /// </summary>
-        /// <param name="usuarioqueconsulta"></param>
         /// <returns></returns>
         public char[,] VerTablero()
         {
