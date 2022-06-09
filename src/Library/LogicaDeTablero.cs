@@ -4,7 +4,7 @@ namespace ClassLibrary
 /// <summary>
 ///  Clase encargada de manejar la logica pura del juego
 /// </summary>
-  public static class Logica
+  public static class LogicaDeTablero
   {
   /// <summary>
   /// Metodo encargado de añadir un barco a un tablero, se le asignan el inicio y el final,
