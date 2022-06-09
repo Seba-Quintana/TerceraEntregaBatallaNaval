@@ -79,17 +79,19 @@ namespace ClassLibrary
         /// <summary>
         /// Imprime el historial de todas las partidas jugadas en consola
         /// </summary>
-        public void ImprimirHistorial(Historial historial)
+        /// <param name="partidas"></param>
+        public void ImprimirHistorial(List<DatosdePartida> partidas)
         {
-            /*foreach (DatosdePartida partida in historial)
+            Admin ad = new Admin();
+            foreach (DatosdePartida partida in partidas)
             {
-                foreach (Tablero tablero in DatosDePartidas)
+                foreach (Tablero tablero in partida.Tableros)
                 {
-                    ImprimirTablero(tablero);
+                    ad.ObtenerTablero(tablero.DueñodelTablero);
                 }
-                Console.WriteLine($"Ganador: {Admin.ObtenerPerfil(DatosDePartidas.Ganador).Nombre}");
-                Console.WriteLine($"Ganador: {Admin.ObtenerPerfil(DatosDePartidas.Perdedor).Nombre}");
-            }*/
+                Console.WriteLine($"Ganador: {ad.ObtenerPerfil(partida.Ganador).Nombre}");
+                Console.WriteLine($"Perdedor: {ad.ObtenerPerfil(partida.Perdedor).Nombre}");
+            }
         }
         /// <summary>
         /// Imprime en consola un ranking, en el que los perfiles tienen posiciones ordenados segun batallas ganadas
