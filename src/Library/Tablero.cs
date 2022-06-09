@@ -30,7 +30,7 @@ namespace ClassLibrary
         /// <summary>
         /// Variable que facilita saber quien es el ganador de la partida cuando se almacena.
         /// </summary>
-        public bool Ganador = false;
+        public int Ganador;
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
@@ -75,22 +75,14 @@ namespace ClassLibrary
         /// <param name="columna"></param>
         /// <param name="fila"></param>
         /// <returns></returns>
-        public string VerCasilla(int fila, int columna)
+        public char VerCasilla(int fila, int columna)
         {
-            if (fila <= this.tamaño && columna <= this.tamaño)
+            
+            return (matriz[fila, columna]);
+            /*if (fila <= this.tamaño && columna <= this.tamaño)
             {
-                switch (matriz[fila, columna])
-                {
-                    case 'W':
-                        return "La casilla ya habia sido atacada y contiene Agua";
-                    case 'T':
-                        return "La casilla ya habia sido atacada y hay una parte de barco dañada";
-                    case 'B':
-                        return "Buen tiro, has atacado a un barco";
-                }
-                return "Que lastima!! has disparado al agua";
-            }
-            return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
+                seria exepcion return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
+            }*/
         }
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.
@@ -101,14 +93,6 @@ namespace ClassLibrary
         {
             // polimorfismo
             return matriz;
-        }
-        /// <summary>
-        /// Metodo llamado para Finalizar
-        /// </summary>
-        public void Finalizar()
-        {
-            DatosdePartida partida = new DatosdePartida();
-            partida.Almacenar(this);
         }
     }
 }
