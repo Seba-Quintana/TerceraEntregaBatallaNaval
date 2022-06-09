@@ -4,5 +4,74 @@
         <name>LibraryTests</name>
     </assembly>
     <members>
+        <member name="T:Tests.TestDeLogica">
+            <summary>
+            Test para un correcto funcionamiento de la clase Logica.
+            </summary>
+        </member>
+        <member name="F:Tests.TestDeLogica.tablero">
+            <summary>
+            El tablero que va a ser utilizado para los tests.Es necesario ya que Logica solo
+             se ejecuta si esta en conjunto de la clase tablero;
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.Setup">
+            <summary>
+            SetUp Creado con el objetivo de tener un tablero vacio al principio de cada test.
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.PrincipioDeBarcoHorizontal">
+            <summary>
+            Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
+            testea la casilla donde se inicia el barco y tambien testea que la casilla anterior este vacia.
+            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.FinalDeBarcoHorizontal">
+            <summary>
+            Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
+            testea la casilla donde finaliza el barco y tambien testea que la casilla siguiente este vacia.
+            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.PrincipioDeBarcoVertical">
+            <summary>
+            Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
+            testea la casilla donde se inicia el barco y tambien testea que la casilla anterior este vacia.
+            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.FinalDeBarcoVertical">
+            <summary>
+            Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
+            testea la casilla donde finaliza el barco y tambien testea que la casilla siguiente este vacia.
+            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.AtaqueAlAgua">
+            <summary>
+            Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.AtaqueBarcoVertical">
+            <summary>
+            Se ataca un punto del barco para ver que este cambie por 'T'.
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.AtaqueBarcoVerticalEnElMismoLugar">
+            <summary>
+            Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.AtaqueBarcoHorizontal">
+            <summary>
+            Se ataca un punto del barco para ver que este cambie por 'T'.
+            </summary>
+        </member>
+        <member name="M:Tests.TestDeLogica.AtaqueBarcoHorizontalEnElMismoLugar">
+            <summary>
+            Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
+            </summary>
+        </member>
     </members>
 </doc>

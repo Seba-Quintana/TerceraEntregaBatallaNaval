@@ -29,23 +29,43 @@ namespace ClassLibrary
           //ad.ObtenerHistorial(historial);
       }
     
-      public void PartidaAmistosa(int jugador1, int jugador2)
+      public void PartidaAmistosa(int modo, int jugador1, int jugador2)
       {
-        
+        Admin ad = new Admin();
+        ad.EmparejarAmigos(modo, jugador1, jugador2);
+
       }
     
-      public void BuscarPartida(int partida)
+      public void BuscarPartida(int modo, int jugador1)
       {
-        
+
+        Admin ad = new Admin();
+        ad.Emparejar(modo, jugador1);
       }
-    
+      /// <summary>
+      /// 
+      /// </summary>
       public void VisualizarTablero()
       {
-       
+        //Admin.ObtenerTableroOponente();
+        //Admin.ObtenerTablero();
       }
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="inicio"></param>
+      /// <param name="final"></param>
+      public void PosicionarBarcos(string inicio, string final)
+      {
+        //LogicaDePartida.añadirBarco(TraductorDeCoordenadas.Traducir(inicio),TraductorDeCoordenadas.Traducir(final));
+      }
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="coordenada"></param>
       public void Atacar(string coordenada)
       {
-  
+//LogicaDePartida.Atacar(TraductorDeCoordenadas.Traducir(coordenada));
       }
     }
     

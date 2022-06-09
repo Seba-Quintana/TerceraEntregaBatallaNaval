@@ -41,24 +41,25 @@ namespace ClassLibrary
             //char[,] matrizImprimir = PerfilOponente.TableroActual.matriz.Clone();
         }
 
-        void ObtenerTablero(string[] tablero)
+        public void ObtenerTablero(int perfil)
         {
             //Iimpresora.ImprimirTablero(tablero);
         }
 
         void ObtenerHistorial(int numerodejugador)
         {
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             try
             {
                 if (numerodejugador == 0)
                 {
                     List<DatosdePartida> historial = Historial.partidas;
-                    //ImpresoraConsola.ImprimirHistorial(historial);
+                    imprimir.ImprimirHistorial(historial);
                 }
                 else if (ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
                 {
                     PerfilUsuario perfil = ObtenerPerfil(numerodejugador);
-                    //ImpresoraConsola.ImprimirHistorial(perfil.VerHistorialPersonal());
+                    imprimir.ImprimirHistorial(perfil.VerHistorialPersonal());
                 }
             }
             catch (NullReferenceException e)
@@ -124,6 +125,15 @@ namespace ClassLibrary
         public void ActualizarTablero(int filas, int columnas, char nuevovalor)
         {
             //Tablero.ActualizarTablero(filas, columnas, nuevovalor);
+        }
+
+        public void Emparejar(int modo, int jugador1)
+        {
+            EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
+        }
+        public void EmparejarAmigos(int modo, int jugador1, int jugador2)
+        {
+            EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
         }
     }
 

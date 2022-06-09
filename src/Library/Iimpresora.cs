@@ -22,15 +22,17 @@ namespace ClassLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="numeroDeJugador"></param>
+        /// <param name="perfil"></param>
         public void ImprimirPerfilUsuario(PerfilUsuario perfil);
         /// <summary>
         /// 
         /// </summary>
-        public void ImprimirHistorial(Historial historial);
+        /// <param name="partidas"></param>
+        public void ImprimirHistorial(List<DatosdePartida> partidas);
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="perfiles"></param>
         public void ImprimirRanking(List<PerfilUsuario> perfiles);
     }
 }
