@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -9,29 +10,35 @@ namespace ClassLibrary
     /// </summary>
     public class Jugador
     {
+      
       public void VerPerfil(int perfil)
       {
-          //PerfilUsuario a = Admin.ObtenerPerfil(perfil);
+         Admin ad = new Admin();
+         ad.ObtenerPerfil(perfil);
       }  
     
       public void VerRanking()
       {
-          //Admin.ObtenerRanking();
+         Admin ad = new Admin();
+         ad.ObtenerRanking();
       }
     
       public void VerHistorial(int historial)
       {
-          //Admin.ObtenerHistorial(historial);
+          Admin ad = new Admin();
+          //ad.ObtenerHistorial(historial);
       }
     
       public void PartidaAmistosa(int modo, int jugador1, int jugador2)
       {
         Admin ad = new Admin();
         ad.EmparejarAmigos(modo, jugador1, jugador2);
+
       }
     
       public void BuscarPartida(int modo, int jugador1)
       {
+
         Admin ad = new Admin();
         ad.Emparejar(modo, jugador1);
       }
@@ -58,7 +65,7 @@ namespace ClassLibrary
       /// <param name="coordenada"></param>
       public void Atacar(string coordenada)
       {
-        //LogicaDePartida.Atacar(TraductorDeCoordenadas.Traducir(coordenada));
+//LogicaDePartida.Atacar(TraductorDeCoordenadas.Traducir(coordenada));
       }
     }
     
