@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -9,40 +10,42 @@ namespace ClassLibrary
     /// </summary>
     public class Jugador
     {
+      
       public void VerPerfil(int perfil)
       {
-          //PerfilUsuario a = Admin.ObtenerPerfil(perfil);
+         Admin ad = new Admin();
+         ad.ObtenerPerfil(perfil);
       }  
     
       public void VerRanking()
       {
-          //Admin.ObtenerRanking();
+         Admin ad = new Admin();
+         ad.ObtenerRanking();
       }
     
       public void VerHistorial(int historial)
       {
-          //Admin.ObtenerHistorial(historial);
+          Admin ad = new Admin();
+          //ad.ObtenerHistorial(historial);
       }
     
       public void PartidaAmistosa(int jugador1, int jugador2)
       {
-        //Admin.EmparejarAmigos(jugador1, jugador2);
+        
       }
     
       public void BuscarPartida(int partida)
       {
-        //Admin.BuscarPartida(partida);
+        
       }
     
       public void VisualizarTablero()
       {
-        //Admin.ObtenerTableroAtaque();
-        //Admin.ObtenerTableroDefensa();
+       
       }
       public void Atacar(string coordenada)
       {
-        int[] nuevaCoordenada = TraductorDeCoordenadas.Traducir(coordenada);
-        //Logica.IndicarCasilla(nuevaCoordenada);
+  
       }
     }
     
