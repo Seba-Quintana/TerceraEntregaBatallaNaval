@@ -32,7 +32,7 @@ namespace ClassLibrary
         /// <summary>
         /// Numero de jugador del oponente actual (0 si no hay oponente)
         /// </summary>
-        public int OponenteEnPartida;
+        public bool UsuarioEnPartida;
 
         /// <summary>
         /// Cantidad de partidas ganadas
