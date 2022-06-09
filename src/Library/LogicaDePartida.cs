@@ -9,22 +9,36 @@ namespace ClassLibrary
     /// </summary>
     public class LogicaDePartida
     {
+        /// <summary>
+        /// Array encargado de guardar los 2 tableros necesarios para una partida.
+        /// </summary>
         public Tablero[] tableros = new Tablero[2];
-
+        /// <summary>
+        /// Almacena los int caracteristicos de cada jugador
+        /// </summary>
         public int [] jugadores = new int[2];
-
+        /// <summary>
+        /// Cantidad de ataques hechos por cada jugador
+        /// </summary>
         public int [] tiradas = new int[2];
-
-        public int [] cantidadDeBarcos = new int[2]; 
-
+        /// <summary>
+        /// Simboliza la cantidad de barcos que quedan para ubicar
+        /// </summary>
+        public int [] cantidadDeBarcosParaPocicionar = new int[2]; 
+        /// <summary>
+        ///  Constructor de la clase LogicaDePartida.
+        /// </summary>
+        /// <param name="tamaño"></param>
+        /// <param name="jugador1"></param>
+        /// <param name="jugador2"></param>
         public LogicaDePartida(int tamaño ,int jugador1, int jugador2)
         {
             tableros[0] = new Tablero(tamaño,jugador1);
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
-            jugadores[1]=jugador2;
             tableros[1] = new Tablero(tamaño,jugador2);
-            cantidadDeBarcos[0]= (tamaño * 2) - 3 ;
-            cantidadDeBarcos[1]= (tamaño * 2) - 3 ;
+            jugadores[1]=jugador2;
+            cantidadDeBarcosParaPocicionar[0]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPocicionar[1]= (tamaño * 2) - 3 ;
             tiradas[0]=0;
             tiradas[1]=0;
         }
@@ -71,11 +85,11 @@ namespace ClassLibrary
                 if (tiradas[0]>tiradas[1])
                 {
                     
-                Tablero tablerobjetivo = tableros[0];
-                string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                tiradas[0]+=1;
-                return respuesta;
+                    Tablero tablerobjetivo = tableros[0];
+                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
+                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    tiradas[0]+=1;
+                    return respuesta;
                 }
                 else
                 {
@@ -86,7 +100,7 @@ namespace ClassLibrary
 
         }
         /// <summary>
-        /// Metodo encargado de formular los ataques en base de 
+        /// Metodo encargado de formular los mensajes que se obtienen al atacar
         /// </summary>
         /// <param name="tablerobjetivo"></param>
         /// <param name="fila"></param>
@@ -138,12 +152,12 @@ namespace ClassLibrary
                         string respuesta = respuestaDePonerBarcos(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
                         LogicaDeTablero.Añadirbarco(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
                         this.tiradas[0]-= casillasutilizadas;
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcos[0]}";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPocicionar[0]}";
                         return respuesta;
                     }
                     else
                     {
-                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcos[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPocicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                     }
                 }
                 else
@@ -161,12 +175,12 @@ namespace ClassLibrary
                         string respuesta = respuestaDePonerBarcos(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
                         LogicaDeTablero.Añadirbarco(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
                         this.tiradas[1]-= casillasutilizadas;
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcos[1]}";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPocicionar[1]}";
                         return respuesta;
                     }
                     else
                     {
-                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcos[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPocicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                     }
                 }
                 else
@@ -174,7 +188,7 @@ namespace ClassLibrary
                     return "No se pueden agregar barcos diagonalmente";
                 }
             }
-            return "Pocicionamiento no ejecutado ya que quien pociciona el barco no es uno de los jugadores de la partida";
+            return "Posicionamiento no ejecutado ya que quien pociciona el barco no es uno de los jugadores de la partida";
         }
 
         /// <summary>
@@ -232,13 +246,22 @@ namespace ClassLibrary
             }
             return resultado;
         }
+        /// <summary>
+        /// Constructor de mensaje Devuelto en cuanto se ponen barcos.
+        /// </summary>
+        /// <param name="tablerobjetivo"></param>
+        /// <param name="filainicio"></param>
+        /// <param name="columnainicio"></param>
+        /// <param name="filafinal"></param>
+        /// <param name="columnafinal"></param>
+        /// <returns></returns>
         private string respuestaDePonerBarcos(Tablero tablerobjetivo, int filainicio, int columnainicio,int filafinal, int columnafinal)
         {
             if (filainicio == filafinal)
             {
-                for (int i = columnainicio; i <= columnafinal; i++)
+                for (int i = columnainicio; i > columnafinal; i++)
                 {
-                    if (tablerobjetivo.VerCasilla(filainicio, i) == 'B');
+                    if (tablerobjetivo.VerCasilla(filainicio, i) == 'B')
                     {
                         return "Has pocicionado un barco sobre otro, empezaras la partida con la parte que coliciono dañada como si le hubieran disparado";
                     }
@@ -247,7 +270,7 @@ namespace ClassLibrary
 
             else if (columnainicio == columnafinal)
             {
-                for (int i = filainicio; i <= filafinal; i++)
+                for (int i = filainicio; i > filafinal; i++)
                 {          
                     if (tablerobjetivo.VerCasilla(i , columnainicio) == 'B')
                     {
@@ -260,6 +283,11 @@ namespace ClassLibrary
             //Estaria bueno poner una excepcion aca para que no de el index out of range y se devuelva un msg.
 
         }
+        /// <summary>
+        /// Metodo para ver el tablero propio por cada jugador.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
         public char[ , ] VerTableroPropio(int jugador)
         {
             if (tableros[0].DueñodelTablero==jugador)
@@ -271,6 +299,11 @@ namespace ClassLibrary
                 return tableros[1].VerTablero();
             }
         }
+        /// <summary>
+        /// Metodo utilizado para ver una copia del tablero del oponente sin barcos
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
             
         public char[ , ] VistaOponente (int jugador)
         {
