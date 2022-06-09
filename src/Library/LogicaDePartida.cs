@@ -9,13 +9,13 @@ namespace ClassLibrary
     /// </summary>
     public class LogicaDePartida
     {
-        private Tablero[] tableros = new Tablero[2];
+        public Tablero[] tableros = new Tablero[2];
 
-        private int [] jugadores = new int[2];
+        public int [] jugadores = new int[2];
 
-        private int [] tiradas = new int[2];
+        public int [] tiradas = new int[2];
 
-        private int [] cantidadDeBarcos = new int[2]; 
+        public int [] cantidadDeBarcos = new int[2]; 
 
         public LogicaDePartida(int tamaño ,int jugador1, int jugador2)
         {
@@ -44,7 +44,7 @@ namespace ClassLibrary
         /// <param name="jugador"></param>
         /// <returns></returns>
 
-        public string Atacar(int [] LugarDeAtaque, int jugador)
+        public virtual string Atacar(int [] LugarDeAtaque, int jugador)
         {
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
@@ -92,7 +92,7 @@ namespace ClassLibrary
         /// <param name="fila"></param>
         /// <param name="columna"></param>
         /// <returns></returns>
-        private string respuestaDeAtaque(Tablero tablerobjetivo, int fila, int columna)
+        public string respuestaDeAtaque(Tablero tablerobjetivo, int fila, int columna)
         {
             
             switch (tablerobjetivo.VerCasilla(fila, columna))
@@ -260,16 +260,51 @@ namespace ClassLibrary
             //Estaria bueno poner una excepcion aca para que no de el index out of range y se devuelva un msg.
 
         }
-        public char[ , ] VerTablero(int jugador)
+        public char[ , ] VerTableroPropio(int jugador)
         {
             if (tableros[0].DueñodelTablero==jugador)
             {
-                return tableros[0].VerTablero(jugador);
+                return tableros[0].VerTablero();
+            }
+            else
+            {
+                return tableros[1].VerTablero();
+            }
+        }
+            
+        public char[ , ] VistaOponente (int jugador)
+        {
+            if (tableros[0].DueñodelTablero==jugador)
+            {
+                char[ , ] matrizSinBarcos = tableros[1].VerTablero();
+                for (int i = 0; i < tableros[1].Tamaño; i++)
+                {
+                    for (int j = 0; j < tableros[1].Tamaño; j++)
+                    {
+                        if (matrizSinBarcos[i,j]== 'B')
+                        {
+                            matrizSinBarcos[i,j]= '\u0000';
+                        }
+                    }
+                }
+                return matrizSinBarcos; 
             }
             else 
             {
-                return tableros[1].VerTablero(jugador);
+                char[ , ] matrizSinBarcos = tableros[0].VerTablero();
+                for (int i = 0; i < tableros[0].Tamaño; i++)
+                {
+                    for (int j = 0; j < tableros[0].Tamaño; j++)
+                    {
+                        if (matrizSinBarcos[i,j]== 'B')
+                        {
+                            matrizSinBarcos[i,j]= '\u0000';
+                        }
+                    }
+                }
+                return matrizSinBarcos; 
             }
         }
+
     }
 }
