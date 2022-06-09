@@ -54,13 +54,13 @@ namespace ClassLibrary
             {
                 if (nuevovalor == 'B')
                 {
-                    matriz[fila, columna] = nuevovalor;
+                    this.matriz[fila, columna] = nuevovalor;
                 }
                 else if (nuevovalor == 'A')
                 {
                     if (matriz[fila, columna] == 'B' || matriz[fila, columna] == 'T')
                     {
-                        matriz[fila, columna] = 'T';
+                        this.matriz[fila, columna] = 'T';
                     }
                     else
                     {
@@ -77,6 +77,7 @@ namespace ClassLibrary
         /// <returns></returns>
         public string VerCasilla(int fila, int columna)
         {
+            Console.WriteLine($"{fila}, {columna} y {this.tamaño}");
             if (fila <= this.tamaño && columna <= this.tamaño)
             {
                 switch (matriz[fila, columna])

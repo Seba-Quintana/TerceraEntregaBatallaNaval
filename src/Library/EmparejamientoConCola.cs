@@ -26,8 +26,10 @@ namespace ClassLibrary
         public static void RemoverListaEspera(int usuario)
         {/*
             PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
+        {
+            //PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
             List<PerfilUsuario> colaCopia = new List<PerfilUsuario>();
-            if (ColaEmparejamientosN.Contains(jugador))
+            /*if (ColaEmparejamientosN.Contains(jugador))
             {
                 int largoCola = ColaEmparejamientosN.Count;
                 int i = 0;
@@ -46,7 +48,7 @@ namespace ClassLibrary
                     i++;
                 }
             }
-            else if (ColaEmparejamientosR.Contains(jugador))
+            //else if (ColaEmparejamientosR.Contains(jugador))
             {
                 int largoCola = ColaEmparejamientosR.Count;
                 int i = 0;

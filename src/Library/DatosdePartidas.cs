@@ -29,8 +29,8 @@ namespace ClassLibrary
         /// <param name="tableroParaAgregar"></param>
         public void Almacenar(Tablero tableroParaAgregar)
         {
-            AlmacenarTableros(tableroParaAgregar);
-            AlmacenarJugador(tableroParaAgregar.DueñodelTablero);
+            almacenarTableros(tableroParaAgregar);
+            almacenarJugador(tableroParaAgregar.DueñodelTablero);
             if (tableroParaAgregar.Ganador)
             {
                 Ganador = tableroParaAgregar.DueñodelTablero;
@@ -48,7 +48,7 @@ namespace ClassLibrary
         /// Metodo encargado de almacenar un tablero
         /// </summary>
         /// <param name="tableroParaAgregar"></param>
-        public void AlmacenarTableros(Tablero tableroParaAgregar)
+        private void almacenarTableros(Tablero tableroParaAgregar)
         {
             if (Tableros == null)
             {
@@ -64,7 +64,7 @@ namespace ClassLibrary
         /// Metodo encargado de almacenar un jugador
         /// </summary>
         /// <param name="jugador"></param>
-        public void AlmacenarJugador(int jugador)
+        private void almacenarJugador(int jugador)
         {
             if (Jugadores == null)
             {

@@ -1,40 +1,67 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
     /// <summary>
     /// Muestra por consola todo lo que desee imprimir implementando la interfaz Iimpresora con una operación polimórfica.
     /// </summary>
-    public class ImpresoraConsola
+    public class ImpresoraConsola : Iimpresora
     {
+        private static ImpresoraConsola impresoraConsola  = null; 
+ 
+        private ImpresoraConsola()
+        {
+        }
+
+        public static ImpresoraConsola Instance()
+        {
+            if (impresoraConsola == null)
+                impresoraConsola = new ImpresoraConsola();
+      
+            return impresoraConsola;
+        }
         /// <summary>
         /// Imprime el tablero en consola agregandole indices de coordenadas
         /// </summary>
         /// <param name="tablero"></param>
-        void ImprimirTablero(char[,] tablero)
+        public void ImprimirTablero(char[,] tablero)
         {
             string filaImprimir = "  ";
-            string letras = "ABCDEFGHIJKLMNO";
-            string[] numeros = new string[15];
-            for (int j = 0 ; j<9 ; j++)
+            List<string> letras = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O" };
+            Console.WriteLine(filaImprimir);
+            for (int i = 0; i < tablero.GetLength(1); i++)
             {
-                numeros[j] = $" {j + 1}";
-            }
-            for (int j = 9 ; j<numeros.Length ; j++)
-            {
-                numeros[j] = $"{j + 1}";
-            }
-            for (int i = 0; i<tablero.GetLength(1); i++)
-            {
-                filaImprimir = filaImprimir + " " + letras[i];
+                if (i < 10)
+                {
+                    filaImprimir = filaImprimir + $" {i + 1} ";
+                }
+                else
+                {
+                    filaImprimir = filaImprimir + $"{i + 1} ";
+                }
             }
             Console.WriteLine(filaImprimir);
-            for (int fila = 0; fila<tablero.GetLength(0); fila++)
+            for (int fila = 0; fila < tablero.GetLength(0); fila++)
             {
-                filaImprimir = numeros[fila];
-                for (int columna = 0; columna<tablero.GetLength(1); columna++)
+                filaImprimir = letras[fila] + " ";
+                for (int columna = 0; columna < tablero.GetLength(1); columna++)
                 {
-                    filaImprimir = filaImprimir + " " + tablero[fila,columna];
+                    switch (tablero[fila, columna])
+                    {
+                        case 'W':
+                            filaImprimir = filaImprimir + " " + "W ";
+                            break;
+                        case 'T':
+                            filaImprimir = filaImprimir + " " + "T ";
+                            break;
+                        case 'B':
+                            filaImprimir = filaImprimir + " " + "B ";
+                            break;
+                        default:
+                            filaImprimir = filaImprimir + " " + "X ";
+                            break;
+                    }
                 }
                 Console.WriteLine(filaImprimir);
             }
@@ -43,34 +70,34 @@ namespace ClassLibrary
         /// Imprime los datos publicos de los usuarios en consola
         /// </summary>
         /// <param name="perfil"></param>
-        /*void ImprimirPerfilUsuario(PerfilUsuario perfil)
+        public void ImprimirPerfilUsuario(PerfilUsuario perfil)
         {
             Console.WriteLine($"Nombre: {perfil.Nombre}");
             Console.WriteLine($"Ganadas: {perfil.Ganadas}");
             Console.WriteLine($"Nombre: {perfil.Perdidas}");
-        }*/
+        }
         /// <summary>
         /// Imprime el historial de todas las partidas jugadas en consola
         /// </summary>
-        void ImprimirHistorial()
+        public void ImprimirHistorial(Historial historial)
         {
-            /*foreach (Partida partida in Admin.ObtenerHistorial())
+            /*foreach (DatosdePartida partida in historial)
             {
-                foreach (Tablero tablero in partida)
+                foreach (Tablero tablero in DatosDePartidas)
                 {
                     ImprimirTablero(tablero);
                 }
-                Console.WriteLine($"Ganador: {Admin.ObtenerPerfil(partida.Ganador).Nombre}");
-                Console.WriteLine($"Ganador: {Admin.ObtenerPerfil(partida.Perdedor).Nombre}");
+                Console.WriteLine($"Ganador: {Admin.ObtenerPerfil(DatosDePartidas.Ganador).Nombre}");
+                Console.WriteLine($"Ganador: {Admin.ObtenerPerfil(DatosDePartidas.Perdedor).Nombre}");
             }*/
         }
         /// <summary>
-        /// Imprime en consola un rancking, en el que los perfiles tienen posiciones ordenados segun batallas ganadas
+        /// Imprime en consola un ranking, en el que los perfiles tienen posiciones ordenados segun batallas ganadas
         /// </summary>
-        void ImprimirRanking()
+        public void ImprimirRanking(List<PerfilUsuario> perfiles)
         {
             /*int puesto = 1;
-            foreach (PerfilUsuario perfil in Admin.ObtenerRanking())
+            foreach (PerfilUsuario perfil in perfiles)
             {
                 Console.WriteLine($"N° {puesto}: {perfil.Nombre} con {perfil.Ganadas} batallas ganadas");
                 puesto = puesto + 1;

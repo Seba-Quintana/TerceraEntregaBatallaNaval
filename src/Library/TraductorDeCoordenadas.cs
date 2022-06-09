@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -14,20 +15,15 @@ namespace ClassLibrary
         /// <returns></returns>
         public static int[] Traducir(string coordenada)
         {
-            int[] traducido = new int[1];
-            string letras = "ABCDEFGHIJKLMNO";
+            int[] traducido = new int[2];
+            List<string> letras = new List<string> () {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"};
             int i = 0;
-            while (coordenada.Substring(0).ToUpper() != letras.Substring(i))
+            while ((i < letras.Count) && (coordenada.Substring(0,1).ToUpper() != letras[i]))
             {
                 i = i + 1;
             }
-            traducido[0] = i+1;
-            i = 1;
-            while (coordenada[1] != i)
-            {
-                i = i + 1;
-            }
-            traducido[1] = i;
+            traducido[0] = i;
+            traducido[1] = (int)Char.GetNumericValue(coordenada[1]) - 1;
             return traducido;
         }
     }

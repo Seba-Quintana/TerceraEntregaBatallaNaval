@@ -7,7 +7,7 @@ namespace ClassLibrary
     /// Esta clase empareja a dos jugadores en una lista.
     /// Hay dos colas existentes, una para el modo normal y otra para el modo rapido
     /// </summary>
-    public class PerfilUsuario
+    public class PerfilUsuario:ICloneable
     {
         /// <summary>
         /// Nombre del jugador
@@ -48,7 +48,10 @@ namespace ClassLibrary
         /// historial del usuario en concreto
         /// </summary>
         public List<DatosdePartida> HistorialPersonal;
-
+        public object Clone()
+    {
+        return this.MemberwiseClone();
+    }
         /// <summary>
         /// constructor del perfil de usuario.
         /// </summary>
