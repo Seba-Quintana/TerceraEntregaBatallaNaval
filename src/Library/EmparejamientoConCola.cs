@@ -12,18 +12,20 @@ namespace ClassLibrary
         /// <summary>
         /// Lista de emparejamiento (modo normal)
         /// </summary>
-        public static Queue<PerfilUsuario> ColaEmparejamientosN;
+        public static Queue<int> ColaEmparejamientosN;
 
         /// <summary>
         /// Lista de emparejamiento (modo rapido)
         /// </summary>
-        public static Queue<PerfilUsuario> ColaEmparejamientosR;
+        public static Queue<int> ColaEmparejamientosR;
         
         /// <summary>
         /// Remueve usuario de lista de emparejamiento
         /// </summary>
         /// <param name="usuario"></param>
         public static void RemoverListaEspera(int usuario)
+        {/*
+            PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
         {
             //PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
             List<PerfilUsuario> colaCopia = new List<PerfilUsuario>();
@@ -45,18 +47,18 @@ namespace ClassLibrary
                     ColaEmparejamientosN.Enqueue(colaCopia[i]);
                     i++;
                 }
-            }*/
+            }
             //else if (ColaEmparejamientosR.Contains(jugador))
             {
                 int largoCola = ColaEmparejamientosR.Count;
                 int i = 0;
                 while (i != largoCola)
                 {
-                    /*colaCopia.Add(ColaEmparejamientosR.Peek());
+                    colaCopia.Add(ColaEmparejamientosR.Peek());
                     if (ColaEmparejamientosR.Peek() == jugador)
                         colaCopia.Remove(jugador);
                     ColaEmparejamientosR.Dequeue();
-                    i++;*/
+                    i++;
                 }
                 i = 0;
                 while (i != largoCola - 1)
@@ -65,12 +67,39 @@ namespace ClassLibrary
                     i++;
                 }
             }
-
-
-
-
-
-
+        */
+            if (ColaEmparejamientosN.Contains(usuario))
+            {
+                int largoCola = ColaEmparejamientosN.Count;
+                int i = 0;
+                while (i < largoCola - 1)
+                {
+                    if (ColaEmparejamientosN.Peek() == usuario)
+                        ColaEmparejamientosN.Dequeue();
+                    else
+                    {
+                        ColaEmparejamientosN.Enqueue(ColaEmparejamientosN.Peek());
+                        ColaEmparejamientosN.Dequeue();
+                        i++;
+                    }
+                }
+            }
+            else if (ColaEmparejamientosR.Contains(usuario))
+            {
+                int largoCola = ColaEmparejamientosR.Count;
+                int i = 0;
+                while (i < largoCola - 1)
+                {
+                    if (ColaEmparejamientosR.Peek() == usuario)
+                        ColaEmparejamientosR.Dequeue();
+                    else
+                    {
+                        ColaEmparejamientosR.Enqueue(ColaEmparejamientosR.Peek());
+                        ColaEmparejamientosR.Dequeue();
+                        i++;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -78,18 +107,32 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="modo"></param>
         /// <param name="jugador"></param>
-        public static void EmparejarAleatorio(int modo, int jugador)
+        public static int[] EmparejarAleatorio(int modo, int jugador)
         {
+            int[] jugadores = new int[2];
             if (modo == 0) // modo normal
             {
-                //PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
-                //ColaEmparejamientosN.Enqueue(perfilJugador);
+                ColaEmparejamientosN.Enqueue(jugador);
+                if (ColaEmparejamientosN.Count >= 2)
+                {
+                    int uno = ColaEmparejamientosN.Peek();
+                    ColaEmparejamientosN.Dequeue();
+                    jugadores[0] = uno;
+                    jugadores[1] = ColaEmparejamientosN.Peek();
+                }
             }
-            if (modo == 1) // modo rapido
+            else if (modo == 1) // modo rapido
             {
-                //PerfilUsuario perfilJugador = Admin.ObtenerPerfil(jugador);
-                //ColaEmparejamientosR.Enqueue(perfilJugador);
+                ColaEmparejamientosR.Enqueue(jugador);
+                if (ColaEmparejamientosR.Count >= 2)
+                {
+                    int uno = ColaEmparejamientosR.Peek();
+                    ColaEmparejamientosR.Dequeue();
+                    jugadores[0] = uno;
+                    jugadores[1] = ColaEmparejamientosR.Peek();
+                }
             }
+            return jugadores;
         }
 
         /// <summary>
@@ -99,23 +142,21 @@ namespace ClassLibrary
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
         /// <returns></returns>
-        public static Queue<PerfilUsuario> EmparejarAmigos(int modo, int jugador1, int jugador2)
+        public static int[] EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
-            Queue<PerfilUsuario> colaAmigos = new Queue<PerfilUsuario>();
-            //PerfilUsuario perfilJugador1 = Admin.ObtenerPerfil(jugador1);
-            //PerfilUsuario perfilJugador2 = Admin.ObtenerPerfil(jugador2);
+            int[] Amigos = new int[2];
             // Como se diferencian los modos?
             if (modo == 0) // modo normal
             {
-                //colaAmigos.Enqueue(perfilJugador1);
-                //colaAmigos.Enqueue(perfilJugador2);
+                Amigos[0] = jugador1;
+                Amigos[1] = jugador2;
             }
             else if (modo == 1) // modo rapido
             {
-                //colaAmigos.Enqueue(perfilJugador1);
-                //colaAmigos.Enqueue(perfilJugador2);
+                Amigos[0] = jugador1;
+                Amigos[1] = jugador2;
             }
-            return colaAmigos;
+            return Amigos;
         }
     }
 }

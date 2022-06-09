@@ -37,12 +37,12 @@ namespace ClassLibrary
         /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
-        public int Ganadas;
+        public int Ganadas = 0;
 
         /// <summary>
         /// Cantidad de partidas perdidas
         /// </summary>
-        public int Perdidas;
+        public int Perdidas = 0;
       
         /// <summary>
         /// historial del usuario en concreto
@@ -59,22 +59,13 @@ namespace ClassLibrary
         /// <param name="ID"></param>
         /// <param name="Contraseña"></param>
         /// <param name="NumeroDeJugador"></param>
-        /// <param name="OponenteEnPartida"></param>
-        /// <param name="Ganadas"></param>
-        /// <param name="Perdidas"></param>
-        /// <param name="HistorialPersonal"></param>
-        public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador, 
-                            int OponenteEnPartida, int Ganadas,
-                            int Perdidas, List<DatosdePartida> HistorialPersonal)
+
+        public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador)
         {
             this.Nombre = Nombre;
             this.ID = ID;
             this.Contraseña = Contraseña;
             this.NumeroDeJugador = NumeroDeJugador;
-            this.OponenteEnPartida = OponenteEnPartida;
-            this.Ganadas = Ganadas;
-            this.Perdidas = Perdidas;
-            this.HistorialPersonal = HistorialPersonal;
         }
 
         /// <summary>
