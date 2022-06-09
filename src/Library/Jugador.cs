@@ -24,14 +24,14 @@ namespace ClassLibrary
           //Admin.ObtenerHistorial(historial);
       }
     
-      public void PartidaAmistosa(int jugador1, int jugador2)
+      public void PartidaAmistosa(int modo, int jugador2)
       {
-        //Admin.EmparejarAmigos(jugador1, jugador2);
+        Admin.Emparejar(modo, this, jugador2);
       }
     
-      public void BuscarPartida(int partida)
+      public void BuscarPartida(int modo)
       {
-        //Admin.BuscarPartida(partida);
+        Admin.Emparejar(modo, this);
       }
     
       public void VisualizarTablero()
