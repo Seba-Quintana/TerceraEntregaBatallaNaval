@@ -2,7 +2,7 @@ using System;
 namespace ClassLibrary
 {
 /// <summary>
-///  Clase encargada de manejar la logica pura del juego
+///  Clase encargada de manejar los tableros directamente
 /// </summary>
   public static class LogicaDeTablero
   {
@@ -27,7 +27,7 @@ namespace ClassLibrary
       }
     }
 
-    else if (columnainicio == columnafinal)
+    else
     {
       for (int i = filainicio; i <= filafinal; i++)
       {          
@@ -48,6 +48,11 @@ namespace ClassLibrary
     {
       tablero.ActualizarTablero(fila, columna, 'A');
     }
+    /// <summary>
+    /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un atauqe
+    /// </summary>
+    /// <param name="tablero"></param>
+    /// <returns></returns>
     public static bool Finalizar(Tablero tablero)
     { 
       return tablero.terminado;
