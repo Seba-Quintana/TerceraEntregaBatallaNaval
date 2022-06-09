@@ -6,6 +6,16 @@ namespace ClassLibrary
     public class Admin
     {
         public List<PerfilUsuario> ListaDeUsuarios = new List<PerfilUsuario>();
+        static Admin instance;
+
+        public static Admin Instance()
+        {
+            if (instance == null)
+            {
+                instance = new Admin();
+            }
+            return instance;
+        }
     
         public void Registrar(string nombre, int id, string contraseña)
         {
