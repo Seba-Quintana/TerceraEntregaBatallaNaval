@@ -19,11 +19,10 @@ namespace Tests
         
         [SetUp]
         public void Setup()
-        {/*
+        {
             this.tablero = new Tablero(9, 01);
             int[] inicioDelBarco = new int[2];
             int[] finalDelBarco = new int[2];
-            LogicaDeTablero.Añadirbarco(tablero ,inicioDelBarco ,finalDelBarco );*/
         }
 
         /// <summary>
@@ -31,12 +30,12 @@ namespace Tests
         /// </summary>
         [Test]
         public void Coordenada()
-        {/*
+        {
             int[] a = TraductorDeCoordenadas.Traducir("A1");
             int[] expected = new int[2];
             expected[0] = 0;
-            expected[1] = 1;
-            Assert.AreEqual(expected, a);*/
+            expected[1] = 0;
+            Assert.AreEqual(expected, a);
         }
 
         /// <summary>
@@ -44,12 +43,12 @@ namespace Tests
         /// </summary>
         [Test]
         public void CoordenadaMinuscula()
-        {/*
+        {
             int[] a = TraductorDeCoordenadas.Traducir("a1");
             int[] expected = new int[2];
             expected[0] = 0;
             expected[1] = 0;
-            Assert.AreEqual(expected, a);*/
+            Assert.AreEqual(expected, a);
         }
 
         /// <summary>
