@@ -82,7 +82,7 @@ namespace ClassLibrary
         /// <param name="partidas"></param>
         public void ImprimirHistorial(List<DatosdePartida> partidas)
         {
-            Admin ad = new Admin();
+            Admin ad = Admin.Instance();
             foreach (DatosdePartida partida in partidas)
             {
                 foreach (Tablero tablero in partida.Tableros)

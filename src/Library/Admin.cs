@@ -7,7 +7,9 @@ namespace ClassLibrary
     {
         public List<PerfilUsuario> ListaDeUsuarios = new List<PerfilUsuario>();
         static Admin instance;
-
+        private Admin()
+        {
+        }
         public static Admin Instance()
         {
             if (instance == null)
