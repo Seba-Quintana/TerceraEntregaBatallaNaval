@@ -25,7 +25,7 @@ namespace ClassLibrary
     
       public void VerHistorial(int historial)
       {
-          Admin ad = new Admin();
+          Admin ad = Admin:Instance();
           //ad.ObtenerHistorial(historial);
       }
     
