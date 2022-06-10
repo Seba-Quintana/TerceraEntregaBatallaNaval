@@ -13,13 +13,13 @@ namespace ClassLibrary
       
       public void VerPerfil(int perfil)
       {
-         Admin ad = new Admin();
+         Admin ad = Admin.Instance();
          ad.ObtenerPerfil(perfil);
       }  
     
       public void VerRanking()
       {
-         Admin ad = new Admin();
+         Admin ad = Admin.Instance();
          ad.ObtenerRanking();
       }
     
@@ -31,7 +31,7 @@ namespace ClassLibrary
     
       public void PartidaAmistosa(int modo, int jugador1, int jugador2)
       {
-        Admin ad = new Admin();
+        Admin ad = Admin.Instance();
         ad.EmparejarAmigos(modo, jugador1, jugador2);
 
       }
@@ -39,7 +39,7 @@ namespace ClassLibrary
       public void BuscarPartida(int modo, int jugador1)
       {
 
-        Admin ad = new Admin();
+        Admin ad = Admin.Instance();
         ad.Emparejar(modo, jugador1);
       }
       /// <summary>
