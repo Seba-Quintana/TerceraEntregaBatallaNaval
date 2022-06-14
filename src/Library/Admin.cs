@@ -73,7 +73,7 @@ namespace ClassLibrary
             }
         }
         /// <summary>
-        /// Si el PerfilUsuario que contiene el int ingresado se encuentra en la lista de perfiles de admin, este método lo devuelve.
+        /// Si el PerfilUsuario que contiene el int ingresado se encuentra en la lista de perfiles de admin, este metodo lo devuelve.
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
@@ -104,22 +104,30 @@ namespace ClassLibrary
             }
         }
         /// <summary>
-        /// 
+        /// Si el numero de jugador ingresado tiene una partida en juego pide mostrar el tablero del oponente.
         /// </summary>
-        /// <param name="PerfilOponente"></param>
-        public void ObtenerTableroOponente(int PerfilOponente)
+        /// <param name="jugador"></param>
+        public void ObtenerTableroOponente(int jugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            //imprimir.ImprimirTablero(LogicaDePartida.VistaOponente(PerfilOponente));
+            LogicaDePartida juego = PartidaEnJuego.ObtenerLogicadePartida(jugador);
+            if (juego != null)
+            {
+                imprimir.ImprimirTablero(juego.VistaOponente(jugador));
+            }
         }
         /// <summary>
-        /// 
+        /// Si el numero de jugador ingresado tiene una partida en juego pide mostrar el tablero propio.
         /// </summary>
-        /// <param name="perfil"></param>
-        public void ObtenerTablero(int perfil)
+        /// <param name="jugador"></param>
+        public void ObtenerTablero(int jugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            //imprimir.ImprimirTablero(LogicaDePartida.VerTableroPropio(perfil));
+            LogicaDePartida juego = PartidaEnJuego.ObtenerLogicadePartida(jugador);
+            if (juego != null)
+            {
+                imprimir.ImprimirTablero(juego.VerTableroPropio(jugador));
+            }
         }
         /// <summary>
         /// Si el int ingresado es 0 pide mostrar el historial general de todos las partidas jugadas, si el int pertenece a un PerfilUsuario en la lista de perfiles de Admin pide mostrar el HistorialPersonal de este perfil.
@@ -214,17 +222,14 @@ namespace ClassLibrary
             }
         }
         /// <summary>
-        /// Crea un tablero de tamañoxtamaño y se lo asigna a un jugador.
+        /// Crea una LogicadePartida, asignandole un tamaño y dos numeros de jugador.
         /// </summary>
-        /// <param name="Tamaño"></param>
-        /// <param name="dueño"></param>
-        public void CrearTablero(int Tamaño, int dueño)
+        /// <param name="tamaño"></param>
+        /// <param name="jugador1"></param>
+        /// <param name="jugador2"></param>
+        public void CrearLogicadePartida(int tamaño, int jugador1, int jugador2)
         {
-            Tablero tablero = new Tablero(Tamaño, dueño);
-        }
-        public void ActualizarTablero(int filas, int columnas, char nuevovalor)
-        {
-            //Tablero.ActualizarTablero(filas, columnas, nuevovalor);
+            LogicaDePartida partida = new LogicaDePartida(tamaño, jugador1, jugador2);
         }
         /// <summary>
         ///
