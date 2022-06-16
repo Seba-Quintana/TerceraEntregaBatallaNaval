@@ -40,7 +40,10 @@ namespace ClassLibrary
         /// <returns></returns>
         public override string Atacar(int [] LugarDeAtaque, int jugador)
         {
-            if (!pocicionamientoTerminado){ return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";}
+            if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
+            {
+                return "La Etapa de pocicionamiento a terminado";
+            }
             if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador )){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
             if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
             int fila = LugarDeAtaque[0];
@@ -54,6 +57,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[0]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
 
                 }
@@ -63,6 +67,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     Segundastiradas[0]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
                 }
                 else
@@ -80,6 +85,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[1]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
 
                 }
@@ -89,6 +95,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     Segundastiradas[1]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
                 }
                 else
