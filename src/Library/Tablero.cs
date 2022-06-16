@@ -67,7 +67,14 @@ namespace ClassLibrary
                 }
                 else if (nuevovalor == 'A')
                 {
-                    if (matriz[fila, columna] == 'B' || matriz[fila, columna] == 'T')
+                    if (matriz[fila, columna] == 'B')
+                    {
+                        this.matriz[fila, columna] = 'T';
+                        this.CantidadDePartesDeBarcosEnteras -= 1;
+                        if (CantidadDePartesDeBarcosEnteras==0){terminado=true;}
+
+                    }
+                    else if (matriz[fila, columna] == 'T')
                     {
                         this.matriz[fila, columna] = 'T';
                     }
@@ -88,10 +95,6 @@ namespace ClassLibrary
         {
             
             return (matriz[fila, columna]);
-            /*if (fila <= this.tamaño && columna <= this.tamaño)
-            {
-                seria exepcion return "El ataque no pudo ser realizado debido a que las coordenadas enviadas eran erroneas";
-            }*/
         }
         /// <summary>
         /// Metodo encargado de retornar una copia de la matriz para luego ser impresa.
