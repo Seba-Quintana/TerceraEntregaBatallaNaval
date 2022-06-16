@@ -51,7 +51,10 @@ namespace ClassLibrary
         {
             try
             {
-                if (ListaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador))){}
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
+                {
+                    throw new NullReferenceException("El usuario ingresado no existe");
+                }
             }
             catch (NullReferenceException e)
             {
@@ -81,7 +84,10 @@ namespace ClassLibrary
         {
             try
             {
-                if (ListaDeUsuarios.Contains(ObtenerPerfil(usuario))){}
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(usuario)))
+                {
+                    throw new NullReferenceException("El usuario ingresado no existe");
+                }
             }
             catch (NullReferenceException e)
             {
@@ -138,7 +144,10 @@ namespace ClassLibrary
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             try
             {
-                if (ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)) || (numerodejugador == 0)){}
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)) && (numerodejugador != 0))
+                {
+                    throw new NullReferenceException("Usuario no encontrado");
+                }
             }
             catch (NullReferenceException e)
             {
@@ -240,7 +249,10 @@ namespace ClassLibrary
         {
             try
             {
-                if (ListaDeUsuarios.Contains(ObtenerPerfil(jugador1))){}
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)))
+                {
+                    throw new NullReferenceException("El usuario no existe");
+                }
             }
             catch (NullReferenceException e)
             {
@@ -265,7 +277,10 @@ namespace ClassLibrary
         {
             try
             {
-                if (ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)) && ListaDeUsuarios.Contains(ObtenerPerfil(jugador2))){}
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)) && !ListaDeUsuarios.Contains(ObtenerPerfil(jugador2)))
+                {
+                    throw new NullReferenceException("El usuario no existe");
+                }
             }
             catch (NullReferenceException e)
             {
