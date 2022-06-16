@@ -19,6 +19,9 @@ namespace ClassLibrary
         /// 
         /// </summary>
         /// <returns></returns>
+        private Admin()
+        {
+        }
         public static Admin Instance()
         {
             if (instance == null)

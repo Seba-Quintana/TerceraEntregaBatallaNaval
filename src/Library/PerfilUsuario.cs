@@ -5,6 +5,8 @@ namespace ClassLibrary
 {
     /// <summary>
     /// 
+    /// Esta clase almacena el perfil de un usuario.
+    /// Implementa la interfaz ICloneable para poder crear una copia superficial de un perfil. 
     /// </summary>
     public class PerfilUsuario:ICloneable
     {
@@ -48,9 +50,9 @@ namespace ClassLibrary
         /// </summary>
         public List<DatosdePartida> HistorialPersonal;
         public object Clone()
-    {
-        return this.MemberwiseClone();
-    }
+        {
+            return this.MemberwiseClone();
+        }
         /// <summary>
         /// constructor del perfil de usuario.
         /// </summary>
@@ -70,15 +72,16 @@ namespace ClassLibrary
         /// <summary>
         /// Añade partidas al historial personal del usuario
         /// </summary>
-        /// <param name="partida"></param>
+        /// <param name="partida"> Partida a añadir </param>
         public void AñadiralHistorial(DatosdePartida partida)
         {
             this.HistorialPersonal.Add(partida);
         }
 
+        /// <summary>
         /// Devuelve el perfil para imprimir
         /// </summary>
-        /// <returns></returns>
+        /// <returns> Devuelve el Perfil del usuario </returns>
       
         public PerfilUsuario VerPerfil()
         {
@@ -89,7 +92,7 @@ namespace ClassLibrary
         /// <summary>
         /// Devuelve el historial personal para imprimir
         /// </summary>
-        /// <returns></returns>
+        /// <returns> Devuelve una lista con todos los datos de partida del perfil</returns>
         public List<DatosdePartida> VerHistorialPersonal()
         {
             return this.HistorialPersonal;
