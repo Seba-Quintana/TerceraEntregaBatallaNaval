@@ -7,7 +7,7 @@ namespace ClassLibrary
     /// </summary>
     public class LogicaDePartidaRapida : LogicaDePartida
     {
-         /// <summary>
+        /// <summary>
         /// Atributo con el contador del segundo ataque de cada personaje.
         /// </summary>
         public int[] Segundastiradas = new int[2];
@@ -40,6 +40,12 @@ namespace ClassLibrary
         /// <returns></returns>
         public override string Atacar(int [] LugarDeAtaque, int jugador)
         {
+            if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
+            {
+                return "La Etapa de pocicionamiento a terminado";
+            }
+            if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador )){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
+            if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
             if (jugador == jugadores[0])
@@ -51,6 +57,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[0]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
 
                 }
@@ -60,6 +67,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     Segundastiradas[0]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
                 }
                 else
@@ -77,6 +85,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[1]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
 
                 }
@@ -86,6 +95,7 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     Segundastiradas[1]+=1;
+                    PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
                 }
                 else
