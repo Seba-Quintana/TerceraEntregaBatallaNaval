@@ -153,7 +153,7 @@ namespace ClassLibrary
         {
             if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
             {
-                return "La Etapa de pocicionamiento a terminado";
+                return "La Etapa de posicionamiento ha terminado";
             }
             if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador ))
             {
