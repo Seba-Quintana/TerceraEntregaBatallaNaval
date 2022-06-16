@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
+    /// 
     /// Esta clase almacena el perfil de un usuario.
     /// Implementa la interfaz ICloneable para poder crear una copia superficial de un perfil. 
     /// </summary>

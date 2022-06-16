@@ -3,10 +3,22 @@ using System.Collections.Generic;
 
 namespace ClassLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Admin
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="PerfilUsuario"></typeparam>
+        /// <returns></returns>
         public List<PerfilUsuario> ListaDeUsuarios = new List<PerfilUsuario>();
         static Admin instance;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private Admin()
         {
         }
@@ -18,56 +30,130 @@ namespace ClassLibrary
             }
             return instance;
         }
-    
+        /// <summary>
+        /// Crea un nuevo perfil de usuario asignandole un numero de jugador, si es el primer usuario creado le asigna el numero 1 y de lo contrario le asigna el numero mas alto de un jugador existente +1, luego crea un PerfilUsuario con estos datos y lo agrega a la lista de perfiles que contiene admin.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="id"></param>
+        /// <param name="contraseña"></param>
         public void Registrar(string nombre, int id, string contraseña)
         {
-                
-            //PerfilUsuario usuario = new PerfilUsuario (nombre,id,contraseña);
-            //ListaDeUsuarios.Add(usuario);
+            int numeroDeJugador = 1;
+            if (ListaDeUsuarios.Count != 0)
+            {
+                numeroDeJugador = ListaDeUsuarios[ListaDeUsuarios.Count - 1].NumeroDeJugador + 1;
+            }    
+            PerfilUsuario usuario = new PerfilUsuario(nombre, id, contraseña, numeroDeJugador);
+            ListaDeUsuarios.Add(usuario);
         }
+        /// <summary>
+        /// Si el numero de usuarios pertenece a un PerfilUsuario en la lista de perfiles de admin, lo elimina de la lista.
+        /// </summary>
+        /// <param name="NumeroDeJugador"></param>
         public void Remover(int NumeroDeJugador)
         {
-            foreach (PerfilUsuario usuario in ListaDeUsuarios)
+            try
             {
-                if (usuario.NumeroDeJugador == NumeroDeJugador)
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
                 {
-                    ListaDeUsuarios.Remove(usuario);
+                    throw new NullReferenceException("El usuario ingresado no existe");
                 }
             }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException("El usuario ingresado no existe", e);
+            }
+            try
+            {
+                foreach (PerfilUsuario usuario in ListaDeUsuarios)
+                {
+                    if (usuario.NumeroDeJugador == NumeroDeJugador)
+                    {
+                        ListaDeUsuarios.Remove(usuario);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo ejecutar el programa", e);
+            }
         }
-
+        /// <summary>
+        /// Si el PerfilUsuario que contiene el int ingresado se encuentra en la lista de perfiles de admin, este metodo lo devuelve.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public PerfilUsuario ObtenerPerfil(int usuario)
         {
-            int i = 0;
-            while (i != ListaDeUsuarios.Count - 1)
+            try
             {
-                if (ListaDeUsuarios[i].NumeroDeJugador == usuario)
-                    return ListaDeUsuarios[i];
-                i++;
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(usuario)))
+                {
+                    throw new NullReferenceException("El usuario ingresado no existe");
+                }
             }
-            return null;
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException("El usuario ingresado no existe", e);
+            }
+            try
+            {
+                int i = 0;
+                while (i != ListaDeUsuarios.Count - 1)
+                {
+                    if (ListaDeUsuarios[i].NumeroDeJugador == usuario)
+                        return ListaDeUsuarios[i];
+                    i++;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo ejecutar el programa", e);
+            }
         }
-
-        public void ObtenerTableroOponente(PerfilUsuario PerfilOponente)
+        /// <summary>
+        /// Si el numero de jugador ingresado tiene una partida en juego pide mostrar el tablero del oponente.
+        /// </summary>
+        /// <param name="jugador"></param>
+        public void ObtenerTableroOponente(int jugador)
         {
-            //char[,] matrizImprimir = PerfilOponente.TableroActual.matriz.Clone() as char[,];
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            LogicaDePartida juego = PartidaEnJuego.ObtenerLogicadePartida(jugador);
+            if (juego != null)
+            {
+                imprimir.ImprimirTablero(juego.VistaOponente(jugador));
+            }
         }
-
-        public void ObtenerTablero(int perfil)
+        /// <summary>
+        /// Si el numero de jugador ingresado tiene una partida en juego pide mostrar el tablero propio.
+        /// </summary>
+        /// <param name="jugador"></param>
+        public void ObtenerTablero(int jugador)
         {
-            //Iimpresora.ImprimirTablero(tablero);
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            LogicaDePartida juego = PartidaEnJuego.ObtenerLogicadePartida(jugador);
+            if (juego != null)
+            {
+                imprimir.ImprimirTablero(juego.VerTableroPropio(jugador));
+            }
         }
-
+        /// <summary>
+        /// Si el int ingresado es 0 pide mostrar el historial general de todos las partidas jugadas, si el int pertenece a un PerfilUsuario en la lista de perfiles de Admin pide mostrar el HistorialPersonal de este perfil.
+        /// </summary>
+        /// <param name="numerodejugador"></param>
         public void ObtenerHistorial(int numerodejugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             try
             {
-                if (ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)) || (numerodejugador == 0)){}
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)) && (numerodejugador != 0))
+                {
+                    throw new NullReferenceException("Usuario no encontrado");
+                }
             }
             catch (NullReferenceException e)
             {
-                Console.WriteLine("Usuario no encontrado");
                 throw new NullReferenceException("Usuario no encontrado", e);
             }
             try
@@ -85,14 +171,14 @@ namespace ClassLibrary
             }
             catch (Exception e)
             {
-                Console.WriteLine("No se pudo ejecutar ObtenerHistorial");
                 throw new Exception("No se pudo ejecutar ObtenerHistorial", e);
             }
         }
-
+        /// <summary>
+        /// Realiza una lista de PerfilUsuario ordenados por cantidad de partidas ganadas y le pide a la impresora que la muestre.
+        /// </summary>
         public void ObtenerRanking()
         {
-
             List<PerfilUsuario> ranking = new List<PerfilUsuario>();
             int i = 0;
             while (i < ListaDeUsuarios.Count)
@@ -122,39 +208,95 @@ namespace ClassLibrary
                 ranking[i] = (PerfilUsuario)ranking[actual].Clone();
                 ranking[actual] = claseCopia;
                 actual++;
-            }   
-            //ImpresoraConsola imprimir = new ImpresoraConsola(); 
-            //imprimir.ImprimirRanking(ranking);
+            }
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            imprimir.ImprimirRanking(ranking);
         }
-
+        /// <summary>
+        /// Pide guardar el historial de una DatosdePartida jugada, tanto al historial general como al historial personal de cada jugador.
+        /// </summary>
+        /// <param name="partida"></param>
         public void ActualizarHistorial(DatosdePartida partida)
         {
+            Historial.AlmacenarPartida(partida);
             foreach (PerfilUsuario usuario in ListaDeUsuarios)
             {
-                if (partida.Ganador == usuario.NumeroDeJugador || partida.Perdedor == usuario.NumeroDeJugador)
+                if (partida.Ganador == usuario.NumeroDeJugador)
                 {
-                    //PerfilUsuario.AñadiralHistorial(partida);
+                    PerfilUsuario jugador = ObtenerPerfil(partida.Ganador);
+                    jugador.AñadiralHistorial(partida);
+                }
+                else
+                {
+                    PerfilUsuario jugador = ObtenerPerfil(partida.Perdedor);
+                    jugador.AñadiralHistorial(partida);
                 }
             }
         }
-
-        public void CrearTablero(int Tamaño, int dueño)
+        /// <summary>
+        /// Crea una LogicadePartida, asignandole un tamaño y dos numeros de jugador.
+        /// </summary>
+        /// <param name="tamaño"></param>
+        /// <param name="jugador1"></param>
+        /// <param name="jugador2"></param>
+        public void CrearLogicadePartida(int tamaño, int jugador1, int jugador2)
         {
-            Tablero tablero = new Tablero(Tamaño, dueño);
+            LogicaDePartida partida = new LogicaDePartida(tamaño, jugador1, jugador2);
         }
-
-        public void ActualizarTablero(int filas, int columnas, char nuevovalor)
-        {
-            //Tablero.ActualizarTablero(filas, columnas, nuevovalor);
-        }
-
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="modo"></param>
+        /// <param name="jugador1"></param>
         public void Emparejar(int modo, int jugador1)
         {
-            EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
+            try
+            {
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)))
+                {
+                    throw new NullReferenceException("El usuario no existe");
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException("El usuario no existe", e);
+            }
+            try
+            {
+                EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo ejecutar correctamente el programa", e);
+            }            
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modo"></param>
+        /// <param name="jugador1"></param>
+        /// <param name="jugador2"></param>
         public void EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
-            EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+            try
+            {
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)) && !ListaDeUsuarios.Contains(ObtenerPerfil(jugador2)))
+                {
+                    throw new NullReferenceException("El usuario no existe");
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException("Uno de los usuarios no existe", e);
+            }
+            try
+            {
+                EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo ejecutar correctamente el programa", e);
+            }
         }
     }
 
