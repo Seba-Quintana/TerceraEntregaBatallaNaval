@@ -69,11 +69,14 @@ namespace ClassLibrary
         */
             try
             {
-                
+                if (!ColaEmparejamientosN.Contains(usuario))
+                    if (!ColaEmparejamientosR.Contains(usuario))
+                        throw new ArgumentOutOfRangeException();
             }
-            catch (IndexOutOfRangeException index)
+            catch (ArgumentOutOfRangeException)
             {
-                throw new ArgumentOutOfRangeException("indice de cola se va de rango", index);
+                throw new JugadorNoEncontradoException
+                ("El jugador no se encuentra esperando partida", usuario);
             }
             try
             {    
@@ -110,29 +113,41 @@ namespace ClassLibrary
                     }
                 }
             }
-            catch(Exception b)
+            catch(ArgumentException ExCola)
             {
-                throw new Exception("indice de cola se va de rango", b);
+                throw new ArgumentException("Excepcion por argumento (cola)", ExCola);
             }
         }
 
         /// <summary>
-        /// Empareja a dos jugadores
+        /// Empareja a dos jugadores, el que busca partida y uno aleatorio (determinado por la cola)
         /// </summary>
-        /// <param name="modo"></param>
-        /// <param name="jugador"></param>
+        /// <param name="modo"> modo de juego elegido </param>
+        /// <param name="jugador"> jugador a emparejar </param>
         public static int[] EmparejarAleatorio(int modo, int jugador)
         {
-            int[] jugadores = new int[2];
+            try
+            {
+                if (modo != 0)
+                    if (modo != 1)
+                        throw new ArgumentException();
+            }
+            catch (ArgumentException ExModo)
+            {
+                throw new ArgumentException("Excepcion por argumento (modo)", ExModo);
+            }
             if (modo == 0) // modo normal
             {
                 ColaEmparejamientosN.Enqueue(jugador);
                 if (ColaEmparejamientosN.Count >= 2)
                 {
+                    int[] jugadores = new int[2];
                     int uno = ColaEmparejamientosN.Peek();
                     ColaEmparejamientosN.Dequeue();
                     jugadores[0] = uno;
                     jugadores[1] = ColaEmparejamientosN.Peek();
+                    ColaEmparejamientosN.Dequeue();
+                    return jugadores;
                 }
             }
             else if (modo == 1) // modo rapido
@@ -140,13 +155,16 @@ namespace ClassLibrary
                 ColaEmparejamientosR.Enqueue(jugador);
                 if (ColaEmparejamientosR.Count >= 2)
                 {
+                    int[] jugadores = new int[2];
                     int uno = ColaEmparejamientosR.Peek();
                     ColaEmparejamientosR.Dequeue();
                     jugadores[0] = uno;
                     jugadores[1] = ColaEmparejamientosR.Peek();
+                    ColaEmparejamientosR.Dequeue();
+                    return jugadores;
                 }
             }
-            return jugadores;
+            return null;
         }
 
         /// <summary>
