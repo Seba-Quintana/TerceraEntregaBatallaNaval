@@ -73,7 +73,7 @@ namespace ClassLibrary
       public void PosicionarBarcos(string inicio, string final)
       {
         LogicaDePartida partida = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        //partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
+        partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
       }
       /// <summary>
       /// 
@@ -81,8 +81,8 @@ namespace ClassLibrary
       /// <param name="coordenada"></param>
       public void Atacar(string coordenada)
       {
-        LogicaDePartida a = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        //LogicaDePartida.Atacar(coordenada);
+        LogicaDePartida partida = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+        partida.Atacar(coordenada, this.NumeroDeJugador);
       }
     }
     

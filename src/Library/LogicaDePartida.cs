@@ -69,8 +69,10 @@ namespace ClassLibrary
         /// <param name="jugador"></param>
         /// <returns></returns>
 
-        public virtual string Atacar(int [] LugarDeAtaque, int jugador)
+        public virtual string Atacar(string lugar, int jugador)
         {
+            int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(lugar);
+
             if (!pocicionamientoTerminado[0] || !pocicionamientoTerminado[1]){ return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";}
             if (!jugadores.Contains(jugador) ){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
             if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
@@ -149,8 +151,11 @@ namespace ClassLibrary
         /// <param name="coordenada2"></param>
         /// <param name="jugador"></param>
         /// <returns></returns>
-        public string AñadirBarco(int [] coordenada1, int [] coordenada2, int jugador)
+        public string AñadirBarco(string coor1, string coor2, int jugador)
         {
+            int[] coordenada1 = TraductorDeCoordenadas.Traducir(coor1);
+            int[] coordenada2 = TraductorDeCoordenadas.Traducir(coor2);
+
             if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
             {
                 return "La Etapa de posicionamiento ha terminado";
