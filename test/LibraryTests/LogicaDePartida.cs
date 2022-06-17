@@ -4,7 +4,7 @@
 // </copyright>
 //--------------------------------------------------------------------------------
 
-using ClassLibrary;
+/*using ClassLibrary;
 using NUnit.Framework;
 
 namespace Tests
@@ -211,4 +211,4 @@ namespace Tests
             Assert.AreEqual(expected, tableroActualizado[7,5]);
         }
     }
-}
+}*/

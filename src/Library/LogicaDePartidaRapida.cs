@@ -30,6 +30,7 @@ namespace ClassLibrary
             tiradas[1]=0;
             Segundastiradas[0]=0;
             Segundastiradas[1]=0;
+            PartidasEnJuego.AlmacenarLogicadePartida(this);
         }
         /// <summary>
         /// Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar

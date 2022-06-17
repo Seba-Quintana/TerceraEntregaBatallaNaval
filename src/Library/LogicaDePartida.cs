@@ -16,7 +16,7 @@ namespace ClassLibrary
         /// <summary>
         /// Variable encargada de el controlar si se puede empezar a atacar y no se puede pocicionar mas.
         /// /// </summary>
-        public bool[] pocicionamientoTerminado;
+        public bool[] pocicionamientoTerminado = new bool[2];
         /// <summary>
         /// Array encargado de guardar los 2 tableros necesarios para una partida.
         /// </summary>
@@ -45,12 +45,13 @@ namespace ClassLibrary
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             tableros[1] = new Tablero(tamaño,jugador2);
             jugadores[1]=jugador2;
-            cantidadDeBarcosParaPocicionar[0]= (tamaño * 2) - 3 ;
-            cantidadDeBarcosParaPocicionar[1]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPocicionar[0]= (tamaño*tamaño*25)/100;
+            cantidadDeBarcosParaPocicionar[1]= (tamaño*tamaño*25)/100;
             tiradas[0]=0;
             tiradas[1]=0;
             pocicionamientoTerminado[0]=false;
             pocicionamientoTerminado[1]=false;
+            PartidasEnJuego.AlmacenarLogicadePartida(this);
 
         }
 
@@ -73,7 +74,7 @@ namespace ClassLibrary
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(lugar);
 
-            if (!pocicionamientoTerminado[0] || !pocicionamientoTerminado[1]){ return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";}
+            if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1]){return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";}
             if (!jugadores.Contains(jugador) ){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
             if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
             // Estaria bueno a exepcion aca para ver que las coordenadas sean inferiores al tamaño de las matrices.
@@ -82,10 +83,9 @@ namespace ClassLibrary
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
             if (jugador == jugadores[0])
-            {
+            { 
                 if (tiradas[0]==tiradas[1])
-                {
-                    
+                {                 
                     Tablero tablerobjetivo = tableros[1];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
@@ -156,7 +156,7 @@ namespace ClassLibrary
             int[] coordenada1 = TraductorDeCoordenadas.Traducir(coor1);
             int[] coordenada2 = TraductorDeCoordenadas.Traducir(coor2);
 
-            if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
+            if (pocicionamientoTerminado[0] && pocicionamientoTerminado[1])
             {
                 return "La Etapa de posicionamiento ha terminado";
             }
@@ -173,6 +173,8 @@ namespace ClassLibrary
             int columnafinal = coordenadasOrdenadas[3];
 
             int casillasutilizadas = largoDeBarcos(filainicio, columnainicio, filafinal, columnafinal);
+            if (casillasutilizadas < 0)
+                casillasutilizadas = casillasutilizadas*(-1);
             
             if (jugador == jugadores[0])
             {
@@ -197,6 +199,7 @@ namespace ClassLibrary
                     }
                     else
                     {
+                        pocicionamientoTerminado[0] = false;
                         return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPocicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                     }
                     
@@ -211,7 +214,7 @@ namespace ClassLibrary
             {
                 if (casillasutilizadas != 0)
                 {
-                    if (casillasutilizadas <=this.tiradas[1] )
+                    if (casillasutilizadas <= cantidadDeBarcosParaPocicionar[1])
                     {
                         string respuesta;
                         try{
@@ -228,6 +231,7 @@ namespace ClassLibrary
                     }
                     else
                     {
+                        pocicionamientoTerminado[1] = false;
                         return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPocicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                     }
                 }
