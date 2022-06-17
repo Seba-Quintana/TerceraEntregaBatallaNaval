@@ -10,6 +10,20 @@ namespace ClassLibrary
     /// </summary>
     public class Jugador
     {
+      public int NumeroDeJugador;
+
+      public Jugador(string nombre, int id, string contraseña)
+      {
+        Admin ad = Admin.Instance();
+        this.NumeroDeJugador = id;
+        ad.Registrar(nombre, id, contraseña);
+      }
+
+      public void Remover()
+      {
+        Admin ad = Admin.Instance();
+        ad.Remover(this.NumeroDeJugador);
+      }
       
       public void VerPerfil(int perfil)
       {
@@ -26,7 +40,7 @@ namespace ClassLibrary
       public void VerHistorial(int historial)
       {
           Admin ad = Admin.Instance();
-          //ad.ObtenerHistorial(historial);
+          ad.ObtenerHistorial(historial);
       }
     
       public void PartidaAmistosa(int modo, int jugador1, int jugador2)
@@ -47,8 +61,9 @@ namespace ClassLibrary
       /// </summary>
       public void VisualizarTablero()
       {
-        //Admin.ObtenerTableroOponente();
-        //Admin.ObtenerTablero();
+        Admin ad = Admin.Instance();
+        ad.ObtenerTableroOponente(this.NumeroDeJugador);
+        ad.ObtenerTablero(this.NumeroDeJugador);
       }
       /// <summary>
       /// 
@@ -57,7 +72,8 @@ namespace ClassLibrary
       /// <param name="final"></param>
       public void PosicionarBarcos(string inicio, string final)
       {
-        //LogicaDePartida.añadirBarco(TraductorDeCoordenadas.Traducir(inicio),TraductorDeCoordenadas.Traducir(final));
+        LogicaDePartida partida = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+        //partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
       }
       /// <summary>
       /// 
@@ -65,7 +81,8 @@ namespace ClassLibrary
       /// <param name="coordenada"></param>
       public void Atacar(string coordenada)
       {
-//LogicaDePartida.Atacar(TraductorDeCoordenadas.Traducir(coordenada));
+        LogicaDePartida a = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+        //LogicaDePartida.Atacar(coordenada);
       }
     }
     
