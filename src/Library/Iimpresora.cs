@@ -18,7 +18,7 @@ namespace ClassLibrary
         /// 
         /// </summary>
         /// <param name="tablero"></param>
-        public void ImprimirTablero(char[,] tablero);
+        public void ImprimirTablero(char[,] tablero, bool jugador);
         /// <summary>
         /// 
         /// </summary>

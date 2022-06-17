@@ -25,8 +25,16 @@ namespace ClassLibrary
         /// Imprime el tablero en consola agregandole indices de coordenadas
         /// </summary>
         /// <param name="tablero"></param>
-        public void ImprimirTablero(char[,] tablero)
+        public void ImprimirTablero(char[,] tablero, bool jugador)
         {
+            if (jugador)
+            {
+                Console.WriteLine("TABLERO PROPIO\n");
+            }
+            else
+            {
+                Console.WriteLine("TABLERO OPONENTE\n");
+            }
             string filaImprimir = "  ";
             List<string> letras = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O" };
             Console.WriteLine(filaImprimir);
@@ -50,21 +58,22 @@ namespace ClassLibrary
                     switch (tablero[fila, columna])
                     {
                         case 'W':
-                            filaImprimir = filaImprimir + " " + "W ";
+                            filaImprimir = filaImprimir + " " + "O ";
                             break;
                         case 'T':
-                            filaImprimir = filaImprimir + " " + "T ";
+                            filaImprimir = filaImprimir + " " + "X ";
                             break;
                         case 'B':
                             filaImprimir = filaImprimir + " " + "B ";
                             break;
                         default:
-                            filaImprimir = filaImprimir + " " + "X ";
+                            filaImprimir = filaImprimir + " " + "~ ";
                             break;
                     }
                 }
                 Console.WriteLine(filaImprimir);
             }
+            Console.WriteLine("\n");
         }
         /// <summary>
         /// Imprime los datos publicos de los usuarios en consola
@@ -73,8 +82,9 @@ namespace ClassLibrary
         public void ImprimirPerfilUsuario(PerfilUsuario perfil)
         {
             Console.WriteLine($"Nombre: {perfil.Nombre}");
+            Console.WriteLine($"Numero de jugador: {perfil.NumeroDeJugador}");
             Console.WriteLine($"Ganadas: {perfil.Ganadas}");
-            Console.WriteLine($"Nombre: {perfil.Perdidas}");
+            Console.WriteLine($"Perdidas: {perfil.Perdidas}");
         }
         /// <summary>
         /// Imprime el historial de todas las partidas jugadas en consola

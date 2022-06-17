@@ -15,8 +15,7 @@ namespace ClassLibrary
       public Jugador(string nombre, int id, string contraseña)
       {
         Admin ad = Admin.Instance();
-        this.NumeroDeJugador = id;
-        ad.Registrar(nombre, id, contraseña);
+        this.NumeroDeJugador = ad.Registrar(nombre, id, contraseña);
       }
 
       public void Remover()
@@ -28,7 +27,7 @@ namespace ClassLibrary
       public void VerPerfil(int perfil)
       {
          Admin ad = Admin.Instance();
-         ad.ObtenerPerfil(perfil);
+         ad.VerPerfil(perfil);
       }  
     
       public void VerRanking()
@@ -43,18 +42,18 @@ namespace ClassLibrary
           ad.ObtenerHistorial(historial);
       }
     
-      public void PartidaAmistosa(int modo, int jugador1, int jugador2)
+      public void PartidaAmistosa(int modo, int jugador2, int tamano)
       {
         Admin ad = Admin.Instance();
-        ad.EmparejarAmigos(modo, jugador1, jugador2);
+        ad.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
 
       }
     
-      public void BuscarPartida(int modo, int jugador1)
+      public void BuscarPartida(int modo)
       {
 
         Admin ad = Admin.Instance();
-        ad.Emparejar(modo, jugador1);
+        ad.Emparejar(modo, this.NumeroDeJugador);
       }
       /// <summary>
       /// 
@@ -72,8 +71,8 @@ namespace ClassLibrary
       /// <param name="final"></param>
       public void PosicionarBarcos(string inicio, string final)
       {
-        LogicaDePartida partida = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        //partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
+        LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+        partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
       }
       /// <summary>
       /// 
@@ -81,8 +80,8 @@ namespace ClassLibrary
       /// <param name="coordenada"></param>
       public void Atacar(string coordenada)
       {
-        LogicaDePartida a = PartidaEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        //LogicaDePartida.Atacar(coordenada);
+        LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+        partida.Atacar(coordenada, this.NumeroDeJugador);
       }
     }
     

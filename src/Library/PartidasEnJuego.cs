@@ -6,12 +6,12 @@ namespace ClassLibrary
     /// <summary>
     /// Almacena la LogicaDePartida mientras esta en curso
     /// </summary>
-    public static class PartidaEnJuego
+    public static class PartidasEnJuego
     {
         /// <summary>
         /// 
         /// </summary>
-        public static List<LogicaDePartida> partidas;
+        public static List<LogicaDePartida> partidas = new List<LogicaDePartida>();
         /// <summary>f
         /// Agrega una LogicadePartida a la lista.
         /// </summary>

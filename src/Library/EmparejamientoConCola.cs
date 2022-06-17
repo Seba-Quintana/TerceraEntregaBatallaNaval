@@ -168,7 +168,7 @@ namespace ClassLibrary
         /// <returns></returns>
         public static int[] EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
-            int[] Amigos = new int[2];
+            int[] Amigos = new int[4];
             // Como se diferencian los modos?
             if (modo == 0) // modo normal
             {

@@ -36,7 +36,7 @@ namespace ClassLibrary
         /// <param name="nombre"></param>
         /// <param name="id"></param>
         /// <param name="contraseña"></param>
-        public void Registrar(string nombre, int id, string contraseña)
+        public int Registrar(string nombre, int id, string contraseña)
         {
             int numeroDeJugador = 1;
             if (ListaDeUsuarios.Count != 0)
@@ -45,6 +45,7 @@ namespace ClassLibrary
             }    
             PerfilUsuario usuario = new PerfilUsuario(nombre, id, contraseña, numeroDeJugador);
             ListaDeUsuarios.Add(usuario);
+            return numeroDeJugador;
         }
         /// <summary>
         /// Si el numero de usuarios pertenece a un PerfilUsuario en la lista de perfiles de admin, lo elimina de la lista.
@@ -52,30 +53,18 @@ namespace ClassLibrary
         /// <param name="NumeroDeJugador"></param>
         public void Remover(int NumeroDeJugador)
         {
-            try
+            if(ObtenerPerfil(NumeroDeJugador) != null)
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
+                int i = 0;
+                while (i <= ListaDeUsuarios.Count - 1)
                 {
-                    throw new NullReferenceException("El usuario ingresado no existe");
-                }
-            }
-            catch (NullReferenceException e)
-            {
-                throw new NullReferenceException("El usuario ingresado no existe", e);
-            }
-            try
-            {
-                foreach (PerfilUsuario usuario in ListaDeUsuarios)
-                {
-                    if (usuario.NumeroDeJugador == NumeroDeJugador)
+                    if (ListaDeUsuarios[i].NumeroDeJugador == NumeroDeJugador)
                     {
-                        ListaDeUsuarios.Remove(usuario);
+                        ListaDeUsuarios.Remove(ListaDeUsuarios[i]);  
+                        i = i - 1;
                     }
+                    i = i + 1;
                 }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ejecutar el programa", e);
             }
         }
         /// <summary>
@@ -85,32 +74,23 @@ namespace ClassLibrary
         /// <returns></returns>
         public PerfilUsuario ObtenerPerfil(int usuario)
         {
-            try
+            int i = 0;
+            if (i != ListaDeUsuarios.Count)
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(usuario)))
+                while (i <= ListaDeUsuarios.Count - 1)
                 {
-                    throw new NullReferenceException("El usuario ingresado no existe");
-                }
-            }
-            catch (NullReferenceException e)
-            {
-                throw new NullReferenceException("El usuario ingresado no existe", e);
-            }
-            try
-            {
-                int i = 0;
-                while (i != ListaDeUsuarios.Count - 1)
-                {
-                    if (ListaDeUsuarios[i].NumeroDeJugador == usuario)
+                    if (ListaDeUsuarios[i].NumeroDeJugador == usuario) 
                         return ListaDeUsuarios[i];
                     i++;
                 }
-                return null;
             }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ejecutar el programa", e);
-            }
+            return null;
+        }
+        
+        public void VerPerfil(int usuario)
+        {
+            Iimpresora imprimir = ImpresoraConsola.Instance();
+            imprimir.ImprimirPerfilUsuario(ObtenerPerfil(usuario));
         }
         /// <summary>
         /// Si el numero de jugador ingresado tiene una partida en juego pide mostrar el tablero del oponente.
@@ -119,10 +99,10 @@ namespace ClassLibrary
         public void ObtenerTableroOponente(int jugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            LogicaDePartida juego = PartidaEnJuego.ObtenerLogicadePartida(jugador);
+            LogicaDePartida juego = PartidasEnJuego.ObtenerLogicadePartida(jugador);
             if (juego != null)
             {
-                imprimir.ImprimirTablero(juego.VistaOponente(jugador));
+                imprimir.ImprimirTablero(juego.VistaOponente(jugador), false);
             }
         }
         /// <summary>
@@ -132,10 +112,10 @@ namespace ClassLibrary
         public void ObtenerTablero(int jugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            LogicaDePartida juego = PartidaEnJuego.ObtenerLogicadePartida(jugador);
+            LogicaDePartida juego = PartidasEnJuego.ObtenerLogicadePartida(jugador);
             if (juego != null)
             {
-                imprimir.ImprimirTablero(juego.VerTableroPropio(jugador));
+                imprimir.ImprimirTablero(juego.VerTableroPropio(jugador), true);
             }
         }
         /// <summary>
@@ -239,9 +219,16 @@ namespace ClassLibrary
         /// <param name="tamaño"></param>
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
-        public void CrearLogicadePartida(int tamaño, int jugador1, int jugador2)
+        public void CrearLogicadePartida(int tamaño, int modo, int[] jugadores)
         {
-            LogicaDePartida partida = new LogicaDePartida(tamaño, jugador1, jugador2);
+            if (modo == 0)
+            {
+                LogicaDePartida partida = new LogicaDePartida(tamaño, jugadores[0], jugadores[1]);
+            }
+            else
+            {
+                LogicaDePartidaRapida partida = new LogicaDePartidaRapida(tamaño, jugadores[0], jugadores[1]);
+            }
         }
         /// <summary>
         ///
@@ -276,26 +263,12 @@ namespace ClassLibrary
         /// <param name="modo"></param>
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
-        public void EmparejarAmigos(int modo, int jugador1, int jugador2)
+        public void EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
         {
-            try
+            if (ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)) && ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)))
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador1)) && !ListaDeUsuarios.Contains(ObtenerPerfil(jugador2)))
-                {
-                    throw new NullReferenceException("El usuario no existe");
-                }
-            }
-            catch (NullReferenceException e)
-            {
-                throw new NullReferenceException("Uno de los usuarios no existe", e);
-            }
-            try
-            {
-                EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ejecutar correctamente el programa", e);
+                int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+                CrearLogicadePartida(tamano, modo, jugadores);
             }
         }
     }
