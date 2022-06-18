@@ -19,22 +19,26 @@ namespace ClassLibrary
             List<string> numeros = new List<string> () {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"};
             try
             {
-                if ((coordenada.Length < 2) && (coordenada.Length > 3))
+                if ((coordenada.Length < 2) || (coordenada.Length > 3))
                 {
-                   throw new ArgumentOutOfRangeException(coordenada);
+                   int[] a = null;
+                   return a;
                 }
                 if (!(letras.Contains(coordenada.Substring(0,1).ToUpper())))
                 {
                    Console.WriteLine("Entre");
-                   throw new ArgumentOutOfRangeException(coordenada); 
+                   int[] a = null;
+                   return a ;
                 }
                 if (numeros.Contains(coordenada.Substring(1,1).ToUpper()) == false)
                 {
-                    throw new ArgumentOutOfRangeException(coordenada);
+                    int[] a = null;
+                    return a;
                 }
                 if ((coordenada.Length == 3) && (numeros.Contains(coordenada.Substring(3,1).ToUpper()) == false))
                 {
-                    throw new ArgumentOutOfRangeException(coordenada);
+                    int[] a = null;
+                    return a;
                 }
             }
             catch (ArgumentOutOfRangeException ex)
