@@ -55,12 +55,14 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Metodo llamado para finalizar, guarda los datos mas importantes de la partida en la clase DatosDePartida
+        /// Metodo llamado para finalizar, guarda los datos mas importantes de 
+        /// la partida en la clase DatosDePartida
         /// </summary>
         protected void Finalizar()
         {
             DatosdePartida Almacenaje = new DatosdePartida();
             Almacenaje.Almacenar(tableros,tiradas);
+            PartidasEnJuego.RemoverLogicadePartida(this);
         }
         /// <summary>
         /// Metodo encargado de ver si un ataque es posible y devolver su mensaje de respuesta.
@@ -102,6 +104,7 @@ namespace ClassLibrary
                         this.PartidaTerminada=true;
                         respuesta += $"\nFelicitaciones has ganado la partida";
                         LogicaDeTablero.PartidaFinalizada(tableros[0]);
+                        this.Finalizar();
                     }
                     
                     return respuesta;
@@ -127,7 +130,7 @@ namespace ClassLibrary
                         this.PartidaTerminada=true;
                         respuesta += $"\nFelicitaciones has ganado la partida";
                         LogicaDeTablero.PartidaFinalizada(tableros[1]);
-
+                        this.Finalizar();
                     }
                     return respuesta;
                 }
