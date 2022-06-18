@@ -57,7 +57,7 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo llamado para finalizar, guarda los datos mas importantes de la partida en la clase DatosDePartida
         /// </summary>
-        private void Finalizar()
+        protected void Finalizar()
         {
             DatosdePartida Almacenaje = new DatosdePartida();
             Almacenaje.Almacenar(tableros,tiradas);
@@ -178,81 +178,81 @@ namespace ClassLibrary
             int columnafinal = coordenadasOrdenadas[3];
 
             int casillasutilizadas = largoDeBarcos(filainicio, columnainicio, filafinal, columnafinal);
+
+            if (casillasutilizadas == 0)
+            {
+                return "No se pueden agregar barcos diagonalmente";
+            }
             
             if (jugador == jugadores[0])
             {
-                if (casillasutilizadas != 0)
+                
+                if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[0])
                 {
-                    if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[0]  )
+                    
+                    string respuesta;
+                    try{
+                        respuesta = respuestaDePonerBarcos(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+                        LogicaDeTablero.Añadirbarco(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+                        this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
+                    }
+                    catch(IndexOutOfRangeException){
+                        return "La coordenada enviada es invalida";}
+                    if (cantidadDeBarcosParaPosicionar[0] == 0)
                     {
-                        
-                        string respuesta;
-                        try{
-                            respuesta = respuestaDePonerBarcos(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                            LogicaDeTablero.Añadirbarco(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                            this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
-                        }
-                        catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
-                        if (cantidadDeBarcosParaPosicionar[0] == 0)
-                        {
-                            this.posicionamientoTerminado[0] = true;
-                            return "Has pocicionado todos Los barcos que tenias disponibles en esta partida";
-                        }
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]}";
-                        return respuesta;
+                        this.posicionamientoTerminado[0] = true;
+                        respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
                     }
                     else
                     {
-                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]}";
                     }
-                    
+                    return respuesta;
                 }
                 else
                 {
-                    return "No se pueden agregar barcos diagonalmente";
+                    return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                 }
+                
+            
                 
             }
             else
             {
-                if (casillasutilizadas != 0)
+                if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[1])
                 {
-                    if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[1])
+                    string respuesta;
+                    try{
+                    respuesta = respuestaDePonerBarcos(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+                    LogicaDeTablero.Añadirbarco(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+                    this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;}
+                    catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
+                    if (cantidadDeBarcosParaPosicionar[1] == 0)
                     {
-                        string respuesta;
-                        try{
-                        respuesta = respuestaDePonerBarcos(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                        LogicaDeTablero.Añadirbarco(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                        this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;}
-                        catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
-                        if (cantidadDeBarcosParaPosicionar[1] == 0)
-                        {
-                            this.posicionamientoTerminado[1] = true;
-                            return "Has pocicionado todos Los barcos que tenias disponibles en esta partida";
-                        }
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]}";
-                        return respuesta;
+                        this.posicionamientoTerminado[1] = true;
+                        respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
                     }
                     else
                     {
-                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]}";
                     }
+                    return respuesta;
                 }
                 else
                 {
-                    return "No se pueden agregar barcos diagonalmente";
+                    return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                 }
+                
             }
         }
 
         /// <summary>
-        /// Metodo utilizado para organizar las coordenadas, para que sea lo mismo decir poner barco desde A1 a A5
-        /// que decir A5 a A1
+        /// Metodo utilizado para organizar las coordenadas, para que sea lo mismo decir A1 a A5 que A5 a A1
         /// </summary>
         /// <param name="coordenada1"></param>
         /// <param name="coordenada2"></param>
         /// <returns></returns>
-        private int[] ordenadorDeCoordenadas(int [] coordenada1, int [] coordenada2)
+        protected int[] ordenadorDeCoordenadas(int [] coordenada1, int [] coordenada2)
         {
             int [] nuevasCoordenadas = new int [4];
             if (coordenada1[0]>coordenada2[0])
@@ -287,21 +287,21 @@ namespace ClassLibrary
         /// <param name="filafinal"></param>
         /// <param name="columnafinal"></param>
         /// <returns></returns>
-        private int largoDeBarcos ( int filainicio, int columnainicio, int filafinal, int columnafinal)
+        protected int largoDeBarcos ( int filainicio, int columnainicio, int filafinal, int columnafinal)
         {
-            int resultado = 1;
+            int resultado = 0;
             if (filainicio == filafinal)
             {
-                resultado += columnafinal - columnainicio;
+                resultado = 1 + columnafinal - columnainicio;
             }
-            else
+            else if (columnainicio == columnafinal)
             {
-                resultado += filafinal - filainicio ;
+                resultado = 1 + filafinal  - filainicio;
             }
             return resultado;
         }
         /// <summary>
-        /// Constructor de mensaje Devuelto en cuanto se ponen barcos.
+        /// Constructor del mensaje devuelto en cuanto se ponen barcos.
         /// </summary>
         /// <param name="tablerobjetivo"></param>
         /// <param name="filainicio"></param>
@@ -309,25 +309,25 @@ namespace ClassLibrary
         /// <param name="filafinal"></param>
         /// <param name="columnafinal"></param>
         /// <returns></returns>
-        private string respuestaDePonerBarcos(Tablero tablerobjetivo, int filainicio, int columnainicio,int filafinal, int columnafinal)
+        protected string respuestaDePonerBarcos(Tablero tablerobjetivo, int filainicio, int columnainicio,int filafinal, int columnafinal)
         {
             if (filainicio == filafinal)
             {
-                for (int i = columnainicio; i > columnafinal; i++)
+                for (int i = columnainicio; i < columnafinal; i++)
                 {
                     if (tablerobjetivo.VerCasilla(filainicio, i) == 'B')
                     {
-                        return "Has pocicionado un barco sobre otro, empezaras la partida con la parte que coliciono dañada como si le hubieran disparado";
+                        return "Has posicionado un barco sobre otro, empezaras la partida con la parte que colisiono dañada como si le hubieran disparado";
                     }
                 }
             }
             else if (columnainicio == columnafinal)
             {
-                for (int i = filainicio; i > filafinal; i++)
+                for (int i = filainicio; i < filafinal; i++)
                 {          
                     if (tablerobjetivo.VerCasilla(i , columnainicio) == 'B')
                     {
-                        return "Has pocicionado un barco sobre otro, empezaras la partida con la parte que coliciono dañada como si le hubieran disparado";
+                        return "Has posicionado un barco sobre otro, empezaras la partida con la parte que colisiono dañada como si le hubieran disparado";
                     }
                         
                 }
@@ -344,7 +344,8 @@ namespace ClassLibrary
         public char[ , ] VerTableroPropio(int jugador)
         {
             if (!jugadores.Contains(jugador))
-            {return null;}
+            {
+                return null;}
             if (tableros[0].DueñodelTablero==jugador)
             {
                 return tableros[0].VerTablero();
@@ -362,6 +363,9 @@ namespace ClassLibrary
             
         public char[ , ] VistaOponente (int jugador)
         {
+            if (!jugadores.Contains(jugador))
+            {
+                return null;}
             if (tableros[0].DueñodelTablero==jugador)
             {
                 char[ , ] matrizSinBarcos = tableros[1].VerTablero();
