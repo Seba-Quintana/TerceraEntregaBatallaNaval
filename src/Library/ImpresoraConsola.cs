@@ -8,16 +8,23 @@ namespace ClassLibrary
     /// </summary>
     public class ImpresoraConsola : Iimpresora
     {
+        /// <summary>
+        /// Parte de singleton. Atributo donde se guarda la instancia de la impresora (o null si no fue creada).
+        /// </summary>
         private static ImpresoraConsola impresoraConsola  = null; 
  
+        /// <summary>
+        /// Parte de singleton. Constructor llamado por el metodo Instance en caso de crearse una impresora.
+        /// </summary>
         private ImpresoraConsola()
         {
         }
+        
         /// <summary>
-        /// Se ve de hacer una instancia de la clase ImpresoraConsola con el patron de diseño Singleton, 
+        /// Se crea una instancia de la clase ImpresoraConsola con el patron de diseño Singleton, 
         /// en caso de que no exista, se crea una Impresora.
         /// </summary>
-        /// <returns></returns>
+        /// <returns> instancia de impresora </returns>
         public static ImpresoraConsola Instance()
         {
             if (impresoraConsola == null)
@@ -25,9 +32,10 @@ namespace ClassLibrary
       
             return impresoraConsola;
         }
+        
         /// <summary>
-        /// Con este método se imprime el tablero en la consola agregándole índices de coordenadas, se verán nuestro tablero
-        /// y el del oponente .
+        /// Con este método se imprime el tablero en la consola agregándole índices de coordenadas, imprime el tablero
+        /// del jugador que solicita la impresion y el de su oponente.
         /// </summary>
         /// <param name="tablero"></param>
         public void ImprimirTablero(char[,] tablero, bool jugador)
@@ -80,8 +88,9 @@ namespace ClassLibrary
             }
             Console.WriteLine("\n");
         }
+        
         /// <summary>
-        /// Este método imprime los datos publicos de los usuarios en consola, 
+        /// Este metodo imprime los datos publicos de los usuarios en consola, 
         /// los cuales son: Nombre, Número de Jugador y las cantidades de 
         /// partidas ganadas y partidas perdidas que el usuario tenga.
         /// </summary>
@@ -93,6 +102,7 @@ namespace ClassLibrary
             Console.WriteLine($"Ganadas: {perfil.Ganadas}");
             Console.WriteLine($"Perdidas: {perfil.Perdidas}");
         }
+        
         /// <summary>
         /// Este método se encarga de imprimir el historial de todas las partidas que se jugaron en la consola.
         /// </summary>
@@ -110,9 +120,10 @@ namespace ClassLibrary
                 Console.WriteLine($"Perdedor: {ad.ObtenerPerfil(partida.Perdedor).Nombre}");
             }
         }
+        
         /// <summary>
         /// Con esto método se imprime en consola un ranking, en el que los perfiles tienen posiciones dentro de este, los perfiles
-        /// son ordenados según las batallas ganadas que los usuarios tengan acompañado del nombre de los usuarios que estén.
+        /// son ordenados según las batallas ganadas que los usuarios tengan.
         /// </summary>
         public void ImprimirRanking(List<PerfilUsuario> perfiles)
         {
