@@ -10,13 +10,13 @@ namespace ClassLibrary
     public class LogicaDePartida
     {
         /// <summary>
-        /// Variable encargada de el controlar si se puede empezar a atacar y no se puede pocicionar mas.
+        /// Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
         /// /// </summary>
         public bool PartidaTerminada;
         /// <summary>
-        /// Variable encargada de el controlar si se puede empezar a atacar y no se puede pocicionar mas.
+        /// Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
         /// /// </summary>
-        public bool[] pocicionamientoTerminado = new bool[2];
+        public bool[] posicionamientoTerminado = new bool[2];
         /// <summary>
         /// Array encargado de guardar los 2 tableros necesarios para una partida.
         /// </summary>
@@ -32,7 +32,7 @@ namespace ClassLibrary
         /// <summary>
         /// Simboliza la cantidad de barcos que quedan para ubicar
         /// </summary>
-        public int [] cantidadDeBarcosParaPocicionar = new int[2]; 
+        public int [] cantidadDeBarcosParaPosicionar = new int[2]; 
         /// <summary>
         ///  Constructor de la clase LogicaDePartida.
         /// </summary>
@@ -45,12 +45,12 @@ namespace ClassLibrary
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             tableros[1] = new Tablero(tamaño,jugador2);
             jugadores[1]=jugador2;
-            cantidadDeBarcosParaPocicionar[0]= (tamaño*tamaño*25)/100;
-            cantidadDeBarcosParaPocicionar[1]= (tamaño*tamaño*25)/100;
+            cantidadDeBarcosParaPosicionar[0]= (tamaño*tamaño*25)/100;
+            cantidadDeBarcosParaPosicionar[1]= (tamaño*tamaño*25)/100;
             tiradas[0]=0;
             tiradas[1]=0;
-            pocicionamientoTerminado[0]=false;
-            pocicionamientoTerminado[1]=false;
+            posicionamientoTerminado[0]=false;
+            posicionamientoTerminado[1]=false;
             PartidasEnJuego.AlmacenarLogicadePartida(this);
         }
 
@@ -72,9 +72,9 @@ namespace ClassLibrary
         public virtual string Atacar(string objetivo, int jugador)
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
-            if (!pocicionamientoTerminado[0] || !pocicionamientoTerminado[1])
+            if (!posicionamientoTerminado[0] || !posicionamientoTerminado[1])
             { 
-                return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";
+                return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
                 }
             if (!jugadores.Contains(jugador) )
             { 
@@ -161,15 +161,15 @@ namespace ClassLibrary
         {
             int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadanUno);
             int [] coordenada2 = TraductorDeCoordenadas.Traducir(coordenadaDos);
-            if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
+            if (posicionamientoTerminado[0] || posicionamientoTerminado[1])
             {
-                return "La Etapa de pocicionamiento a terminado";
+                return "La Etapa de posicionamiento a terminado";
             }
             if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador ))
             {
                 return "Posicionamiento no ejecutado, ya que quien pociciona el barco no es uno de los jugadores de la partida";}
             // Estaria bueno un try Catch aca para ver que las coordenadas sean inferiores al tamaño de las matrices.
-            // que vea que se haya vaciado la clase pocicionamiento.
+            // que vea que se haya vaciado la clase posicionamiento.
             int [] coordenadasOrdenadas = ordenadorDeCoordenadas(coordenada1,coordenada2);
             int filainicio = coordenadasOrdenadas[0];
             int columnainicio = coordenadasOrdenadas[1];
@@ -183,26 +183,26 @@ namespace ClassLibrary
             {
                 if (casillasutilizadas != 0)
                 {
-                    if (casillasutilizadas <= cantidadDeBarcosParaPocicionar[0]  )
+                    if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[0]  )
                     {
                         
                         string respuesta;
                         try{
                             respuesta = respuestaDePonerBarcos(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
                             LogicaDeTablero.Añadirbarco(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                            this.cantidadDeBarcosParaPocicionar[0]-= casillasutilizadas;
+                            this.cantidadDeBarcosParaPosicionar[0]-= casillasutilizadas;
                         }
                         catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
-                        if (cantidadDeBarcosParaPocicionar[0] == 0)
+                        if (cantidadDeBarcosParaPosicionar[0] == 0)
                         {
                             return "Has pocicionado todos Los barcos que tenias disponibles en esta partida";
                         }
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPocicionar[0]}";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]}";
                         return respuesta;
                     }
                     else
                     {
-                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPocicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                     }
                     
                 }
@@ -222,18 +222,18 @@ namespace ClassLibrary
                         try{
                         respuesta = respuestaDePonerBarcos(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
                         LogicaDeTablero.Añadirbarco(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                        this.cantidadDeBarcosParaPocicionar[1]-= casillasutilizadas;}
+                        this.cantidadDeBarcosParaPosicionar[1]-= casillasutilizadas;}
                         catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
-                        if (cantidadDeBarcosParaPocicionar[1] == 0)
+                        if (cantidadDeBarcosParaPosicionar[1] == 0)
                         {
                             return "Has pocicionado todos Los barcos que tenias disponibles en esta partida";
                         }
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPocicionar[1]}";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]}";
                         return respuesta;
                     }
                     else
                     {
-                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPocicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                        return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
                     }
                 }
                 else
