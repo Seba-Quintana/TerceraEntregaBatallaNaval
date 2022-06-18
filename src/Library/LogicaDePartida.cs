@@ -74,6 +74,11 @@ namespace ClassLibrary
         public virtual string Atacar(string objetivo, int jugador)
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
+
+            if (LugarDeAtaque==null)
+            {
+                return "La coordenada enviada fue invalida";
+            }
             if (!posicionamientoTerminado[0] || !posicionamientoTerminado[1])
             {
                 return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
@@ -177,6 +182,10 @@ namespace ClassLibrary
         {
             int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadanUno);
             int [] coordenada2 = TraductorDeCoordenadas.Traducir(coordenadaDos);
+            if (coordenada1==null || coordenada2==null)
+            {
+                return "Una de las coordenadas enviadas fue invalida";
+            }
             if ((posicionamientoTerminado[0] && posicionamientoTerminado[1]))
             {
                 return "La Etapa de posicionamiento a terminado";
