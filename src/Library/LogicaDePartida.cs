@@ -353,6 +353,26 @@ namespace ClassLibrary
 
         }
         /// <summary>
+        /// Metodo encargado de la funcionalidad de rendirse.
+        /// </summary>
+        /// <param name="jugador"></param>
+        public void Rendirse(int jugador)
+        {
+            if (jugadores.Contains(jugador))
+            {
+                if (jugadores[0] == jugador)
+                {
+                    LogicaDeTablero.Finalizar(tableros[1]);
+                    this.Finalizar();
+                }
+                else
+                {
+                    LogicaDeTablero.Finalizar(tableros[0]);
+                    this.Finalizar();
+                }
+            }
+        }
+        /// <summary>
         /// Metodo para ver el tablero propio por cada jugador.
         /// </summary>
         /// <param name="jugador"></param>
