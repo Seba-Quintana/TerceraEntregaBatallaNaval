@@ -190,7 +190,7 @@ namespace ClassLibrary
                         try{
                             respuesta = respuestaDePonerBarcos(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
                             LogicaDeTablero.Añadirbarco(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                            this.cantidadDeBarcosParaPosicionar[0]-= casillasutilizadas;
+                            this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
                         }
                         catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
                         if (cantidadDeBarcosParaPosicionar[0] == 0)
@@ -216,13 +216,13 @@ namespace ClassLibrary
             {
                 if (casillasutilizadas != 0)
                 {
-                    if (casillasutilizadas <=this.tiradas[1] )
+                    if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[0])
                     {
                         string respuesta;
                         try{
                         respuesta = respuestaDePonerBarcos(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
                         LogicaDeTablero.Añadirbarco(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                        this.cantidadDeBarcosParaPosicionar[1]-= casillasutilizadas;}
+                        this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;}
                         catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
                         if (cantidadDeBarcosParaPosicionar[1] == 0)
                         {
@@ -290,11 +290,11 @@ namespace ClassLibrary
             int resultado = 0;
             if (filainicio == filafinal)
             {
-                resultado = columnainicio - columnafinal;
+                resultado = columnafinal - columnainicio;
             }
             else if (columnainicio == columnafinal)
             {
-                resultado = filainicio - filafinal;
+                resultado = filafinal - filainicio ;
             }
             return resultado;
         }
