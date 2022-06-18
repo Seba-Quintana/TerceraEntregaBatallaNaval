@@ -69,19 +69,21 @@ namespace ClassLibrary
       /// </summary>
       /// <param name="inicio"></param>
       /// <param name="final"></param>
-      public void PosicionarBarcos(string inicio, string final)
+      public string PosicionarBarcos(string inicio, string final)
       {
         LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
+        string mensajeBarco = partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
+        return mensajeBarco;
       }
       /// <summary>
       /// 
       /// </summary>
       /// <param name="coordenada"></param>
-      public void Atacar(string coordenada)
+      public string Atacar(string coordenada)
       {
         LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        partida.Atacar(coordenada, this.NumeroDeJugador);
+        string mensajeAtaque = partida.Atacar(coordenada, this.NumeroDeJugador);
+        return mensajeAtaque;
       }
     }
     
