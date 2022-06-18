@@ -24,8 +24,8 @@ namespace ClassLibrary
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             jugadores[1]=jugador2;
             tableros[1] = new Tablero(tamaño,jugador2);
-            cantidadDeBarcosParaPosicionar[0]= (tamaño * 2) - 3 ;
-            cantidadDeBarcosParaPosicionar[1]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPosicionar[0]= (tamaño * tamaño*25)/100;
+            cantidadDeBarcosParaPosicionar[1]= (tamaño * tamaño*25)/100;
             tiradas[0]=0;
             tiradas[1]=0;
             Segundastiradas[0]=0;
