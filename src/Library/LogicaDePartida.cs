@@ -16,7 +16,7 @@ namespace ClassLibrary
         /// <summary>
         /// Variable encargada de el controlar si se puede empezar a atacar y no se puede pocicionar mas.
         /// /// </summary>
-        public bool[] pocicionamientoTerminado;
+        public bool[] pocicionamientoTerminado = new bool[2];
         /// <summary>
         /// Array encargado de guardar los 2 tableros necesarios para una partida.
         /// </summary>
@@ -72,9 +72,18 @@ namespace ClassLibrary
         public virtual string Atacar(string objetivo, int jugador)
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
-            if (!pocicionamientoTerminado[0] || !pocicionamientoTerminado[1]){ return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";}
-            if (!jugadores.Contains(jugador) ){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
-            if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
+            if (!pocicionamientoTerminado[0] || !pocicionamientoTerminado[1])
+            { 
+                return "Estamos en etapa de pocicionamiento, si no le quedan barcos para pocicionar, entonces espere a que termine de pocicionar su oponente";
+                }
+            if (!jugadores.Contains(jugador) )
+            { 
+                return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
+                }
+            if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño)
+            {
+                return "Las coordenadas enviadas son erroneas";
+                }
             
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
@@ -332,7 +341,8 @@ namespace ClassLibrary
         /// <returns></returns>
         public char[ , ] VerTableroPropio(int jugador)
         {
-            if (!jugadores.Contains(jugador)){return null;}
+            if (!jugadores.Contains(jugador))
+            {return null;}
             if (tableros[0].DueñodelTablero==jugador)
             {
                 return tableros[0].VerTablero();
