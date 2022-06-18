@@ -31,6 +31,14 @@ namespace ClassLibrary
                 partidas.Remove(partida);
             }
         }
+        /// <summary>
+        /// Metodo utilizado para obtener la logica de partida,
+        /// buscandola externamente en esta clase limitandola 
+        /// para que no se pueda acceder a ella desde un 
+        /// usuario que no este jugando dicha partida.
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <returns></returns>
         public static LogicaDePartida ObtenerLogicadePartida(int numeroDeJugador)
         {
             foreach (LogicaDePartida partida in partidas)

@@ -31,37 +31,37 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo encargado de almacenar los datos.
         /// </summary>
-        /// <param name="tableroParaAgregar"></param>
+        /// <param name="tablerosParaAgregar"></param>
         /// <param name="jugadas"></param>
-        public void Almacenar(Tablero[] tableroParaAgregar, int[] jugadas)
+        public void Almacenar(Tablero[] tablerosParaAgregar, int[] jugadas)
         {
-            almacenarTableros(tableroParaAgregar);
-            almacenarJugador(tableroParaAgregar[0].DueñodelTablero);
-            almacenarJugador(tableroParaAgregar[1].DueñodelTablero);
-            Jugadores[0] = tableroParaAgregar[0].DueñodelTablero;
-            Jugadores[1] = tableroParaAgregar[1].DueñodelTablero;
+            almacenarTableros(tablerosParaAgregar);
+            almacenarJugador(tablerosParaAgregar[0].DueñodelTablero);
+            almacenarJugador(tablerosParaAgregar[1].DueñodelTablero);
+            Jugadores[0] = tablerosParaAgregar[0].DueñodelTablero;
+            Jugadores[1] = tablerosParaAgregar[1].DueñodelTablero;
             Tiradas = jugadas;
 
-            if (tableroParaAgregar[0].Ganador == tableroParaAgregar[0].DueñodelTablero)
+            if (tablerosParaAgregar[0].Ganador == Jugadores[0])
             {
-                Ganador = tableroParaAgregar[0].DueñodelTablero;
-                Perdedor = tableroParaAgregar[1].DueñodelTablero;
+                Ganador = Jugadores[0];
+                Perdedor = Jugadores[1];
             }
             else
             {
-                Ganador = tableroParaAgregar[1].DueñodelTablero;
-                Perdedor = tableroParaAgregar[0].DueñodelTablero;
+                Ganador = Jugadores[1];
+                Perdedor = Jugadores[0];
             }
             
-            //Historial.AlmacenarPartida(this);
+            Historial.AlmacenarPartida(this);
         }
         /// <summary>
         /// Metodo encargado de almacenar un tablero
         /// </summary>
-        /// <param name="tableroParaAgregar"></param>
-        private void almacenarTableros(Tablero[] tableroParaAgregar)
+        /// <param name="tablerosParaAgregar"></param>
+        private void almacenarTableros(Tablero[] tablerosParaAgregar)
         {
-            Tableros = tableroParaAgregar;
+            Tableros = tablerosParaAgregar;
 
         }
         /// <summary>

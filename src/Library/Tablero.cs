@@ -104,5 +104,10 @@ namespace ClassLibrary
         {
             return matriz.Clone() as char[ , ];
         }
+        public void Victoria()
+        {
+            this.Ganador = this.DueñodelTablero;
+        }
+        
     }
 }

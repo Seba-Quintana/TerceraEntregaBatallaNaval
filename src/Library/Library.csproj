@@ -9,9 +9,4 @@
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
-    <AdditionalFiles Include="..\..\.analyzers\stylecop.json" />
-  </ItemGroup>
-
 </Project>

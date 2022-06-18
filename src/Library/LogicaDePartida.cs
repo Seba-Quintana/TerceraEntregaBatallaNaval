@@ -96,7 +96,14 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[0]+=1;
-                    PartidaTerminada=tablerobjetivo.terminado;
+                    
+                    if (tablerobjetivo.terminado)
+                    {
+                        this.PartidaTerminada=true;
+                        respuesta += $"\nFelicitaciones has ganado la partida";
+                        LogicaDeTablero.PartidaFinalizada(tableros[0]);
+                    }
+                    
                     return respuesta;
 
                 }
@@ -115,7 +122,13 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[1]+=1;
-                    PartidaTerminada=tablerobjetivo.terminado;
+                    if (tablerobjetivo.terminado)
+                    {
+                        this.PartidaTerminada=true;
+                        respuesta += $"\nFelicitaciones has ganado la partida";
+                        LogicaDeTablero.PartidaFinalizada(tableros[1]);
+
+                    }
                     return respuesta;
                 }
                 else
