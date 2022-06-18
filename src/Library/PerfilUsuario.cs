@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// 
     /// Esta clase almacena el perfil de un usuario.
     /// Implementa la interfaz ICloneable para poder crear una copia superficial de un perfil. 
     /// </summary>
@@ -31,11 +30,6 @@ namespace ClassLibrary
         public int NumeroDeJugador;
 
         /// <summary>
-        /// Numero de jugador del oponente actual (0 si no hay oponente)
-        /// </summary>
-        public bool UsuarioEnPartida;
-
-        /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
         public int Ganadas = 0;
@@ -49,18 +43,23 @@ namespace ClassLibrary
         /// historial del usuario en concreto
         /// </summary>
         public List<DatosdePartida> HistorialPersonal;
+
+        /// <summary>
+        /// Metodo de la interfaz ICloneable para crear un clon
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
             return this.MemberwiseClone();
         }
+
         /// <summary>
-        /// constructor del perfil de usuario.
+        /// Constructor del perfil de usuario.
         /// </summary>
         /// <param name="Nombre"></param>
         /// <param name="ID"></param>
         /// <param name="Contraseña"></param>
         /// <param name="NumeroDeJugador"></param>
-
         public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador)
         {
             this.Nombre = Nombre;
@@ -82,13 +81,11 @@ namespace ClassLibrary
         /// Devuelve el perfil para imprimir
         /// </summary>
         /// <returns> Devuelve el Perfil del usuario </returns>
-      
         public PerfilUsuario VerPerfil()
         {
             return this;
         }
 
-        
         /// <summary>
         /// Devuelve el historial personal para imprimir
         /// </summary>

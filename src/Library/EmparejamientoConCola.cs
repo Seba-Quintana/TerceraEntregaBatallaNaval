@@ -4,69 +4,27 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase empareja a dos jugadores en una lista.
-    /// Hay dos colas existentes, una para el modo normal y otra para el modo rapido
+    /// Esta clase empareja a dos jugadores en una cola.
+    /// Hay dos colas existentes, una para el modo normal y otra para el modo rapido.
     /// </summary>
     public static class EmparejamientoConCola
     {
         /// <summary>
-        /// Lista de emparejamiento (modo normal)
+        /// Cola de emparejamiento (modo normal)
         /// </summary>
         public static Queue<int> ColaEmparejamientosN;
 
         /// <summary>
-        /// Lista de emparejamiento (modo rapido)
+        /// Cola de emparejamiento (modo rapido)
         /// </summary>
         public static Queue<int> ColaEmparejamientosR;
         
         /// <summary>
-        /// Remueve usuario de lista de emparejamiento
+        /// Remueve usuario de cola de emparejamiento
         /// </summary>
-        /// <param name="usuario"></param>
+        /// <param name="usuario"> usuario a remover </param>
         public static void RemoverListaEspera(int usuario)
-        {/*
-            PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
-            PerfilUsuario jugador = Admin.ObtenerPerfil(usuario);
-            List<PerfilUsuario> colaCopia = new List<PerfilUsuario>();
-            if (ColaEmparejamientosN.Contains(jugador))
-            {
-                int largoCola = ColaEmparejamientosN.Count;
-                int i = 0;
-                while (i != largoCola)
-                {
-                    colaCopia.Add(ColaEmparejamientosN.Peek());
-                    if (ColaEmparejamientosN.Peek() == jugador)
-                        colaCopia.Remove(jugador);
-                    ColaEmparejamientosN.Dequeue();
-                    i++;
-                }
-                i = 0;
-                while (i != largoCola - 1)
-                {
-                    ColaEmparejamientosN.Enqueue(colaCopia[i]);
-                    i++;
-                }
-            }
-            else if (ColaEmparejamientosR.Contains(jugador))
-            {
-                int largoCola = ColaEmparejamientosR.Count;
-                int i = 0;
-                while (i != largoCola)
-                {
-                    colaCopia.Add(ColaEmparejamientosR.Peek());
-                    if (ColaEmparejamientosR.Peek() == jugador)
-                        colaCopia.Remove(jugador);
-                    ColaEmparejamientosR.Dequeue();
-                    i++;
-                }
-                i = 0;
-                while (i != largoCola - 1)
-                {
-                    ColaEmparejamientosR.Enqueue(colaCopia[i]);
-                    i++;
-                }
-            }
-        */
+        {
             try
             {
                 if (!ColaEmparejamientosN.Contains(usuario) && !ColaEmparejamientosR.Contains(usuario))
@@ -112,10 +70,10 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Empareja a dos jugadores, el que busca partida y uno aleatorio (determinado por la cola)
+        /// Empareja a dos jugadores, el jugador que busca partida y uno aleatorio (determinado por la cola)
         /// </summary>
         /// <param name="modo"> modo de juego elegido </param>
-        /// <param name="jugador"> jugador a emparejar </param>
+        /// <param name="jugador"> jugador que busca emparejamiento </param>
         public static int[] EmparejarAleatorio(int modo, int jugador)
         {
             try
@@ -126,7 +84,7 @@ namespace ClassLibrary
             }
             catch (ArgumentException ExModo)
             {
-                throw new ArgumentException("Excepcion por argumento (modo)", ExModo);
+                throw new ArgumentException("Modo invalido", ExModo);
             }
             if (modo == 0) // modo normal
             {
@@ -162,12 +120,22 @@ namespace ClassLibrary
         /// <summary>
         /// Empareja a dos usuarios especificos
         /// </summary>
-        /// <param name="modo"></param>
-        /// <param name="jugador1"></param>
-        /// <param name="jugador2"></param>
+        /// <param name="modo"> modo de juego elegido </param>
+        /// <param name="jugador1"> jugador 1 </param>
+        /// <param name="jugador2"> jugador 2 </param>
         /// <returns></returns>
         public static int[] EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
+            try
+            {
+                if (modo != 0)
+                    if (modo != 1)
+                        throw new ArgumentException();
+            }
+            catch (ArgumentException ExModo)
+            {
+                throw new ArgumentException("Modo invalido", ExModo);
+            }
             int[] Amigos = new int[4];
             // Como se diferencian los modos?
             if (modo == 0) // modo normal
