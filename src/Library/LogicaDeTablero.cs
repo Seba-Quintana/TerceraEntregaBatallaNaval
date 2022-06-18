@@ -57,6 +57,11 @@ namespace ClassLibrary
     { 
       return tablero.terminado;
     }
+    /// <summary>
+    /// Metodo encargado de asignar a un tablero 
+    /// su ganador en caso de que sea el dueño.
+    /// </summary>
+    /// <param name="TableroGanador"></param>
     public static void PartidaFinalizada(Tablero TableroGanador)
     {
       TableroGanador.Victoria();

@@ -28,9 +28,9 @@ namespace ClassLibrary
         /// </summary>
         public int DueñodelTablero;
         /// <summary>
-        /// Variable que facilita saber quien es el ganador de la partida cuando se almacena.
+        /// Variable que facilita saber si el dueño del tablero fue quien gano la partida.
         /// </summary>
-        public int Ganador;
+        public bool Ganada= false;
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
@@ -104,9 +104,14 @@ namespace ClassLibrary
         {
             return matriz.Clone() as char[ , ];
         }
+        /// <summary>
+        /// Metodo utilizado internamente por la clase tablero
+        /// para asignar el int del dueño al ganador en caso 
+        /// de que este sea el ganador
+        /// </summary>
         public void Victoria()
         {
-            this.Ganador = this.DueñodelTablero;
+            this.Ganada = true;
         }
         
     }
