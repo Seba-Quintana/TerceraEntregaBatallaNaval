@@ -24,8 +24,8 @@ namespace ClassLibrary
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             jugadores[1]=jugador2;
             tableros[1] = new Tablero(tamaño,jugador2);
-            cantidadDeBarcosParaPocicionar[0]= (tamaño * 2) - 3 ;
-            cantidadDeBarcosParaPocicionar[1]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPosicionar[0]= (tamaño * tamaño*25)/100;
+            cantidadDeBarcosParaPosicionar[1]= (tamaño * tamaño*25)/100;
             tiradas[0]=0;
             tiradas[1]=0;
             Segundastiradas[0]=0;
@@ -36,15 +36,15 @@ namespace ClassLibrary
         /// Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar
         /// que ejecute su segundo tiro antes de que ataque el otro.
         /// </summary>
-        /// <param name="LugarDeAtaque"></param>
+        /// <param name="objetivo"></param>
         /// <param name="jugador"></param>
         /// <returns></returns>
-        public override string Atacar(string lugar, int jugador)
+        public override string Atacar(string objetivo, int jugador)
         {
-            int [] LugarDeAtaque = TraductorDeCoordenadas.Traducir(lugar);
-            if (pocicionamientoTerminado[0] || pocicionamientoTerminado[1])
+            int [] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
+            if (posicionamientoTerminado[0] || posicionamientoTerminado[1])
             {
-                return "La Etapa de pocicionamiento a terminado";
+                return "La Etapa de posicionamiento a terminado";
             }
             if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador )){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
             if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
