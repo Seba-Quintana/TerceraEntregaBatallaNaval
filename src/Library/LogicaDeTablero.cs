@@ -57,5 +57,9 @@ namespace ClassLibrary
     { 
       return tablero.terminado;
     }
+    public static void PartidaFinalizada(Tablero TableroGanador)
+    {
+      TableroGanador.Victoria();
+    }
   }
 }
