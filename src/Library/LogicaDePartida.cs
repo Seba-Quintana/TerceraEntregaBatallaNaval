@@ -73,9 +73,9 @@ namespace ClassLibrary
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
             if (!posicionamientoTerminado[0] || !posicionamientoTerminado[1])
-            { 
+            {
                 return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
-                }
+            }
             if (!jugadores.Contains(jugador) )
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
@@ -114,7 +114,7 @@ namespace ClassLibrary
                     Tablero tablerobjetivo = tableros[0];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                    tiradas[0]+=1;
+                    tiradas[1]+=1;
                     PartidaTerminada=tablerobjetivo.terminado;
                     return respuesta;
                 }
@@ -161,7 +161,7 @@ namespace ClassLibrary
         {
             int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadanUno);
             int [] coordenada2 = TraductorDeCoordenadas.Traducir(coordenadaDos);
-            if (posicionamientoTerminado[0] || posicionamientoTerminado[1])
+            if ((posicionamientoTerminado[0] && posicionamientoTerminado[1]))
             {
                 return "La Etapa de posicionamiento a terminado";
             }
@@ -195,6 +195,7 @@ namespace ClassLibrary
                         catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
                         if (cantidadDeBarcosParaPosicionar[0] == 0)
                         {
+                            this.posicionamientoTerminado[0] = true;
                             return "Has pocicionado todos Los barcos que tenias disponibles en esta partida";
                         }
                         respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]}";
@@ -216,7 +217,7 @@ namespace ClassLibrary
             {
                 if (casillasutilizadas != 0)
                 {
-                    if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[0])
+                    if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[1])
                     {
                         string respuesta;
                         try{
@@ -226,6 +227,7 @@ namespace ClassLibrary
                         catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
                         if (cantidadDeBarcosParaPosicionar[1] == 0)
                         {
+                            this.posicionamientoTerminado[1] = true;
                             return "Has pocicionado todos Los barcos que tenias disponibles en esta partida";
                         }
                         respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]}";
@@ -287,14 +289,14 @@ namespace ClassLibrary
         /// <returns></returns>
         private int largoDeBarcos ( int filainicio, int columnainicio, int filafinal, int columnafinal)
         {
-            int resultado = 0;
+            int resultado = 1;
             if (filainicio == filafinal)
             {
-                resultado = columnafinal - columnainicio;
+                resultado += columnafinal - columnainicio;
             }
-            else if (columnainicio == columnafinal)
+            else
             {
-                resultado = filafinal - filainicio ;
+                resultado += filafinal - filainicio ;
             }
             return resultado;
         }
