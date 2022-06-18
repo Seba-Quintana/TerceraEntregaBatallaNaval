@@ -45,13 +45,13 @@ namespace ClassLibrary
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             tableros[1] = new Tablero(tamaño,jugador2);
             jugadores[1]=jugador2;
-            cantidadDeBarcosParaPocicionar[0]= (tamaño * 2) - 3 ;
-            cantidadDeBarcosParaPocicionar[1]= (tamaño * 2) - 3 ;
+            cantidadDeBarcosParaPocicionar[0]= (tamaño*tamaño*25)/100;
+            cantidadDeBarcosParaPocicionar[1]= (tamaño*tamaño*25)/100;
             tiradas[0]=0;
             tiradas[1]=0;
             pocicionamientoTerminado[0]=false;
             pocicionamientoTerminado[1]=false;
-
+            PartidasEnJuego.AlmacenarLogicadePartida(this);
         }
 
         /// <summary>
