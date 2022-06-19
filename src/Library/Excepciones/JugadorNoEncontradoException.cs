@@ -31,7 +31,7 @@ public class JugadorNoEncontradoException : System.Exception
     public JugadorNoEncontradoException(string message, System.Exception inner) : base(message, inner) { }
 
     /// <summary>
-    /// Constructor adicional para asignar numero de jugador al atributo
+    /// Constructor adicional para asignar numero de jugador no encontrado al atributo
     /// y para conseguir el mensaje a mostrar de ser necesario.
     /// </summary>
     /// <param name="message"> mensaje a mostrar </param>

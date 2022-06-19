@@ -66,6 +66,16 @@ namespace ClassLibrary
         /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
         public void Remover(int NumeroDeJugador)
         {
+            try
+            {
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
+                    throw new JugadorNoEncontradoException();
+            }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException
+                ("No se encontro el jugador a remover", NumeroDeJugador);
+            }
             if(ObtenerPerfil(NumeroDeJugador) != null)
             {
                 int i = 0;
@@ -88,6 +98,16 @@ namespace ClassLibrary
         /// <returns> perfil de usuario </returns>
         public PerfilUsuario ObtenerPerfil(int usuario)
         {
+            try
+            {
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(usuario)))
+                    throw new JugadorNoEncontradoException();
+            }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException
+                ("No se encontro el perfil del jugador", usuario);
+            }
             int i = 0;
             if (i != ListaDeUsuarios.Count)
             {
@@ -108,6 +128,16 @@ namespace ClassLibrary
         /// <param name="jugador"> jugador en partida </param>
         public char[,] ObtenerTableroOponente(int jugador)
         {
+            try
+            {
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador)))
+                    throw new JugadorNoEncontradoException();
+            }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException
+                ("No se encontro el tablero del oponente", jugador);
+            }
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
@@ -121,6 +151,16 @@ namespace ClassLibrary
         /// <param name="jugador"> jugador en partida </param>
         public char[,] ObtenerTablero(int jugador)
         {
+            try
+            {
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador)))
+                    throw new JugadorNoEncontradoException();
+            }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException
+                ("No se encontro el tablero del jugador", jugador);
+            }
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
@@ -135,27 +175,19 @@ namespace ClassLibrary
         /// <param name="numerodejugador"> historial que se quiere ver</param>
         public List<DatosdePartida> ObtenerHistorialPersonal(int numerodejugador)
         {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             try
             {
                 if (!ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
-                {
-                    throw new NullReferenceException("Usuario no encontrado");
-                }
+                    throw new JugadorNoEncontradoException();
             }
-            catch (NullReferenceException e)
+            catch (JugadorNoEncontradoException)
             {
-                throw new NullReferenceException("Usuario no encontrado", e);
+                throw new JugadorNoEncontradoException
+                ("No se encontro el historial del jugador", numerodejugador);
             }
-            try
-            {
-                PerfilUsuario perfil = ObtenerPerfil(numerodejugador);
-                return perfil.ObtenerHistorialPersonal();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ejecutar ObtenerHistorial", e);
-            }
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            PerfilUsuario perfil = ObtenerPerfil(numerodejugador);
+            return perfil.ObtenerHistorialPersonal();
         }
 
         /// <summary>

@@ -93,7 +93,6 @@ namespace ClassLibrary
         public static void VerHistorial()
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             try
             {
                 Historial historial = Historial.Instance();
@@ -102,7 +101,7 @@ namespace ClassLibrary
             }
             catch (Exception e)
             {
-                throw new Exception("No se pudo ejecutar ObtenerHistorial", e);
+                throw new Exception("No se pudo ver el Historial", e);
             }
         }
 
@@ -116,25 +115,7 @@ namespace ClassLibrary
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            try
-            {
-                if (buscador.ObtenerPerfil(numerodejugador) == null)
-                {
-                    throw new ArgumentException("Usuario no encontrado");
-                }
-            }
-            catch (ArgumentException)
-            {
-                throw new JugadorNoEncontradoException("Usuario no encontrado", numerodejugador);
-            }
-            try
-            {
-                imprimir.ImprimirHistorial(buscador.ObtenerHistorialPersonal(numerodejugador));
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ejecutar ObtenerHistorial", e);
-            }
+            imprimir.ImprimirHistorial(buscador.ObtenerHistorialPersonal(numerodejugador));
         }
 
         /// <summary>
@@ -183,10 +164,10 @@ namespace ClassLibrary
             {
                 if (perfilJugador == null)
                 {
-                    throw new ArgumentException("El usuario no existe");
+                    throw new JugadorNoEncontradoException();
                 }
             }
-            catch (ArgumentException)
+            catch (JugadorNoEncontradoException)
             {
                 throw new JugadorNoEncontradoException("El usuario no existe", jugador1);
             }
@@ -209,14 +190,8 @@ namespace ClassLibrary
         /// <param name="tamano"> tamaño del tablero </param>
         public static void EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
         {
-            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            PerfilUsuario perfilJugador1 = buscador.ObtenerPerfil(jugador1);
-            PerfilUsuario perfilJugador2 = buscador.ObtenerPerfil(jugador2);
-            if ((perfilJugador1 != null) && (perfilJugador2 != null))
-            {
-                int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
-                CrearPartida(tamano, modo, jugadores);
-            }
+            int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+            CrearPartida(tamano, modo, jugadores);
         }
     }
 }
