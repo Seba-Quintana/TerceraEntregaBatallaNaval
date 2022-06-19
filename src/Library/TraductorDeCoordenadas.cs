@@ -16,7 +16,7 @@ namespace ClassLibrary
         public static int[] Traducir(string coordenada)
         {
             List<string> letras = new List<string> () {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"};
-            List<string> numeros = new List<string> () {"0", "1","2","3","4","5","6","7","8","9"};
+            List<string> numeros = new List<string> () {"0","1","2","3","4","5","6","7","8","9"};
             if ((coordenada.Length < 2) || (coordenada.Length > 3))
             {
                 return null;

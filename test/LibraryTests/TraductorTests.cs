@@ -165,17 +165,6 @@ namespace Tests
         }
 
         /// <summary>
-        /// Pruebo si al ingresar una coordenada invalida no se traduce.
-        /// </summary>
-        [Test]
-        public void CoordenadaInvalidaFueraDeRango()
-        {
-            int[] coord = TraductorDeCoordenadas.Traducir("R2");
-            int[] expected = null;
-            Assert.AreEqual(expected, coord);
-        }
-
-        /// <summary>
         /// Pruebo si al ingresar una coordenada invalida no se traduce
         /// </summary>
         [Test]
