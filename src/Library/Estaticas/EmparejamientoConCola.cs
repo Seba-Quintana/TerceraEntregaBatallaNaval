@@ -80,16 +80,10 @@ namespace ClassLibrary
             {
                 if ((modo != 0) && (modo != 1))
                     throw new ModoInvalidoException();
-                if ((!ColaEmparejamientosN.Contains(jugador)) && (!ColaEmparejamientosR.Contains(jugador)))
-                    throw new JugadorNoEncontradoException();
             }
             catch (ModoInvalidoException)
             {
                 throw new ModoInvalidoException("Modo invalido", modo);
-            }
-            catch (JugadorNoEncontradoException)
-            {
-                throw new JugadorNoEncontradoException("El jugador a emparejar no se encontro", jugador);
             }
             if (modo == 0) // modo normal
             {
