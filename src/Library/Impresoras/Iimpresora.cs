@@ -19,6 +19,7 @@ namespace ClassLibrary
         /// una matriz de caracteres de tablero y una valor booleano de jugador.
         /// </summary>
         /// <param name="tablero"></param>
+        /// <param name="jugador"></param>
         public void ImprimirTablero(char[,] tablero, bool jugador);
         
         /// <summary>
@@ -31,9 +32,10 @@ namespace ClassLibrary
         /// <summary>
         /// Esta operción se encarga de imprimir el historial, recibe como 
         /// parámetro una lista de partidas
+        /// </summary>
         /// <param name="partidas"></param>
         public void ImprimirHistorial(List<DatosdePartida> partidas);
-        
+
         /// <summary>
         /// Esta operción se encarga de imprimir el ranking de jugadores.
         /// Recibe como parametro la lista de los perfiles,

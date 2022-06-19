@@ -80,6 +80,12 @@ namespace ClassLibrary
             }
             return null;
         }
+        /// <summary>
+        /// Metodo creado para poder verificicar si 
+        /// un jugador esta en alguna partida en curso.
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <returns></returns>
         public bool EstaElJugadorEnPartida(int numeroDeJugador)
         {
             foreach (Partida partida in partidas)
