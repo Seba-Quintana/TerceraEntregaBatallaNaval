@@ -194,7 +194,7 @@ namespace ClassLibrary
             }
             if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador ))
             {
-                return "Posicionamiento no ejecutado, ya que quien pociciona el barco no es uno de los jugadores de la partida";
+                return "Posicionamiento no ejecutado, ya que quien posiciona el barco no es uno de los jugadores de la partida";
                 }
             if (coordenada1[0] >= tableros[0].Tamaño || coordenada1[1] >= tableros[0].Tamaño)
             {
