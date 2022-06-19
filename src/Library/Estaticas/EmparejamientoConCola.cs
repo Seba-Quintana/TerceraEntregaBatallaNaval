@@ -28,9 +28,9 @@ namespace ClassLibrary
             try
             {
                 if (!ColaEmparejamientosN.Contains(usuario) && !ColaEmparejamientosR.Contains(usuario))
-                    throw new ArgumentOutOfRangeException();
+                    throw new JugadorNoEncontradoException();
             }
-            catch (ArgumentOutOfRangeException)
+            catch (JugadorNoEncontradoException)
             {
                 throw new JugadorNoEncontradoException
                 ("El jugador no se encuentra esperando partida", usuario);
@@ -78,13 +78,18 @@ namespace ClassLibrary
         {
             try
             {
-                if (modo != 0)
-                    if (modo != 1)
-                        throw new ArgumentException();
+                if ((modo != 0) && (modo != 1))
+                    throw new ModoInvalidoException();
+                if ((!ColaEmparejamientosN.Contains(jugador)) && (!ColaEmparejamientosR.Contains(jugador)))
+                    throw new JugadorNoEncontradoException();
             }
-            catch (ArgumentException ExModo)
+            catch (ModoInvalidoException)
             {
-                throw new ArgumentException("Modo invalido", ExModo);
+                throw new ModoInvalidoException("Modo invalido", modo);
+            }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException("El jugador a emparejar no se encontro", jugador);
             }
             if (modo == 0) // modo normal
             {
@@ -128,13 +133,21 @@ namespace ClassLibrary
         {
             try
             {
-                if (modo != 0)
-                    if (modo != 1)
-                        throw new ArgumentException();
+                if ((modo != 0) && (modo != 1))
+                    throw new ModoInvalidoException();
+                AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+                PerfilUsuario perfilJugador1 = buscador.ObtenerPerfil(jugador1);
+                PerfilUsuario perfilJugador2 = buscador.ObtenerPerfil(jugador2);
+                if ((perfilJugador1 == null) || (perfilJugador2 == null))
+                    throw new JugadorNoEncontradoException();
             }
-            catch (ArgumentException ExModo)
+            catch (ModoInvalidoException)
             {
-                throw new ArgumentException("Modo invalido", ExModo);
+                throw new ModoInvalidoException("Modo invalido", modo);
+            }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException("Uno de los dos jugadores no existe");
             }
             int[] Amigos = new int[4];
             // Como se diferencian los modos?

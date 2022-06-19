@@ -55,7 +55,14 @@ namespace ClassLibrary
       /// <param name="perfil"></param>
       public void VerPerfil(int perfil)
       {
-        Admin.VerPerfil(perfil);
+        try
+        {
+          Admin.VerPerfil(perfil);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("No se pudo visualizar el perfil", e);
+        }
       }
     
       /// <summary>
@@ -63,7 +70,14 @@ namespace ClassLibrary
       /// </summary>
       public void VerRanking()
       {
-        Admin.VerRanking();
+        try
+        {
+          Admin.VerRanking();
+        }
+        catch (Exception e)
+        {
+          throw new Exception("No se pudo ver el ranking", e);
+        }
       }
     
       /// <summary>
@@ -71,7 +85,14 @@ namespace ClassLibrary
       /// </summary>
       public void VerHistorial()
       {
-        Admin.VerHistorial();
+        try
+        {
+          Admin.VerHistorial();
+        }
+        catch (Exception e)
+        {
+          throw new Exception("No se pudo ver el historial", e);
+        }
       }
     
       /// <summary>
@@ -80,7 +101,14 @@ namespace ClassLibrary
       /// <param name="numerodejugador"> jugador del que se quiere ver el historial </param>
       public void VerHistorialPersonal(int numerodejugador)
       {
-        Admin.VerHistorialPersonal(numerodejugador);
+        try
+        {
+          Admin.VerHistorialPersonal(numerodejugador);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("No se pudo ver el ranking", e);
+        }
       }
 
       /// <summary>
@@ -97,7 +125,7 @@ namespace ClassLibrary
         }
         catch (Exception e)
         {
-          throw new Exception("no se pudo crear un jugador", e);
+          throw new Exception("no se pudo emparejar con otro jugador", e);
         }
       }
     
@@ -114,7 +142,7 @@ namespace ClassLibrary
         }
         catch (Exception e)
         {
-          throw new Exception("no se pudo crear un jugador", e);
+          throw new Exception("no se pudo emparejar con otro jugador", e);
         }
       }
       /// <summary>
@@ -122,8 +150,15 @@ namespace ClassLibrary
       /// </summary>
       public void VisualizarTablero()
       {
-        Admin.VerTableroOponente(this.NumeroDeJugador);
-        Admin.VerTablero(this.NumeroDeJugador);
+        try
+        {
+          Admin.VerTableroOponente(this.NumeroDeJugador);
+          Admin.VerTablero(this.NumeroDeJugador);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("No se pudo ver el tablero", e);
+        }
       }
       /// <summary>
       /// Permite al jugador posicionar barcos
@@ -141,7 +176,7 @@ namespace ClassLibrary
         }
         catch (Exception e)
         {
-          throw new Exception("no se pudo crear un jugador", e);
+          throw new Exception("no se pudo poner el barco", e);
         }
       }
 
@@ -167,7 +202,7 @@ namespace ClassLibrary
         }
         catch (Exception e)
         {
-          throw new Exception("no se pudo ATACAR a un jugador", e);
+          throw new Exception("no se pudo realizar el ataque", e);
         }
       }
     }
