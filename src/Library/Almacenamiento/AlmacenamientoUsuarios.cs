@@ -98,24 +98,11 @@ namespace ClassLibrary
         /// <returns> perfil de usuario </returns>
         public PerfilUsuario ObtenerPerfil(int usuario)
         {
-            try
+            foreach(PerfilUsuario perfil in ListaDeUsuarios)
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(usuario)))
-                    throw new JugadorNoEncontradoException();
-            }
-            catch (JugadorNoEncontradoException)
-            {
-                throw new JugadorNoEncontradoException
-                ("No se encontro el perfil del jugador", usuario);
-            }
-            int i = 0;
-            if (i != ListaDeUsuarios.Count)
-            {
-                while (i <= ListaDeUsuarios.Count - 1)
+                if (perfil.NumeroDeJugador == usuario)
                 {
-                    if (ListaDeUsuarios[i].NumeroDeJugador == usuario) 
-                        return ListaDeUsuarios[i];
-                    i++;
+                    return perfil;
                 }
             }
             return null;
