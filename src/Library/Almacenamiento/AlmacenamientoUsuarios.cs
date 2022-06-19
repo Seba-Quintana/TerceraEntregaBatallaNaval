@@ -127,8 +127,13 @@ namespace ClassLibrary
             }
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            Partida juego = partidas.ObtenerPartida(jugador);
-            return juego.VistaOponente(jugador);
+            if (partidas.EstaElJugadorEnPartida(jugador))
+            {
+                Partida juego = partidas.ObtenerPartida(jugador);
+                return juego.VistaOponente(jugador);
+            }
+            
+            return null;
         }
 
         /// <summary>
@@ -150,8 +155,13 @@ namespace ClassLibrary
             }
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            Partida juego = partidas.ObtenerPartida(jugador);
-            return juego.VerTableroPropio(jugador);
+            if (partidas.EstaElJugadorEnPartida(jugador))
+            {
+                Partida juego = partidas.ObtenerPartida(jugador);
+                return juego.VerTableroPropio(jugador);
+            }
+            return null;
+            
         }
 
         /// <summary>

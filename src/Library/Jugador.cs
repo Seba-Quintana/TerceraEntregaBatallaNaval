@@ -148,7 +148,7 @@ namespace ClassLibrary
       /// <summary>
       /// Permite al jugador visualizar el tablero actual
       /// </summary>
-      public void VisualizarTablero()
+      public void VisualizarTableros()
       {
         try
         {
