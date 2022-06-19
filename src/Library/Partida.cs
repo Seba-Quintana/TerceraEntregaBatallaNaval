@@ -89,7 +89,7 @@ namespace ClassLibrary
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
                 }
-            if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño)
+            if (LugarDeAtaque[0] >= tableros[0].Tamaño || LugarDeAtaque[1] >= tableros[0].Tamaño)
             {
                 return "Las coordenadas enviadas son erroneas";
                 }
@@ -194,7 +194,17 @@ namespace ClassLibrary
             }
             if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador ))
             {
-                return "Posicionamiento no ejecutado, ya que quien pociciona el barco no es uno de los jugadores de la partida";}
+                return "Posicionamiento no ejecutado, ya que quien pociciona el barco no es uno de los jugadores de la partida";
+                }
+            if (coordenada1[0] >= tableros[0].Tamaño || coordenada1[1] >= tableros[0].Tamaño)
+            {
+                return "Las primer coordenada enviada es invalida";
+                }
+            if (coordenada2[0] >= tableros[0].Tamaño || coordenada2[1] >= tableros[0].Tamaño)
+            {
+                return "Las primer coordenada enviada es invalida";
+            }
+            
             // Estaria bueno un try Catch aca para ver que las coordenadas sean inferiores al tamaño de las matrices.
             // que vea que se haya vaciado la clase posicionamiento.
             int [] coordenadasOrdenadas = ordenadorDeCoordenadas(coordenada1,coordenada2);
