@@ -59,7 +59,8 @@ namespace ClassLibrary
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            Partida juego = PartidasEnJuego.ObtenerPartida(jugador);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida juego = partidas.ObtenerPartida(jugador);
             if (juego != null)
             {
                 imprimir.ImprimirTablero(tableroOponente, false);
@@ -76,7 +77,8 @@ namespace ClassLibrary
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            Partida juego = PartidasEnJuego.ObtenerPartida(jugador);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida juego = partidas.ObtenerPartida(jugador);
             if (juego != null)
             {
                 imprimir.ImprimirTablero(juego.VerTableroPropio(jugador), true);
@@ -94,8 +96,9 @@ namespace ClassLibrary
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             try
             {
-                List<DatosdePartida> historial = Historial.Partidas;
-                imprimir.ImprimirHistorial(historial);
+                Historial historial = Historial.Instance();
+                List<DatosdePartida> historialDePartidas = historial.Partidas;
+                imprimir.ImprimirHistorial(historialDePartidas);
             }
             catch (Exception e)
             {
@@ -183,7 +186,7 @@ namespace ClassLibrary
                     throw new ArgumentException("El usuario no existe");
                 }
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 throw new JugadorNoEncontradoException("El usuario no existe", jugador1);
             }

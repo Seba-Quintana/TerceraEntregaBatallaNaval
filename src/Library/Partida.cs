@@ -51,7 +51,8 @@ namespace ClassLibrary
             tiradas[1]=0;
             posicionamientoTerminado[0]=false;
             posicionamientoTerminado[1]=false;
-            PartidasEnJuego.AlmacenarPartida(this);
+            PartidasEnJuego partida = PartidasEnJuego.Instance();
+            partida.AlmacenarPartida(this);
         }
 
         /// <summary>
@@ -62,7 +63,8 @@ namespace ClassLibrary
         {
             DatosdePartida Almacenaje = new DatosdePartida();
             Almacenaje.Almacenar(tableros,tiradas);
-            PartidasEnJuego.RemoverPartida(this);
+            PartidasEnJuego partida = PartidasEnJuego.Instance();
+            partida.RemoverPartida(this);
         }
         /// <summary>
         /// Metodo encargado de ver si un ataque es posible y devolver su mensaje de respuesta.
