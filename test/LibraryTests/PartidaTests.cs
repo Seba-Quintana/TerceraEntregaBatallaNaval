@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Tests
 {
     /// <summary>
-    /// Test para un correcto funcionamiento de la clase Logica.
+    /// Test para un correcto funcionamiento de la clase Logica <see cref="Partida"/>
     /// </summary>
     [TestFixture]
     public class TestDeLogica
