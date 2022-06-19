@@ -26,7 +26,6 @@ namespace ClassLibrary
                 }
                 if (!(letras.Contains(coordenada.Substring(0,1).ToUpper())))
                 {
-                   Console.WriteLine("Entre");
                    int[] a = null;
                    return a ;
                 }
