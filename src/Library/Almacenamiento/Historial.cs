@@ -7,11 +7,33 @@ namespace ClassLibrary
     /// Esta clase se encarga de añadir las partidas que se jugaron a una lista,
     /// con el objetivo de mantener un registro de las partidas jugadas.
     /// </summary>
-    public static class Historial
+    public class Historial
     {
-      private static List<DatosdePartida> partidas;
+      private List<DatosdePartida> partidas;
 
-      public static List<DatosdePartida> Partidas
+        static Historial instance;
+
+        /// <summary>
+        /// Parte de singleton. Constructor llamado por el metodo Instance de crearse un Historial.
+        /// </summary>
+        private Historial()
+        {
+        }
+
+        /// <summary>
+        /// Singleton de Historial. Si no existe una instancia de Historial, crea una. Si ya existe la devuelve
+        /// </summary>
+        /// <returns> Instancia nueva de Historial, o de darse el caso, una previamente creada </returns>
+        public static Historial Instance()
+        {
+            if (instance == null)
+            {
+                instance = new Historial();
+            }
+            return instance;
+        }
+
+      public List<DatosdePartida> Partidas
       {
         get
         {
@@ -23,7 +45,7 @@ namespace ClassLibrary
       /// Almacena la partida en el historial general y los historiales personales de los jugadores.
       /// </summary>
       /// <param name="partida"> partida a almacenar </param>
-      public static void AlmacenarPartida(DatosdePartida partida)
+      public void AlmacenarPartida(DatosdePartida partida)
       {
         AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
         PerfilUsuario jugador1 = buscador.ObtenerPerfil(partida.Jugadores[0]);

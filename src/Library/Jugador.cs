@@ -134,8 +134,9 @@ namespace ClassLibrary
       {
         try
         {
-          Partida partida = PartidasEnJuego.ObtenerPartida(this.NumeroDeJugador);
-          string mensajeBarco = partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
+          PartidasEnJuego partidas = PartidasEnJuego.Instance();
+          Partida juego = partidas.ObtenerPartida(this.NumeroDeJugador);
+          string mensajeBarco = juego.AñadirBarco(inicio, final, this.NumeroDeJugador);
           return mensajeBarco;
         }
         catch (Exception e)
@@ -152,8 +153,9 @@ namespace ClassLibrary
       {
         try
         {
-          Partida partida = PartidasEnJuego.ObtenerPartida(this.NumeroDeJugador);
-          string mensajeAtaque = partida.Atacar(coordenada, this.NumeroDeJugador);
+          PartidasEnJuego partidas = PartidasEnJuego.Instance();
+          Partida juego = partidas.ObtenerPartida(this.NumeroDeJugador);
+          string mensajeAtaque = juego.Atacar(coordenada, this.NumeroDeJugador);
           return mensajeAtaque;
         }
         catch (Exception e)

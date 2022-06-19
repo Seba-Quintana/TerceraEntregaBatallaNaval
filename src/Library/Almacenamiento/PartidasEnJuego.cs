@@ -6,17 +6,42 @@ namespace ClassLibrary
     /// <summary>
     /// Almacena la Partida mientras esta en curso
     /// </summary>
-    public static class PartidasEnJuego
+    public class PartidasEnJuego
     {
         /// <summary>
-        /// 
+        /// Lista de partidas en juego
         /// </summary>
-        public static List<Partida> partidas = new List<Partida>();
-        /// <summary>f
+        public List<Partida> partidas = new List<Partida>();
+
+        static PartidasEnJuego instance;
+
+        /// <summary>
+        /// Parte de singleton. Constructor llamado por el metodo Instance de crearse
+        /// una instancia de PartidasEnJuego.
+        /// </summary>
+        private PartidasEnJuego()
+        {
+        }
+
+        /// <summary>
+        /// Singleton de PartidasEnJuego.
+        /// Si no existe una instancia de PartidasEnJuego, crea una. Si ya existe la devuelve
+        /// </summary>
+        /// <returns> Instancia nueva de PartidasEnJuego, o de darse el caso, una previamente creada </returns>
+        public static PartidasEnJuego Instance()
+        {
+            if (instance == null)
+            {
+                instance = new PartidasEnJuego();
+            }
+            return instance;
+        }
+        
+        /// <summary>
         /// Agrega una Partida a la lista.
         /// </summary>
         /// <param name="partida"></param>
-        public static void AlmacenarPartida(Partida partida)
+        public void AlmacenarPartida(Partida partida)
         {
             partidas.Add(partida);
         }
@@ -24,7 +49,7 @@ namespace ClassLibrary
         /// Elimina una Partida de la lista.
         /// </summary>
         /// <param name="partida"></param>
-        public static void RemoverPartida(Partida partida)
+        public void RemoverPartida(Partida partida)
         {
             if (partidas.Contains(partida))
             {
@@ -39,7 +64,7 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="numeroDeJugador"></param>
         /// <returns></returns>
-        public static Partida ObtenerPartida(int numeroDeJugador)
+        public Partida ObtenerPartida(int numeroDeJugador)
         {
             foreach (Partida partida in partidas)
             {

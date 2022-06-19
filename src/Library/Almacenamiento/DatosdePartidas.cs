@@ -52,8 +52,8 @@ namespace ClassLibrary
                 Ganador = Jugadores[1];
                 Perdedor = Jugadores[0];
             }
-            
-            Historial.AlmacenarPartida(this);
+            Historial historial = Historial.Instance();
+            historial.AlmacenarPartida(this);
         }
         /// <summary>
         /// Metodo encargado de almacenar un tablero
