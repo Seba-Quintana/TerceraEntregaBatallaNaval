@@ -59,7 +59,7 @@ namespace ClassLibrary
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            LogicaDePartida juego = PartidasEnJuego.ObtenerLogicadePartida(jugador);
+            Partida juego = PartidasEnJuego.ObtenerPartida(jugador);
             if (juego != null)
             {
                 imprimir.ImprimirTablero(tableroOponente, false);
@@ -76,7 +76,7 @@ namespace ClassLibrary
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            LogicaDePartida juego = PartidasEnJuego.ObtenerLogicadePartida(jugador);
+            Partida juego = PartidasEnJuego.ObtenerPartida(jugador);
             if (juego != null)
             {
                 imprimir.ImprimirTablero(juego.VerTableroPropio(jugador), true);
@@ -147,21 +147,21 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Crea una LogicadePartida, asignandole un tamaño
+        /// Crea una Partida, asignandole un tamaño
         /// y los dos numeros de jugador de quienes quieren comenzar una partida.
         /// </summary>
         /// <param name="tamaño"> tamaño del tablero </param>
         /// <param name="modo"> modo de juego a jugar </param>
         /// <param name="jugadores"> jugadores </param>
-        public static void CrearLogicadePartida(int tamaño, int modo, int[] jugadores)
+        public static void CrearPartida(int tamaño, int modo, int[] jugadores)
         {
             if (modo == 0)
             {
-                LogicaDePartida partida = new LogicaDePartida(tamaño, jugadores[0], jugadores[1]);
+                Partida partida = new Partida(tamaño, jugadores[0], jugadores[1]);
             }
             else
             {
-                LogicaDePartidaRapida partida = new LogicaDePartidaRapida(tamaño, jugadores[0], jugadores[1]);
+                PartidaRapida partida = new PartidaRapida(tamaño, jugadores[0], jugadores[1]);
             }
         }
 
@@ -190,7 +190,7 @@ namespace ClassLibrary
             try
             {
                 int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
-                CrearLogicadePartida(tamano, modo, jugadores);
+                CrearPartida(tamano, modo, jugadores);
             }
             catch (Exception e)
             {
@@ -212,7 +212,7 @@ namespace ClassLibrary
             if ((perfilJugador1 != null) && (perfilJugador2 != null))
             {
                 int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
-                CrearLogicadePartida(tamano, modo, jugadores);
+                CrearPartida(tamano, modo, jugadores);
             }
         }
     }

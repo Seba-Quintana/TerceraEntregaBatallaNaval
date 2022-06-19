@@ -5,7 +5,7 @@ namespace ClassLibrary
     /// <summary>
     /// Tablero de modo rapido creado en caso de diseñar dicho modo.
     /// </summary>
-    public class LogicaDePartidaRapida : LogicaDePartida
+    public class PartidaRapida : Partida
     {
         /// <summary>
         /// Atributo con el contador del segundo ataque de cada personaje.
@@ -18,7 +18,7 @@ namespace ClassLibrary
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
         /// <returns></returns>
-        public LogicaDePartidaRapida(int tamaño ,int jugador1, int jugador2) : base (tamaño , jugador1, jugador2)
+        public PartidaRapida(int tamaño ,int jugador1, int jugador2) : base (tamaño , jugador1, jugador2)
         {
             tableros[0] = new Tablero(tamaño,jugador1);
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
@@ -30,7 +30,7 @@ namespace ClassLibrary
             tiradas[1]=0;
             Segundastiradas[0]=0;
             Segundastiradas[1]=0;
-            PartidasEnJuego.AlmacenarLogicadePartida(this);
+            PartidasEnJuego.AlmacenarPartida(this);
         }
         /// <summary>
         /// Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar

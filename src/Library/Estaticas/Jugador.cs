@@ -134,7 +134,7 @@ namespace ClassLibrary
       {
         try
         {
-          LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+          Partida partida = PartidasEnJuego.ObtenerPartida(this.NumeroDeJugador);
           string mensajeBarco = partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
           return mensajeBarco;
         }
@@ -152,7 +152,7 @@ namespace ClassLibrary
       {
         try
         {
-          LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+          Partida partida = PartidasEnJuego.ObtenerPartida(this.NumeroDeJugador);
           string mensajeAtaque = partida.Atacar(coordenada, this.NumeroDeJugador);
           return mensajeAtaque;
         }
