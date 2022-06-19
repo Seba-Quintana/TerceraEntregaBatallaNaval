@@ -166,31 +166,11 @@ namespace ClassLibrary
         /// <param name="tamano"> tamaño del tablero </param>
         public static void Emparejar(int modo, int jugador1, int tamano)
         {
-            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            PerfilUsuario perfilJugador = buscador.ObtenerPerfil(jugador1);
-            try
+            int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
+            if (jugadores != null)
             {
-                if (perfilJugador == null)
-                {
-                    throw new JugadorNoEncontradoException();
-                }
-            }
-            catch (JugadorNoEncontradoException)
-            {
-                throw new JugadorNoEncontradoException("El usuario no existe", jugador1);
-            }
-            try
-            {
-                int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
-                if (jugadores != null)
-                {
-                    CrearPartida(tamano, modo, jugadores);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ejecutar correctamente el emparejamiento", e);
-            }            
+                CrearPartida(tamano, modo, jugadores);
+            }      
         }
         /// <summary>
         /// Empareja a dos jugadores por sus numeros de jugador.
