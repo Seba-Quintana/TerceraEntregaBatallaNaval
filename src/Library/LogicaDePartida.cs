@@ -55,12 +55,14 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Metodo llamado para finalizar, guarda los datos mas importantes de la partida en la clase DatosDePartida
+        /// Metodo llamado para finalizar, guarda los datos mas importantes de 
+        /// la partida en la clase DatosDePartida
         /// </summary>
         protected void Finalizar()
         {
             DatosdePartida Almacenaje = new DatosdePartida();
             Almacenaje.Almacenar(tableros,tiradas);
+            PartidasEnJuego.RemoverLogicadePartida(this);
         }
         /// <summary>
         /// Metodo encargado de ver si un ataque es posible y devolver su mensaje de respuesta.
@@ -72,6 +74,11 @@ namespace ClassLibrary
         public virtual string Atacar(string objetivo, int jugador)
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
+
+            if (LugarDeAtaque==null)
+            {
+                return "La coordenada enviada fue invalida";
+            }
             if (!posicionamientoTerminado[0] || !posicionamientoTerminado[1])
             {
                 return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
@@ -102,6 +109,7 @@ namespace ClassLibrary
                         this.PartidaTerminada=true;
                         respuesta += $"\nFelicitaciones has ganado la partida";
                         LogicaDeTablero.PartidaFinalizada(tableros[0]);
+                        this.Finalizar();
                     }
                     
                     return respuesta;
@@ -127,7 +135,7 @@ namespace ClassLibrary
                         this.PartidaTerminada=true;
                         respuesta += $"\nFelicitaciones has ganado la partida";
                         LogicaDeTablero.PartidaFinalizada(tableros[1]);
-
+                        this.Finalizar();
                     }
                     return respuesta;
                 }
@@ -174,6 +182,10 @@ namespace ClassLibrary
         {
             int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadanUno);
             int [] coordenada2 = TraductorDeCoordenadas.Traducir(coordenadaDos);
+            if (coordenada1==null || coordenada2==null)
+            {
+                return "Una de las coordenadas enviadas fue invalida";
+            }
             if ((posicionamientoTerminado[0] && posicionamientoTerminado[1]))
             {
                 return "La Etapa de posicionamiento a terminado";
@@ -348,6 +360,26 @@ namespace ClassLibrary
             return "Se Agrego correctamente el barco";
             //Estaria bueno poner una excepcion aca para que no de el index out of range y se devuelva un msg.
 
+        }
+        /// <summary>
+        /// Metodo encargado de la funcionalidad de rendirse.
+        /// </summary>
+        /// <param name="jugador"></param>
+        public void Rendirse(int jugador)
+        {
+            if (jugadores.Contains(jugador))
+            {
+                if (jugadores[0] == jugador)
+                {
+                    LogicaDeTablero.Finalizar(tableros[1]);
+                    this.Finalizar();
+                }
+                else
+                {
+                    LogicaDeTablero.Finalizar(tableros[0]);
+                    this.Finalizar();
+                }
+            }
         }
         /// <summary>
         /// Metodo para ver el tablero propio por cada jugador.

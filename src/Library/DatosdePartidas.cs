@@ -42,7 +42,7 @@ namespace ClassLibrary
             Jugadores[1] = tablerosParaAgregar[1].DueñodelTablero;
             Tiradas = jugadas;
 
-            if (tablerosParaAgregar[0].Ganador == Jugadores[0])
+            if (tablerosParaAgregar[0].Ganada)
             {
                 Ganador = Jugadores[0];
                 Perdedor = Jugadores[1];
