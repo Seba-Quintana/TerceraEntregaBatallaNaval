@@ -32,12 +32,13 @@ namespace ClassLibrary
       
             return impresoraConsola;
         }
-        
         /// <summary>
         /// Con este método se imprime el tablero en la consola agregándole índices de coordenadas, imprime el tablero
         /// del jugador que solicita la impresion y el de su oponente.
         /// </summary>
         /// <param name="tablero"></param>
+        /// <param name="jugador"></param>
+        
         public void ImprimirTablero(char[,] tablero, bool jugador)
         {
             if (jugador)
@@ -112,9 +113,12 @@ namespace ClassLibrary
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             foreach (DatosdePartida partida in partidas)
             {
+                bool impresion = true;
                 foreach (Tablero tablero in partida.Tableros)
                 {
-                    Admin.VerTablero(tablero.DueñodelTablero);
+                    char[,] tableroAImprimir = tablero.VerTablero();
+                    this.ImprimirTablero(tableroAImprimir, impresion);
+                    impresion = false;
                 }
                 Console.WriteLine($"Ganador: {buscador.ObtenerPerfil(partida.Ganador).Nombre}");
                 Console.WriteLine($"Perdedor: {buscador.ObtenerPerfil(partida.Perdedor).Nombre}");
