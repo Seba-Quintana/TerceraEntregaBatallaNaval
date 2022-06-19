@@ -9,7 +9,7 @@ namespace ClassLibrary
     /// </summary>
     public class Historial
     {
-      private List<DatosdePartida> partidas;
+      private List<DatosdePartida> partidas = new List<DatosdePartida>();
 
         static Historial instance;
 
@@ -32,7 +32,10 @@ namespace ClassLibrary
             }
             return instance;
         }
-
+      /// <summary>
+      /// Atributo que funciona para poder ver la lista de partidas desde otras clases, pero no modificarla.
+      /// </summary>
+      /// <value></value>
       public List<DatosdePartida> Partidas
       {
         get

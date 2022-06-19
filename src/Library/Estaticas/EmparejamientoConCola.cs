@@ -12,12 +12,12 @@ namespace ClassLibrary
         /// <summary>
         /// Cola de emparejamiento (modo normal)
         /// </summary>
-        public static Queue<int> ColaEmparejamientosN;
+        public static Queue<int> ColaEmparejamientosN = new Queue<int>();
 
         /// <summary>
         /// Cola de emparejamiento (modo rapido)
         /// </summary>
-        public static Queue<int> ColaEmparejamientosR;
+        public static Queue<int> ColaEmparejamientosR = new Queue<int>();
         
         /// <summary>
         /// Remueve usuario de cola de emparejamiento

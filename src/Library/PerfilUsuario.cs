@@ -13,7 +13,10 @@ namespace ClassLibrary
         /// Nombre del jugador
         /// </summary>
         private string nombre;
-
+        /// <summary>
+        /// Atributo encargado de mostrar el nombre del perfil de usuario del jugador.
+        /// </summary>
+        /// <value></value>
         public string Nombre
         {
             get
@@ -41,7 +44,10 @@ namespace ClassLibrary
         /// Cantidad de partidas ganadas
         /// </summary>
         private int ganadas = 0;
-
+        /// <summary>
+        /// Atributo encargado de mostrar la cantidad de partidas ganadas.
+        /// </summary>
+        /// <value></value>
         public int Ganadas
         {
             get
@@ -54,7 +60,10 @@ namespace ClassLibrary
         /// Cantidad de partidas perdidas
         /// </summary>
         private int perdidas = 0;
-
+        /// <summary>
+        /// Atributo encargado de mostrar la cantidad de partidas perdidas.
+        /// </summary>
+        /// <value></value>
         public int Perdidas
         {
             get
@@ -66,7 +75,7 @@ namespace ClassLibrary
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        private List<DatosdePartida> HistorialPersonal;
+        private List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
 
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
