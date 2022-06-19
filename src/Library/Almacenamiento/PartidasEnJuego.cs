@@ -4,27 +4,27 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Almacena la LogicaDePartida mientras esta en curso
+    /// Almacena la Partida mientras esta en curso
     /// </summary>
     public static class PartidasEnJuego
     {
         /// <summary>
         /// 
         /// </summary>
-        public static List<LogicaDePartida> partidas = new List<LogicaDePartida>();
+        public static List<Partida> partidas = new List<Partida>();
         /// <summary>f
-        /// Agrega una LogicadePartida a la lista.
+        /// Agrega una Partida a la lista.
         /// </summary>
         /// <param name="partida"></param>
-        public static void AlmacenarLogicadePartida(LogicaDePartida partida)
+        public static void AlmacenarPartida(Partida partida)
         {
             partidas.Add(partida);
         }
         /// <summary>
-        /// Elimina una LogicadePartida de la lista.
+        /// Elimina una Partida de la lista.
         /// </summary>
         /// <param name="partida"></param>
-        public static void RemoverLogicadePartida(LogicaDePartida partida)
+        public static void RemoverPartida(Partida partida)
         {
             if (partidas.Contains(partida))
             {
@@ -39,9 +39,9 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="numeroDeJugador"></param>
         /// <returns></returns>
-        public static LogicaDePartida ObtenerLogicadePartida(int numeroDeJugador)
+        public static Partida ObtenerPartida(int numeroDeJugador)
         {
-            foreach (LogicaDePartida partida in partidas)
+            foreach (Partida partida in partidas)
             {
                 if(partida.jugadores[0] == numeroDeJugador)
                 {

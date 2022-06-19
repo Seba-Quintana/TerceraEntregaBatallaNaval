@@ -7,7 +7,7 @@ namespace ClassLibrary
     /// y Logica. Sus responsabilidades son, Hacer un control de los ataques, de las pociciones de barco 
     /// y crear los mensajes de respuesta de estas acciones
     /// </summary>
-    public class LogicaDePartida
+    public class Partida
     {
         /// <summary>
         /// Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
@@ -34,12 +34,12 @@ namespace ClassLibrary
         /// </summary>
         public int [] cantidadDeBarcosParaPosicionar = new int[2]; 
         /// <summary>
-        ///  Constructor de la clase LogicaDePartida.
+        ///  Constructor de la clase Partida.
         /// </summary>
         /// <param name="tamaño"></param>
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
-        public LogicaDePartida(int tamaño ,int jugador1, int jugador2)
+        public Partida(int tamaño ,int jugador1, int jugador2)
         {
             tableros[0] = new Tablero(tamaño,jugador1);
             jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
@@ -51,7 +51,7 @@ namespace ClassLibrary
             tiradas[1]=0;
             posicionamientoTerminado[0]=false;
             posicionamientoTerminado[1]=false;
-            PartidasEnJuego.AlmacenarLogicadePartida(this);
+            PartidasEnJuego.AlmacenarPartida(this);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace ClassLibrary
         {
             DatosdePartida Almacenaje = new DatosdePartida();
             Almacenaje.Almacenar(tableros,tiradas);
-            PartidasEnJuego.RemoverLogicadePartida(this);
+            PartidasEnJuego.RemoverPartida(this);
         }
         /// <summary>
         /// Metodo encargado de ver si un ataque es posible y devolver su mensaje de respuesta.

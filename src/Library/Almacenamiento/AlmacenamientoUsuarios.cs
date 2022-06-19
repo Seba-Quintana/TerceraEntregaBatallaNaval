@@ -109,7 +109,7 @@ namespace ClassLibrary
         public char[,] ObtenerTableroOponente(int jugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            LogicaDePartida juego = PartidasEnJuego.ObtenerLogicadePartida(jugador);
+            Partida juego = PartidasEnJuego.ObtenerPartida(jugador);
             return juego.VistaOponente(jugador);
         }
 
@@ -121,7 +121,7 @@ namespace ClassLibrary
         public char[,] ObtenerTablero(int jugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            LogicaDePartida juego = PartidasEnJuego.ObtenerLogicadePartida(jugador);
+            Partida juego = PartidasEnJuego.ObtenerPartida(jugador);
             return juego.VerTableroPropio(jugador);
         }
 
