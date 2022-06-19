@@ -58,12 +58,18 @@ namespace ClassLibrary
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
+            if(tableroOponente == null)
+            {
+                Console.WriteLine("No se ha podido imprimir el tablero ya que no estas en partida");
+            }
+            else{
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
             if (juego != null)
             {
                 imprimir.ImprimirTablero(tableroOponente, false);
+            }
             }
         }
 
@@ -75,13 +81,15 @@ namespace ClassLibrary
         public static void VerTablero(int jugador)
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            Partida juego = partidas.ObtenerPartida(jugador);
-            if (juego != null)
+            char[,] tableroPropio = buscador.ObtenerTablero(jugador);
+            if(tableroPropio == null)
             {
-                imprimir.ImprimirTablero(juego.VerTableroPropio(jugador), true);
+                Console.WriteLine("No se ha podido imprimir el tablero ya que no estas en partida");
+            }
+            else
+            {
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            imprimir.ImprimirTablero(tableroPropio, true);
             }
         }
 
