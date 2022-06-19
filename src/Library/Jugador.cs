@@ -154,13 +154,20 @@ namespace ClassLibrary
         try
         {
           PartidasEnJuego partidas = PartidasEnJuego.Instance();
+          if (partidas.EstaElJugadorEnPartida(this.NumeroDeJugador))
+          {
           Partida juego = partidas.ObtenerPartida(this.NumeroDeJugador);
           string mensajeAtaque = juego.Atacar(coordenada, this.NumeroDeJugador);
           return mensajeAtaque;
+          }
+          else
+          {
+            return "Usted no esta en partida";
+          }
         }
         catch (Exception e)
         {
-          throw new Exception("no se pudo crear un jugador", e);
+          throw new Exception("no se pudo ATACAR a un jugador", e);
         }
       }
     }

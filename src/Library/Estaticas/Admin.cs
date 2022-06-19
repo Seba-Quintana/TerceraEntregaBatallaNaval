@@ -193,7 +193,10 @@ namespace ClassLibrary
             try
             {
                 int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
-                CrearPartida(tamano, modo, jugadores);
+                if (jugadores != null)
+                {
+                    CrearPartida(tamano, modo, jugadores);
+                }
             }
             catch (Exception e)
             {

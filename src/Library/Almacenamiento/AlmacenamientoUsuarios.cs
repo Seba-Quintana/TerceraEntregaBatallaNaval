@@ -69,7 +69,7 @@ namespace ClassLibrary
             if(ObtenerPerfil(NumeroDeJugador) != null)
             {
                 int i = 0;
-                while (i <= ListaDeUsuarios.Count - 1)
+                while (i < ListaDeUsuarios.Count )
                 {
                     if (ListaDeUsuarios[i].NumeroDeJugador == NumeroDeJugador)
                     {
@@ -174,12 +174,12 @@ namespace ClassLibrary
             int j = 0;
             i = 0;
             int actual = 0;
-            while ((actual < ListaDeUsuarios.Count))
+            while ((actual < ranking.Count))
             {   i=actual;
                 j= i+1;
-                while ((i < ListaDeUsuarios.Count)&&(j < ListaDeUsuarios.Count))
+                while ((i < ranking.Count)&&(j < ranking.Count))
                 {
-                    if (ranking[i].Ganadas < ranking[j].Ganadas)
+                    if (ranking[i].Ganadas > ranking[j].Ganadas)
                     {
                         j=j+1;
                     }
@@ -187,6 +187,7 @@ namespace ClassLibrary
                     {
                         i=j;
                         j=j+1;
+                        
                     }
                 }
                 PerfilUsuario claseCopia = (PerfilUsuario)ranking[i].Clone();

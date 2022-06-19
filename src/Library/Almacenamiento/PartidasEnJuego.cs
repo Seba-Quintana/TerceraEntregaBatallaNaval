@@ -71,6 +71,7 @@ namespace ClassLibrary
                 if(partida.jugadores[0] == numeroDeJugador)
                 {
                     return partida;
+                    
                 }
                 else if (partida.jugadores[1] == numeroDeJugador)
                 {
@@ -78,6 +79,28 @@ namespace ClassLibrary
                 }
             }
             return null;
+        }
+        /// <summary>
+        /// Metodo creado para poder verificicar si 
+        /// un jugador esta en alguna partida en curso.
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <returns></returns>
+        public bool EstaElJugadorEnPartida(int numeroDeJugador)
+        {
+            foreach (Partida partida in partidas)
+            {
+                if(partida.jugadores[0] == numeroDeJugador)
+                {
+                    return true;
+                    
+                }
+                else if (partida.jugadores[1] == numeroDeJugador)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
