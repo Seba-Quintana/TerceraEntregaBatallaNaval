@@ -24,8 +24,14 @@ namespace ClassLibrary
       /// <param name="contraseña"> contraseña del jugador </param>
       public Jugador(string nombre, int id, string contraseña)
       {
-        Admin ad = Admin.Instance();
-        this.NumeroDeJugador = ad.Registrar(nombre, id, contraseña);
+        try
+        {
+          this.NumeroDeJugador = Admin.Registrar(nombre, id, contraseña);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo crear un jugador", e);
+        }
       }
 
       /// <summary>
@@ -33,8 +39,14 @@ namespace ClassLibrary
       /// </summary>
       public void Remover()
       {
-        Admin ad = Admin.Instance();
-        ad.Remover(this.NumeroDeJugador);
+        try
+        {
+          Admin.Remover(this.NumeroDeJugador);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo crear un jugador", e);
+        }
       }
       
       /// <summary>
@@ -43,8 +55,7 @@ namespace ClassLibrary
       /// <param name="perfil"></param>
       public void VerPerfil(int perfil)
       {
-        Admin ad = Admin.Instance();
-        ad.VerPerfil(perfil);
+        Admin.VerPerfil(perfil);
       }
     
       /// <summary>
@@ -52,20 +63,26 @@ namespace ClassLibrary
       /// </summary>
       public void VerRanking()
       {
-        Admin ad = Admin.Instance();
-        ad.ObtenerRanking();
+        Admin.VerRanking();
       }
     
       /// <summary>
       /// Permite al jugador ver el historial
       /// </summary>
-      /// <param name="historial"></param>
-      public void VerHistorial(int historial)
+      public void VerHistorial()
       {
-        Admin ad = Admin.Instance();
-        ad.ObtenerHistorial(historial);
+        Admin.VerHistorial();
       }
     
+      /// <summary>
+      /// Permite al jugador ver su historial personal
+      /// </summary>
+      /// <param name="numerodejugador"> jugador del que se quiere ver el historial </param>
+      public void VerHistorialPersonal(int numerodejugador)
+      {
+        Admin.VerHistorialPersonal(numerodejugador);
+      }
+
       /// <summary>
       /// Busqueda de partida amistosa (jugar partida con un amigo)
       /// </summary>
@@ -74,8 +91,14 @@ namespace ClassLibrary
       /// <param name="tamano"> tamaño del tablero </param>
       public void PartidaAmistosa(int modo, int jugador2, int tamano)
       {
-        Admin ad = Admin.Instance();
-        ad.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
+        try
+        {
+          Admin.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo crear un jugador", e);
+        }
       }
     
       /// <summary>
@@ -85,17 +108,22 @@ namespace ClassLibrary
       /// <param name="tamano"></param>
       public void BuscarPartida(int modo, int tamano)
       {
-        Admin ad = Admin.Instance();
-        ad.Emparejar(modo, this.NumeroDeJugador, tamano);
+        try
+        {
+          Admin.Emparejar(modo, this.NumeroDeJugador, tamano);
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo crear un jugador", e);
+        }
       }
       /// <summary>
       /// Permite al jugador visualizar el tablero actual
       /// </summary>
       public void VisualizarTablero()
       {
-        Admin ad = Admin.Instance();
-        ad.ObtenerTableroOponente(this.NumeroDeJugador);
-        ad.ObtenerTablero(this.NumeroDeJugador);
+        Admin.VerTableroOponente(this.NumeroDeJugador);
+        Admin.VerTablero(this.NumeroDeJugador);
       }
       /// <summary>
       /// Permite al jugador posicionar barcos
@@ -104,9 +132,16 @@ namespace ClassLibrary
       /// <param name="final"> coordenada que indica la ultima casilla del barco </param>
       public string PosicionarBarcos(string inicio, string final)
       {
-        LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        string mensajeBarco = partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
-        return mensajeBarco;
+        try
+        {
+          LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+          string mensajeBarco = partida.AñadirBarco(inicio, final, this.NumeroDeJugador);
+          return mensajeBarco;
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo crear un jugador", e);
+        }
       }
 
       /// <summary>
@@ -115,9 +150,16 @@ namespace ClassLibrary
       /// <param name="coordenada"> coordenada de ataque </param>
       public string Atacar(string coordenada)
       {
-        LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
-        string mensajeAtaque = partida.Atacar(coordenada, this.NumeroDeJugador);
-        return mensajeAtaque;
+        try
+        {
+          LogicaDePartida partida = PartidasEnJuego.ObtenerLogicadePartida(this.NumeroDeJugador);
+          string mensajeAtaque = partida.Atacar(coordenada, this.NumeroDeJugador);
+          return mensajeAtaque;
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo crear un jugador", e);
+        }
       }
     }
 }

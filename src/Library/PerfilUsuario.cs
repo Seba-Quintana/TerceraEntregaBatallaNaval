@@ -12,7 +12,15 @@ namespace ClassLibrary
         /// <summary>
         /// Nombre del jugador
         /// </summary>
-        public string Nombre;
+        private string nombre;
+
+        public string Nombre
+        {
+            get
+            {
+                return nombre;
+            }
+        }
 
         /// <summary>
         /// Identificación del jugador otorgada por el bot
@@ -22,7 +30,7 @@ namespace ClassLibrary
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
-        public string Contraseña;
+        private string contraseña;
 
         /// <summary>
         /// Identificación númerica del jugador
@@ -32,17 +40,33 @@ namespace ClassLibrary
         /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
-        public int Ganadas = 0;
+        private int ganadas = 0;
+
+        public int Ganadas
+        {
+            get
+            {
+                return ganadas;
+            }
+        }
 
         /// <summary>
         /// Cantidad de partidas perdidas
         /// </summary>
-        public int Perdidas = 0;
+        private int perdidas = 0;
+
+        public int Perdidas
+        {
+            get
+            {
+                return perdidas;
+            }
+        }
       
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        public List<DatosdePartida> HistorialPersonal;
+        private List<DatosdePartida> HistorialPersonal;
 
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
@@ -62,9 +86,9 @@ namespace ClassLibrary
         /// <param name="NumeroDeJugador"></param>
         public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador)
         {
-            this.Nombre = Nombre;
+            this.nombre = Nombre;
             this.ID = ID;
-            this.Contraseña = Contraseña;
+            this.contraseña = Contraseña;
             this.NumeroDeJugador = NumeroDeJugador;
         }
 
@@ -74,6 +98,14 @@ namespace ClassLibrary
         /// <param name="partida"> Partida a añadir </param>
         public void AñadiralHistorial(DatosdePartida partida)
         {
+            if (partida.Ganador == NumeroDeJugador)
+            {
+                ganadas++;
+            }
+            else
+            {
+                perdidas++;
+            }
             this.HistorialPersonal.Add(partida);
         }
 
@@ -87,12 +119,19 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Devuelve el historial personal para imprimir
+        /// Devuelve una copia del historial personal para imprimir
         /// </summary>
         /// <returns> Devuelve una lista con todos los datos de partida del perfil</returns>
-        public List<DatosdePartida> VerHistorialPersonal()
+        public List<DatosdePartida> ObtenerHistorialPersonal()
         {
-            return this.HistorialPersonal;
+            List<DatosdePartida> historial = new List<DatosdePartida>();
+            int i = 0;
+            while (i < this.HistorialPersonal.Count)
+            {
+                historial.Add(this.HistorialPersonal[i]);
+                i++;
+            }
+            return historial;
         }
     }
 }

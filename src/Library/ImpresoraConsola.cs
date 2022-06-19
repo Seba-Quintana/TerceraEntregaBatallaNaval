@@ -92,15 +92,15 @@ namespace ClassLibrary
         /// <param name="partidas"></param>
         public void ImprimirHistorial(List<DatosdePartida> partidas)
         {
-            Admin ad = Admin.Instance();
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             foreach (DatosdePartida partida in partidas)
             {
                 foreach (Tablero tablero in partida.Tableros)
                 {
-                    ad.ObtenerTablero(tablero.DueñodelTablero);
+                    Admin.VerTablero(tablero.DueñodelTablero);
                 }
-                Console.WriteLine($"Ganador: {ad.ObtenerPerfil(partida.Ganador).Nombre}");
-                Console.WriteLine($"Perdedor: {ad.ObtenerPerfil(partida.Perdedor).Nombre}");
+                Console.WriteLine($"Ganador: {buscador.ObtenerPerfil(partida.Ganador).Nombre}");
+                Console.WriteLine($"Perdedor: {buscador.ObtenerPerfil(partida.Perdedor).Nombre}");
             }
         }
         /// <summary>
