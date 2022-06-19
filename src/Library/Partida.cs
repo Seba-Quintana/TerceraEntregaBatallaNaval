@@ -198,11 +198,11 @@ namespace ClassLibrary
                 }
             if (coordenada1[0] >= tableros[0].Tamaño || coordenada1[1] >= tableros[0].Tamaño)
             {
-                return "Las primer coordenada enviada es invalida";
+                return "La primer coordenada enviada es invalida";
                 }
             if (coordenada2[0] >= tableros[0].Tamaño || coordenada2[1] >= tableros[0].Tamaño)
             {
-                return "Las primer coordenada enviada es invalida";
+                return "La segunda coordenada enviada es invalida";
             }
             
             // Estaria bueno un try Catch aca para ver que las coordenadas sean inferiores al tamaño de las matrices.
