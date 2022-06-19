@@ -9,19 +9,27 @@ namespace ClassLibrary
     /// </summary>
     public static class Historial
     {
+      private static List<DatosdePartida> partidas;
+
+      public static List<DatosdePartida> Partidas
+      {
+        get
+        {
+          return partidas;
+        }
+      }
+
       /// <summary>
-      /// Creamos una lista llamada partidas, la cual contiene elementos del tipo DatosdePartida, que es donde se almacenan las partidas que
-      /// se han jugado.
+      /// Almacena la partida en el historial general y los historiales personales de los jugadores.
       /// </summary>
-      public static List<DatosdePartida> partidas;
-        
-      /// <summary>
-      /// Este método se encarga de almacenar las partidas jugadas en la lista de partidas
-      /// luego de finalizadas.
-      /// </summary>
-      /// <param name="partida"> Partida a almacenar </param>
+      /// <param name="partida"> partida a almacenar </param>
       public static void AlmacenarPartida(DatosdePartida partida)
       {
+        AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+        PerfilUsuario jugador1 = buscador.ObtenerPerfil(partida.Jugadores[0]);
+        PerfilUsuario jugador2 = buscador.ObtenerPerfil(partida.Jugadores[1]);
+        jugador1.AñadiralHistorial(partida);
+        jugador2.AñadiralHistorial(partida);
         partidas.Add(partida);
       }
     }
