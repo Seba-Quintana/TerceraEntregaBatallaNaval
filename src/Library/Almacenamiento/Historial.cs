@@ -9,7 +9,7 @@ namespace ClassLibrary
     /// </summary>
     public class Historial
     {
-      private List<DatosdePartida> partidas;
+      private List<DatosdePartida> partidas = new List<DatosdePartida>();
 
         static Historial instance;
 
