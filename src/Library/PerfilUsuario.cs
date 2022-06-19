@@ -66,7 +66,7 @@ namespace ClassLibrary
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        private List<DatosdePartida> HistorialPersonal;
+        private List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
 
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
