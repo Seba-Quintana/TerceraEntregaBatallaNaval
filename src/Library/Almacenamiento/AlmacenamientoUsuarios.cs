@@ -125,7 +125,6 @@ namespace ClassLibrary
                 throw new JugadorNoEncontradoException
                 ("No se encontro el tablero del oponente", jugador);
             }
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             if (partidas.EstaElJugadorEnPartida(jugador))
             {
@@ -153,7 +152,6 @@ namespace ClassLibrary
                 throw new JugadorNoEncontradoException
                 ("No se encontro el tablero del jugador", jugador);
             }
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             if (partidas.EstaElJugadorEnPartida(jugador))
             {
@@ -161,7 +159,6 @@ namespace ClassLibrary
                 return juego.VerTableroPropio(jugador);
             }
             return null;
-            
         }
 
         /// <summary>
@@ -182,7 +179,6 @@ namespace ClassLibrary
                 throw new JugadorNoEncontradoException
                 ("No se encontro el historial del jugador", numerodejugador);
             }
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             PerfilUsuario perfil = ObtenerPerfil(numerodejugador);
             return perfil.ObtenerHistorialPersonal();
         }
