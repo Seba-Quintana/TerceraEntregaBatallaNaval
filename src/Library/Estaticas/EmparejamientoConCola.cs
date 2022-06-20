@@ -76,15 +76,24 @@ namespace ClassLibrary
         /// <param name="jugador"> jugador que busca emparejamiento </param>
         public static int[] EmparejarAleatorio(int modo, int jugador)
         {
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+            PerfilUsuario perfilJugador = buscador.ObtenerPerfil(jugador);
             try
             {
                 if ((modo != 0) && (modo != 1))
                     throw new ModoInvalidoException();
+                if (perfilJugador == null)
+                    throw new JugadorNoEncontradoException();
             }
             catch (ModoInvalidoException)
             {
                 throw new ModoInvalidoException("Modo invalido", modo);
             }
+            catch (JugadorNoEncontradoException)
+            {
+                throw new JugadorNoEncontradoException("El usuario no existe", jugador);
+            }
+
             if (modo == 0) // modo normal
             {
                 ColaEmparejamientosN.Enqueue(jugador);
@@ -125,13 +134,13 @@ namespace ClassLibrary
         /// <returns></returns>
         public static int[] EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+            PerfilUsuario perfilJugador1 = buscador.ObtenerPerfil(jugador1);
+            PerfilUsuario perfilJugador2 = buscador.ObtenerPerfil(jugador2);
             try
             {
                 if ((modo != 0) && (modo != 1))
                     throw new ModoInvalidoException();
-                AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-                PerfilUsuario perfilJugador1 = buscador.ObtenerPerfil(jugador1);
-                PerfilUsuario perfilJugador2 = buscador.ObtenerPerfil(jugador2);
                 if ((perfilJugador1 == null) || (perfilJugador2 == null))
                     throw new JugadorNoEncontradoException();
             }
@@ -143,6 +152,7 @@ namespace ClassLibrary
             {
                 throw new JugadorNoEncontradoException("Uno de los dos jugadores no existe");
             }
+
             int[] Amigos = new int[4];
             // Como se diferencian los modos?
             if (modo == 0) // modo normal

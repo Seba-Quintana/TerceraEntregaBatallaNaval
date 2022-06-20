@@ -12,37 +12,26 @@ namespace ClassLibrary
         /// Transforma las coordenadas introducidas por el usuario en en un int[,]
         /// </summary>
         /// <param name="coordenada"></param>
-        /// <returns></returns>
+        /// <returns> Devuelve la coordenada en un arreglo de int. De ser invalida, devuelve null </returns>
         public static int[] Traducir(string coordenada)
         {
             List<string> letras = new List<string> () {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"};
-            List<string> numeros = new List<string> () {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"};
-            try
+            List<string> numeros = new List<string> () {"0","1","2","3","4","5","6","7","8","9"};
+            if ((coordenada.Length < 2) || (coordenada.Length > 3))
             {
-                if ((coordenada.Length < 2) || (coordenada.Length > 3))
-                {
-                   int[] a = null;
-                   return a;
-                }
-                if (!(letras.Contains(coordenada.Substring(0,1).ToUpper())))
-                {
-                   int[] a = null;
-                   return a ;
-                }
-                if (numeros.Contains(coordenada.Substring(1,1).ToUpper()) == false)
-                {
-                    int[] a = null;
-                    return a;
-                }
-                if ((coordenada.Length == 3) && (numeros.Contains(coordenada.Substring(3,1).ToUpper()) == false))
-                {
-                    int[] a = null;
-                    return a;
-                }
+                return null;
             }
-            catch (ArgumentOutOfRangeException ex)
+            if (!(letras.Contains(coordenada.Substring(0,1).ToUpper())))
             {
-                throw ex;
+                return null ;
+            }
+            if (numeros.Contains(coordenada.Substring(1,1)) == false)
+            {
+                return null;
+            }
+            if ((coordenada.Length == 3) && (numeros.Contains(coordenada.Substring(2,1)) == false))
+            {
+                return null;
             }
             int[] traducido = new int[2];
             int i = 0;
