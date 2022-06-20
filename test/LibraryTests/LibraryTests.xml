@@ -4,73 +4,41 @@
         <name>LibraryTests</name>
     </assembly>
     <members>
-        <member name="T:Tests.TestDeLogica">
+        <member name="F:Tests.TestDeTraductor.tablero">
             <summary>
-            Test para un correcto funcionamiento de la clase Logica.
+            El tablero que va a ser utilizado para los tests.
             </summary>
         </member>
-        <member name="F:Tests.TestDeLogica.tablero">
+        <member name="M:Tests.TestDeTraductor.Setup">
             <summary>
-            El tablero que va a ser utilizado para los tests.Es necesario ya que Logica solo
-             se ejecuta si esta en conjunto de la clase tablero;
+            SetUp Creado con el objetivo de tener los elementos necesatios 
+            para probar el traductor de coordenadas de diferentes maneras
             </summary>
         </member>
-        <member name="M:Tests.TestDeLogica.Setup">
+        <member name="M:Tests.TestDeTraductor.Coordenada">
             <summary>
-            SetUp Creado con el objetivo de tener un tablero vacio al principio de cada test.
+            Pruebo si una coordenada correcta se traduce correctamente
             </summary>
         </member>
-        <member name="M:Tests.TestDeLogica.PrincipioDeBarcoHorizontal">
+        <member name="M:Tests.TestDeTraductor.CoordenadaMinuscula">
             <summary>
-            Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
-            testea la casilla donde se inicia el barco y tambien testea que la casilla anterior este vacia.
-            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            Pruebo si al ingresar una fila en minuscula se traduce correctamente
             </summary>
         </member>
-        <member name="M:Tests.TestDeLogica.FinalDeBarcoHorizontal">
+        <member name="M:Tests.TestDeTraductor.CoordenadaAlReves">
             <summary>
-            Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
-            testea la casilla donde finaliza el barco y tambien testea que la casilla siguiente este vacia.
-            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            Pruebo si al ingresar primero las columnas y luego las filas se traduce correctamente
             </summary>
         </member>
-        <member name="M:Tests.TestDeLogica.PrincipioDeBarcoVertical">
+        <member name="M:Tests.TestDeTraductor.CoordenadaAlRevesMinuscula">
             <summary>
-            Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
-            testea la casilla donde se inicia el barco y tambien testea que la casilla anterior este vacia.
-            (Cuando una casilla esta vacia contiene un valor '\u0000')
+            Pruebo si al ingresar primero las columnas y luego las filas,
+            y ademas se ingresan las coordenadas al reves, se traduce correctamente
             </summary>
         </member>
-        <member name="M:Tests.TestDeLogica.FinalDeBarcoVertical">
+        <member name="M:Tests.TestDeTraductor.CoordenadaInvalida">
             <summary>
-            Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
-            testea la casilla donde finaliza el barco y tambien testea que la casilla siguiente este vacia.
-            (Cuando una casilla esta vacia contiene un valor '\u0000')
-            </summary>
-        </member>
-        <member name="M:Tests.TestDeLogica.AtaqueAlAgua">
-            <summary>
-            Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
-            </summary>
-        </member>
-        <member name="M:Tests.TestDeLogica.AtaqueBarcoVertical">
-            <summary>
-            Se ataca un punto del barco para ver que este cambie por 'T'.
-            </summary>
-        </member>
-        <member name="M:Tests.TestDeLogica.AtaqueBarcoVerticalEnElMismoLugar">
-            <summary>
-            Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
-            </summary>
-        </member>
-        <member name="M:Tests.TestDeLogica.AtaqueBarcoHorizontal">
-            <summary>
-            Se ataca un punto del barco para ver que este cambie por 'T'.
-            </summary>
-        </member>
-        <member name="M:Tests.TestDeLogica.AtaqueBarcoHorizontalEnElMismoLugar">
-            <summary>
-            Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
+            Pruebo si al ingresar una coordenada invalida no se traduce
             </summary>
         </member>
     </members>

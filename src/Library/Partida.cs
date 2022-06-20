@@ -426,6 +426,7 @@ namespace ClassLibrary
             if (tableros[0].DueñodelTablero==jugador)
             {
                 char[ , ] matrizSinBarcos = tableros[1].VerTablero();
+                matrizSinBarcos = ayudanteDeTiro(matrizSinBarcos);
                 for (int i = 0; i < tableros[1].Tamaño; i++)
                 {
                     for (int j = 0; j < tableros[1].Tamaño; j++)
@@ -441,6 +442,7 @@ namespace ClassLibrary
             else 
             {
                 char[ , ] matrizSinBarcos = tableros[0].VerTablero();
+                matrizSinBarcos = ayudanteDeTiro(matrizSinBarcos);
                 for (int i = 0; i < tableros[0].Tamaño; i++)
                 {
                     for (int j = 0; j < tableros[0].Tamaño; j++)
@@ -453,6 +455,178 @@ namespace ClassLibrary
                 }
                 return matrizSinBarcos; 
             }
+        }
+        /// <summary>
+        /// Luego de un ataque a un barco señaliza donde se puede encontrar los otros puntos del barco
+        /// </summary>
+        /// <param name="matriz"></param>
+        public char[ , ] ayudanteDeTiro (char[ , ] matriz)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    if (matriz[i,j]== 'T')
+                    {
+                        if (i != 0 && j != 0 && i != (matriz.GetLength(0)-1) && j != (matriz.GetLength(1)-1))
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B') ||
+                            (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T') &&
+                                (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i+1,j] == 'T') && (matriz[i-1,j] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                }
+                                else if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] == 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                }
+                                else if ((matriz[i,j+1] == 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] != 'T') && (matriz[i,j-1] == 'T'))
+                                {
+                                    matriz[i,j+1] = '-';
+                                }                           
+                            }
+                        }
+                        else if (i == 0 && j == 0)
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i,j+1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i,j+1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if ((i == 0) && (j == (matriz.GetLength(1)-1)))
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == 0)
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i,j+1] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i,j+1] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] == 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] != 'T') && (matriz[i,j-1] == 'T'))
+                                {
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == (matriz.GetLength(0)-1) && j == 0)
+                        {
+                            if ((matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B'))
+                            {
+                                if ((matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == (matriz.GetLength(0)-1) && j == (matriz.GetLength(1)-1))
+                        {
+                            if ((matriz[i-1,j] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i-1,j] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == (matriz.GetLength(0)-1))
+                        {
+                            if ((matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] == 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] != 'T') && (matriz[i,j-1] == 'T'))
+                                {
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if (j == 0)
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                }
+                                else if ((matriz[i+1,j] == 'T') && (matriz[i-1,j] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                }
+                                else if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] == 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                }
+                            }
+                        }
+                        else if (j == (matriz.GetLength(1)-1))
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i-1,j] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i+1,j] == 'T') && (matriz[i-1,j] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                }
+                                else if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] == 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return matriz;
         }
 
     }
