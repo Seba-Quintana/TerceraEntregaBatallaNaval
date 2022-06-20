@@ -155,15 +155,19 @@ namespace ClassLibrary
         /// y el otro un jugador que este esperando por una partida.
         /// </summary>
         /// <param name="modo"> modo elegido </param>
-        /// <param name="jugador1"> jugador que busca partida </param>
+        /// <param name="jugador"> jugador que busca partida </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static void Emparejar(int modo, int jugador1, int tamano)
+        public static void Emparejar(int modo, int jugador, int tamano)
         {
-            int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
-            if (jugadores != null)
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(jugador) != null)
             {
-                CrearPartida(tamano, modo, jugadores);
-            }      
+                int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador);
+                if (jugadores != null)
+                {
+                    CrearPartida(tamano, modo, jugadores);
+                }
+            }  
         }
         /// <summary>
         /// Empareja a dos jugadores por sus numeros de jugador.
@@ -174,8 +178,15 @@ namespace ClassLibrary
         /// <param name="tamano"> tamaño del tablero </param>
         public static void EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
         {
-            int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
-            CrearPartida(tamano, modo, jugadores);
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(jugador1) != null)
+            {
+                if (jugadorExistente.ObtenerPerfil(jugador2) != null)
+                {
+                    int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+                    CrearPartida(tamano, modo, jugadores);
+                }
+            }
         }
 
         /// <summary>
@@ -187,6 +198,11 @@ namespace ClassLibrary
         /// <returns> mensaje a devolver </returns>
         public static string Posicionar(string inicio, string final, int jugador)
         {
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(jugador) == null)
+            {
+                return "Jugador no existente";
+            }
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
             string mensajeBarco = juego.AñadirBarco(inicio, final, jugador);
@@ -197,15 +213,20 @@ namespace ClassLibrary
         /// Permite al jugador atacar
         /// </summary>
         /// <param name="coordenada"></param>
-        /// <param name="atacante"></param>
+        /// <param name="ju"></param>
         /// <returns></returns>
-        public static string Atacar(string coordenada, int atacante)
+        public static string Atacar(string coordenada, int ju)
         {
-            PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            if (partidas.EstaElJugadorEnPartida(atacante))
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(ju) == null)
             {
-                Partida juego = partidas.ObtenerPartida(atacante);
-                string mensajeAtaque = juego.Atacar(coordenada, atacante);
+                return "Jugador no existente";
+            }
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.EstaElJugadorEnPartida(ju))
+            {
+                Partida juego = partidas.ObtenerPartida(ju);
+                string mensajeAtaque = juego.Atacar(coordenada, ju);
                 return mensajeAtaque;
             }
             else
