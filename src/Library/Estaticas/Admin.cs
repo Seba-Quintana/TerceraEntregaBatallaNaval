@@ -113,7 +113,7 @@ namespace ClassLibrary
             }
         }
 
-                /// <summary>
+        /// <summary>
         /// Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
         /// si el numero pertenece a un PerfilUsuario en la lista de perfiles de Admin
         /// pide mostrar el HistorialPersonal de este perfil.
@@ -172,6 +172,7 @@ namespace ClassLibrary
                 CrearPartida(tamano, modo, jugadores);
             }      
         }
+
         /// <summary>
         /// Empareja a dos jugadores por sus numeros de jugador.
         /// </summary>
@@ -185,6 +186,13 @@ namespace ClassLibrary
             CrearPartida(tamano, modo, jugadores);
         }
 
+        /// <summary>
+        /// Permite al jugador posicionar barcos
+        /// </summary>
+        /// <param name="inicio"> coordenada que indica la primera casilla del barco </param>
+        /// <param name="final"> coordenada que indica la ultima casilla del barco </param>
+        /// <param name="jugador"> jugador que quiere posicionar </param>
+        /// <returns> mensaje acerca de la accion realizada </returns>
         public static string Posicionar(string inicio, string final, int jugador)
         {
             try
@@ -203,8 +211,8 @@ namespace ClassLibrary
       /// <summary>
       /// Permite al jugador atacar
       /// </summary>
-      /// <param name="coordenada"></param>
-      /// <param name="atacante"></param>
+      /// <param name="coordenada"> coordenada a atacar </param>
+      /// <param name="atacante"> atacante </param>
       /// <returns></returns>
       public static string Atacar(string coordenada, int atacante)
       {
