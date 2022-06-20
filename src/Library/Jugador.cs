@@ -107,7 +107,7 @@ namespace ClassLibrary
         }
         catch (Exception e)
         {
-          throw new Exception("No se pudo ver el ranking", e);
+          throw new Exception("No se pudo ver el historial", e);
         }
       }
 
@@ -167,17 +167,7 @@ namespace ClassLibrary
       /// <param name="final"> coordenada que indica la ultima casilla del barco </param>
       public string PosicionarBarcos(string inicio, string final)
       {
-        try
-        {
-          PartidasEnJuego partidas = PartidasEnJuego.Instance();
-          Partida juego = partidas.ObtenerPartida(this.NumeroDeJugador);
-          string mensajeBarco = juego.AñadirBarco(inicio, final, this.NumeroDeJugador);
-          return mensajeBarco;
-        }
-        catch (Exception e)
-        {
-          throw new Exception("no se pudo poner el barco", e);
-        }
+        return Admin.Posicionar(inicio ,final ,NumeroDeJugador);
       }
 
       /// <summary>
@@ -186,24 +176,8 @@ namespace ClassLibrary
       /// <param name="coordenada"> coordenada de ataque </param>
       public string Atacar(string coordenada)
       {
-        try
-        {
-          PartidasEnJuego partidas = PartidasEnJuego.Instance();
-          if (partidas.EstaElJugadorEnPartida(this.NumeroDeJugador))
-          {
-          Partida juego = partidas.ObtenerPartida(this.NumeroDeJugador);
-          string mensajeAtaque = juego.Atacar(coordenada, this.NumeroDeJugador);
-          return mensajeAtaque;
-          }
-          else
-          {
-            return "Usted no esta en partida";
-          }
-        }
-        catch (Exception e)
-        {
-          throw new Exception("no se pudo realizar el ataque", e);
-        }
+        
+        return Admin.Atacar(coordenada, NumeroDeJugador);
       }
     }
 }
