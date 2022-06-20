@@ -77,7 +77,7 @@ namespace Tests
 			int despuesDeRemover = Test.ListaDeUsuarios.Count;
            	Assert.AreNotEqual(despuesDeRemover, antesDeRemover);
         }
-
+/*
 		/// <summary>
         /// Pruebo si una coordenada correcta se traduce correctamente
         /// </summary>
@@ -108,6 +108,6 @@ namespace Tests
 			List<PerfilUsuario> ranking = Test.ObtenerRanking();
 			PerfilUsuario perfilGanador = Test.ObtenerPerfil(jugador2.NumeroDeJugador);
 			Assert.AreEqual(perfilGanador, ranking[0]);
-        }
+        }*/
     }
 }
