@@ -184,5 +184,48 @@ namespace ClassLibrary
             int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
             CrearPartida(tamano, modo, jugadores);
         }
+
+        public static string Posicionar(string inicio, string final, int jugador)
+        {
+            try
+            {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida juego = partidas.ObtenerPartida(jugador);
+            string mensajeBarco = juego.AñadirBarco(inicio, final, jugador);
+            return mensajeBarco;
+            }
+            catch (Exception e)
+            {
+            throw new Exception("no se pudo poner el barco", e);
+            }
+        }
+
+      /// <summary>
+      /// Permite al jugador atacar
+      /// </summary>
+      /// <param name="coordenada"></param>
+      /// <param name="atacante"></param>
+      /// <returns></returns>
+      public static string Atacar(string coordenada, int atacante)
+      {
+        try
+        {
+          PartidasEnJuego partidas = PartidasEnJuego.Instance();
+          if (partidas.EstaElJugadorEnPartida(atacante))
+          {
+          Partida juego = partidas.ObtenerPartida(atacante);
+          string mensajeAtaque = juego.Atacar(coordenada, atacante);
+          return mensajeAtaque;
+          }
+          else
+          {
+            return "Usted no esta en partida";
+          }
+        }
+        catch (Exception e)
+        {
+          throw new Exception("no se pudo realizar el ataque", e);
+        }
+      }
     }
 }
