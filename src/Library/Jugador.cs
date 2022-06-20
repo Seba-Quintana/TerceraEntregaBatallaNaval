@@ -179,5 +179,13 @@ namespace ClassLibrary
         
         return Admin.Atacar(coordenada, NumeroDeJugador);
       }
+
+      /// <summary>
+      /// Permite al jugador rendirse
+      /// </summary>
+      public void Rendirse()
+      {
+        Admin.Rendirse(this.NumeroDeJugador);
+      }
     }
 }

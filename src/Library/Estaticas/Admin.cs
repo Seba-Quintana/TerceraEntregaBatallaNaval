@@ -200,32 +200,47 @@ namespace ClassLibrary
             }
         }
 
-      /// <summary>
-      /// Permite al jugador atacar
-      /// </summary>
-      /// <param name="coordenada"></param>
-      /// <param name="atacante"></param>
-      /// <returns></returns>
-      public static string Atacar(string coordenada, int atacante)
-      {
-        try
+        /// <summary>
+        /// Permite al jugador atacar
+        /// </summary>
+        /// <param name="coordenada"></param>
+        /// <param name="atacante"></param>
+        /// <returns></returns>
+        public static string Atacar(string coordenada, int atacante)
         {
-          PartidasEnJuego partidas = PartidasEnJuego.Instance();
-          if (partidas.EstaElJugadorEnPartida(atacante))
-          {
-          Partida juego = partidas.ObtenerPartida(atacante);
-          string mensajeAtaque = juego.Atacar(coordenada, atacante);
-          return mensajeAtaque;
-          }
-          else
-          {
-            return "Usted no esta en partida";
-          }
+            try
+            {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.EstaElJugadorEnPartida(atacante))
+            {
+            Partida juego = partidas.ObtenerPartida(atacante);
+            string mensajeAtaque = juego.Atacar(coordenada, atacante);
+            return mensajeAtaque;
+            }
+            else
+            {
+                return "Usted no esta en partida";
+            }
+            }
+            catch (Exception e)
+            {
+            throw new Exception("no se pudo realizar el ataque", e);
+            }
         }
-        catch (Exception e)
+
+        /// <summary>
+        /// Metodo para rendirse
+        /// </summary>
+        /// <param name="jugador"> jugador que quiere rendirse </param>
+        public static void Rendirse(int jugador)
         {
-          throw new Exception("no se pudo realizar el ataque", e);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.EstaElJugadorEnPartida(jugador))
+            {
+                Partida juego = partidas.ObtenerPartida(jugador);
+                juego.Rendirse(jugador);
+            }
+
         }
-      }
     }
 }
