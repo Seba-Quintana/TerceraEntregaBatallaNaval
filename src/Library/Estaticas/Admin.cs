@@ -101,16 +101,9 @@ namespace ClassLibrary
         public static void VerHistorial()
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            try
-            {
-                Historial historial = Historial.Instance();
-                List<DatosdePartida> historialDePartidas = historial.Partidas;
-                imprimir.ImprimirHistorial(historialDePartidas);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ver el Historial", e);
-            }
+            Historial historial = Historial.Instance();
+            List<DatosdePartida> historialDePartidas = historial.Partidas;
+            imprimir.ImprimirHistorial(historialDePartidas);
         }
 
                 /// <summary>
@@ -185,19 +178,19 @@ namespace ClassLibrary
             CrearPartida(tamano, modo, jugadores);
         }
 
+        /// <summary>
+        /// Metodo para posicionar barcos
+        /// </summary>
+        /// <param name="inicio"> coordenada inicial del barco </param>
+        /// <param name="final"> coordenada final del barco </param>
+        /// <param name="jugador"> jugador que posiciona </param>
+        /// <returns> mensaje a devolver </returns>
         public static string Posicionar(string inicio, string final, int jugador)
         {
-            try
-            {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
             string mensajeBarco = juego.AñadirBarco(inicio, final, jugador);
             return mensajeBarco;
-            }
-            catch (Exception e)
-            {
-            throw new Exception("no se pudo poner el barco", e);
-            }
         }
 
         /// <summary>
@@ -208,23 +201,16 @@ namespace ClassLibrary
         /// <returns></returns>
         public static string Atacar(string coordenada, int atacante)
         {
-            try
-            {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             if (partidas.EstaElJugadorEnPartida(atacante))
             {
-            Partida juego = partidas.ObtenerPartida(atacante);
-            string mensajeAtaque = juego.Atacar(coordenada, atacante);
-            return mensajeAtaque;
+                Partida juego = partidas.ObtenerPartida(atacante);
+                string mensajeAtaque = juego.Atacar(coordenada, atacante);
+                return mensajeAtaque;
             }
             else
             {
                 return "Usted no esta en partida";
-            }
-            }
-            catch (Exception e)
-            {
-            throw new Exception("no se pudo realizar el ataque", e);
             }
         }
 
@@ -240,7 +226,6 @@ namespace ClassLibrary
                 Partida juego = partidas.ObtenerPartida(jugador);
                 juego.Rendirse(jugador);
             }
-
         }
     }
 }
