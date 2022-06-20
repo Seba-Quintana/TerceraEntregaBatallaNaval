@@ -25,11 +25,11 @@ namespace ClassLibrary
             {
                 return null ;
             }
-            if (numeros.Contains(coordenada.Substring(1,1).ToUpper()) == false)
+            if (numeros.Contains(coordenada.Substring(1,1)) == false)
             {
                 return null;
             }
-            if ((coordenada.Length == 3) && (numeros.Contains(coordenada.Substring(2,1).ToUpper()) == false))
+            if ((coordenada.Length == 3) && (numeros.Contains(coordenada.Substring(2,1)) == false))
             {
                 return null;
             }
