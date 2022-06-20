@@ -37,6 +37,8 @@ namespace Tests
 			PerfilUsuario perfil = Test.ObtenerPerfil(1);
 			int expected = 1;
            	Assert.AreEqual(expected, perfil.NumeroDeJugador);
+			Test.Remover(1);
+
         }
 
         /// <summary>
@@ -46,8 +48,10 @@ namespace Tests
         public void Registrar()
         {
             int numerodejugador = Test.Registrar("jugadorTest", 5, "Test");
-			int expected = 2;
+			int expected = 1;
+			
             Assert.AreEqual(expected, numerodejugador);
+			Test.Remover(1);
         }
 
 		/// <summary>
@@ -58,9 +62,10 @@ namespace Tests
         {
             int numerodejugador = Test.Registrar("jugadorTest", 5, "Test");
 			PerfilUsuario perfil = Test.ObtenerPerfil(numerodejugador);
-			int expected = 3;
+			int expected = 1;
 			if (perfil == Test.ListaDeUsuarios[numerodejugador-1])
             	Assert.AreEqual(expected, numerodejugador);
+			Test.Remover(1);
         }
 
 		/// <summary>
@@ -69,45 +74,49 @@ namespace Tests
         [Test]
         public void Remover()
         {
-			// remuevo al jugador 2
-			PerfilUsuario perfil = Test.ObtenerPerfil(2);
+			Test.Registrar("jugadorTest", 5, "Test");
+			PerfilUsuario perfil = Test.ObtenerPerfil(1);
 			int numerodejugador = perfil.NumeroDeJugador;
 			int antesDeRemover = Test.ListaDeUsuarios.Count;
             Test.Remover(numerodejugador);
 			int despuesDeRemover = Test.ListaDeUsuarios.Count;
            	Assert.AreNotEqual(despuesDeRemover, antesDeRemover);
         }
-/*
+
 		/// <summary>
         /// Pruebo si una coordenada correcta se traduce correctamente
         /// </summary>
         [Test]
         public void ObtenerRanking()
         {
+			Test.Registrar("jugadorTest", 5, "Test");
+			Test.Registrar("jugadorTest", 5, "Test");
             Admin.EmparejarAmigos(0, 1, 2, 7);
-            jugador1.PosicionarBarcos("A1","A6");
-            jugador1.PosicionarBarcos("B1","B6");
-            jugador2.PosicionarBarcos("E1","E6");
-            jugador2.PosicionarBarcos("F1","F6");
+            Admin.Posicionar("A1","A6", 1);
+            Admin.Posicionar("B1","B6", 1);
+            Admin.Posicionar("E1","E6", 2);
+            Admin.Posicionar("F1","F6", 2);
             int i = 1;
             while(i <= 6)
             {
-                jugador1.Atacar($"G{i}");
-                jugador2.Atacar($"A{i}");
+                Admin.Atacar($"G{i}", 1);
+                Admin.Atacar($"A{i}", 2);
                 i+=1;
             }
             i = 1;
             while(i < 6)
             {
-                jugador1.Atacar($"C{i}");
-                jugador2.Atacar($"B{i}");
+                Admin.Atacar($"C{i}", 1);
+                Admin.Atacar($"B{i}", 2);
                 i+=1;
             }
-            jugador1.Atacar("C6");
-            jugador2.Atacar("B6");
+            Admin.Atacar("C6", 1);
+            Admin.Atacar("B6", 2);
 			List<PerfilUsuario> ranking = Test.ObtenerRanking();
-			PerfilUsuario perfilGanador = Test.ObtenerPerfil(jugador2.NumeroDeJugador);
-			Assert.AreEqual(perfilGanador, ranking[0]);
-        }*/
+			PerfilUsuario perfilGanador = Test.ObtenerPerfil(2);
+			Assert.AreEqual(perfilGanador.NumeroDeJugador, ranking[0].NumeroDeJugador);
+			Test.Remover(1);
+			Test.Remover(2);
+        }
     }
 }
