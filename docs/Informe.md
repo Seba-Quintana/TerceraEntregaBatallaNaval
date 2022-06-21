@@ -32,7 +32,7 @@ Roles de clases:
 - Historial: Information holder
 - Partida: Controller
 - TraductorDeCoordenadas: Service provider
-- LogicaDeTablero: Structurer
+- LogicaDeTablero: Coordinator
 - impresoraConsola: Service provider
 - EmparejamientoConCola: Service provider
 - Tablero: Service provider
