@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -20,9 +22,10 @@ namespace ClassLibrary
         /// </summary>
         public bool terminado = false;
         /// <summary>
-        /// Representa la cantidad de partes de barco sin dañar.
+        /// Lista encargada de guardar los barcos enteros que existen en el tablero.
         /// </summary>
-        public int CantidadDeBarcosEnteros;
+        /// <returns></returns>
+        public List<Barco> barcos = new List<Barco>();
         /// <summary>
         /// En este atributo se ve el numero de jugador de quien es el dueño del tablero, osea el que puede ver la informacion de los barcos intactos principalmente.
         /// </summary>
@@ -42,28 +45,31 @@ namespace ClassLibrary
             this.matriz = new char[tamaño, tamaño];
             this.DueñodelTablero = dueño;
         }
+        public bool AñadirBarco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
+        {
+            List<int[]> CoordenadasQueSeQuierenUtilizar = this.EspaciosAUtilizar(filaInicio, columnaInicio, filaFinal, columnaFinal);
+            if (this.noHayColisiónDeBarcos(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar))
+            {
+                Barco nuevoBarco = new Barco(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar);
+                this.barcos.Add(nuevoBarco);
+                return true;
+            }
+            return false;
+        }
+       
         /// <summary>
         /// Metodo el cual se ejecuta para cambiar un punto de la matriz.
         /// </summary>
         /// <param name="fila"></param>
         /// <param name="columna"></param>
         /// <param name="nuevovalor"></param>
-        public void ActualizarTablero(int fila, int columna, char nuevovalor)
+        /*public void ActualizarTablero(int fila, int columna, char nuevovalor)
         {
-            if (fila <= this.Tamaño && columna <= this.Tamaño)
+            if ()
             {
                 if (nuevovalor == 'B')
                 {
-                    if (this.matriz[fila, columna] == '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
-                    {
-                        this.matriz[fila, columna] = 'B';
-                        //this.CantidadDeBarcosEnteros+=1;
-                    }
-                    else if (this.matriz[fila, columna]== 'B')
-                    {
-                        this.matriz[fila, columna] = 'T';
-                        //this.CantidadDeBarcosEnteros-=1;
-                    }
+                    
                 }
                 else if (nuevovalor == 'A')
                 {
@@ -71,7 +77,7 @@ namespace ClassLibrary
                     {
                         this.matriz[fila, columna] = 'T';
                         //this.CantidadDeBarcosEnteros -= 1;
-                        if (CantidadDeBarcosEnteros==0){terminado=true;}
+                        if (barcos.Count==0){terminado=true;}
 
                     }
                     else if (matriz[fila, columna] == 'T')
@@ -84,7 +90,7 @@ namespace ClassLibrary
                     }
                 }
             }
-        }
+        }*/
         /// <summary>
         /// Metodo utilizado por logica para ver la casilla donde se esta atacando
         /// </summary>
@@ -102,8 +108,17 @@ namespace ClassLibrary
         /// <returns></returns>
         public char[,] VerTablero()
         {
-            return matriz.Clone() as char[ , ];
+            char[ , ] MatrizConBarcos = matriz.Clone() as char[ , ];
+            foreach (int[] coordenadas in this.EspaciosUtilizados())
+            {
+                int i = coordenadas[0];
+                int j = coordenadas[1];
+                MatrizConBarcos[i,j] = 'B';
+            }
+
+            return MatrizConBarcos;
         }
+
         /// <summary>
         /// Metodo utilizado internamente por la clase tablero
         /// para asignar el int del dueño al ganador en caso 
@@ -112,6 +127,62 @@ namespace ClassLibrary
         public void Victoria()
         {
             this.Ganada = true;
+        }
+        private List<int[]> EspaciosAUtilizar(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
+        {
+            List<int[]> CoordenadasDelBarco = new List<int[]>();
+            if (filaInicio == filaFinal)
+            {
+                for (int i = columnaInicio; i <= columnaFinal; i++)
+                {
+                    int[] nuevaCoordenada = new int[2];
+                    nuevaCoordenada[0] = filaInicio;
+                    nuevaCoordenada[1] = i;
+                    CoordenadasDelBarco.Add(nuevaCoordenada);
+                }
+            }
+            else
+            {
+                for (int i = filaInicio; i <= filaFinal; i++)
+                {
+                    int[] nuevaCoordenada = new int[2];
+                    nuevaCoordenada[0] = i;
+                    nuevaCoordenada[1] = columnaInicio;
+                    CoordenadasDelBarco.Add(nuevaCoordenada);
+                }
+            }
+            return CoordenadasDelBarco;
+        }
+        private List<int[]> EspaciosUtilizados()
+        {
+            List<int[]> EspaciosUtilizadosAnteriormente = new List<int[]>();
+
+            foreach(Barco barco in barcos)
+            {
+                List<int[]>PartesdeunBarco = barco.ObtenerPartesDeBarco();
+                
+                foreach (int[] coordenadaDeParteDeBarco in PartesdeunBarco)
+                {
+                    EspaciosUtilizadosAnteriormente.Add(coordenadaDeParteDeBarco);
+                }
+            }
+            return EspaciosUtilizadosAnteriormente;
+        }
+        private bool noHayColisiónDeBarcos(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal, List<int[]> CoordenadasQueSeQuierenUtilizar)
+        {
+            List<int[]> CoordenadasUtilizadosAnteriormente = this.EspaciosUtilizados();
+
+            foreach (int[] CoordenadasQueQuieroUsar in CoordenadasQueSeQuierenUtilizar)
+            {
+                foreach(int[] CoordenadasAnteriores in CoordenadasUtilizadosAnteriormente)
+                {
+                    if (CoordenadasQueQuieroUsar[0] == CoordenadasAnteriores[0] && CoordenadasQueQuieroUsar[1] == CoordenadasAnteriores[1])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
         
     }

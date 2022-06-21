@@ -227,23 +227,34 @@ namespace ClassLibrary
                 
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[0])
                 {
-                    
-                    string respuesta;
-                    try{
-                        respuesta = respuestaDePonerBarcos(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                        LogicaDeTablero.Añadirbarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                        this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
+                    string respuesta = "";
+                    try
+                    {
+                        bool SeAñadioElBarco = LogicaDeTablero.Añadirbarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+
+                        if (SeAñadioElBarco)
+                        {
+                            respuesta += "Se Agrego correctamente el barco";
+                            this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
+                        }
+                        else
+                        {
+                            respuesta += "Has intentado posicionar un barco sobre otro, Lo cual no esta permitido, envie otra coordenada por favor";
+                        }
                     }
-                    catch(IndexOutOfRangeException){
-                        return "La coordenada enviada es invalida";}
+                    catch(IndexOutOfRangeException)
+                    {
+                        return "La coordenada enviada es invalida";
+                    }
                     if (this.cantidadDeBarcosParaPosicionar[0] == 0)
                     {
                         this.posicionamientoTerminado[0] = true;
                         respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
                     }
+                    
                     else
                     {
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]}";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]} barcos para pocicionar";
                     }
                     return respuesta;
                 }
@@ -259,20 +270,34 @@ namespace ClassLibrary
             {
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[1])
                 {
-                    string respuesta;
-                    try{
-                    respuesta = this.respuestaDePonerBarcos(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                    LogicaDeTablero.Añadirbarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                    this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;}
-                    catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
+                    string respuesta = "";
+                    try
+                    {
+                        bool SeAñadioElBarco = LogicaDeTablero.Añadirbarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+
+                        if (SeAñadioElBarco)
+                        {
+                            respuesta += "Se Agrego correctamente el barco";
+                            this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;
+                        }
+                        else
+                        {
+                            respuesta += "Has intentado posicionar un barco sobre otro, Lo cual no esta permitido, envie otra coordenada por favor";
+                        }
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        return "La coordenada enviada es invalida";
+                    }
                     if (this.cantidadDeBarcosParaPosicionar[1] == 0)
                     {
                         this.posicionamientoTerminado[1] = true;
                         respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
                     }
+                    
                     else
                     {
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]}";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]} barcos para pocicionar";
                     }
                     return respuesta;
                 }
@@ -337,42 +362,6 @@ namespace ClassLibrary
                 resultado = 1 + filafinal  - filainicio;
             }
             return resultado;
-        }
-        /// <summary>
-        /// Constructor del mensaje devuelto en cuanto se ponen barcos.
-        /// </summary>
-        /// <param name="tablerobjetivo"></param>
-        /// <param name="filainicio"></param>
-        /// <param name="columnainicio"></param>
-        /// <param name="filafinal"></param>
-        /// <param name="columnafinal"></param>
-        /// <returns></returns>
-        protected string respuestaDePonerBarcos(Tablero tablerobjetivo, int filainicio, int columnainicio,int filafinal, int columnafinal)
-        {
-            if (filainicio == filafinal)
-            {
-                for (int i = columnainicio; i < columnafinal; i++)
-                {
-                    if (tablerobjetivo.VerCasilla(filainicio, i) == 'B')
-                    {
-                        return "Has posicionado un barco sobre otro, empezaras la partida con la parte que colisiono dañada como si le hubieran disparado";
-                    }
-                }
-            }
-            else if (columnainicio == columnafinal)
-            {
-                for (int i = filainicio; i < filafinal; i++)
-                {          
-                    if (tablerobjetivo.VerCasilla(i , columnainicio) == 'B')
-                    {
-                        return "Has posicionado un barco sobre otro, empezaras la partida con la parte que colisiono dañada como si le hubieran disparado";
-                    }
-                        
-                }
-            }
-            return "Se Agrego correctamente el barco";
-            //Estaria bueno poner una excepcion aca para que no de el index out of range y se devuelva un msg.
-
         }
         /// <summary>
         /// Metodo encargado de la funcionalidad de rendirse.

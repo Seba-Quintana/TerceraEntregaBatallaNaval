@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System;
 namespace ClassLibrary
 {
     /// <summary>
@@ -7,21 +9,13 @@ namespace ClassLibrary
     public class Barco
     {
         /// <summary>
-        /// Atributo para guardar el lugar de inicio del barco.
-        /// </summary>
-        private int[] inicio;
-        /// <summary>
-        /// Atributo para guardar el lugar del final del barco.
-        /// </summary>
-        private int[] final;
-        /// <summary>
         /// Atributo para ver las partes del barco que estan enteras.
         /// </summary>
         private char[] partes;
         /// <summary>
         /// Atributo para poder ver las coordenadas ocupadas por el barco.
         /// </summary>
-        private int[][] casillasOcupadas;
+        private List<int[]> casillasOcupadas;
         /// <summary>
         /// Atributo Encargado de guardar la cantidad de casillas que ocupa el largo.
         /// </summary>
@@ -30,34 +24,39 @@ namespace ClassLibrary
         /// Atributo Encargado de guardar la orientacion del barco para utilizarlo en los diferentes metodos.
         /// </summary>
         private string orientacion;
-        private Barco( int[] inicioDeBarco , int[] finalDeBarco)
+        /// <summary>
+        /// Constructor de la clase barco.
+        /// </summary>
+        /// <param name="filaInicio"></param>
+        /// <param name="columnaInicio"></param>
+        /// <param name="filaFinal"></param>
+        /// <param name="columnaFinal"></param>
+        /// <param name="coordenadasAUtilizar"></param>
+        public Barco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal, List<int[]> coordenadasAUtilizar)
         {
-            this.inicio = inicioDeBarco;
-            this.final = finalDeBarco;
-            this.largo = Calcularlargo(inicio, final);
+            this.largo = Calcularlargo(filaInicio, columnaInicio, filaFinal, columnaFinal);
             this.partes = new char[ this.largo ];
             for (int i=0; i< this.largo ; i++)
             {
                 this.partes[i] = 'B';
             }
-            this.casillasOcupadas = new int[this.largo][];
-            this.anotarLugarDeBarco();
-            
+            this.casillasOcupadas = coordenadasAUtilizar;           
         }
         /// <summary>
-        /// Metodo Utilizado por el tablero para Dañar a un barco
+        /// Metodo Utilizado por el tablero para Dañar a un barco.
         /// </summary>
-        /// <param name="ataque"></param>
+        /// <param name="filaAtaque"></param>
+        /// <param name="columnaAtaque"></param>
         /// <returns></returns>
-        public char Dañar(int [] ataque)
+        public char Dañar(int filaAtaque, int columnaAtaque)
         {
-            if (this.verSiCasillaFormaParte(ataque))
+            if (this.verSiCasillaFormaParte(filaAtaque, columnaAtaque))
             {
                 if (this.orientacion == "Horizontal")
                 {
-                    if (this.partes[ataque[1]] == 'B')
+                    if (this.partes[columnaAtaque] == 'B')
                     {
-                        this.partes[ataque[1]] = 'X';
+                        this.partes[columnaAtaque] = 'X';
                         if (this.hundido())
                         {
                             return 'H';
@@ -72,9 +71,9 @@ namespace ClassLibrary
                 }
                 else
                 {
-                    if (this.partes[ataque[0]] == 'B')
+                    if (this.partes[filaAtaque] == 'B')
                     {
-                        this.partes[ataque[0]] = 'X';
+                        this.partes[filaAtaque] = 'X';
                         if (this.hundido())
                         {
                             return 'H';
@@ -95,27 +94,29 @@ namespace ClassLibrary
         /// Metodo utilizado por tablero para obtener los lugares ocupados por el barco.
         /// </summary>
         /// <returns></returns>
-        public int[][] ObtenerPartesDeBarco()
+        public List<int[]> ObtenerPartesDeBarco()
         {
             return this.casillasOcupadas;
         }
         /// <summary>
-        /// Metodo con la responsabilidad de calcular el largo del barco.
+        ///  Metodo con la responsabilidad de calcular el largo del barco.
         /// </summary>
-        /// <param name="inicioDeBarco"></param>
-        /// <param name="finalDeBarco"></param>
+        /// <param name="filaInicio"></param>
+        /// <param name="columnaInicio"></param>
+        /// <param name="filaFinal"></param>
+        /// <param name="columnaFinal"></param>
         /// <returns></returns>
-        private int Calcularlargo(int[] inicioDeBarco , int[] finalDeBarco)
+        private int Calcularlargo(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
         {
-            if(inicio[0] == final[0])
+            if(filaInicio == filaFinal)
             {
                 this.orientacion = "Horizontal";
-                return inicio[1] -  final[1];
+                return columnaFinal -  columnaInicio;
             }
             else
             {
                 this.orientacion = "Vertical";
-                return inicio[0] - final[0];
+                return filaFinal - filaInicio;
             }
         }
         /// <summary>
@@ -134,44 +135,19 @@ namespace ClassLibrary
             }
             return true;
         }
-        /// <summary>
-        /// Metodo encargado de completar el Array casillasOcupadas con
-        /// las coordendas que ocupa el barco en el tablero.
-        /// </summary>
-        private void anotarLugarDeBarco()
-        {
-            int espacioDeCoordenada = 0;
-            if (this.orientacion == "Horizontal")
-            {
-                for (int i = this.inicio[0]; i < this.final[0]; i++)
-                {
-                    int[] NuevaCoordenada = new int [2];
-                    NuevaCoordenada[0] = i;
-                    NuevaCoordenada[1] = inicio[1];
-                    this.casillasOcupadas[espacioDeCoordenada] = NuevaCoordenada;
-                    espacioDeCoordenada++;
-                }
-            }
-            else if (this.orientacion == "Vertical")
-            {
-                for(int j = this.inicio[1]; j < this.final[1]; j++)
-                {
-                    int[] NuevaCoordenada = new int [2];
-                    NuevaCoordenada[0] = inicio[0];
-                    NuevaCoordenada[1] = j;
-                    this.casillasOcupadas[espacioDeCoordenada] = NuevaCoordenada;
-                    espacioDeCoordenada++;
-                }
-            }
-        }
+
         /// <summary>
         /// Metodo responsable de ver si una casilla es parte del barco.
         /// </summary>
-        /// <param name="posibleParteDeBarco"></param>
+        /// <param name="filaAtaque"></param>
+        /// <param name="columnaAtaque"></param>
         /// <returns></returns>
 
-        private bool verSiCasillaFormaParte(int[] posibleParteDeBarco)
+        private bool verSiCasillaFormaParte(int filaAtaque, int columnaAtaque)
         {
+            int[] posibleParteDeBarco = new int[2];
+            posibleParteDeBarco[0] = filaAtaque;
+            posibleParteDeBarco[1] = columnaAtaque;
             foreach (int[] parteDeBarco in casillasOcupadas)
             {
                 if (parteDeBarco == posibleParteDeBarco)
