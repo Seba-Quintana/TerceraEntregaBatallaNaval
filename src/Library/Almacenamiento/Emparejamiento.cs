@@ -7,23 +7,51 @@ namespace ClassLibrary
     /// Esta clase empareja a dos jugadores en una cola.
     /// Hay dos colas existentes, una para el modo normal y otra para el modo rapido.
     /// </summary>
-    public static class EmparejamientoConCola
+    public class Emparejamiento
     {
         /// <summary>
         /// Cola de emparejamiento (modo normal)
         /// </summary>
-        public static Queue<int> ColaEmparejamientosN = new Queue<int>();
+        public Queue<int> ColaEmparejamientosN = new Queue<int>();
 
         /// <summary>
         /// Cola de emparejamiento (modo rapido)
         /// </summary>
-        public static Queue<int> ColaEmparejamientosR = new Queue<int>();
+        public Queue<int> ColaEmparejamientosR = new Queue<int>();
         
+        /// <summary>
+        /// Parte de singleton. Atributo donde se guarda la instancia del
+        /// Emparejamiento (o null si no fue creada).
+        /// </summary>
+        static Emparejamiento instance;
+
+        /// <summary>
+        /// Parte de singleton. Constructor llamado por el metodo Instance de crearse un Emparejamiento.
+        /// </summary>
+        private Emparejamiento()
+        {
+        }
+
+        /// <summary>
+        /// Singleton de Emparejamiento. Si no existe una instancia
+        /// de Emparejamiento, crea una. Si ya existe la devuelve
+        /// </summary>
+        /// <returns> Instancia nueva de Emparejamiento,
+        /// o de darse el caso, una previamente creada </returns>
+        public static Emparejamiento Instance()
+        {
+            if (instance == null)
+            {
+                instance = new Emparejamiento();
+            }
+            return instance;
+        }
+
         /// <summary>
         /// Remueve usuario de cola de emparejamiento
         /// </summary>
         /// <param name="usuario"> usuario a remover </param>
-        public static void RemoverListaEspera(int usuario)
+        public void RemoverListaEspera(int usuario)
         {
             try
             {
@@ -74,7 +102,7 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="modo"> modo de juego elegido </param>
         /// <param name="jugador"> jugador que busca emparejamiento </param>
-        public static int[] EmparejarAleatorio(int modo, int jugador)
+        public int[] EmparejarAleatorio(int modo, int jugador)
         {
             try
             {
@@ -124,7 +152,7 @@ namespace ClassLibrary
         /// <param name="jugador1"> jugador 1 </param>
         /// <param name="jugador2"> jugador 2 </param>
         /// <returns></returns>
-        public static int[] EmparejarAmigos(int modo, int jugador1, int jugador2)
+        public int[] EmparejarAmigos(int modo, int jugador1, int jugador2)
         {
             try
             {

@@ -32,7 +32,7 @@ Roles de clases:
 - Historial: Information holder
 - Partida: Controller
 - TraductorDeCoordenadas: Service provider
-- LogicaDeTablero: Structurer
+- LogicaDeTablero: Coordinator
 - impresoraConsola: Service provider
 - EmparejamientoConCola: Service provider
 - Tablero: Service provider
@@ -76,8 +76,8 @@ Se crea una instancia de estos objetos por partida jugada, y luego se almacenan 
 Esta clase se encarga de almacenar las partidas que están en juego, y las remueve cuando terminan.
 Esta clase utiliza el patrón Singleton, dado que precisa almacenar las partidas y no necesita varias instancias.
 
-- EmparejamientoConCola:
-Clase que permite colocar a dos jugadores juntos. El objetivo de la misma es emparejar a dos jugadores para que puedan jugar una partida juntos. Es una clase estática, dado que no necesita ser instanciable. Este emparejamiento puede ser entre dos personas desconocidas o entre personas que se conocen (para lo cual necesitan saber el numero de jugador del otro), y de ser entre dos personas desconocidas se utiliza una estructura de tipo FIFO (first in first out) para simplificar la entrada y salida de los jugadores de la cola de emparejamiento, y a su vez para reducir el tiempo de espera de los jugadores, ya que de no usarse una cola, un jugador 1 podría encontrar partida antes que un jugador 2 que haya entrado en la lista previo al ingreso del jugador 1. También posee un método de remover, que permite que un jugador que este dentro de la cola pueda decidir dejar de buscar partida. En cuyo caso se remueve de la cola de espera.
+- Emparejamiento:
+Clase que permite colocar a dos jugadores juntos. El objetivo de la misma es emparejar a dos jugadores para que puedan jugar una partida juntos. Esta clase implementa singleton, dado que almacena jugadores y no necesita mas de una instancia. Este emparejamiento puede ser entre dos personas desconocidas o entre personas que se conocen (para lo cual necesitan saber el numero de jugador del otro), y de ser entre dos personas desconocidas se utiliza una estructura de tipo FIFO (first in first out) para simplificar la entrada y salida de los jugadores de la cola de emparejamiento, y a su vez para reducir el tiempo de espera de los jugadores, ya que de no usarse una cola, un jugador 1 podría encontrar partida antes que un jugador 2 que haya entrado en la lista previo al ingreso del jugador 1. También posee un método de remover, que permite que un jugador que este dentro de la cola pueda decidir dejar de buscar partida. En cuyo caso se remueve de la cola de espera.
 
 - TraductorDeCoordenadas:
 El traductor de coordenadas se encarga de recibir una coordenada en forma de string, y devolver su correspondiente en integer. Este integer se devuelve en forma de arreglo para mantener la diferenciación entre filas y columnas. Es una clase estática dado que solo se encarga de realizar cálculos. De llegarle una coordenada invalida, devuelve null, aunque al no tener acceso al tamaño del tablero, no es responsable de verificar si una coordenada es mayor al tamaño del tablero o no. Por ende, de darse ese caso devuelve null, y otra clase comprueba como precondición que la coordenada sea válida.
