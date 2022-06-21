@@ -106,7 +106,7 @@ namespace ClassLibrary
             imprimir.ImprimirHistorial(historialDePartidas);
         }
 
-                /// <summary>
+        /// <summary>
         /// Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
         /// si el numero pertenece a un PerfilUsuario en la lista de perfiles de Admin
         /// pide mostrar el HistorialPersonal de este perfil.
@@ -169,6 +169,7 @@ namespace ClassLibrary
                 }
             }  
         }
+
         /// <summary>
         /// Empareja a dos jugadores por sus numeros de jugador.
         /// </summary>
@@ -234,7 +235,6 @@ namespace ClassLibrary
                 return "Usted no esta en partida";
             }
         }
-
         /// <summary>
         /// Metodo para rendirse
         /// </summary>
