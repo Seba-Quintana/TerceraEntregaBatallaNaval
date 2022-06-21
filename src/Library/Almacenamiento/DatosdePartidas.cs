@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Clase encargada de almacenar los datos referentes al acabar una partida
+    /// Clase encargada de almacenar los datos referentes al acabar una partida.
     /// </summary>
     public class DatosdePartida
     {

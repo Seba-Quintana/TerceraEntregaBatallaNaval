@@ -12,7 +12,9 @@ namespace ClassLibrary
         /// Lista de partidas en juego
         /// </summary>
         public List<Partida> partidas = new List<Partida>();
-
+        /// <summary>
+        /// Parte de singleton. Atributo donde se guarda la instancia de PartidasEnJuego (o null si no fue creada).
+        /// </summary>
         static PartidasEnJuego instance;
 
         /// <summary>

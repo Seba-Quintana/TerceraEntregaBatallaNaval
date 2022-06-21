@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// 
+    /// Esta clase se encarga de traducir las coordenadas ingresadas por el usuario a una forma en que el programa lo entienda
     /// </summary>
     public static class TraductorDeCoordenadas
     {
         /// <summary>
-        /// Transforma las coordenadas introducidas por el usuario en en un int[,]
+        /// Transforma las coordenadas introducidas por el usuario en un int[,]
         /// </summary>
         /// <param name="coordenada"></param>
         /// <returns> Devuelve la coordenada en un arreglo de int. De ser invalida, devuelve null </returns>

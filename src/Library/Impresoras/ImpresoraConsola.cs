@@ -33,8 +33,8 @@ namespace ClassLibrary
             return impresoraConsola;
         }
         /// <summary>
-        /// Con este método se imprime el tablero en la consola agregándole índices de coordenadas, imprime el tablero
-        /// del jugador que solicita la impresion y el de su oponente.
+        /// Con este método se imprime el tablero ingresado como parametro en la consola agregándole índices de coordenadas.
+        /// Como parametro tambien tiene un bool que identifica si es el tableto del jugador o no para señalizarlo correctamente.
         /// </summary>
         /// <param name="tablero"></param>
         /// <param name="jugador"></param>
@@ -108,7 +108,7 @@ namespace ClassLibrary
         }
         
         /// <summary>
-        /// Este método se encarga de imprimir el historial de todas las partidas que se jugaron en la consola.
+        /// Este método se encarga de imprimir el historial de todas las partidas en la lista de partidas ingresada como parametro en la consola.
         /// </summary>
         /// <param name="partidas"></param>
         public void ImprimirHistorial(List<DatosdePartida> partidas)

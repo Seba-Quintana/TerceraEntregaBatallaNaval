@@ -9,21 +9,26 @@ namespace ClassLibrary
     /// </summary>
     public class Historial
     {
+      /// <summary>
+      /// Lista de DatosdePartida
+      /// </summary>
       private List<DatosdePartida> partidas = new List<DatosdePartida>();
+      /// <summary>
+      /// Parte de singleton. Atributo donde se guarda la instancia del Historial (o null si no fue creada).
+      /// </summary>
+      static Historial instance;
 
-        static Historial instance;
+      /// <summary>
+      /// Parte de singleton. Constructor llamado por el metodo Instance de crearse un Historial.
+      /// </summary>
+      private Historial()
+      {
+      }
 
-        /// <summary>
-        /// Parte de singleton. Constructor llamado por el metodo Instance de crearse un Historial.
-        /// </summary>
-        private Historial()
-        {
-        }
-
-        /// <summary>
-        /// Singleton de Historial. Si no existe una instancia de Historial, crea una. Si ya existe la devuelve
-        /// </summary>
-        /// <returns> Instancia nueva de Historial, o de darse el caso, una previamente creada </returns>
+      /// <summary>
+      /// Singleton de Historial. Si no existe una instancia de Historial, crea una. Si ya existe la devuelve
+      /// </summary>
+      /// <returns> Instancia nueva de Historial, o de darse el caso, una previamente creada </returns>
         public static Historial Instance()
         {
             if (instance == null)

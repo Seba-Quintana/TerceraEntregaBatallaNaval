@@ -4,9 +4,7 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Clase AlmacenamientoUsuarioistradora. Se encarga de manejar distintos aspectos del programa,
-    /// como los usuarios o el historial.
-    /// Sera cambiada en gran parte por los handlers.
+    /// Clase AlmacenamientoUsuario. Se encarga de manejar todos los datos vinculados con los usuarios.
     /// </summary>
     public class AlmacenamientoUsuario
     {
@@ -162,9 +160,8 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-        /// si el numero pertenece a un PerfilUsuario en la lista de perfiles de AlmacenamientoUsuario
-        /// pide mostrar el HistorialPersonal de este perfil.
+        /// Si el numero pertenece a un PerfilUsuario en la lista de perfiles de AlmacenamientoUsuario
+        /// pide mostrar el HistorialPersonal de todas las partidas jugadas de este perfil.
         /// </summary>
         /// <param name="numerodejugador"> historial que se quiere ver</param>
         public List<DatosdePartida> ObtenerHistorialPersonal(int numerodejugador)
@@ -185,7 +182,7 @@ namespace ClassLibrary
 
         /// <summary>
         /// Realiza una lista de PerfilUsuario ordenados por cantidad de partidas ganadas,
-        /// y le pide a la impresora que la muestre.
+        /// y le pide a la retorna.
         /// </summary>
         public List<PerfilUsuario> ObtenerRanking()
         {

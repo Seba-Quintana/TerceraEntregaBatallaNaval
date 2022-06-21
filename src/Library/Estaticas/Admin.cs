@@ -5,16 +5,13 @@ namespace ClassLibrary
 {
     /// <summary>
     /// Clase administradora. Se encarga de manejar distintos aspectos del programa,
-    /// como los usuarios o el historial.
+    /// como los usuarios y el historial.
     /// Sera cambiada en gran parte por los handlers.
     /// </summary>
     public static class Admin
     {
         /// <summary>
-        /// Crea un nuevo perfil de usuario asignandole un numero de jugador.
-        /// Si es el primer usuario creado le asigna el numero 1, de lo contrario le asigna el
-        /// numero mas alto de un jugador existente +1,
-        /// y luego crea un PerfilUsuario con los datos necesarios para agregarlo a la lista de usuarios.
+        /// Se comunica con AlmacenamientoUsuario para registrar un nuevo jugador, recibe el numero de usuario y se lo muestra al jugador.
         /// </summary>
         /// <param name="nombre"> nombre del usuario</param>
         /// <param name="id"> id proporcionada por el bot </param>
@@ -29,8 +26,8 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero de usuarios pertenece a un PerfilUsuario existente
-        /// en la lista de perfiles de admin, lo elimina de la misma.
+        /// Le pide a AlmacenamientoUsuario eliminar un NumeroDeJugador de la lista
+        /// Le comunica al jugador la accion realizada
         /// </summary>
         /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
         public static string Remover(int NumeroDeJugador)
@@ -99,9 +96,7 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-        /// si el numero pertenece a un PerfilUsuario en la lista de perfiles de Admin
-        /// pide mostrar el HistorialPersonal de este perfil.
+        /// Pide mostrar el historial general de todos las partidas jugadas.
         /// </summary>
         public static void VerHistorial()
         {
@@ -112,9 +107,8 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-        /// si el numero pertenece a un PerfilUsuario en la lista de perfiles de Admin
-        /// pide mostrar el HistorialPersonal de este perfil.
+        /// Si el numero ingresado por parametro pertenece a un PerfilUsuario en la lista de perfiles de Admin
+        /// pide mostrar el HistorialPersonal de partidas jugadas de este perfil.
         /// </summary>
         /// <param name="numerodejugador"> historial que se quiere ver</param>
         public static void VerHistorialPersonal(int numerodejugador)
@@ -125,8 +119,7 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Realiza una lista de PerfilUsuario ordenados por cantidad de partidas ganadas,
-        /// y le pide a la impresora que la muestre.
+        /// Llama a ObtenerRanking de la clase AlmacenamientoUsuario y le pide a la impresora que lo muestre.
         /// </summary>
         public static void VerRanking()
         {
@@ -137,7 +130,7 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Crea una Partida, asignandole un tamaño
+        /// Crea una Partida, asignandole un tamaño, un modo
         /// y los dos numeros de jugador de quienes quieren comenzar una partida.
         /// </summary>
         /// <param name="tamaño"> tamaño del tablero </param>
