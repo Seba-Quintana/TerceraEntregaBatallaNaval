@@ -38,8 +38,7 @@ namespace ClassLibrary
 
         /// <summary>
         /// Esta operción se encarga de imprimir el ranking de jugadores.
-        /// Recibe como parametro la lista de los perfiles,
-        /// y ordena los usuarios en base a la cantidad de victorias de cada jugador.
+        /// Recibe como parametro la lista de los perfiles ordenada en base a la cantidad de victorias de cada jugador.
         /// </summary>
         /// <param name="perfiles"></param>
         void ImprimirRanking(List<PerfilUsuario> perfiles);

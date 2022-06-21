@@ -4,8 +4,9 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase se encarga de ver cosas como el Perfil, el Ranking y el Historial y los tableros.
-    /// Se encarga de crear Partidas Amistosas y tambien de buscar Partidas
+    /// Esta clase se encarga de ver cosas como el Perfil, el Ranking, el Historial y los tableros.
+    /// Se encarga de crear Partidas Amistosas y tambien de buscar Partidas aleatorias
+    /// Recibe las coordenadas para posicionar barcos y ataques
     /// Esta clase tiene catch en sus metodos para poder atrapar las excepciones que suceden
     /// en partes mas internas del programa (por propagacion de excepciones), y llama
     /// a la impresora para imprimir un mensaje de error.

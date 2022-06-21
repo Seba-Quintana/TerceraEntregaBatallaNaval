@@ -35,7 +35,7 @@ namespace ClassLibrary
         }
         /// <summary>
         /// Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar
-        /// que ejecute su segundo tiro antes de que ataque el otro.
+        /// que un jugador ejecute su segundo tiro antes de que ataque su oponente.
         /// </summary>
         /// <param name="objetivo"></param>
         /// <param name="jugador"></param>

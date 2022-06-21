@@ -24,22 +24,18 @@ namespace ClassLibrary
                 return nombre;
             }
         }
-
         /// <summary>
         /// Identificación del jugador otorgada por el bot
         /// </summary>
         private int ID;
-
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
         private string contraseña;
-
         /// <summary>
-        /// Identificación númerica del jugador
+        /// Identificación numerica del jugador
         /// </summary>
         public int NumeroDeJugador;
-
         /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
@@ -70,13 +66,11 @@ namespace ClassLibrary
             {
                 return perdidas;
             }
-        }
-      
+        } 
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
         private List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
-
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
         /// </summary>
@@ -100,7 +94,6 @@ namespace ClassLibrary
             this.contraseña = Contraseña;
             this.NumeroDeJugador = NumeroDeJugador;
         }
-
         /// <summary>
         /// Añade partidas al historial personal del usuario
         /// </summary>
@@ -117,18 +110,16 @@ namespace ClassLibrary
             }
             this.HistorialPersonal.Add(partida);
         }
-
         /// <summary>
-        /// Devuelve el perfil para imprimir
+        /// Devuelve el perfil
         /// </summary>
         /// <returns> Devuelve el Perfil del usuario </returns>
         public PerfilUsuario VerPerfil()
         {
             return this;
         }
-
         /// <summary>
-        /// Devuelve una copia del historial personal para imprimir
+        /// Devuelve una copia del historial personal
         /// </summary>
         /// <returns> Devuelve una lista con todos los datos de partida del perfil</returns>
         public List<DatosdePartida> ObtenerHistorialPersonal()

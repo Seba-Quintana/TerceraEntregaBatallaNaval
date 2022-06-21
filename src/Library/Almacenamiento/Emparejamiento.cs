@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase empareja a dos jugadores en una cola.
-    /// Hay dos colas existentes, una para el modo normal y otra para el modo rapido.
+    /// Esta clase empareja a dos jugadores en un int[,] para poder crear una partida.
+    /// Hay dos colas de espera existentes existentes en la espera de partida aleatoria, una para el modo normal y otra para el modo rapido.
     /// </summary>
     public class Emparejamiento
     {

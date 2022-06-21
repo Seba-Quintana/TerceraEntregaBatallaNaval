@@ -12,7 +12,7 @@ namespace ClassLibrary
         /// </summary>
         public int Tamaño{get;}
         /// <summary>
-        /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego.
+        /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego (contiene el tablero).
         /// </summary>
         protected char[,] matriz;
         /// <summary>
@@ -54,7 +54,7 @@ namespace ClassLibrary
             {
                 if (nuevovalor == 'B')
                 {
-                    if (this.matriz[fila, columna] == '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
+                    if (this.matriz[fila, columna] == '\u0000')//Verifica que el espacio asignado este vacio antes de poner un Barco
                     {
                         this.matriz[fila, columna] = 'B';
                         this.CantidadDePartesDeBarcosEnteras+=1;
