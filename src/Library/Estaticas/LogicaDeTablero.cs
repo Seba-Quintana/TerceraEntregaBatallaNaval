@@ -17,24 +17,19 @@ namespace ClassLibrary
   /// <param name="filafinal"></param>
   /// <param name="columnafinal"></param>
   
-  public static void Añadirbarco(Tablero tablero, int filainicio, int columnainicio,  int filafinal, int columnafinal)
+  public static bool Añadirbarco(Tablero tablero, int filainicio, int columnainicio,  int filafinal, int columnafinal)
   {
+    bool SeAñadioElBarco;
     if (filainicio == filafinal)
     {
-      for (int i = columnainicio; i <= columnafinal; i++)
-      {
-        tablero.ActualizarTablero(filafinal, i, 'B');
-      }
+      SeAñadioElBarco = tablero.AñadirBarco(filainicio, columnainicio, filafinal, columnafinal);
     }
 
     else
-    {
-      for (int i = filainicio; i <= filafinal; i++)
-      {          
-        tablero.ActualizarTablero(i, columnainicio, 'B');
-            
-      }
+    {       
+      SeAñadioElBarco = tablero.AñadirBarco(filainicio, columnainicio, filafinal, columnafinal);
     }
+    return SeAñadioElBarco;
 
     }
     /// <summary>
@@ -46,7 +41,7 @@ namespace ClassLibrary
     /// <returns></returns>
     public static void Atacar( Tablero tablero,  int fila, int columna)
     {
-      tablero.ActualizarTablero(fila, columna, 'A');
+      tablero.Atacar(fila,columna);
     }
     /// <summary>
     /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un ataque

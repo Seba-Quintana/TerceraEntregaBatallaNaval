@@ -83,6 +83,9 @@ namespace ClassLibrary
                         case '-':
                             filaImprimir = filaImprimir + " " + "- ";
                             break;
+                        case 'H':
+                            filaImprimir = filaImprimir + " " + "H ";
+                            break;
                         default:
                             filaImprimir = filaImprimir + " " + "~ ";
                             break;
