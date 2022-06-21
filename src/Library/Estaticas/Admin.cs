@@ -11,7 +11,8 @@ namespace ClassLibrary
     public static class Planificador
     {
         /// <summary>
-        /// Se comunica con AlmacenamientoUsuario para registrar un nuevo jugador, recibe el numero de usuario y se lo muestra al jugador.
+        /// Se comunica con AlmacenamientoUsuario para registrar un nuevo jugador,
+        /// recibe el numero de usuario y se lo muestra al jugador.
         /// </summary>
         /// <param name="nombre"> nombre del usuario</param>
         /// <param name="id"> id proporcionada por el bot </param>
@@ -107,7 +108,8 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero ingresado por parametro pertenece a un PerfilUsuario en la lista de perfiles de Planificador
+        /// Si el numero ingresado por parametro pertenece a un PerfilUsuario
+        /// en la lista de perfiles de Planificador,
         /// pide mostrar el HistorialPersonal de partidas jugadas de este perfil.
         /// </summary>
         /// <param name="numerodejugador"> historial que se quiere ver</param>
