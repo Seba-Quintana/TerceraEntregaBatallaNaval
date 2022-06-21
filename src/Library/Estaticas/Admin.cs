@@ -21,8 +21,10 @@ namespace ClassLibrary
         /// <param name="contraseña"> contraseña </param>
         public static int Registrar(string nombre, int id, string contraseña)
         {
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario registro = AlmacenamientoUsuario.Instance();
             int NumeroDeJugador = registro.Registrar(nombre, id, contraseña);
+            imprimir.RecibirMensajes($"Su numero de jugador es: {NumeroDeJugador}");
             return NumeroDeJugador;
         }
 
@@ -31,10 +33,12 @@ namespace ClassLibrary
         /// en la lista de perfiles de admin, lo elimina de la misma.
         /// </summary>
         /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
-        public static void Remover(int NumeroDeJugador)
+        public static string Remover(int NumeroDeJugador)
         {
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario removedor = AlmacenamientoUsuario.Instance();
             removedor.Remover(NumeroDeJugador);
+            return $"Jugador {NumeroDeJugador} removido";
         }
         
         /// <summary>
@@ -56,20 +60,21 @@ namespace ClassLibrary
         /// <param name="jugador"> jugador en partida </param>
         public static void VerTableroOponente(int jugador)
         {
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
             if(tableroOponente == null)
             {
-                Console.WriteLine("No se ha podido imprimir el tablero ya que no estas en partida");
+                imprimir.RecibirMensajes("No se ha podido imprimir el tablero ya que no estas en partida");
             }
-            else{
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            Partida juego = partidas.ObtenerPartida(jugador);
-            if (juego != null)
+            else
             {
-                imprimir.ImprimirTablero(tableroOponente, false);
-            }
+                PartidasEnJuego partidas = PartidasEnJuego.Instance();
+                Partida juego = partidas.ObtenerPartida(jugador);
+                if (juego != null)
+                {
+                    imprimir.ImprimirTablero(tableroOponente, false);
+                }
             }
         }
 
@@ -80,16 +85,16 @@ namespace ClassLibrary
         /// <param name="jugador"> jugador en partida </param>
         public static void VerTablero(int jugador)
         {
+            ImpresoraConsola impresora = ImpresoraConsola.Instance();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroPropio = buscador.ObtenerTablero(jugador);
             if(tableroPropio == null)
             {
-                Console.WriteLine("No se ha podido imprimir el tablero ya que no estas en partida");
+                impresora.RecibirMensajes("No se ha podido imprimir el tablero ya que no estas en partida");
             }
             else
             {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            imprimir.ImprimirTablero(tableroPropio, true);
+                impresora.ImprimirTablero(tableroPropio, true);
             }
         }
 
@@ -138,16 +143,19 @@ namespace ClassLibrary
         /// <param name="tamaño"> tamaño del tablero </param>
         /// <param name="modo"> modo de juego a jugar </param>
         /// <param name="jugadores"> jugadores </param>
-        public static void CrearPartida(int tamaño, int modo, int[] jugadores)
+        public static string CrearPartida(int tamaño, int modo, int[] jugadores)
         {
             if (modo == 0)
             {
                 Partida partida = new Partida(tamaño, jugadores[0], jugadores[1]);
+                return "partida creada";
             }
-            else
+            else if (modo == 1)
             {
                 PartidaRapida partida = new PartidaRapida(tamaño, jugadores[0], jugadores[1]);
+                return "partida creada";
             }
+            return "no se ha podido crear la partida";
         }
 
         /// <summary>
@@ -157,7 +165,7 @@ namespace ClassLibrary
         /// <param name="modo"> modo elegido </param>
         /// <param name="jugador"> jugador que busca partida </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static void Emparejar(int modo, int jugador, int tamano)
+        public static string Emparejar(int modo, int jugador, int tamano)
         {
             AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
             if (jugadorExistente.ObtenerPerfil(jugador) != null)
@@ -166,8 +174,10 @@ namespace ClassLibrary
                 if (jugadores != null)
                 {
                     CrearPartida(tamano, modo, jugadores);
+                    return "Emparejamiento completado";
                 }
-            }  
+            }
+            return "No se ha podido efectuar el emparejamiento";
         }
 
         /// <summary>
@@ -177,7 +187,7 @@ namespace ClassLibrary
         /// <param name="jugador1"> jugador 1 </param>
         /// <param name="jugador2"> jugador 2 </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static void EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
+        public static string EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
         {
             AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
             if (jugadorExistente.ObtenerPerfil(jugador1) != null)
@@ -186,8 +196,10 @@ namespace ClassLibrary
                 {
                     int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
                     CrearPartida(tamano, modo, jugadores);
+                    return "Emparejamiento completado";
                 }
             }
+            return "No se ha podido efectuar el emparejamiento";
         }
 
         /// <summary>
@@ -239,14 +251,17 @@ namespace ClassLibrary
         /// Metodo para rendirse
         /// </summary>
         /// <param name="jugador"> jugador que quiere rendirse </param>
-        public static void Rendirse(int jugador)
+        public static string Rendirse(int jugador)
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             if (partidas.EstaElJugadorEnPartida(jugador))
             {
                 Partida juego = partidas.ObtenerPartida(jugador);
                 juego.Rendirse(jugador);
+                return "se ha efectuado la rendicion";
             }
+            else
+                return "no se pudo rendir";
         }
     }
 }

@@ -141,5 +141,14 @@ namespace ClassLibrary
                 puesto = puesto + 1;
             }
         }
+
+        /// <summary>
+        /// Imprime mensajes.
+        /// </summary>
+        /// <param name="mensaje"> Mensaje a imprimir </param>
+        public void RecibirMensajes (string mensaje)
+        {
+            Console.WriteLine(mensaje);
+        }
     }
 }
