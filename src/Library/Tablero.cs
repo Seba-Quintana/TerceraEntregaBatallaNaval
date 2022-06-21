@@ -22,7 +22,7 @@ namespace ClassLibrary
         /// <summary>
         /// Representa la cantidad de partes de barco sin dañar.
         /// </summary>
-        public int CantidadDePartesDeBarcosEnteras;
+        public int CantidadDeBarcosEnteros;
         /// <summary>
         /// En este atributo se ve el numero de jugador de quien es el dueño del tablero, osea el que puede ver la informacion de los barcos intactos principalmente.
         /// </summary>
@@ -57,12 +57,12 @@ namespace ClassLibrary
                     if (this.matriz[fila, columna] == '\u0000')//Mira que el espacio asignado este vacio antes de poner un Barco
                     {
                         this.matriz[fila, columna] = 'B';
-                        this.CantidadDePartesDeBarcosEnteras+=1;
+                        //this.CantidadDeBarcosEnteros+=1;
                     }
                     else if (this.matriz[fila, columna]== 'B')
                     {
                         this.matriz[fila, columna] = 'T';
-                        this.CantidadDePartesDeBarcosEnteras-=1;
+                        //this.CantidadDeBarcosEnteros-=1;
                     }
                 }
                 else if (nuevovalor == 'A')
@@ -70,8 +70,8 @@ namespace ClassLibrary
                     if (matriz[fila, columna] == 'B')
                     {
                         this.matriz[fila, columna] = 'T';
-                        this.CantidadDePartesDeBarcosEnteras -= 1;
-                        if (CantidadDePartesDeBarcosEnteras==0){terminado=true;}
+                        //this.CantidadDeBarcosEnteros -= 1;
+                        if (CantidadDeBarcosEnteros==0){terminado=true;}
 
                     }
                     else if (matriz[fila, columna] == 'T')
