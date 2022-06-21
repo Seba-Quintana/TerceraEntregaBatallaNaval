@@ -7,7 +7,7 @@ namespace Tests
 {
     /// <summary>
     /// Se crea una clase para poder realizar los test que sean posibles de la clase Jugador
-    /// </summary>
+    /// /// </summary>
     public class JugadorTests
     {
         private Jugador jugador;
