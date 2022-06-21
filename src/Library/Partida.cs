@@ -41,6 +41,15 @@ namespace ClassLibrary
         /// <param name="jugador2"></param>
         public Partida(int tamaño ,int jugador1, int jugador2)
         {
+            try
+            {
+                if (tamaño > 15)
+                    throw new TableroInvalidoException();
+            }
+            catch (TableroInvalidoException)
+            {
+                throw new TableroInvalidoException("Tablero demasiado grande", tamaño);
+            }
             this.tableros[0] = new Tablero(tamaño,jugador1);
             this.jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             this.tableros[1] = new Tablero(tamaño,jugador2);
