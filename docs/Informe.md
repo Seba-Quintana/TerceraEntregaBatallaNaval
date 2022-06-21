@@ -23,21 +23,21 @@ El ayudante de tiro es una ayuda para el jugador dentro del juego, que muestra l
 
 
 Roles de clases:
-- AlmacenamientoUsuario: &&&&&&&&&&&&&&&&&
+- AlmacenamientoUsuario: Information holder
 - DatosDePartidas: Information holder
 - PartidasEnJuego: Information holder
-- Admin: &&&&&&&&&&&&&&&&&&&&&&&&&&&&
-- Iimpresora: interface
-- perfilUsuario: information holder
-- Historial: information holder
-- Partida: &&&&&&&&&&&&&&&&&&&&&&&&&&&&
-- TraductorDeCoordenadas: &&&&&&&&&&&&&&&&&
-- LogicaDeTablero: &&&&&&&&&&&&&&&&&&&&&&&
-- impresoraConsola: service provider
-- EmparejamientoConCola: service provider
-- Tablero: service provider
-- PartidaRapida: service provider
-- Jugador: controller
+- Admin: Coordinator
+- Iimpresora: Interface
+- perfilUsuario: Information holder
+- Historial: Information holder
+- Partida: Controller
+- TraductorDeCoordenadas: Service provider
+- LogicaDeTablero: Structurer
+- impresoraConsola: Service provider
+- EmparejamientoConCola: Service provider
+- Tablero: Service provider
+- PartidaRapida: Controller
+- Jugador: Controller
 
 
 Clases:
@@ -83,17 +83,18 @@ Clase que permite colocar a dos jugadores juntos. El objetivo de la misma es emp
 El traductor de coordenadas se encarga de recibir una coordenada en forma de string, y devolver su correspondiente en integer. Este integer se devuelve en forma de arreglo para mantener la diferenciación entre filas y columnas. Es una clase estática dado que solo se encarga de realizar cálculos. De llegarle una coordenada invalida, devuelve null, aunque al no tener acceso al tamaño del tablero, no es responsable de verificar si una coordenada es mayor al tamaño del tablero o no. Por ende, de darse ese caso devuelve null, y otra clase comprueba como precondición que la coordenada sea válida.
 
 - Partida:
-&&&&&&&&&&&&&&&&&&&&&&
+Las responsabilidades de partida son hacer un control de los ataques, de las pociciones de barco, crear los mensajes de respuesta de estas acciones delegando las tareas adecuadas en cada caso a la clase LogicaDeTablero.
 
 - Partida Rápida:
 Partida rapida es una subclase de Partida, añade la posibilidad de realizar un segundo tiro por ataque.
 Hereda de partida dado que mantiene todas las características de una partida normal, salvo por el método de ataque y un atributo con las segundas tiradas.
 
 - LogicaDeTablero:
-&&&&&&&&&&&&&&&&&&&&&&
+La clase LogicaDeTablero es la que obtiene los datos que Tablero precisa y le delega tareas.
+Esta clase es estática porque como su única responsabilidad es delegar tareas, no necesita almacenar información, y utiliza SRP por la misma razón.
 
 - Tablero:
-&&&&&&&&&&&&&&&&&&&&&&
+Es la clase encargada de manejar el espacio de juego, posiciona los barcos y ataques en el tablero, y asigna el ganador.
 
 
 Excepciones:
