@@ -14,7 +14,7 @@ namespace ClassLibrary
         /// </summary>
         public int Tamaño{get;}
         /// <summary>
-        /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego.
+        /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego (contiene el tablero).
         /// </summary>
         protected char[,] matriz;
         /// <summary>
@@ -97,6 +97,7 @@ namespace ClassLibrary
                                 BarcoHundido =posibleObjetivo;
                                 break;
                         }
+
                     }
                 }
                 if (BarcoHundido !=null)

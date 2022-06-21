@@ -14,7 +14,7 @@ namespace ClassLibrary
         /// /// </summary>
         public bool PartidaTerminada;
         /// <summary>
-        /// Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
+        /// Variable encargada de controlar si se puede empezar a atacar (no se puede posicionar mas).
         /// /// </summary>
         public bool[] posicionamientoTerminado = new bool[2];
         /// <summary>
@@ -207,9 +207,7 @@ namespace ClassLibrary
             {
                 return "La segunda coordenada enviada es invalida";
             }
-            
-            // Estaria bueno un try Catch aca para ver que las coordenadas sean inferiores al tamaño de las matrices.
-            // que vea que se haya vaciado la clase posicionamiento.
+
             int [] coordenadasOrdenadas = ordenadorDeCoordenadas(coordenada1,coordenada2);
             int filainicio = coordenadasOrdenadas[0];
             int columnainicio = coordenadasOrdenadas[1];
@@ -405,11 +403,10 @@ namespace ClassLibrary
             }
         }
         /// <summary>
-        /// Metodo utilizado para ver una copia del tablero del oponente sin barcos
+        /// Metodo utilizado para ver una copia del tablero del oponente sin barcos y con el ayudante de tiro
         /// </summary>
         /// <param name="jugador"></param>
-        /// <returns></returns>
-            
+        /// <returns></returns>   
         public char[ , ] VistaOponente (int jugador)
         {
             if (!this.jugadores.Contains(jugador))

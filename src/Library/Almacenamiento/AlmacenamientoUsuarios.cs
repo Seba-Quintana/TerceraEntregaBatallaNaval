@@ -4,16 +4,26 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Clase AlmacenamientoUsuarioistradora. Se encarga de manejar distintos aspectos del programa,
-    /// como los usuarios o el historial.
-    /// Sera cambiada en gran parte por los handlers.
+    /// Clase AlmacenamientoUsuario. Se encarga de manejar todos los datos vinculados con los usuarios.
     /// </summary>
     public class AlmacenamientoUsuario
     {
         /// <summary>
         /// Almacenamiento de usuarios
         /// </summary>
-        public List<PerfilUsuario> ListaDeUsuarios = new List<PerfilUsuario>();
+        private List<PerfilUsuario> listaDeUsuarios = new List<PerfilUsuario>();
+
+        /// <summary>
+        /// Getter de listaDeUsuarios
+        /// </summary>
+        /// <value> Lista de usuarios </value>
+        public List<PerfilUsuario> ListaDeUsuarios
+        {
+            get
+            {
+                return listaDeUsuarios;
+            }
+        }
         
         /// <summary>
         /// Parte de singleton. Atributo donde se guarda la instancia del AlmacenamientoUsuario (o null si no fue creada).
@@ -51,12 +61,12 @@ namespace ClassLibrary
         public int Registrar(string nombre, int id, string contraseña)
         {
             int numeroDeJugador = 1;
-            if (ListaDeUsuarios.Count != 0)
+            if (listaDeUsuarios.Count != 0)
             {
-                numeroDeJugador = ListaDeUsuarios[ListaDeUsuarios.Count - 1].NumeroDeJugador + 1;
+                numeroDeJugador = listaDeUsuarios[listaDeUsuarios.Count - 1].NumeroDeJugador + 1;
             }    
             PerfilUsuario usuario = new PerfilUsuario(nombre, id, contraseña, numeroDeJugador);
-            ListaDeUsuarios.Add(usuario);
+            listaDeUsuarios.Add(usuario);
             return numeroDeJugador;
         }
         /// <summary>
@@ -66,24 +76,17 @@ namespace ClassLibrary
         /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
         public void Remover(int NumeroDeJugador)
         {
-            try
-            {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
-                    throw new JugadorNoEncontradoException();
-            }
-            catch (JugadorNoEncontradoException)
-            {
-                throw new JugadorNoEncontradoException
-                ("No se encontro el jugador a remover", NumeroDeJugador);
-            }
+            if (!listaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
+            {}
+            else
             if(ObtenerPerfil(NumeroDeJugador) != null)
             {
                 int i = 0;
-                while (i < ListaDeUsuarios.Count )
+                while (i < listaDeUsuarios.Count )
                 {
-                    if (ListaDeUsuarios[i].NumeroDeJugador == NumeroDeJugador)
+                    if (listaDeUsuarios[i].NumeroDeJugador == NumeroDeJugador)
                     {
-                        ListaDeUsuarios.Remove(ListaDeUsuarios[i]);  
+                        listaDeUsuarios.Remove(listaDeUsuarios[i]);  
                         i = i - 1;
                     }
                     i = i + 1;
@@ -98,7 +101,7 @@ namespace ClassLibrary
         /// <returns> perfil de usuario </returns>
         public PerfilUsuario ObtenerPerfil(int usuario)
         {
-            foreach(PerfilUsuario perfil in ListaDeUsuarios)
+            foreach(PerfilUsuario perfil in listaDeUsuarios)
             {
                 if (perfil.NumeroDeJugador == usuario)
                 {
@@ -117,7 +120,7 @@ namespace ClassLibrary
         {
             try
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador)))
+                if (!listaDeUsuarios.Contains(ObtenerPerfil(jugador)))
                     throw new JugadorNoEncontradoException();
             }
             catch (JugadorNoEncontradoException)
@@ -144,7 +147,7 @@ namespace ClassLibrary
         {
             try
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador)))
+                if (!listaDeUsuarios.Contains(ObtenerPerfil(jugador)))
                     throw new JugadorNoEncontradoException();
             }
             catch (JugadorNoEncontradoException)
@@ -162,16 +165,15 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-        /// si el numero pertenece a un PerfilUsuario en la lista de perfiles de AlmacenamientoUsuario
-        /// pide mostrar el HistorialPersonal de este perfil.
+        /// Si el numero pertenece a un PerfilUsuario en la lista de perfiles de AlmacenamientoUsuario
+        /// pide mostrar el HistorialPersonal de todas las partidas jugadas de este perfil.
         /// </summary>
         /// <param name="numerodejugador"> historial que se quiere ver</param>
         public List<DatosdePartida> ObtenerHistorialPersonal(int numerodejugador)
         {
             try
             {
-                if (!ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
+                if (!listaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
                     throw new JugadorNoEncontradoException();
             }
             catch (JugadorNoEncontradoException)
@@ -185,15 +187,15 @@ namespace ClassLibrary
 
         /// <summary>
         /// Realiza una lista de PerfilUsuario ordenados por cantidad de partidas ganadas,
-        /// y le pide a la impresora que la muestre.
+        /// y le pide a la retorna.
         /// </summary>
         public List<PerfilUsuario> ObtenerRanking()
         {
             List<PerfilUsuario> ranking = new List<PerfilUsuario>();
             int i = 0;
-            while (i < ListaDeUsuarios.Count)
+            while (i < listaDeUsuarios.Count)
             {
-                ranking.Add(ListaDeUsuarios[i]);
+                ranking.Add(listaDeUsuarios[i]);
                 i++;
             }
             int j = 0;

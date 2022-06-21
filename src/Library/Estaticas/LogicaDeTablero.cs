@@ -33,7 +33,7 @@ namespace ClassLibrary
 
     }
     /// <summary>
-    /// Encargado de realizar un ataque y devolver el resultado del ataque.
+    /// Metodo encargado de realizar un ataque y devolver el resultado del ataque.
     /// </summary>
     /// <param name="tablero"></param>
     /// <param name="columna"></param>
@@ -44,7 +44,7 @@ namespace ClassLibrary
       tablero.Atacar(fila,columna);
     }
     /// <summary>
-    /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un atauqe
+    /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un ataque
     /// </summary>
     /// <param name="tablero"></param>
     /// <returns></returns>
