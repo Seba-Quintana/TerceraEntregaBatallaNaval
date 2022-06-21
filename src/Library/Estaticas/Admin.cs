@@ -4,11 +4,11 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Clase administradora. Se encarga de manejar distintos aspectos del programa,
+    /// Clase Planificador. Se encarga de manejar distintos aspectos del programa,
     /// como los usuarios y el historial.
     /// Sera cambiada en gran parte por los handlers.
     /// </summary>
-    public static class Admin
+    public static class Planificador
     {
         /// <summary>
         /// Se comunica con AlmacenamientoUsuario para registrar un nuevo jugador, recibe el numero de usuario y se lo muestra al jugador.
@@ -107,7 +107,7 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Si el numero ingresado por parametro pertenece a un PerfilUsuario en la lista de perfiles de Admin
+        /// Si el numero ingresado por parametro pertenece a un PerfilUsuario en la lista de perfiles de Planificador
         /// pide mostrar el HistorialPersonal de partidas jugadas de este perfil.
         /// </summary>
         /// <param name="numerodejugador"> historial que se quiere ver</param>
