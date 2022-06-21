@@ -4,9 +4,11 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase se encarga de ver cosas como el Perfil, el Ranking y el Historial.
+    /// Esta clase se encarga de ver cosas como el Perfil, el Ranking y el Historial y los tableros.
     /// Se encarga de crear Partidas Amistosas y tambien de buscar Partidas
-    /// Visualiza al tablero.
+    /// Esta clase tiene catch en sus metodos para poder atrapar las excepciones que suceden
+    /// en partes mas internas del programa (por propagacion de excepciones), y llama
+    /// a la impresora para imprimir un mensaje de error.
     /// </summary>
     public class Jugador
     {
@@ -28,24 +30,25 @@ namespace ClassLibrary
         {
           this.NumeroDeJugador = Admin.Registrar(nombre, id, contraseña);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("no se pudo crear un jugador", e);
+          ImpresoraConsola impresora = ImpresoraConsola.Instance();
+          impresora.RecibirMensajes("no se pudo crear un jugador");
         }
       }
 
       /// <summary>
       /// Remueve el jugador de la lista de usuarios
       /// </summary>
-      public void Remover()
+      public string Remover()
       {
         try
         {
-          Admin.Remover(this.NumeroDeJugador);
+          return Admin.Remover(this.NumeroDeJugador);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("no se pudo crear un jugador", e);
+          return "no se pudo remover el jugador";
         }
       }
       
@@ -59,9 +62,10 @@ namespace ClassLibrary
         {
           Admin.VerPerfil(perfil);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("No se pudo visualizar el perfil", e);
+          ImpresoraConsola impresora = ImpresoraConsola.Instance();
+          impresora.RecibirMensajes("no se pudo ver el perfil del jugador");
         }
       }
     
@@ -74,9 +78,10 @@ namespace ClassLibrary
         {
           Admin.VerRanking();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("No se pudo ver el ranking", e);
+          ImpresoraConsola impresora = ImpresoraConsola.Instance();
+          impresora.RecibirMensajes("no se pudo ver el ranking");
         }
       }
     
@@ -89,9 +94,10 @@ namespace ClassLibrary
         {
           Admin.VerHistorial();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("No se pudo ver el historial", e);
+          ImpresoraConsola impresora = ImpresoraConsola.Instance();
+          impresora.RecibirMensajes("No se pudo ver el historial");
         }
       }
     
@@ -105,46 +111,13 @@ namespace ClassLibrary
         {
           Admin.VerHistorialPersonal(numerodejugador);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("No se pudo ver el historial", e);
+          ImpresoraConsola impresora = ImpresoraConsola.Instance();
+          impresora.RecibirMensajes("No se pudo ver el historial");
         }
       }
 
-      /// <summary>
-      /// Busqueda de partida amistosa (jugar partida con un amigo)
-      /// </summary>
-      /// <param name="modo"> modo de juego elegido </param>
-      /// <param name="jugador2"> jugador con el que se quiere emparejar </param>
-      /// <param name="tamano"> tamaño del tablero </param>
-      public void PartidaAmistosa(int modo, int jugador2, int tamano)
-      {
-        try
-        {
-          Admin.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
-        }
-        catch (Exception e)
-        {
-          throw new Exception("no se pudo emparejar con otro jugador", e);
-        }
-      }
-    
-      /// <summary>
-      /// Busqueda de partida (partida con oponente aleatorio)
-      /// </summary>
-      /// <param name="modo"> modo de juego elegido </param>
-      /// <param name="tamano"></param>
-      public void BuscarPartida(int modo, int tamano)
-      {
-        try
-        {
-          Admin.Emparejar(modo, this.NumeroDeJugador, tamano);
-        }
-        catch (Exception e)
-        {
-          throw new Exception("no se pudo emparejar con otro jugador", e);
-        }
-      }
       /// <summary>
       /// Permite al jugador visualizar el tablero actual
       /// </summary>
@@ -155,11 +128,48 @@ namespace ClassLibrary
           Admin.VerTableroOponente(this.NumeroDeJugador);
           Admin.VerTablero(this.NumeroDeJugador);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-          throw new Exception("No se pudo ver el tablero", e);
+          ImpresoraConsola impresora = ImpresoraConsola.Instance();
+          impresora.RecibirMensajes("No se pudo ver el tablero");
         }
       }
+
+      /// <summary>
+      /// Busqueda de partida amistosa (jugar partida con un amigo)
+      /// </summary>
+      /// <param name="modo"> modo de juego elegido </param>
+      /// <param name="jugador2"> jugador con el que se quiere emparejar </param>
+      /// <param name="tamano"> tamaño del tablero </param>
+      public string PartidaAmistosa(int modo, int jugador2, int tamano)
+      {
+        try
+        {
+          return Admin.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
+        }
+        catch (Exception)
+        {
+          return "No se ha podido emparejar a los jugadores";
+        }
+      }
+    
+      /// <summary>
+      /// Busqueda de partida (partida con oponente aleatorio)
+      /// </summary>
+      /// <param name="modo"> modo de juego elegido </param>
+      /// <param name="tamano"></param>
+      public string BuscarPartida(int modo, int tamano)
+      {
+        try
+        {
+          return Admin.Emparejar(modo, this.NumeroDeJugador, tamano);
+        }
+        catch (Exception)
+        {
+          return "No se pudo emparejar con otro jugador";
+        }
+      }
+
       /// <summary>
       /// Permite al jugador posicionar barcos
       /// </summary>
@@ -167,7 +177,14 @@ namespace ClassLibrary
       /// <param name="final"> coordenada que indica la ultima casilla del barco </param>
       public string PosicionarBarcos(string inicio, string final)
       {
-        return Admin.Posicionar(inicio ,final ,NumeroDeJugador);
+        try
+        {
+          return Admin.Posicionar(inicio ,final ,NumeroDeJugador);
+        }
+        catch (Exception)
+        {
+          return "No se ha podido posicionar el barco";
+        }
       }
 
       /// <summary>
@@ -176,16 +193,29 @@ namespace ClassLibrary
       /// <param name="coordenada"> coordenada de ataque </param>
       public string Atacar(string coordenada)
       {
-        
-        return Admin.Atacar(coordenada, NumeroDeJugador);
+        try
+        {
+          return Admin.Atacar(coordenada, NumeroDeJugador);
+        }
+        catch (Exception)
+        {
+          return "no se ha podido realizar el ataque";
+        }
       }
 
       /// <summary>
       /// Permite al jugador rendirse
       /// </summary>
-      public void Rendirse()
+      public string Rendirse()
       {
-        Admin.Rendirse(this.NumeroDeJugador);
+        try
+        {
+          return Admin.Rendirse(this.NumeroDeJugador);
+        }
+        catch (Exception)
+        {
+          return "No se ha podido efectuar la rendicion";
+        }
       }
     }
 }
