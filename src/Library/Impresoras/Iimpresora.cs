@@ -20,21 +20,21 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="tablero"></param>
         /// <param name="jugador"></param>
-        public void ImprimirTablero(char[,] tablero, bool jugador);
+        void ImprimirTablero(char[,] tablero, bool jugador);
         
         /// <summary>
         /// Esta operación se encarga de imprimir el perfil del usuario, teniendo como parámetro
         /// un perfil de usuario.
         /// </summary>
         /// <param name="perfil"></param>
-        public void ImprimirPerfilUsuario(PerfilUsuario perfil);
+        void ImprimirPerfilUsuario(PerfilUsuario perfil);
         
         /// <summary>
         /// Esta operción se encarga de imprimir el historial, recibe como 
         /// parámetro una lista de partidas
         /// </summary>
         /// <param name="partidas"></param>
-        public void ImprimirHistorial(List<DatosdePartida> partidas);
+        void ImprimirHistorial(List<DatosdePartida> partidas);
 
         /// <summary>
         /// Esta operción se encarga de imprimir el ranking de jugadores.
@@ -42,6 +42,6 @@ namespace ClassLibrary
         /// y ordena los usuarios en base a la cantidad de victorias de cada jugador.
         /// </summary>
         /// <param name="perfiles"></param>
-        public void ImprimirRanking(List<PerfilUsuario> perfiles);
+        void ImprimirRanking(List<PerfilUsuario> perfiles);
     }
 }
