@@ -10,6 +10,8 @@ namespace Tests
     [TestFixture]
     public class EmparejamientoTest
     {
+        private AlmacenamientoUsuario removedor;
+
         /// <summary>
 		/// Instancia de Emparejamiento;
 		/// </summary>
@@ -23,6 +25,14 @@ namespace Tests
         public void Setup()
         {
 			emparejamiento = Emparejamiento.Instance();
+            removedor = AlmacenamientoUsuario.Instance();
+            int i = 1;
+            int CantidadUsuarios = removedor.ListaDeUsuarios.Count;
+            while (i <= CantidadUsuarios)
+            {
+                removedor.Remover(i);
+                i++;
+            }
         }
         /// <summary>
         /// Prueba que si se remueve correctamente un usuario de la cola de emparejamiento aleatorio en modo normal
@@ -44,6 +54,9 @@ namespace Tests
             Assert.AreEqual(emparejados2,null);
             Assert.AreEqual(emparejados3[0],verificar[0]);
             Assert.AreEqual(emparejados3[1],verificar[1]);
+            removedor.Remover(1);
+            removedor.Remover(2);
+            removedor.Remover(3);
         }
         /// <summary>
         /// Prueba que si se remueve correctamente un usuario de la cola de emparejamiento aleatorio en modo rapido
@@ -121,7 +134,7 @@ namespace Tests
             verificar[0] = jugador1.NumeroDeJugador;
             verificar[1] = jugador2.NumeroDeJugador;
             Assert.AreEqual(emparejados[0],verificar[0]);
-            Assert.AreEqual(emparejados[1],verificar[1]);
+            Assert.AreEqual(emparejados[1],verificar[1]);      
         }
         /// <summary>
         /// Prueba si dos jugadores se emparejan correctamente en una partida amistosa en modo rapido
