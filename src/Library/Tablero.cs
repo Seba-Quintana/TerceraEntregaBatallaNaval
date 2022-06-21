@@ -34,6 +34,7 @@ namespace ClassLibrary
         /// Variable que facilita saber si el dueño del tablero fue quien gano la partida.
         /// </summary>
         public bool Ganada= false;
+        public List<int[]> CantidadDeBarcosPosicionados = new List<int[]>();
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
@@ -48,10 +49,12 @@ namespace ClassLibrary
         public bool AñadirBarco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
         {
             List<int[]> CoordenadasQueSeQuierenUtilizar = this.EspaciosAUtilizar(filaInicio, columnaInicio, filaFinal, columnaFinal);
+
             if (this.noHayColisiónDeBarcos(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar))
             {
                 Barco nuevoBarco = new Barco(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar);
                 this.barcos.Add(nuevoBarco);
+                actualizarCantidadDeBarcosPosicionados(CoordenadasQueSeQuierenUtilizar);
                 return true;
             }
             return false;
@@ -63,34 +66,67 @@ namespace ClassLibrary
         /// <param name="fila"></param>
         /// <param name="columna"></param>
         /// <param name="nuevovalor"></param>
-        /*public void ActualizarTablero(int fila, int columna, char nuevovalor)
+        public void Atacar(int fila, int columna)
         {
-            if ()
+            if (ExisteBarcoEnEsaPosicion(fila, columna))
             {
-                if (nuevovalor == 'B')
+                int[] coordenadaARemover = new int[2];
+    
+                Barco BarcoHundido= null;
+                foreach (Barco posibleObjetivo in barcos)
                 {
-                    
+                    if (posibleObjetivo.VerSiCasillaFormaParte(fila, columna))
+                    {   
+                        char respuestaDeBarco = posibleObjetivo.Dañar(fila, columna);
+                        switch(respuestaDeBarco)
+                        {
+                            case 'D':
+                                coordenadaARemover[0] = fila;
+                                coordenadaARemover[1] = columna;
+                                this.matriz[fila, columna] = 'T';
+                                
+                                
+                                break;
+                            case 'T':
+                                //Dejo el caso por si mas adelante queremos que haga algo cuando se ataca una coordenada dañada
+                                break;
+                            case 'H':
+                                coordenadaARemover[0] = fila;
+                                coordenadaARemover[1] = columna;
+                                this.matriz[fila, columna] = 'T';
+                                BarcoHundido =posibleObjetivo;
+                                break;
+                        }
+                    }
                 }
-                else if (nuevovalor == 'A')
+                if (BarcoHundido !=null)
                 {
-                    if (matriz[fila, columna] == 'B')
-                    {
-                        this.matriz[fila, columna] = 'T';
-                        //this.CantidadDeBarcosEnteros -= 1;
-                        if (barcos.Count==0){terminado=true;}
-
-                    }
-                    else if (matriz[fila, columna] == 'T')
-                    {
-                        this.matriz[fila, columna] = 'T';
-                    }
-                    else
-                    {
-                        matriz[fila, columna] = 'W';
-                    }
+                    this.BarcoHundido(BarcoHundido.ObtenerPartesDeBarcoHundido(), BarcoHundido, coordenadaARemover);
                 }
             }
-        }*/
+            else
+            {
+            matriz[fila,columna] = 'W';
+            }
+        }
+        public void BarcoHundido(List<int[]> partesDeBarcoACambiar, Barco barcoEliminado, int[] coordenadaARemover)
+        {
+            foreach (int[] coordenada in partesDeBarcoACambiar)
+            {
+                int CoordenadaFila = coordenada[0];
+                int Coordenadacolumna = coordenada[1];
+                matriz[CoordenadaFila ,Coordenadacolumna] = 'H';
+            }
+            barcos.Remove(barcoEliminado);
+            this.TerminoTablero();
+        }
+        public void TerminoTablero()
+        {
+            if (this.barcos.Count==0)
+            {
+                this.terminado = true;
+            }
+        }
         /// <summary>
         /// Metodo utilizado por logica para ver la casilla donde se esta atacando
         /// </summary>
@@ -109,11 +145,14 @@ namespace ClassLibrary
         public char[,] VerTablero()
         {
             char[ , ] MatrizConBarcos = matriz.Clone() as char[ , ];
-            foreach (int[] coordenadas in this.EspaciosUtilizados())
+            foreach (int[] coordenadas in this.CantidadDeBarcosPosicionados)
             {
                 int i = coordenadas[0];
                 int j = coordenadas[1];
-                MatrizConBarcos[i,j] = 'B';
+                if( MatrizConBarcos[i,j] == '\u0000' )
+                {
+                    MatrizConBarcos[i,j] = 'B';
+                }
             }
 
             return MatrizConBarcos;
@@ -135,9 +174,7 @@ namespace ClassLibrary
             {
                 for (int i = columnaInicio; i <= columnaFinal; i++)
                 {
-                    int[] nuevaCoordenada = new int[2];
-                    nuevaCoordenada[0] = filaInicio;
-                    nuevaCoordenada[1] = i;
+                    int [] nuevaCoordenada = new int[]{filaInicio,i};
                     CoordenadasDelBarco.Add(nuevaCoordenada);
                 }
             }
@@ -145,36 +182,37 @@ namespace ClassLibrary
             {
                 for (int i = filaInicio; i <= filaFinal; i++)
                 {
-                    int[] nuevaCoordenada = new int[2];
-                    nuevaCoordenada[0] = i;
-                    nuevaCoordenada[1] = columnaInicio;
+                    int [] nuevaCoordenada = new int[]{i,columnaInicio};
                     CoordenadasDelBarco.Add(nuevaCoordenada);
                 }
             }
             return CoordenadasDelBarco;
         }
-        private List<int[]> EspaciosUtilizados()
+        private bool ExisteBarcoEnEsaPosicion(int fila, int columna)
         {
-            List<int[]> EspaciosUtilizadosAnteriormente = new List<int[]>();
-
-            foreach(Barco barco in barcos)
+            int [] posibleBarco = new int[]{fila,columna};
+            foreach(int[] CoordenadasAnteriores in this.CantidadDeBarcosPosicionados)
             {
-                List<int[]>PartesdeunBarco = barco.ObtenerPartesDeBarco();
-                
-                foreach (int[] coordenadaDeParteDeBarco in PartesdeunBarco)
+                if(posibleBarco[0] == CoordenadasAnteriores[0] && posibleBarco[1] == CoordenadasAnteriores[1])
                 {
-                    EspaciosUtilizadosAnteriormente.Add(coordenadaDeParteDeBarco);
+                    return true;
                 }
             }
-            return EspaciosUtilizadosAnteriormente;
+            return false;
+        }
+        private void actualizarCantidadDeBarcosPosicionados(List<int[]> CoordenadasDeNuevoBarco)
+        {
+            foreach (int[] coordenadaDeParteDeBarco in CoordenadasDeNuevoBarco)
+            {
+                    this.CantidadDeBarcosPosicionados.Add(coordenadaDeParteDeBarco);
+            }
         }
         private bool noHayColisiónDeBarcos(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal, List<int[]> CoordenadasQueSeQuierenUtilizar)
         {
-            List<int[]> CoordenadasUtilizadosAnteriormente = this.EspaciosUtilizados();
 
             foreach (int[] CoordenadasQueQuieroUsar in CoordenadasQueSeQuierenUtilizar)
             {
-                foreach(int[] CoordenadasAnteriores in CoordenadasUtilizadosAnteriormente)
+                foreach(int[] CoordenadasAnteriores in this.CantidadDeBarcosPosicionados)
                 {
                     if (CoordenadasQueQuieroUsar[0] == CoordenadasAnteriores[0] && CoordenadasQueQuieroUsar[1] == CoordenadasAnteriores[1])
                     {

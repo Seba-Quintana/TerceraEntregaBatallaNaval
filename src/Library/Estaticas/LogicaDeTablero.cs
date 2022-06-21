@@ -41,7 +41,7 @@ namespace ClassLibrary
     /// <returns></returns>
     public static void Atacar( Tablero tablero,  int fila, int columna)
     {
-      //tablero.ActualizarTablero(fila, columna, 'A');
+      tablero.Atacar(fila,columna);
     }
     /// <summary>
     /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un atauqe

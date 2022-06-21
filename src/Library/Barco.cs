@@ -15,6 +15,10 @@ namespace ClassLibrary
         /// <summary>
         /// Atributo para poder ver las coordenadas ocupadas por el barco.
         /// </summary>
+        private List<int[]> casillasSinHundir;
+        /// <summary>
+        /// Atributo para poder ver las coordenadas ocupadas por el barco.
+        /// </summary>
         private List<int[]> casillasOcupadas;
         /// <summary>
         /// Atributo Encargado de guardar la cantidad de casillas que ocupa el largo.
@@ -35,11 +39,14 @@ namespace ClassLibrary
         public Barco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal, List<int[]> coordenadasAUtilizar)
         {
             this.largo = Calcularlargo(filaInicio, columnaInicio, filaFinal, columnaFinal);
-            this.partes = new char[ this.largo ];
-            for (int i=0; i< this.largo ; i++)
+
+            this.partes = new char[this.largo+1];
+
+            for (int i=0; i <= this.largo ; i++)
             {
                 this.partes[i] = 'B';
             }
+            this.casillasSinHundir = coordenadasAUtilizar;
             this.casillasOcupadas = coordenadasAUtilizar;           
         }
         /// <summary>
@@ -50,51 +57,53 @@ namespace ClassLibrary
         /// <returns></returns>
         public char Dañar(int filaAtaque, int columnaAtaque)
         {
-            if (this.verSiCasillaFormaParte(filaAtaque, columnaAtaque))
+            if (this.orientacion == "Horizontal")
             {
-                if (this.orientacion == "Horizontal")
+                if (this.partes[columnaAtaque] == 'B')
                 {
-                    if (this.partes[columnaAtaque] == 'B')
+                    this.partes[columnaAtaque] = 'X';
+                    int[] casillaAEliminar = new int [2] {filaAtaque, columnaAtaque };
+
+                    if (this.hundido())
                     {
-                        this.partes[columnaAtaque] = 'X';
-                        if (this.hundido())
-                        {
-                            return 'H';
-                        }
-                        return 'D';
+                        return 'H';
                     }
-                    else
-                    {
-                        return 'T';
-                    }
-                    
+                    return 'D';
                 }
                 else
                 {
-                    if (this.partes[filaAtaque] == 'B')
-                    {
-                        this.partes[filaAtaque] = 'X';
-                        if (this.hundido())
-                        {
-                            return 'H';
-                        }
-                        return 'D';
-                    }
-                    else
-                    {
-                        return 'T';
-                    }
-                    
+                    return 'T';
                 }
+                
             }
-            return '\u0000';            
+            else
+            {
+                if (this.partes[filaAtaque] == 'B')
+                {
+                    this.partes[filaAtaque] = 'X';
+
+                    int[] casillaAEliminar = new int [2] {filaAtaque, columnaAtaque };
+                    
+                    if (this.hundido())
+                    {
+                        return 'H';
+                    }
+                    return 'D';
+                }
+                else
+                {
+                    return 'T';
+                }
+                
+            }
+            
                 
         }
         /// <summary>
         /// Metodo utilizado por tablero para obtener los lugares ocupados por el barco.
         /// </summary>
         /// <returns></returns>
-        public List<int[]> ObtenerPartesDeBarco()
+        public List<int[]> ObtenerPartesDeBarcoHundido()
         {
             return this.casillasOcupadas;
         }
@@ -135,7 +144,6 @@ namespace ClassLibrary
             }
             return true;
         }
-
         /// <summary>
         /// Metodo responsable de ver si una casilla es parte del barco.
         /// </summary>
@@ -143,14 +151,15 @@ namespace ClassLibrary
         /// <param name="columnaAtaque"></param>
         /// <returns></returns>
 
-        private bool verSiCasillaFormaParte(int filaAtaque, int columnaAtaque)
+        public bool VerSiCasillaFormaParte(int filaAtaque, int columnaAtaque)
         {
             int[] posibleParteDeBarco = new int[2];
             posibleParteDeBarco[0] = filaAtaque;
             posibleParteDeBarco[1] = columnaAtaque;
-            foreach (int[] parteDeBarco in casillasOcupadas)
+
+            foreach (int[] parteDeBarco in casillasSinHundir)
             {
-                if (parteDeBarco == posibleParteDeBarco)
+                if (parteDeBarco[0] == posibleParteDeBarco[0] && parteDeBarco[1] == posibleParteDeBarco[1])
                 {
                     return true;
                 }

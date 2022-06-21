@@ -162,13 +162,15 @@ namespace ClassLibrary
             switch (tablerobjetivo.VerCasilla(fila, columna))
             {
             case 'W':
-                return "La casilla ya habia sido atacada y contiene Agua";
+                return " sido atacada y contiene Agua";
             case 'T':
                 return "La casilla ya habia sido atacada y hay una parte de barco dañada";
             case 'B':
                 return "Buen tiro, has atacado a un barco";
             case '\u0000':
                 return "Que lastima! has desperdiciado una bala en el agua";
+            case 'H':
+                return "Felicitaciones Has hundido un Barco";
             }
         
             return "Se Agrego una direccion invalida";
@@ -460,7 +462,7 @@ namespace ClassLibrary
             {
                 for (int j = 0; j < tamañoDeColumnas; j++)
                 {
-                    if (matriz[i,j] == 'T' )
+                    if (matriz[i,j] == 'T')
                     {
                         bool casillaIzquierdaDañada = false;
                         bool casillaDerechaDañada = false;
