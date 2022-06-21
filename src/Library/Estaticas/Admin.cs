@@ -101,16 +101,9 @@ namespace ClassLibrary
         public static void VerHistorial()
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            try
-            {
-                Historial historial = Historial.Instance();
-                List<DatosdePartida> historialDePartidas = historial.Partidas;
-                imprimir.ImprimirHistorial(historialDePartidas);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo ver el Historial", e);
-            }
+            Historial historial = Historial.Instance();
+            List<DatosdePartida> historialDePartidas = historial.Partidas;
+            imprimir.ImprimirHistorial(historialDePartidas);
         }
 
         /// <summary>
@@ -162,15 +155,19 @@ namespace ClassLibrary
         /// y el otro un jugador que este esperando por una partida.
         /// </summary>
         /// <param name="modo"> modo elegido </param>
-        /// <param name="jugador1"> jugador que busca partida </param>
+        /// <param name="jugador"> jugador que busca partida </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static void Emparejar(int modo, int jugador1, int tamano)
+        public static void Emparejar(int modo, int jugador, int tamano)
         {
-            int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador1);
-            if (jugadores != null)
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(jugador) != null)
             {
-                CrearPartida(tamano, modo, jugadores);
-            }      
+                int[] jugadores = EmparejamientoConCola.EmparejarAleatorio(modo, jugador);
+                if (jugadores != null)
+                {
+                    CrearPartida(tamano, modo, jugadores);
+                }
+            }  
         }
 
         /// <summary>
@@ -182,58 +179,74 @@ namespace ClassLibrary
         /// <param name="tamano"> tamaño del tablero </param>
         public static void EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
         {
-            int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
-            CrearPartida(tamano, modo, jugadores);
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(jugador1) != null)
+            {
+                if (jugadorExistente.ObtenerPerfil(jugador2) != null)
+                {
+                    int[] jugadores = EmparejamientoConCola.EmparejarAmigos(modo, jugador1, jugador2);
+                    CrearPartida(tamano, modo, jugadores);
+                }
+            }
         }
 
         /// <summary>
-        /// Permite al jugador posicionar barcos
+        /// Metodo para posicionar barcos
         /// </summary>
-        /// <param name="inicio"> coordenada que indica la primera casilla del barco </param>
-        /// <param name="final"> coordenada que indica la ultima casilla del barco </param>
-        /// <param name="jugador"> jugador que quiere posicionar </param>
-        /// <returns> mensaje acerca de la accion realizada </returns>
+        /// <param name="inicio"> coordenada inicial del barco </param>
+        /// <param name="final"> coordenada final del barco </param>
+        /// <param name="jugador"> jugador que posiciona </param>
+        /// <returns> mensaje a devolver </returns>
         public static string Posicionar(string inicio, string final, int jugador)
         {
-            try
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(jugador) == null)
             {
+                return "Jugador no existente";
+            }
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
             string mensajeBarco = juego.AñadirBarco(inicio, final, jugador);
             return mensajeBarco;
-            }
-            catch (Exception e)
-            {
-            throw new Exception("no se pudo poner el barco", e);
-            }
         }
 
-      /// <summary>
-      /// Permite al jugador atacar
-      /// </summary>
-      /// <param name="coordenada"> coordenada a atacar </param>
-      /// <param name="atacante"> atacante </param>
-      /// <returns></returns>
-      public static string Atacar(string coordenada, int atacante)
-      {
-        try
+        /// <summary>
+        /// Permite al jugador atacar
+        /// </summary>
+        /// <param name="coordenada"></param>
+        /// <param name="ju"></param>
+        /// <returns></returns>
+        public static string Atacar(string coordenada, int ju)
         {
-          PartidasEnJuego partidas = PartidasEnJuego.Instance();
-          if (partidas.EstaElJugadorEnPartida(atacante))
-          {
-          Partida juego = partidas.ObtenerPartida(atacante);
-          string mensajeAtaque = juego.Atacar(coordenada, atacante);
-          return mensajeAtaque;
-          }
-          else
-          {
-            return "Usted no esta en partida";
-          }
+            AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
+            if (jugadorExistente.ObtenerPerfil(ju) == null)
+            {
+                return "Jugador no existente";
+            }
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.EstaElJugadorEnPartida(ju))
+            {
+                Partida juego = partidas.ObtenerPartida(ju);
+                string mensajeAtaque = juego.Atacar(coordenada, ju);
+                return mensajeAtaque;
+            }
+            else
+            {
+                return "Usted no esta en partida";
+            }
         }
-        catch (Exception e)
+        /// <summary>
+        /// Metodo para rendirse
+        /// </summary>
+        /// <param name="jugador"> jugador que quiere rendirse </param>
+        public static void Rendirse(int jugador)
         {
-          throw new Exception("no se pudo realizar el ataque", e);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.EstaElJugadorEnPartida(jugador))
+            {
+                Partida juego = partidas.ObtenerPartida(jugador);
+                juego.Rendirse(jugador);
+            }
         }
-      }
     }
 }

@@ -41,16 +41,16 @@ namespace ClassLibrary
         /// <param name="jugador2"></param>
         public Partida(int tamaño ,int jugador1, int jugador2)
         {
-            tableros[0] = new Tablero(tamaño,jugador1);
-            jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
-            tableros[1] = new Tablero(tamaño,jugador2);
-            jugadores[1]=jugador2;
-            cantidadDeBarcosParaPosicionar[0]= (tamaño*tamaño*25)/100;
-            cantidadDeBarcosParaPosicionar[1]= (tamaño*tamaño*25)/100;
-            tiradas[0]=0;
-            tiradas[1]=0;
-            posicionamientoTerminado[0]=false;
-            posicionamientoTerminado[1]=false;
+            this.tableros[0] = new Tablero(tamaño,jugador1);
+            this.jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
+            this.tableros[1] = new Tablero(tamaño,jugador2);
+            this.jugadores[1]=jugador2;
+            this.cantidadDeBarcosParaPosicionar[0]= (tamaño*tamaño*25)/100;
+            this.cantidadDeBarcosParaPosicionar[1]= (tamaño*tamaño*25)/100;
+            this.tiradas[0]=0;
+            this.tiradas[1]=0;
+            this.posicionamientoTerminado[0]=false;
+            this.posicionamientoTerminado[1]=false;
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.AlmacenarPartida(this);
         }
@@ -62,7 +62,7 @@ namespace ClassLibrary
         protected void Finalizar()
         {
             DatosdePartida Almacenaje = new DatosdePartida();
-            Almacenaje.Almacenar(tableros,tiradas);
+            Almacenaje.Almacenar(this.tableros, this.tiradas);
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.RemoverPartida(this);
         }
@@ -81,7 +81,7 @@ namespace ClassLibrary
             {
                 return "La coordenada enviada fue invalida";
             }
-            if (!posicionamientoTerminado[0] || !posicionamientoTerminado[1])
+            if (!this.posicionamientoTerminado[0] || !this.posicionamientoTerminado[1])
             {
                 return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
             }
@@ -89,28 +89,29 @@ namespace ClassLibrary
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
                 }
-            if (LugarDeAtaque[0] >= tableros[0].Tamaño || LugarDeAtaque[1] >= tableros[0].Tamaño)
+            if (LugarDeAtaque[0] >= this.tableros[0].Tamaño || LugarDeAtaque[1] >= this.tableros[0].Tamaño)
             {
                 return "Las coordenadas enviadas son erroneas";
                 }
             
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
-            if (jugador == jugadores[0])
+
+            if (jugador == this.jugadores[0])
             {
-                if (tiradas[0]==tiradas[1])
+                if (this.tiradas[0] == this.tiradas[1])
                 {
                     
-                    Tablero tablerobjetivo = tableros[1];
+                    Tablero tablerobjetivo = this.tableros[1];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                    tiradas[0]+=1;
+                    this.tiradas[0]+=1;
                     
                     if (tablerobjetivo.terminado)
                     {
                         this.PartidaTerminada=true;
                         respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(tableros[0]);
+                        LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
                         this.Finalizar();
                     }
                     
@@ -128,15 +129,15 @@ namespace ClassLibrary
                 if (tiradas[0]>tiradas[1])
                 {
                     
-                    Tablero tablerobjetivo = tableros[0];
+                    Tablero tablerobjetivo = this.tableros[0];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                    tiradas[1]+=1;
+                    this.tiradas[1]+=1;
                     if (tablerobjetivo.terminado)
                     {
                         this.PartidaTerminada=true;
                         respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(tableros[1]);
+                        LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
                         this.Finalizar();
                     }
                     return respuesta;
@@ -188,7 +189,7 @@ namespace ClassLibrary
             {
                 return "Una de las coordenadas enviadas fue invalida";
             }
-            if ((posicionamientoTerminado[0] && posicionamientoTerminado[1]))
+            if ((this.posicionamientoTerminado[0] && this.posicionamientoTerminado[1]))
             {
                 return "La Etapa de posicionamiento a terminado";
             }
@@ -196,11 +197,11 @@ namespace ClassLibrary
             {
                 return "Posicionamiento no ejecutado, ya que quien posiciona el barco no es uno de los jugadores de la partida";
                 }
-            if (coordenada1[0] >= tableros[0].Tamaño || coordenada1[1] >= tableros[0].Tamaño)
+            if (coordenada1[0] >= this.tableros[0].Tamaño || coordenada1[1] >= this.tableros[0].Tamaño)
             {
                 return "La primer coordenada enviada es invalida";
                 }
-            if (coordenada2[0] >= tableros[0].Tamaño || coordenada2[1] >= tableros[0].Tamaño)
+            if (coordenada2[0] >= this.tableros[0].Tamaño || coordenada2[1] >= this.tableros[0].Tamaño)
             {
                 return "La segunda coordenada enviada es invalida";
             }
@@ -221,21 +222,21 @@ namespace ClassLibrary
                 return "No se pueden agregar barcos diagonalmente";
             }
             
-            if (jugador == jugadores[0])
+            if (jugador == this.jugadores[0])
             {
                 
-                if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[0])
+                if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[0])
                 {
                     
                     string respuesta;
                     try{
-                        respuesta = respuestaDePonerBarcos(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
-                        LogicaDeTablero.Añadirbarco(tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+                        respuesta = respuestaDePonerBarcos(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+                        LogicaDeTablero.Añadirbarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
                         this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
                     }
                     catch(IndexOutOfRangeException){
                         return "La coordenada enviada es invalida";}
-                    if (cantidadDeBarcosParaPosicionar[0] == 0)
+                    if (this.cantidadDeBarcosParaPosicionar[0] == 0)
                     {
                         this.posicionamientoTerminado[0] = true;
                         respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
@@ -256,15 +257,15 @@ namespace ClassLibrary
             }
             else
             {
-                if (casillasutilizadas <= cantidadDeBarcosParaPosicionar[1])
+                if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[1])
                 {
                     string respuesta;
                     try{
-                    respuesta = respuestaDePonerBarcos(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
-                    LogicaDeTablero.Añadirbarco(tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+                    respuesta = this.respuestaDePonerBarcos(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+                    LogicaDeTablero.Añadirbarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
                     this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;}
                     catch(IndexOutOfRangeException){return "La coordenada enviada es invalida";}
-                    if (cantidadDeBarcosParaPosicionar[1] == 0)
+                    if (this.cantidadDeBarcosParaPosicionar[1] == 0)
                     {
                         this.posicionamientoTerminado[1] = true;
                         respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
@@ -379,16 +380,16 @@ namespace ClassLibrary
         /// <param name="jugador"></param>
         public void Rendirse(int jugador)
         {
-            if (jugadores.Contains(jugador))
+            if (this.jugadores.Contains(jugador))
             {
-                if (jugadores[0] == jugador)
+                if (this.jugadores[0] == jugador)
                 {
-                    LogicaDeTablero.Finalizar(tableros[1]);
+                    LogicaDeTablero.Finalizar(this.tableros[1]);
                     this.Finalizar();
                 }
                 else
                 {
-                    LogicaDeTablero.Finalizar(tableros[0]);
+                    LogicaDeTablero.Finalizar(this.tableros[0]);
                     this.Finalizar();
                 }
             }
@@ -400,16 +401,16 @@ namespace ClassLibrary
         /// <returns></returns>
         public char[ , ] VerTableroPropio(int jugador)
         {
-            if (!jugadores.Contains(jugador))
+            if (!this.jugadores.Contains(jugador))
             {
                 return null;}
-            if (tableros[0].DueñodelTablero==jugador)
+            if (this.tableros[0].DueñodelTablero==jugador)
             {
-                return tableros[0].VerTablero();
+                return this.tableros[0].VerTablero();
             }
             else
             {
-                return tableros[1].VerTablero();
+                return this.tableros[1].VerTablero();
             }
         }
         /// <summary>
@@ -420,15 +421,16 @@ namespace ClassLibrary
             
         public char[ , ] VistaOponente (int jugador)
         {
-            if (!jugadores.Contains(jugador))
+            if (!this.jugadores.Contains(jugador))
             {
                 return null;}
-            if (tableros[0].DueñodelTablero==jugador)
+            if (this.tableros[0].DueñodelTablero==jugador)
             {
-                char[ , ] matrizSinBarcos = tableros[1].VerTablero();
-                for (int i = 0; i < tableros[1].Tamaño; i++)
+                char[ , ] matrizSinBarcos = this.tableros[1].VerTablero();
+                matrizSinBarcos = ayudanteDeTiro(matrizSinBarcos);
+                for (int i = 0; i < this.tableros[1].Tamaño; i++)
                 {
-                    for (int j = 0; j < tableros[1].Tamaño; j++)
+                    for (int j = 0; j < this.tableros[1].Tamaño; j++)
                     {
                         if (matrizSinBarcos[i,j]== 'B')
                         {
@@ -440,10 +442,11 @@ namespace ClassLibrary
             }
             else 
             {
-                char[ , ] matrizSinBarcos = tableros[0].VerTablero();
-                for (int i = 0; i < tableros[0].Tamaño; i++)
+                char[ , ] matrizSinBarcos = this.tableros[0].VerTablero();
+                matrizSinBarcos = ayudanteDeTiro(matrizSinBarcos);
+                for (int i = 0; i < this.tableros[0].Tamaño; i++)
                 {
-                    for (int j = 0; j < tableros[0].Tamaño; j++)
+                    for (int j = 0; j < this.tableros[0].Tamaño; j++)
                     {
                         if (matrizSinBarcos[i,j]== 'B')
                         {
@@ -453,6 +456,178 @@ namespace ClassLibrary
                 }
                 return matrizSinBarcos; 
             }
+        }
+        /// <summary>
+        /// Luego de un ataque a un barco señaliza donde se puede encontrar los otros puntos del barco
+        /// </summary>
+        /// <param name="matriz"></param>
+        public char[ , ] ayudanteDeTiro (char[ , ] matriz)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    if (matriz[i,j]== 'T')
+                    {
+                        if (i != 0 && j != 0 && i != (matriz.GetLength(0)-1) && j != (matriz.GetLength(1)-1))
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B') ||
+                            (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T') &&
+                                (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i+1,j] == 'T') && (matriz[i-1,j] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                }
+                                else if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] == 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                }
+                                else if ((matriz[i,j+1] == 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] != 'T') && (matriz[i,j-1] == 'T'))
+                                {
+                                    matriz[i,j+1] = '-';
+                                }                           
+                            }
+                        }
+                        else if (i == 0 && j == 0)
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i,j+1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i,j+1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if ((i == 0) && (j == (matriz.GetLength(1)-1)))
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == 0)
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i,j+1] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i,j+1] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] == 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] != 'T') && (matriz[i,j-1] == 'T'))
+                                {
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == (matriz.GetLength(0)-1) && j == 0)
+                        {
+                            if ((matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B'))
+                            {
+                                if ((matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == (matriz.GetLength(0)-1) && j == (matriz.GetLength(1)-1))
+                        {
+                            if ((matriz[i-1,j] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i-1,j] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                            }
+                        }
+                        else if (i == (matriz.GetLength(0)-1))
+                        {
+                            if ((matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] == 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i,j+1] != 'T') && (matriz[i,j-1] == 'T'))
+                                {
+                                    matriz[i,j+1] = '-';
+                                }
+                            }
+                        }
+                        else if (j == 0)
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i-1,j] == 'B') || (matriz[i,j+1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] != 'T') && (matriz[i,j+1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j+1] = '-';
+                                }
+                                else if ((matriz[i+1,j] == 'T') && (matriz[i-1,j] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                }
+                                else if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] == 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                }
+                            }
+                        }
+                        else if (j == (matriz.GetLength(1)-1))
+                        {
+                            if ((matriz[i+1,j] == 'B') || (matriz[i-1,j] == 'B') || (matriz[i,j-1] == 'B'))
+                            {
+                                if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] != 'T') && (matriz[i,j-1] != 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                    matriz[i-1,j] = '-';
+                                    matriz[i,j-1] = '-';
+                                }
+                                else if ((matriz[i+1,j] == 'T') && (matriz[i-1,j] != 'T'))
+                                {
+                                    matriz[i-1,j] = '-';
+                                }
+                                else if ((matriz[i+1,j] != 'T') && (matriz[i-1,j] == 'T'))
+                                {
+                                    matriz[i+1,j] = '-';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return matriz;
         }
 
     }

@@ -20,16 +20,16 @@ namespace ClassLibrary
         /// <returns></returns>
         public PartidaRapida(int tamaño ,int jugador1, int jugador2) : base (tamaño , jugador1, jugador2)
         {
-            tableros[0] = new Tablero(tamaño,jugador1);
-            jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
-            jugadores[1]=jugador2;
-            tableros[1] = new Tablero(tamaño,jugador2);
-            cantidadDeBarcosParaPosicionar[0]= (tamaño * tamaño*25)/100;
-            cantidadDeBarcosParaPosicionar[1]= (tamaño * tamaño*25)/100;
-            tiradas[0]=0;
-            tiradas[1]=0;
-            Segundastiradas[0]=0;
-            Segundastiradas[1]=0;
+            this.tableros[0] = new Tablero(tamaño,jugador1);
+            this.jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
+            this.jugadores[1]=jugador2;
+            this.tableros[1] = new Tablero(tamaño,jugador2);
+            this.cantidadDeBarcosParaPosicionar[0]= (tamaño * tamaño*25)/100;
+            this.cantidadDeBarcosParaPosicionar[1]= (tamaño * tamaño*25)/100;
+            this.tiradas[0]=0;
+            this.tiradas[1]=0;
+            this.Segundastiradas[0]=0;
+            this.Segundastiradas[1]=0;
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.AlmacenarPartida(this);
         }
@@ -42,35 +42,63 @@ namespace ClassLibrary
         /// <returns></returns>
         public override string Atacar(string objetivo, int jugador)
         {
-            int [] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
-            if (posicionamientoTerminado[0] || posicionamientoTerminado[1])
+            int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
+
+            if (LugarDeAtaque==null)
             {
-                return "La Etapa de posicionamiento a terminado";
+                return "La coordenada enviada fue invalida";
             }
-            if (!(this.jugadores[0] == jugador || this.jugadores[1] == jugador )){ return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";}
-            if (LugarDeAtaque[0] >= tableros[0].Tamaño && LugarDeAtaque[1] >= tableros[0].Tamaño){return "Las coordenadas enviadas son erroneas";}
+            if (!this.posicionamientoTerminado[0] || !this.posicionamientoTerminado[1])
+            {
+                return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
+            }
+            if (this.jugadores[0] != jugador || this.jugadores[1] != jugador) //no uso jugadores.Contains(jugador) ya que por alguna razon no deja utilizar el metodo con un atributo array heredado
+            { 
+                return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
+                }
+            if (LugarDeAtaque[0] >= this.tableros[0].Tamaño || LugarDeAtaque[1] >= this.tableros[0].Tamaño)
+            {
+                return "Las coordenadas enviadas son erroneas";
+                }
+
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
-            if (jugador == jugadores[0])
+
+            if (jugador == this.jugadores[0])
             {
-                if (tiradas[0]==tiradas[1] && Segundastiradas[0]==Segundastiradas[1])
+                if (this.tiradas[0]==this.tiradas[1] && this.Segundastiradas[0] == this.Segundastiradas[1])
                 {
                     
-                    Tablero tablerobjetivo = tableros[1];
+                    Tablero tablerobjetivo = this.tableros[1];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                    tiradas[0]+=1;
-                    PartidaTerminada=tablerobjetivo.terminado;
+                    this.tiradas[0]+=1;
+                    
+                    if (tablerobjetivo.terminado)
+                    {
+                        this.PartidaTerminada=true;
+                        respuesta += $"\nFelicitaciones has ganado la partida";
+                        LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
+                        this.Finalizar();
+                    }
+                    
                     return respuesta;
-
                 }
-                else if (Segundastiradas[0]==Segundastiradas[1])
+                else if (this.Segundastiradas[0]==this.Segundastiradas[1])
                 {
-                    Tablero tablerobjetivo = tableros[1];
+                    Tablero tablerobjetivo = this.tableros[1];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                    Segundastiradas[0]+=1;
-                    PartidaTerminada=tablerobjetivo.terminado;
+                    this.Segundastiradas[0]+=1;
+                    
+                    if (tablerobjetivo.terminado)
+                    {
+                        this.PartidaTerminada=true;
+                        respuesta += $"\nFelicitaciones has ganado la partida";
+                        LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
+                        this.Finalizar();
+                    }
+                    
                     return respuesta;
                 }
                 else
@@ -81,24 +109,36 @@ namespace ClassLibrary
             }
             else if (jugador == jugadores[1])
             {
-                if (tiradas[0]>tiradas[1] && Segundastiradas[0] > Segundastiradas[1])
+                if (this.tiradas[0] > this.tiradas[1] && this.Segundastiradas[0] > this.Segundastiradas[1])
                 {
                     
                     Tablero tablerobjetivo = tableros[0];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     tiradas[1]+=1;
-                    PartidaTerminada=tablerobjetivo.terminado;
+                    if (tablerobjetivo.terminado)
+                    {
+                        this.PartidaTerminada=true;
+                        respuesta += $"\nFelicitaciones has ganado la partida";
+                        LogicaDeTablero.PartidaFinalizada(tableros[1]);
+                        this.Finalizar();
+                    }
                     return respuesta;
 
                 }
-                else if (Segundastiradas[0]>Segundastiradas[1])
+                else if (this.Segundastiradas[0] > this.Segundastiradas[1])
                 {
-                    Tablero tablerobjetivo = tableros[0];
+                    Tablero tablerobjetivo = this.tableros[0];
                     string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
                     LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
-                    Segundastiradas[1]+=1;
-                    PartidaTerminada=tablerobjetivo.terminado;
+                    this.Segundastiradas[1]+=1;
+                    if (tablerobjetivo.terminado)
+                    {
+                        this.PartidaTerminada=true;
+                        respuesta += $"\nFelicitaciones has ganado la partida";
+                        LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
+                        this.Finalizar();
+                    }
                     return respuesta;
                 }
                 else
