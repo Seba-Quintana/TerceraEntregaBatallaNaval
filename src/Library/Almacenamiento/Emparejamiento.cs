@@ -23,7 +23,7 @@ namespace ClassLibrary
         /// Parte de singleton. Atributo donde se guarda la instancia del
         /// Emparejamiento (o null si no fue creada).
         /// </summary>
-        static Emparejamiento instance;
+        private static Emparejamiento instance = null;
 
         /// <summary>
         /// Parte de singleton. Constructor llamado por el metodo Instance de crearse un Emparejamiento.
@@ -53,21 +53,11 @@ namespace ClassLibrary
         /// <param name="usuario"> usuario a remover </param>
         public void RemoverListaEspera(int usuario)
         {
-            try
-            {
-                if (!ColaEmparejamientosN.Contains(usuario) && !ColaEmparejamientosR.Contains(usuario))
-                    throw new JugadorNoEncontradoException();
-            }
-            catch (JugadorNoEncontradoException)
-            {
-                throw new JugadorNoEncontradoException
-                ("El jugador no se encuentra esperando partida", usuario);
-            }
             if (ColaEmparejamientosN.Contains(usuario))
             {
                 int largoCola = ColaEmparejamientosN.Count;
                 int i = 0;
-                while (i < largoCola - 1)
+                while (i <= largoCola - 1)
                 {
                     if (ColaEmparejamientosN.Peek() == usuario)
                         ColaEmparejamientosN.Dequeue();
@@ -75,15 +65,15 @@ namespace ClassLibrary
                     {
                         ColaEmparejamientosN.Enqueue(ColaEmparejamientosN.Peek());
                         ColaEmparejamientosN.Dequeue();
-                        i++;
                     }
+                    i++;
                 }
             }
             else if (ColaEmparejamientosR.Contains(usuario))
             {
                 int largoCola = ColaEmparejamientosR.Count;
                 int i = 0;
-                while (i < largoCola - 1)
+                while (i <= largoCola - 1)
                 {
                     if (ColaEmparejamientosR.Peek() == usuario)
                         ColaEmparejamientosR.Dequeue();
@@ -91,8 +81,8 @@ namespace ClassLibrary
                     {
                         ColaEmparejamientosR.Enqueue(ColaEmparejamientosR.Peek());
                         ColaEmparejamientosR.Dequeue();
-                        i++;
                     }
+                    i++;
                 }
             }
         }
