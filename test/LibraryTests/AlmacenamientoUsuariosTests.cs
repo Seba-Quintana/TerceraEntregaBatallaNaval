@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using ClassLibrary;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -25,6 +25,13 @@ namespace Tests
         public void Setup()
         {
 			Test = AlmacenamientoUsuario.Instance();
+            int i = 1;
+            int CantidadUsuarios = Test.ListaDeUsuarios.Count;
+            while (i <= CantidadUsuarios)
+            {
+                Test.Remover(i);
+                i++;
+            }
         }
 
 		/// <summary>
@@ -37,7 +44,6 @@ namespace Tests
 			PerfilUsuario perfil = Test.ObtenerPerfil(1);
 			int expected = 1;
            	Assert.AreEqual(expected, perfil.NumeroDeJugador);
-			Test.Remover(1);
 
         }
 
@@ -51,7 +57,6 @@ namespace Tests
 			int expected = 1;
 			
             Assert.AreEqual(expected, numerodejugador);
-			Test.Remover(1);
         }
 
 		/// <summary>
@@ -65,7 +70,6 @@ namespace Tests
 			int expected = 1;
 			if (perfil == Test.ListaDeUsuarios[numerodejugador-1])
             	Assert.AreEqual(expected, numerodejugador);
-			Test.Remover(1);
         }
 
 		/// <summary>
@@ -115,8 +119,6 @@ namespace Tests
 			List<PerfilUsuario> ranking = Test.ObtenerRanking();
 			PerfilUsuario perfilGanador = Test.ObtenerPerfil(2);
 			Assert.AreEqual(perfilGanador.NumeroDeJugador, ranking[0].NumeroDeJugador);
-			Test.Remover(1);
-			Test.Remover(2);
         }
     }
-}*/
+}
