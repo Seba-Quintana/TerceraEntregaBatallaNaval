@@ -11,7 +11,7 @@ namespace ClassLibrary
         /// <summary>
         /// Parte de singleton. Atributo donde se guarda la instancia de la impresora (o null si no fue creada).
         /// </summary>
-        private static ImpresoraConsola impresoraConsola  = null; 
+        private static ImpresoraConsola instance = null; 
  
         /// <summary>
         /// Parte de singleton. Constructor llamado por el metodo Instance en caso de crearse una impresora.
@@ -27,10 +27,10 @@ namespace ClassLibrary
         /// <returns> instancia de impresora </returns>
         public static ImpresoraConsola Instance()
         {
-            if (impresoraConsola == null)
-                impresoraConsola = new ImpresoraConsola();
+            if (instance == null)
+                instance = new ImpresoraConsola();
       
-            return impresoraConsola;
+            return instance;
         }
         /// <summary>
         /// Con este método se imprime el tablero ingresado como parametro en la consola agregándole índices de coordenadas.
