@@ -175,7 +175,7 @@ namespace ClassLibrary
       /// </summary>
       public void removermeDeListaEspera()
       {
-        Admin.removerListaEspera(this.NumeroDeJugador);
+        Planificador.removerListaEspera(this.NumeroDeJugador);
       }
 
       /// <summary>
