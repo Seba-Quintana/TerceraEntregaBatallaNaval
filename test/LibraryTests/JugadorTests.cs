@@ -12,8 +12,6 @@ namespace Tests
     {
         private Jugador jugador;
 
-        
-
         /// <summary>
         /// Comparo si el número de jugador antes del registro y el número de jugador después del registro son iguales.
         /// </summary>
@@ -23,11 +21,10 @@ namespace Tests
         {
             AlmacenamientoUsuario perfil = AlmacenamientoUsuario.Instance();
             Jugador jugador1 = new Jugador("Samuel",12,"milanesa");
-            Jugador jugador2 = new Jugador("Calamardo",25,"pez");
-            Jugador jugador3 = new Jugador("Martin",56,"pildora");
             int expected = jugador1.NumeroDeJugador;
             int actual = perfil.ObtenerPerfil(jugador1.NumeroDeJugador).NumeroDeJugador; 
             Assert.AreEqual(expected,actual);
+            jugador1.Remover();
         }
         /// <summary>
         /// Se realiza test para comprobar si un jugador se remueve.
@@ -36,10 +33,7 @@ namespace Tests
         public void Remover()
         {
             AlmacenamientoUsuario perfil = AlmacenamientoUsuario.Instance();
-            Jugador jugador1 = new Jugador("Samuel",12,"milanesa");
-            Jugador jugador2 = new Jugador("Calamardo",25,"pez");
             Jugador jugador3 = new Jugador("Martin",56,"pildora");
-            Jugador jugador4 = new Jugador("Valentino",46,"yamaha");
             jugador3.Remover();
             PerfilUsuario expected = null;
             PerfilUsuario actual = perfil.ObtenerPerfil(jugador3.NumeroDeJugador);
@@ -52,14 +46,13 @@ namespace Tests
         [Test]
         public void RemoverConNum()
         {
-            Jugador jugador1 = new Jugador("Samuel",12,"milanesa");
-            Jugador jugador2 = new Jugador("Calamardo",25,"pez");
             Jugador jugador3 = new Jugador("Martin",56,"pildora");
             Jugador jugador4 = new Jugador("Valentino",46,"yamaha");
             int expected = jugador4.NumeroDeJugador;
             jugador3.Remover();
             int actual = jugador4.NumeroDeJugador;
             Assert.AreEqual(expected,actual);
+            jugador4.Remover();
             
         }
         /// <summary>
@@ -69,18 +62,81 @@ namespace Tests
         public void VerAlPerfil()
         {
             Jugador jugador1 = new Jugador("Samuel",12,"milanesa");
-            Jugador jugador2 = new Jugador("Calamardo",25,"pez");
-            Jugador jugador3 = new Jugador("Martin",56,"pildora");
-            Jugador jugador4 = new Jugador("Valentino",46,"yamaha");
             int actual = jugador1.NumeroDeJugador;
             jugador1.VerPerfil(jugador1.NumeroDeJugador);
-            int expected = 12;
+            int expected = 1;
             Assert.AreEqual(expected,actual);
+            jugador1.Remover();
         }
     
         [Test]
         public void Rendir()
         {
+            AlmacenamientoUsuario perfil = AlmacenamientoUsuario.Instance();
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Jugador jugador1 = new Jugador("Samuel",12,"milanesa");
+            Jugador jugador2 = new Jugador("Calamardo",25,"pez");
+
+            jugador1.PartidaAmistosa(0, jugador2.NumeroDeJugador, 7);
+            jugador1.BuscarPartida(0,7);
+            jugador2.BuscarPartida(0,7);
+
+            jugador1.PosicionarBarcos("A1","A6");
+            jugador1.PosicionarBarcos("B1","B6");
+            jugador2.PosicionarBarcos("E1","E6");
+            jugador2.PosicionarBarcos("F1","F6");
+            
+            int i = 1;
+            while(i <= 6)
+            {
+                jugador1.Atacar($"G{i}");
+                jugador2.Atacar($"A{i}");
+                i+=1;
+            }
+            i = 1;
+
+            string actual = jugador1.Rendirse();
+            string expected = "se ha efectuado la rendicion";
+            Assert.AreEqual(expected,actual);
+            jugador1.Remover();
+            jugador2.Remover();
+
+        }
+
+        [Test]
+        public void Rendirseconganada()
+        {
+            AlmacenamientoUsuario perfil = AlmacenamientoUsuario.Instance();
+            List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Jugador jugador1 = new Jugador("Samuel",12,"milanesa");
+            Jugador jugador2 = new Jugador("Calamardo",25,"pez");
+
+            jugador1.PartidaAmistosa(0, jugador2.NumeroDeJugador, 7);
+            jugador1.BuscarPartida(0,7);
+            jugador2.BuscarPartida(0,7);
+
+            jugador1.PosicionarBarcos("A1","A6");
+            jugador1.PosicionarBarcos("B1","B6");
+            jugador2.PosicionarBarcos("E1","E6");
+            jugador2.PosicionarBarcos("F1","F6");
+            
+            int i = 1;
+            while(i <= 6)
+            {
+                jugador1.Atacar($"G{i}");
+                jugador2.Atacar($"A{i}");
+                i+=1;
+            }
+            i = 1;
+
+            jugador1.Rendirse();
+            PerfilUsuario perfil1 = perfil.ObtenerPerfil(jugador1.NumeroDeJugador);
+            int actual= perfil1.Ganadas;
+
+            Assert.AreEqual(0,actual);
+            jugador1.Remover();
+            jugador2.Remover();
 
         }
     }
