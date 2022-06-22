@@ -198,7 +198,15 @@ namespace ClassLibrary
             }
             return "No se ha podido efectuar el emparejamiento";
         }
-
+        /// <summary>
+        /// Pide a Emparejamiento remover un usuario de la lista de espera y manda el mensaje correspondiente a impresora.
+        /// </summary>
+        public static void removerListaEspera(int usuario)
+        {
+            Emparejamiento emparejamiento = Emparejamiento.Instance();
+            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            imprimir.RecibirMensajes(emparejamiento.RemoverListaEspera(usuario));
+        }
         /// <summary>
         /// Metodo para posicionar barcos
         /// </summary>

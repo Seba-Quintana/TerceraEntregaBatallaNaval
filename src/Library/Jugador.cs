@@ -170,6 +170,13 @@ namespace ClassLibrary
           return "No se pudo emparejar con otro jugador";
         }
       }
+      /// <summary>
+      /// Pide eliminarse de la lista de espera de una partida aleatoria
+      /// </summary>
+      public void removermeDeListaEspera()
+      {
+        Admin.removerListaEspera(this.NumeroDeJugador);
+      }
 
       /// <summary>
       /// Permite al jugador posicionar barcos
