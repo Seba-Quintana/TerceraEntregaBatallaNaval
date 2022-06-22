@@ -196,18 +196,5 @@ namespace Tests
             string expected = "Una de las coordenadas enviadas fue invalida";
             Assert.AreEqual(expected, respuesta);
         }
-        /// <summary>
-        /// Verifica que se devuelven los mensajes correctamente al atacar sin terminar la etapa de posicionamiento
-        /// </summary>
-        [Test]
-        public void AtaqueAlAgua()
-        {
-            Partida test = new Partida(7,1,2);
-            string LugarAAtacar = "A1";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            string respuesta = test.Atacar("A1", 1);
-            string expected = "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
-            Assert.AreEqual(expected, respuesta);
-        }
     }
 }
