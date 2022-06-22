@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Tests
 {
 	/// <summary>
-	/// Tests de AlmacenamientoUsuarios <see cref="AlmacenamientoUsuario"/>
+	/// Tests de PerfilUsuario <see cref="PerfilUsuario"/>
 	/// </summary>
     [TestFixture]
     public class PerfilUsuarioTests
@@ -21,8 +21,10 @@ namespace Tests
 
         List<PerfilUsuario> ListadeUsuarios = new List<PerfilUsuario>();
 
-
-
+        /// <summary>
+        /// Pruebo si el historial personal se almacena correctamente
+        /// en solo los usuarios que participaron de la partida
+        /// </summary>
         [Test]
         public void obtenerHistorialPersonal()
         {
@@ -30,9 +32,7 @@ namespace Tests
             Jugador jugador1 = new Jugador("Carlos",67,"player1");
             Jugador jugador2 = new Jugador("Drake",55,"player2");
             Jugador jugador3 = new Jugador("LUIS",34,"robgdfodf");
- 
-            
-            jugador1.PartidaAmistosa(0, jugador2.NumeroDeJugador, 7);
+
             jugador1.BuscarPartida(0,7);
             jugador2.BuscarPartida(0,7);
 
@@ -65,13 +65,8 @@ namespace Tests
             PerfilUsuario perfil2 = almacenamiento.ObtenerPerfil(jugador2.NumeroDeJugador);
             List<DatosdePartida> historialpersonal2 = perfil2.ObtenerHistorialPersonal();
 
-            
             Assert.AreNotEqual(historialpersonal,historialpersonal3);
-            Assert.AreEqual(historialpersonal,historialpersonal2);
-
-
-            
-            
+            Assert.AreEqual(historialpersonal,historialpersonal2);    
         }
     }
 }
