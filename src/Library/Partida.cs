@@ -244,7 +244,6 @@ namespace ClassLibrary
                     }
                     catch(IndexOutOfRangeException)
                     {
-                        Console.WriteLine("sopa");
                         return "La coordenada enviada es invalida";
                     }
                     if (this.cantidadDeBarcosParaPosicionar[0] == 0)
