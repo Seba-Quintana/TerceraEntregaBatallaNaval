@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using ClassLibrary;
 using NUnit.Framework;
 
@@ -129,8 +129,8 @@ namespace Tests
             Console.WriteLine(jugador2.Atacar("A1"));
             Console.WriteLine(jugador1.Atacar("C5"));
             Console.WriteLine(jugador2.Atacar("A1"));
-            jugador1.VisualizarTableros();*/
+            jugador1.VisualizarTableros();
 
 
     }
-}
+}*/

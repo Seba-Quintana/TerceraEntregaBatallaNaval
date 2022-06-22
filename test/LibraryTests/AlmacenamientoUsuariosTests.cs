@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using ClassLibrary;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -121,4 +121,4 @@ namespace Tests
 			Assert.AreEqual(perfilGanador.NumeroDeJugador, ranking[0].NumeroDeJugador);
         }
     }
-}
+}*/
