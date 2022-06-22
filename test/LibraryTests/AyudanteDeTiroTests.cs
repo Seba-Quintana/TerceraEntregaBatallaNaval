@@ -6,10 +6,10 @@ namespace Tests
 {
     /// <summary>
     /// Tests de AyudanteDeTiro se hacen individualmente debido a su 
-    /// importancia por ser parte de los agregados del proyecto.
+    /// importancia por ser parte de los agregados del proyecto. <see cref="Partida"/>
     /// </summary>
     [TestFixture]
-    public class AyudanteDeTiro
+    public class AyudanteDeTiroTests
     {
         Jugador jugador1;
         Jugador jugador2;
@@ -18,6 +18,9 @@ namespace Tests
         int NumeroDeJugador2;
         Partida PartidaTest;
      
+        /// <summary>
+        /// 
+        /// </summary>
         [SetUp]
         public void Setup()
         {

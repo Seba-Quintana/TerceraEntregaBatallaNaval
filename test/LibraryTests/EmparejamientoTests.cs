@@ -8,7 +8,7 @@ namespace Tests
     /// Tests de traductor <see cref="Emparejamiento"/>
     /// </summary>
     [TestFixture]
-    public class EmparejamientoTest
+    public class EmparejamientoTests
     {
         private AlmacenamientoUsuario removedor;
 

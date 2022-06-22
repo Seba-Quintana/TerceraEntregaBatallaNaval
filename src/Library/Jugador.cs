@@ -29,7 +29,7 @@ namespace ClassLibrary
       {
         try
         {
-          this.NumeroDeJugador = Admin.Registrar(nombre, id, contraseña);
+          this.NumeroDeJugador = Planificador.Registrar(nombre, id, contraseña);
         }
         catch (Exception)
         {
@@ -45,7 +45,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Admin.Remover(this.NumeroDeJugador);
+          return Planificador.Remover(this.NumeroDeJugador);
         }
         catch (Exception)
         {
@@ -61,7 +61,7 @@ namespace ClassLibrary
       {
         try
         {
-          Admin.VerPerfil(perfil);
+          Planificador.VerPerfil(perfil);
         }
         catch (Exception)
         {
@@ -77,7 +77,7 @@ namespace ClassLibrary
       {
         try
         {
-          Admin.VerRanking();
+          Planificador.VerRanking();
         }
         catch (Exception)
         {
@@ -93,7 +93,7 @@ namespace ClassLibrary
       {
         try
         {
-          Admin.VerHistorial();
+          Planificador.VerHistorial();
         }
         catch (Exception)
         {
@@ -110,7 +110,7 @@ namespace ClassLibrary
       {
         try
         {
-          Admin.VerHistorialPersonal(numerodejugador);
+          Planificador.VerHistorialPersonal(numerodejugador);
         }
         catch (Exception)
         {
@@ -126,8 +126,8 @@ namespace ClassLibrary
       {
         try
         {
-          Admin.VerTableroOponente(this.NumeroDeJugador);
-          Admin.VerTablero(this.NumeroDeJugador);
+          Planificador.VerTableroOponente(this.NumeroDeJugador);
+          Planificador.VerTablero(this.NumeroDeJugador);
         }
         catch (Exception)
         {
@@ -146,7 +146,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Admin.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
+          return Planificador.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
         }
         catch (Exception)
         {
@@ -163,7 +163,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Admin.Emparejar(modo, this.NumeroDeJugador, tamano);
+          return Planificador.Emparejar(modo, this.NumeroDeJugador, tamano);
         }
         catch (Exception)
         {
@@ -180,7 +180,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Admin.Posicionar(inicio ,final ,NumeroDeJugador);
+          return Planificador.Posicionar(inicio ,final ,NumeroDeJugador);
         }
         catch (Exception)
         {
@@ -196,7 +196,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Admin.Atacar(coordenada, NumeroDeJugador);
+          return Planificador.Atacar(coordenada, NumeroDeJugador);
         }
         catch (Exception)
         {
@@ -211,7 +211,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Admin.Rendirse(this.NumeroDeJugador);
+          return Planificador.Rendirse(this.NumeroDeJugador);
         }
         catch (Exception)
         {

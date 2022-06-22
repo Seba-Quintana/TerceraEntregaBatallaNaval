@@ -12,12 +12,12 @@ namespace ClassLibrary
         /// <summary>
         /// Cola de emparejamiento (modo normal)
         /// </summary>
-        public Queue<int> ColaEmparejamientosN = new Queue<int>();
+        private Queue<int> ColaEmparejamientosN = new Queue<int>();
 
         /// <summary>
         /// Cola de emparejamiento (modo rapido)
         /// </summary>
-        public Queue<int> ColaEmparejamientosR = new Queue<int>();
+        private Queue<int> ColaEmparejamientosR = new Queue<int>();
         
         /// <summary>
         /// Parte de singleton. Atributo donde se guarda la instancia del

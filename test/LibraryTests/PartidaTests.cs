@@ -1,10 +1,4 @@
-//--------------------------------------------------------------------------------
-// <copyright file="TrainTests.cs" company="Universidad Católica del Uruguay">
-//     Copyright (c) Programación II. Derechos reservados.
-// </copyright>
-//--------------------------------------------------------------------------------
-
-/*using ClassLibrary;
+using ClassLibrary;
 using NUnit.Framework;
 
 namespace Tests
@@ -13,13 +7,13 @@ namespace Tests
     /// Test para un correcto funcionamiento de la clase Logica <see cref="Partida"/>
     /// </summary>
     [TestFixture]
-    public class TestDeLogica
+    public class TestDePartida
     {
         /// <summary>
         /// El tablero que va a ser utilizado para los tests.Es necesario ya que Logica solo
         ///  se ejecuta si esta en conjunto de la clase tablero;
         /// </summary>
-        private LogicaDePartida logicaDePartida;
+        private Partida partida;
 
         /// <summary>
         /// SetUp Creado con el objetivo de tener un tablero vacio al principio de cada test.
@@ -27,7 +21,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            this.logicaDePartida = new LogicaDePartida(9, 01,02);
+            this.partida = new Partida(9, 1, 2);
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
@@ -38,15 +32,11 @@ namespace Tests
         [Test]
         public void PrincipioDeBarcoHorizontal()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 4;
-            inicioDelBarco[1] = 3;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 4;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            string inicioDelBarco = "E4";
+            string finalDelBarco = "E6";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
+            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,3]);
             Assert.AreEqual('\u0000', tableroActualizado[4,2]);
         }
@@ -58,17 +48,13 @@ namespace Tests
         [Test]
         public void FinalDeBarcoHorizontal()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 4;
-            inicioDelBarco[1] = 3;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 4;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            string inicioDelBarco = "E4";
+            string finalDelBarco = "E6";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
-            Assert.AreEqual(expected, tableroActualizado[4,7]);
-            Assert.AreEqual('\u0000', tableroActualizado[4,8]);
+            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
+            Assert.AreEqual(expected, tableroActualizado[4,5]);
+            Assert.AreEqual('\u0000', tableroActualizado[4,6]);
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
@@ -78,15 +64,11 @@ namespace Tests
         [Test]
         public void PrincipioDeBarcoVertical()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 1;
-            inicioDelBarco[1] = 7;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 5;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            string inicioDelBarco = "B8";
+            string finalDelBarco = "F8";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
+            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[1,7]);
             Assert.AreEqual('\u0000', tableroActualizado[0,7]);
         }
@@ -98,15 +80,11 @@ namespace Tests
         [Test]
         public void FinalDeBarcoVertical()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 1;
-            inicioDelBarco[1] = 7;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 5;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            string inicioDelBarco = "B8";
+            string finalDelBarco = "F8";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
+            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
             Assert.AreEqual('\u0000', tableroActualizado[6,7]);
         }
@@ -116,13 +94,13 @@ namespace Tests
         [Test]
         public void AtaqueAlAgua()
         {
-            int[] LugarAAtacar = new int[2];
-            LugarAAtacar[0] = 5;
-            LugarAAtacar[1] = 7;
-            logicaDePartida.Atacar(LugarAAtacar, 1);
+            string LugarAAtacar = "A1";
+            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
             char expected = 'W';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(2);
-            Assert.AreEqual(expected, tableroActualizado[5,7]);
+            Tablero tablero = partida.tableros[1];
+            //char[,] charAct = tablero.VerCasilla(1, 7);
+            Assert.AreEqual(expected, tablero.VerCasilla(0,0));
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -130,20 +108,15 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVertical()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 1;
-            inicioDelBarco[1] = 7;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 5;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            int[] LugarAAtacar = new int[2];
-            LugarAAtacar[0] = 5;
-            LugarAAtacar[1] = 7;
-            logicaDePartida.Atacar(LugarAAtacar,2);
+            string inicioDelBarco = "B8";
+            string finalDelBarco = "F8";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            string LugarAAtacar = "F8";
+            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
-            Assert.AreEqual(expected, tableroActualizado[5,7]);
+            Tablero tablero = partida.tableros[1];
+            Assert.AreEqual(expected, tablero.VerCasilla(5,7));
         }
         /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -151,21 +124,16 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVerticalEnElMismoLugar()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 1;
-            inicioDelBarco[1] = 7;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 5;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            int[] LugarAAtacar = new int[2];
-            LugarAAtacar[0] = 5;
-            LugarAAtacar[1] = 7;
-            logicaDePartida.Atacar(LugarAAtacar, 2);
-            logicaDePartida.Atacar(LugarAAtacar, 2);
+            string inicioDelBarco = "B8";
+            string finalDelBarco = "F8";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            string LugarAAtacar = "F8";
+            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
-            Assert.AreEqual(expected, tableroActualizado[5,7]);
+            Tablero tablero = partida.tableros[1];
+            Assert.AreEqual(expected, tablero.VerCasilla(5,7));
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -173,20 +141,15 @@ namespace Tests
         [Test]
         public void AtaqueBarcoHorizontal()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 7;
-            inicioDelBarco[1] = 3;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 7;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            int[] LugarAAtacar = new int[2];
-            LugarAAtacar[0] = 7;
-            LugarAAtacar[1] = 4;
-            logicaDePartida.Atacar(LugarAAtacar,2);
+            string inicioDelBarco = "H4";
+            string finalDelBarco = "H8";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            string LugarAAtacar = "H5";
+            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(01);
-            Assert.AreEqual(expected, tableroActualizado[7,4]);
+            Tablero tablero = partida.tableros[1];
+            Assert.AreEqual(expected, tablero.VerCasilla(7,4));
         }
          /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -194,21 +157,18 @@ namespace Tests
         [Test]
         public void AtaqueBarcoHorizontalEnElMismoLugar()
         {
-            int[] inicioDelBarco = new int[2];
-            inicioDelBarco[0] = 7;
-            inicioDelBarco[1] = 3;
-            int[] finalDelBarco = new int[2];
-            finalDelBarco[0] = 7;
-            finalDelBarco[1] = 7;
-            logicaDePartida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            int[] LugarAAtacar = new int[2];
-            LugarAAtacar[0] = 7;
-            LugarAAtacar[1] = 5;
-            logicaDePartida.Atacar(LugarAAtacar, 2);
-            logicaDePartida.Atacar(LugarAAtacar, 2);
+            string inicioDelBarco = "H4";
+            string finalDelBarco = "H8";
+            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            string LugarAAtacar = "H6";
+            partida.Atacar(LugarAAtacar, 2);
+            partida.Atacar(LugarAAtacar, 2);
+            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
             char expected = 'T';
-            char[ , ]tableroActualizado = logicaDePartida.VerTableroPropio(1);
-            Assert.AreEqual(expected, tableroActualizado[7,5]);
+            Tablero tablero = partida.tableros[1];
+            Assert.AreEqual(expected, tablero.VerCasilla(7,5));
         }
     }
-}*/
+}

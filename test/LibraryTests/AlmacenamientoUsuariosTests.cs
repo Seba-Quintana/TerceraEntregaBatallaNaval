@@ -95,27 +95,27 @@ namespace Tests
         {
 			Test.Registrar("jugadorTest", 5, "Test");
 			Test.Registrar("jugadorTest", 5, "Test");
-            Admin.EmparejarAmigos(0, 1, 2, 7);
-            Admin.Posicionar("A1","A6", 1);
-            Admin.Posicionar("B1","B6", 1);
-            Admin.Posicionar("E1","E6", 2);
-            Admin.Posicionar("F1","F6", 2);
+            Planificador.EmparejarAmigos(0, 1, 2, 7);
+            Planificador.Posicionar("A1","A6", 1);
+            Planificador.Posicionar("B1","B6", 1);
+            Planificador.Posicionar("E1","E6", 2);
+            Planificador.Posicionar("F1","F6", 2);
             int i = 1;
             while(i <= 6)
             {
-                Admin.Atacar($"G{i}", 1);
-                Admin.Atacar($"A{i}", 2);
+                Planificador.Atacar($"G{i}", 1);
+                Planificador.Atacar($"A{i}", 2);
                 i+=1;
             }
             i = 1;
             while(i < 6)
             {
-                Admin.Atacar($"C{i}", 1);
-                Admin.Atacar($"B{i}", 2);
+                Planificador.Atacar($"C{i}", 1);
+                Planificador.Atacar($"B{i}", 2);
                 i+=1;
             }
-            Admin.Atacar("C6", 1);
-            Admin.Atacar("B6", 2);
+            Planificador.Atacar("C6", 1);
+            Planificador.Atacar("B6", 2);
 			List<PerfilUsuario> ranking = Test.ObtenerRanking();
 			PerfilUsuario perfilGanador = Test.ObtenerPerfil(2);
 			Assert.AreEqual(perfilGanador.NumeroDeJugador, ranking[0].NumeroDeJugador);
