@@ -12,12 +12,12 @@ namespace ClassLibrary
         /// <summary>
         /// Cola de emparejamiento (modo normal)
         /// </summary>
-        public Queue<int> ColaEmparejamientosN = new Queue<int>();
+        private Queue<int> ColaEmparejamientosN = new Queue<int>();
 
         /// <summary>
         /// Cola de emparejamiento (modo rapido)
         /// </summary>
-        public Queue<int> ColaEmparejamientosR = new Queue<int>();
+        private Queue<int> ColaEmparejamientosR = new Queue<int>();
         
         /// <summary>
         /// Parte de singleton. Atributo donde se guarda la instancia del
@@ -51,8 +51,9 @@ namespace ClassLibrary
         /// Remueve usuario de cola de emparejamiento
         /// </summary>
         /// <param name="usuario"> usuario a remover </param>
-        public void RemoverListaEspera(int usuario)
+        public string RemoverListaEspera(int usuario)
         {
+            string respuesta = "El numero de usuario ingresado no se encuentra esperando una partida";
             if (ColaEmparejamientosN.Contains(usuario))
             {
                 int largoCola = ColaEmparejamientosN.Count;
@@ -68,6 +69,7 @@ namespace ClassLibrary
                     }
                     i++;
                 }
+                respuesta = "Removido correctamente";
             }
             else if (ColaEmparejamientosR.Contains(usuario))
             {
@@ -84,7 +86,9 @@ namespace ClassLibrary
                     }
                     i++;
                 }
+                respuesta = "Removido correctamente";
             }
+            return respuesta;
         }
 
         /// <summary>

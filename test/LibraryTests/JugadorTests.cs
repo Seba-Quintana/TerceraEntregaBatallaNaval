@@ -13,6 +13,27 @@ namespace Tests
         private Jugador jugador;
 
         /// <summary>
+        /// remueve los jugadores sobrantes al final para que no sean considerados en otros tests
+        /// </summary>
+        private AlmacenamientoUsuario removedor;
+
+        /// <summary>
+        /// SetUp Creado con el objetivo de tener los elementos necesarios para realizar ls test
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+            removedor = AlmacenamientoUsuario.Instance();
+            int i = 1;
+            int CantidadUsuarios = removedor.ListaDeUsuarios.Count;
+            while (i <= CantidadUsuarios)
+            {
+                removedor.Remover(i);
+                i++;
+            }
+        }
+
+        /// <summary>
         /// Comparo si el número de jugador antes del registro y el número de jugador después del registro son iguales.
         /// </summary>
         
@@ -38,7 +59,6 @@ namespace Tests
             PerfilUsuario expected = null;
             PerfilUsuario actual = perfil.ObtenerPerfil(jugador3.NumeroDeJugador);
             Assert.AreEqual(expected,actual);
-            
         }
         /// <summary>
         /// Se realiza test para comprobar si un jugador mantiene su número de Jugador removiendo a otro Jugador.
@@ -53,7 +73,7 @@ namespace Tests
             int actual = jugador4.NumeroDeJugador;
             Assert.AreEqual(expected,actual);
             jugador4.Remover();
-            
+
         }
         /// <summary>
         /// Con este test podremos ver el Perfil de un jugador utilizando a su Número de Jugador el cual lo tiene definido.
@@ -139,5 +159,7 @@ namespace Tests
             jugador2.Remover();
 
         }
+      }
+    
     }
 }

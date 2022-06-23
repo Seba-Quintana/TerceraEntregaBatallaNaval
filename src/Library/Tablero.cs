@@ -34,6 +34,10 @@ namespace ClassLibrary
         /// Variable que facilita saber si el dueño del tablero fue quien gano la partida.
         /// </summary>
         public bool Ganada= false;
+        /// <summary>
+        /// Todas las coordenadas donde hay barcos
+        /// </summary>
+        /// <returns></returns>
         public List<int[]> CantidadDeBarcosPosicionados = new List<int[]>();
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
@@ -50,7 +54,7 @@ namespace ClassLibrary
         {
             List<int[]> CoordenadasQueSeQuierenUtilizar = this.EspaciosAUtilizar(filaInicio, columnaInicio, filaFinal, columnaFinal);
 
-            if (this.noHayColisiónDeBarcos(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar))
+            if (this.noHayColisiónDeBarcos(CoordenadasQueSeQuierenUtilizar))
             {
                 Barco nuevoBarco = new Barco(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar);
                 this.barcos.Add(nuevoBarco);
@@ -72,10 +76,10 @@ namespace ClassLibrary
             {
                 int[] coordenadaARemover = new int[2];
     
-                Barco BarcoHundido= null;
+                Barco barcoHundido= null;
                 foreach (Barco posibleObjetivo in barcos)
                 {
-                    if (posibleObjetivo.VerSiCasillaFormaParte(fila, columna))
+                    if (posibleObjetivo.ParteDelBarco(fila, columna))
                     {   
                         char respuestaDeBarco = posibleObjetivo.Dañar(fila, columna);
                         switch(respuestaDeBarco)
@@ -94,15 +98,15 @@ namespace ClassLibrary
                                 coordenadaARemover[0] = fila;
                                 coordenadaARemover[1] = columna;
                                 this.matriz[fila, columna] = 'T';
-                                BarcoHundido =posibleObjetivo;
+                                barcoHundido =posibleObjetivo;
                                 break;
                         }
 
                     }
                 }
-                if (BarcoHundido !=null)
+                if (barcoHundido !=null)
                 {
-                    this.BarcoHundido(BarcoHundido.ObtenerPartesDeBarcoHundido(), BarcoHundido, coordenadaARemover);
+                    this.barcoHundido(barcoHundido.ObtenerPartesDeBarcoHundido(), barcoHundido);
                 }
             }
             else
@@ -110,7 +114,7 @@ namespace ClassLibrary
             matriz[fila,columna] = 'W';
             }
         }
-        public void BarcoHundido(List<int[]> partesDeBarcoACambiar, Barco barcoEliminado, int[] coordenadaARemover)
+        public void barcoHundido(List<int[]> partesDeBarcoACambiar, Barco barcoEliminado)
         {
             foreach (int[] coordenada in partesDeBarcoACambiar)
             {
@@ -208,21 +212,17 @@ namespace ClassLibrary
                     this.CantidadDeBarcosPosicionados.Add(coordenadaDeParteDeBarco);
             }
         }
-        private bool noHayColisiónDeBarcos(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal, List<int[]> CoordenadasQueSeQuierenUtilizar)
+        private bool noHayColisiónDeBarcos(List<int[]> CoordenadasQueSeQuierenUtilizar)
         {
 
             foreach (int[] CoordenadasQueQuieroUsar in CoordenadasQueSeQuierenUtilizar)
             {
-                foreach(int[] CoordenadasAnteriores in this.CantidadDeBarcosPosicionados)
+                if (ExisteBarcoEnEsaPosicion(CoordenadasQueQuieroUsar[0],CoordenadasQueQuieroUsar[1]))
                 {
-                    if (CoordenadasQueQuieroUsar[0] == CoordenadasAnteriores[0] && CoordenadasQueQuieroUsar[1] == CoordenadasAnteriores[1])
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
         }
-        
     }
 }
