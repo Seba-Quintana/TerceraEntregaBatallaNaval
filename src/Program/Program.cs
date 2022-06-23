@@ -49,8 +49,8 @@ namespace ConsoleApplication
             jugador1.VisualizarTableros();
             jugador2.VisualizarTableros();
 
-            Console.WriteLine(jugador1.Atacar("C6"));
-            Console.WriteLine(jugador2.Atacar("B6")); //Termino la partida
+            //Console.WriteLine(jugador1.Atacar("C6"));
+            //Console.WriteLine(jugador2.Atacar("B6")); //Termino la partida
             jugador1.VisualizarTableros();
             jugador2.VisualizarTableros();*/
         }

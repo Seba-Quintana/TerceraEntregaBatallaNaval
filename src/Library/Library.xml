@@ -6,15 +6,19 @@
     <members>
         <member name="T:ClassLibrary.AlmacenamientoUsuario">
             <summary>
-            Clase AlmacenamientoUsuarioistradora. Se encarga de manejar distintos aspectos del programa,
-            como los usuarios o el historial.
-            Sera cambiada en gran parte por los handlers.
+            Clase AlmacenamientoUsuario. Se encarga de manejar todos los datos vinculados con los usuarios.
             </summary>
         </member>
-        <member name="F:ClassLibrary.AlmacenamientoUsuario.ListaDeUsuarios">
+        <member name="F:ClassLibrary.AlmacenamientoUsuario.listaDeUsuarios">
             <summary>
             Almacenamiento de usuarios
             </summary>
+        </member>
+        <member name="P:ClassLibrary.AlmacenamientoUsuario.ListaDeUsuarios">
+            <summary>
+            Getter de listaDeUsuarios
+            </summary>
+            <value> Lista de usuarios </value>
         </member>
         <member name="F:ClassLibrary.AlmacenamientoUsuario.instance">
             <summary>
@@ -74,21 +78,20 @@
         </member>
         <member name="M:ClassLibrary.AlmacenamientoUsuario.ObtenerHistorialPersonal(System.Int32)">
             <summary>
-            Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-            si el numero pertenece a un PerfilUsuario en la lista de perfiles de AlmacenamientoUsuario
-            pide mostrar el HistorialPersonal de este perfil.
+            Si el numero pertenece a un PerfilUsuario en la lista de perfiles de AlmacenamientoUsuario
+            pide mostrar el HistorialPersonal de todas las partidas jugadas de este perfil.
             </summary>
             <param name="numerodejugador"> historial que se quiere ver</param>
         </member>
         <member name="M:ClassLibrary.AlmacenamientoUsuario.ObtenerRanking">
             <summary>
             Realiza una lista de PerfilUsuario ordenados por cantidad de partidas ganadas,
-            y le pide a la impresora que la muestre.
+            y le pide a la retorna.
             </summary>
         </member>
         <member name="T:ClassLibrary.DatosdePartida">
             <summary>
-            Clase encargada de almacenar los datos referentes al acabar una partida
+            Clase encargada de almacenar los datos referentes al acabar una partida.
             </summary>
         </member>
         <member name="F:ClassLibrary.DatosdePartida.Tableros">
@@ -135,10 +138,77 @@
             </summary>
             <param name="jugador"></param>
         </member>
+        <member name="T:ClassLibrary.Emparejamiento">
+            <summary>
+            Esta clase empareja a dos jugadores en un int[,] para poder crear una partida.
+            Hay dos colas de espera existentes existentes en la espera de partida aleatoria, una para el modo normal y otra para el modo rapido.
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Emparejamiento.ColaEmparejamientosN">
+            <summary>
+            Cola de emparejamiento (modo normal)
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Emparejamiento.ColaEmparejamientosR">
+            <summary>
+            Cola de emparejamiento (modo rapido)
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Emparejamiento.instance">
+            <summary>
+            Parte de singleton. Atributo donde se guarda la instancia del
+            Emparejamiento (o null si no fue creada).
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Emparejamiento.#ctor">
+            <summary>
+            Parte de singleton. Constructor llamado por el metodo Instance de crearse un Emparejamiento.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Emparejamiento.Instance">
+            <summary>
+            Singleton de Emparejamiento. Si no existe una instancia
+            de Emparejamiento, crea una. Si ya existe la devuelve
+            </summary>
+            <returns> Instancia nueva de Emparejamiento,
+            o de darse el caso, una previamente creada </returns>
+        </member>
+        <member name="M:ClassLibrary.Emparejamiento.RemoverListaEspera(System.Int32)">
+            <summary>
+            Remueve usuario de cola de emparejamiento
+            </summary>
+            <param name="usuario"> usuario a remover </param>
+        </member>
+        <member name="M:ClassLibrary.Emparejamiento.EmparejarAleatorio(System.Int32,System.Int32)">
+            <summary>
+            Empareja a dos jugadores, el jugador que busca partida y uno aleatorio (determinado por la cola)
+            </summary>
+            <param name="modo"> modo de juego elegido </param>
+            <param name="jugador"> jugador que busca emparejamiento </param>
+        </member>
+        <member name="M:ClassLibrary.Emparejamiento.EmparejarAmigos(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Empareja a dos usuarios especificos
+            </summary>
+            <param name="modo"> modo de juego elegido </param>
+            <param name="jugador1"> jugador 1 </param>
+            <param name="jugador2"> jugador 2 </param>
+            <returns></returns>
+        </member>
         <member name="T:ClassLibrary.Historial">
             <summary>
             Esta clase se encarga de añadir las partidas que se jugaron a una lista,
             con el objetivo de mantener un registro de las partidas jugadas.
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Historial.partidas">
+            <summary>
+            Lista de DatosdePartida
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Historial.instance">
+            <summary>
+            Parte de singleton. Atributo donde se guarda la instancia del Historial (o null si no fue creada).
             </summary>
         </member>
         <member name="M:ClassLibrary.Historial.#ctor">
@@ -172,6 +242,11 @@
         <member name="F:ClassLibrary.PartidasEnJuego.partidas">
             <summary>
             Lista de partidas en juego
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.PartidasEnJuego.instance">
+            <summary>
+            Parte de singleton. Atributo donde se guarda la instancia de PartidasEnJuego (o null si no fue creada).
             </summary>
         </member>
         <member name="M:ClassLibrary.PartidasEnJuego.#ctor">
@@ -217,143 +292,69 @@
             <param name="numeroDeJugador"></param>
             <returns></returns>
         </member>
-        <member name="T:ClassLibrary.Admin">
+        <member name="T:ClassLibrary.Barco">
             <summary>
-            Clase administradora. Se encarga de manejar distintos aspectos del programa,
-            como los usuarios o el historial.
-            Sera cambiada en gran parte por los handlers.
+            Clase encargada de guardar las caracteristicas 
+            basicas de un barco y administrarlos.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Admin.Registrar(System.String,System.Int32,System.String)">
+        <member name="F:ClassLibrary.Barco.partes">
             <summary>
-            Crea un nuevo perfil de usuario asignandole un numero de jugador.
-            Si es el primer usuario creado le asigna el numero 1, de lo contrario le asigna el
-            numero mas alto de un jugador existente +1,
-            y luego crea un PerfilUsuario con los datos necesarios para agregarlo a la lista de usuarios.
-            </summary>
-            <param name="nombre"> nombre del usuario</param>
-            <param name="id"> id proporcionada por el bot </param>
-            <param name="contraseña"> contraseña </param>
-        </member>
-        <member name="M:ClassLibrary.Admin.Remover(System.Int32)">
-            <summary>
-            Si el numero de usuarios pertenece a un PerfilUsuario existente
-            en la lista de perfiles de admin, lo elimina de la misma.
-            </summary>
-            <param name="NumeroDeJugador"> numero del jugador a remover</param>
-        </member>
-        <member name="M:ClassLibrary.Admin.VerPerfil(System.Int32)">
-            <summary>
-            Permite visualizar el perfil de un usuario.
-            </summary>
-            <param name="usuario"> jugador del cual se quiere ver el perfil </param>
-        </member>
-        <member name="M:ClassLibrary.Admin.VerTableroOponente(System.Int32)">
-            <summary>
-            Si el numero de jugador ingresado tiene una partida en juego,
-            pide mostrar el tablero del oponente.
-            </summary>
-            <param name="jugador"> jugador en partida </param>
-        </member>
-        <member name="M:ClassLibrary.Admin.VerTablero(System.Int32)">
-            <summary>
-            Si el numero de jugador ingresado tiene una partida en juego,
-            pide mostrar su propio tablero.
-            </summary>
-            <param name="jugador"> jugador en partida </param>
-        </member>
-        <member name="M:ClassLibrary.Admin.VerHistorial">
-            <summary>
-            Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-            si el numero pertenece a un PerfilUsuario en la lista de perfiles de Admin
-            pide mostrar el HistorialPersonal de este perfil.
+            Atributo para ver las partes del barco que estan enteras.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Admin.VerHistorialPersonal(System.Int32)">
+        <member name="F:ClassLibrary.Barco.casillasSinHundir">
             <summary>
-            Si el numero ingresado es 0 pide mostrar el historial general de todos las partidas jugadas,
-            si el numero pertenece a un PerfilUsuario en la lista de perfiles de Admin
-            pide mostrar el HistorialPersonal de este perfil.
-            </summary>
-            <param name="numerodejugador"> historial que se quiere ver</param>
-        </member>
-        <member name="M:ClassLibrary.Admin.VerRanking">
-            <summary>
-            Realiza una lista de PerfilUsuario ordenados por cantidad de partidas ganadas,
-            y le pide a la impresora que la muestre.
+            Atributo para poder ver las coordenadas ocupadas por el barco.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Admin.CrearPartida(System.Int32,System.Int32,System.Int32[])">
+        <member name="F:ClassLibrary.Barco.casillasOcupadas">
             <summary>
-            Crea una Partida, asignandole un tamaño
-            y los dos numeros de jugador de quienes quieren comenzar una partida.
+            Atributo para poder ver las coordenadas ocupadas por el barco.
             </summary>
-            <param name="tamaño"> tamaño del tablero </param>
-            <param name="modo"> modo de juego a jugar </param>
-            <param name="jugadores"> jugadores </param>
         </member>
-        <member name="M:ClassLibrary.Admin.Emparejar(System.Int32,System.Int32,System.Int32)">
+        <member name="F:ClassLibrary.Barco.orientacion">
             <summary>
-            Empareja a dos jugadores, siendo uno de ellos el jugador que busca partida,
-            y el otro un jugador que este esperando por una partida.
+            Atributo Encargado de guardar la orientacion del barco para utilizarlo en los diferentes metodos.
             </summary>
-            <param name="modo"> modo elegido </param>
-            <param name="jugador1"> jugador que busca partida </param>
-            <param name="tamano"> tamaño del tablero </param>
         </member>
-        <member name="M:ClassLibrary.Admin.EmparejarAmigos(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:ClassLibrary.Barco.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{System.Int32[]})">
             <summary>
-            Empareja a dos jugadores por sus numeros de jugador.
+            Constructor de la clase barco.
             </summary>
-            <param name="modo"> modo de juego elegido </param>
-            <param name="jugador1"> jugador 1 </param>
-            <param name="jugador2"> jugador 2 </param>
-            <param name="tamano"> tamaño del tablero </param>
+            <param name="filaInicio"></param>
+            <param name="columnaInicio"></param>
+            <param name="filaFinal"></param>
+            <param name="columnaFinal"></param>
+            <param name="coordenadasAUtilizar"></param>
         </member>
-        <member name="M:ClassLibrary.Admin.Atacar(System.String,System.Int32)">
+        <member name="M:ClassLibrary.Barco.ObtenerPartesDeBarcoHundido">
             <summary>
-            Permite al jugador atacar
+            Metodo utilizado por tablero para obtener los lugares ocupados por el barco.
             </summary>
-            <param name="coordenada"></param>
-            <param name="atacante"></param>
             <returns></returns>
         </member>
-        <member name="T:ClassLibrary.EmparejamientoConCola">
+        <member name="M:ClassLibrary.Barco.hundido">
             <summary>
-            Esta clase empareja a dos jugadores en una cola.
-            Hay dos colas existentes, una para el modo normal y otra para el modo rapido.
+            Metodo encargado de verificar si a un barco 
+            no le quedan partes sin dañar.
             </summary>
+            <returns></returns>
         </member>
-        <member name="F:ClassLibrary.EmparejamientoConCola.ColaEmparejamientosN">
+        <member name="M:ClassLibrary.Barco.ParteDelBarco(System.Int32,System.Int32)">
             <summary>
-            Cola de emparejamiento (modo normal)
+            Metodo responsable de ver si una casilla es parte del barco.
             </summary>
+            <param name="filaAtaque"></param>
+            <param name="columnaAtaque"></param>
+            <returns></returns>
         </member>
-        <member name="F:ClassLibrary.EmparejamientoConCola.ColaEmparejamientosR">
+        <member name="M:ClassLibrary.Barco.Dañar(System.Int32,System.Int32)">
             <summary>
-            Cola de emparejamiento (modo rapido)
+            Metodo Utilizado por el tablero para Dañar a un barco.
             </summary>
-        </member>
-        <member name="M:ClassLibrary.EmparejamientoConCola.RemoverListaEspera(System.Int32)">
-            <summary>
-            Remueve usuario de cola de emparejamiento
-            </summary>
-            <param name="usuario"> usuario a remover </param>
-        </member>
-        <member name="M:ClassLibrary.EmparejamientoConCola.EmparejarAleatorio(System.Int32,System.Int32)">
-            <summary>
-            Empareja a dos jugadores, el jugador que busca partida y uno aleatorio (determinado por la cola)
-            </summary>
-            <param name="modo"> modo de juego elegido </param>
-            <param name="jugador"> jugador que busca emparejamiento </param>
-        </member>
-        <member name="M:ClassLibrary.EmparejamientoConCola.EmparejarAmigos(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Empareja a dos usuarios especificos
-            </summary>
-            <param name="modo"> modo de juego elegido </param>
-            <param name="jugador1"> jugador 1 </param>
-            <param name="jugador2"> jugador 2 </param>
+            <param name="filaAtaque"></param>
+            <param name="columnaAtaque"></param>
             <returns></returns>
         </member>
         <member name="T:ClassLibrary.LogicaDeTablero">
@@ -375,7 +376,7 @@
         </member>
         <member name="M:ClassLibrary.LogicaDeTablero.Atacar(ClassLibrary.Tablero,System.Int32,System.Int32)">
             <summary>
-            Encargado de realizar un ataque y devolver el resultado del ataque.
+            Metodo encargado de realizar un ataque y devolver el resultado del ataque.
             </summary>
             <param name="tablero"></param>
             <param name="columna"></param>
@@ -384,7 +385,7 @@
         </member>
         <member name="M:ClassLibrary.LogicaDeTablero.Finalizar(ClassLibrary.Tablero)">
             <summary>
-            Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un atauqe
+            Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un ataque
             </summary>
             <param name="tablero"></param>
             <returns></returns>
@@ -395,6 +396,134 @@
             su ganador en caso de que sea el dueño.
             </summary>
             <param name="TableroGanador"></param>
+        </member>
+        <member name="T:ClassLibrary.Planificador">
+            <summary>
+            Clase Planificador. Se encarga de manejar distintos aspectos del programa,
+            como los usuarios y el historial.
+            Sera cambiada en gran parte por los handlers.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Planificador.Registrar(System.String,System.Int32,System.String)">
+            <summary>
+            Se comunica con AlmacenamientoUsuario para registrar un nuevo jugador,
+            recibe el numero de usuario y se lo muestra al jugador.
+            </summary>
+            <param name="nombre"> nombre del usuario</param>
+            <param name="id"> id proporcionada por el bot </param>
+            <param name="contraseña"> contraseña </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.Remover(System.Int32)">
+            <summary>
+            Le pide a AlmacenamientoUsuario eliminar un NumeroDeJugador de la lista
+            Le comunica al jugador la accion realizada
+            </summary>
+            <param name="NumeroDeJugador"> numero del jugador a remover</param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.VerPerfil(System.Int32)">
+            <summary>
+            Permite visualizar el perfil de un usuario.
+            </summary>
+            <param name="usuario"> jugador del cual se quiere ver el perfil </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.VerTableroOponente(System.Int32)">
+            <summary>
+            Si el numero de jugador ingresado tiene una partida en juego,
+            pide mostrar el tablero del oponente.
+            </summary>
+            <param name="jugador"> jugador en partida </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.VerTablero(System.Int32)">
+            <summary>
+            Si el numero de jugador ingresado tiene una partida en juego,
+            pide mostrar su propio tablero.
+            </summary>
+            <param name="jugador"> jugador en partida </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.VerHistorial">
+            <summary>
+            Pide mostrar el historial general de todos las partidas jugadas.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Planificador.VerHistorialPersonal(System.Int32)">
+            <summary>
+            Si el numero ingresado por parametro pertenece a un PerfilUsuario
+            en la lista de perfiles de Planificador,
+            pide mostrar el HistorialPersonal de partidas jugadas de este perfil.
+            </summary>
+            <param name="numerodejugador"> historial que se quiere ver</param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.VerRanking">
+            <summary>
+            Llama a ObtenerRanking de la clase AlmacenamientoUsuario y le pide a la impresora que lo muestre.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Planificador.CrearPartida(System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            Crea una Partida, asignandole un tamaño, un modo
+            y los dos numeros de jugador de quienes quieren comenzar una partida.
+            </summary>
+            <param name="tamaño"> tamaño del tablero </param>
+            <param name="modo"> modo de juego a jugar </param>
+            <param name="jugadores"> jugadores </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.Emparejar(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Empareja a dos jugadores, siendo uno de ellos el jugador que busca partida,
+            y el otro un jugador que este esperando por una partida.
+            </summary>
+            <param name="modo"> modo elegido </param>
+            <param name="jugador"> jugador que busca partida </param>
+            <param name="tamano"> tamaño del tablero </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.EmparejarAmigos(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Empareja a dos jugadores por sus numeros de jugador.
+            </summary>
+            <param name="modo"> modo de juego elegido </param>
+            <param name="jugador1"> jugador 1 </param>
+            <param name="jugador2"> jugador 2 </param>
+            <param name="tamano"> tamaño del tablero </param>
+        </member>
+        <member name="M:ClassLibrary.Planificador.removerListaEspera(System.Int32)">
+            <summary>
+            Pide a Emparejamiento remover un usuario de la lista de espera y manda el mensaje correspondiente a impresora.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Planificador.Posicionar(System.String,System.String,System.Int32)">
+            <summary>
+            Metodo para posicionar barcos
+            </summary>
+            <param name="inicio"> coordenada inicial del barco </param>
+            <param name="final"> coordenada final del barco </param>
+            <param name="jugador"> jugador que posiciona </param>
+            <returns> mensaje a devolver </returns>
+        </member>
+        <member name="M:ClassLibrary.Planificador.Atacar(System.String,System.Int32)">
+            <summary>
+            Permite al jugador atacar
+            </summary>
+            <param name="coordenada"></param>
+            <param name="atacante"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ClassLibrary.Planificador.Rendirse(System.Int32)">
+            <summary>
+            Metodo para rendirse
+            </summary>
+            <param name="jugador"> jugador que quiere rendirse </param>
+        </member>
+        <member name="T:ClassLibrary.TraductorDeCoordenadas">
+            <summary>
+            Esta clase se encarga de traducir las coordenadas ingresadas por el usuario a una forma en que el programa lo entienda
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.TraductorDeCoordenadas.Traducir(System.String)">
+            <summary>
+            Transforma las coordenadas introducidas por el usuario en un int[,]
+            </summary>
+            <param name="coordenada"></param>
+            <returns> Devuelve la coordenada en un arreglo de int. De ser invalida, devuelve null </returns>
         </member>
         <member name="T:ClassLibrary.Iimpresora">
             <summary>
@@ -426,17 +555,22 @@
         <member name="M:ClassLibrary.Iimpresora.ImprimirRanking(System.Collections.Generic.List{ClassLibrary.PerfilUsuario})">
             <summary>
             Esta operción se encarga de imprimir el ranking de jugadores.
-            Recibe como parametro la lista de los perfiles,
-            y ordena los usuarios en base a la cantidad de victorias de cada jugador.
+            Recibe como parametro la lista de los perfiles ordenada en base a la cantidad de victorias de cada jugador.
             </summary>
             <param name="perfiles"></param>
+        </member>
+        <member name="M:ClassLibrary.Iimpresora.RecibirMensajes(System.String)">
+            <summary>
+            Esta operacion se encarga de imprimir un mensaje recibido
+            </summary>
+            <param name="mensaje"> mensaje a imprimir </param>
         </member>
         <member name="T:ClassLibrary.ImpresoraConsola">
             <summary>
             Muestra por consola todo lo que desee imprimir implementando la interfaz Iimpresora con una operación polimórfica.
             </summary>
         </member>
-        <member name="F:ClassLibrary.ImpresoraConsola.impresoraConsola">
+        <member name="F:ClassLibrary.ImpresoraConsola.instance">
             <summary>
             Parte de singleton. Atributo donde se guarda la instancia de la impresora (o null si no fue creada).
             </summary>
@@ -455,8 +589,8 @@
         </member>
         <member name="M:ClassLibrary.ImpresoraConsola.ImprimirTablero(System.Char[0:,0:],System.Boolean)">
             <summary>
-            Con este método se imprime el tablero en la consola agregándole índices de coordenadas, imprime el tablero
-            del jugador que solicita la impresion y el de su oponente.
+            Con este método se imprime el tablero ingresado como parametro en la consola agregándole índices de coordenadas.
+            Como parametro tambien tiene un bool que identifica si es el tableto del jugador o no para señalizarlo correctamente.
             </summary>
             <param name="tablero"></param>
             <param name="jugador"></param>
@@ -471,7 +605,7 @@
         </member>
         <member name="M:ClassLibrary.ImpresoraConsola.ImprimirHistorial(System.Collections.Generic.List{ClassLibrary.DatosdePartida})">
             <summary>
-            Este método se encarga de imprimir el historial de todas las partidas que se jugaron en la consola.
+            Este método se encarga de imprimir el historial de todas las partidas en la lista de partidas ingresada como parametro en la consola.
             </summary>
             <param name="partidas"></param>
         </member>
@@ -481,11 +615,20 @@
             son ordenados según las batallas ganadas que los usuarios tengan.
             </summary>
         </member>
+        <member name="M:ClassLibrary.ImpresoraConsola.RecibirMensajes(System.String)">
+            <summary>
+            Imprime mensajes.
+            </summary>
+            <param name="mensaje"> Mensaje a imprimir </param>
+        </member>
         <member name="T:ClassLibrary.Jugador">
             <summary>
-            Esta clase se encarga de ver cosas como el Perfil, el Ranking y el Historial.
-            Se encarga de crear Partidas Amistosas y tambien de buscar Partidas
-            Visualiza al tablero.
+            Esta clase se encarga de ver cosas como el Perfil, el Ranking, el Historial y los tableros.
+            Se encarga de crear Partidas Amistosas y tambien de buscar Partidas aleatorias
+            Recibe las coordenadas para posicionar barcos y ataques
+            Esta clase tiene catch en sus metodos para poder atrapar las excepciones que suceden
+            en partes mas internas del programa (por propagacion de excepciones), y llama
+            a la impresora para imprimir un mensaje de error.
             </summary>
         </member>
         <member name="F:ClassLibrary.Jugador.NumeroDeJugador">
@@ -529,6 +672,11 @@
             </summary>
             <param name="numerodejugador"> jugador del que se quiere ver el historial </param>
         </member>
+        <member name="M:ClassLibrary.Jugador.VisualizarTableros">
+            <summary>
+            Permite al jugador visualizar el tablero actual
+            </summary>
+        </member>
         <member name="M:ClassLibrary.Jugador.PartidaAmistosa(System.Int32,System.Int32,System.Int32)">
             <summary>
             Busqueda de partida amistosa (jugar partida con un amigo)
@@ -544,9 +692,9 @@
             <param name="modo"> modo de juego elegido </param>
             <param name="tamano"></param>
         </member>
-        <member name="M:ClassLibrary.Jugador.VisualizarTableros">
+        <member name="M:ClassLibrary.Jugador.removermeDeListaEspera">
             <summary>
-            Permite al jugador visualizar el tablero actual
+            Pide eliminarse de la lista de espera de una partida aleatoria
             </summary>
         </member>
         <member name="M:ClassLibrary.Jugador.PosicionarBarcos(System.String,System.String)">
@@ -562,6 +710,11 @@
             </summary>
             <param name="coordenada"> coordenada de ataque </param>
         </member>
+        <member name="M:ClassLibrary.Jugador.Rendirse">
+            <summary>
+            Permite al jugador rendirse
+            </summary>
+        </member>
         <member name="T:ClassLibrary.Partida">
             <summary>
             Clase mediadora de la parte logica de la partida, se comunica con clases externas 
@@ -576,7 +729,7 @@
         </member>
         <member name="F:ClassLibrary.Partida.posicionamientoTerminado">
             <summary>
-            Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
+            Variable encargada de controlar si se puede empezar a atacar (no se puede posicionar mas).
             /// </summary>
         </member>
         <member name="F:ClassLibrary.Partida.tableros">
@@ -657,17 +810,6 @@
             <param name="columnafinal"></param>
             <returns></returns>
         </member>
-        <member name="M:ClassLibrary.Partida.respuestaDePonerBarcos(ClassLibrary.Tablero,System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Constructor del mensaje devuelto en cuanto se ponen barcos.
-            </summary>
-            <param name="tablerobjetivo"></param>
-            <param name="filainicio"></param>
-            <param name="columnainicio"></param>
-            <param name="filafinal"></param>
-            <param name="columnafinal"></param>
-            <returns></returns>
-        </member>
         <member name="M:ClassLibrary.Partida.Rendirse(System.Int32)">
             <summary>
             Metodo encargado de la funcionalidad de rendirse.
@@ -683,10 +825,10 @@
         </member>
         <member name="M:ClassLibrary.Partida.VistaOponente(System.Int32)">
             <summary>
-            Metodo utilizado para ver una copia del tablero del oponente sin barcos
+            Metodo utilizado para ver una copia del tablero del oponente sin barcos y con el ayudante de tiro
             </summary>
             <param name="jugador"></param>
-            <returns></returns>
+            <returns></returns>   
         </member>
         <member name="M:ClassLibrary.Partida.ayudanteDeTiro(System.Char[0:,0:])">
             <summary>
@@ -716,7 +858,7 @@
         <member name="M:ClassLibrary.PartidaRapida.Atacar(System.String,System.Int32)">
             <summary>
             Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar
-            que ejecute su segundo tiro antes de que ataque el otro.
+            que un jugador ejecute su segundo tiro antes de que ataque su oponente.
             </summary>
             <param name="objetivo"></param>
             <param name="jugador"></param>
@@ -751,7 +893,7 @@
         </member>
         <member name="F:ClassLibrary.PerfilUsuario.NumeroDeJugador">
             <summary>
-            Identificación númerica del jugador
+            Identificación numerica del jugador
             </summary>
         </member>
         <member name="F:ClassLibrary.PerfilUsuario.ganadas">
@@ -804,13 +946,13 @@
         </member>
         <member name="M:ClassLibrary.PerfilUsuario.VerPerfil">
             <summary>
-            Devuelve el perfil para imprimir
+            Devuelve el perfil
             </summary>
             <returns> Devuelve el Perfil del usuario </returns>
         </member>
         <member name="M:ClassLibrary.PerfilUsuario.ObtenerHistorialPersonal">
             <summary>
-            Devuelve una copia del historial personal para imprimir
+            Devuelve una copia del historial personal
             </summary>
             <returns> Devuelve una lista con todos los datos de partida del perfil</returns>
         </member>
@@ -826,7 +968,7 @@
         </member>
         <member name="F:ClassLibrary.Tablero.matriz">
             <summary>
-            Este ArrayList de char es donde esta contenido una gran parte de los datos del juego.
+            Este ArrayList de char es donde esta contenido una gran parte de los datos del juego (contiene el tablero).
             </summary>
         </member>
         <member name="F:ClassLibrary.Tablero.terminado">
@@ -834,10 +976,11 @@
             Este atributo se encarga de mostrar el estado terminado de la partida, normalmente esta en false.
             </summary>
         </member>
-        <member name="F:ClassLibrary.Tablero.CantidadDePartesDeBarcosEnteras">
+        <member name="F:ClassLibrary.Tablero.barcos">
             <summary>
-            Representa la cantidad de partes de barco sin dañar.
+            Lista encargada de guardar los barcos enteros que existen en el tablero.
             </summary>
+            <returns></returns>
         </member>
         <member name="F:ClassLibrary.Tablero.DueñodelTablero">
             <summary>
@@ -849,6 +992,12 @@
             Variable que facilita saber si el dueño del tablero fue quien gano la partida.
             </summary>
         </member>
+        <member name="F:ClassLibrary.Tablero.CantidadDeBarcosPosicionados">
+            <summary>
+            Todas las coordenadas donde hay barcos
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ClassLibrary.Tablero.#ctor(System.Int32,System.Int32)">
             <summary>
             Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
@@ -856,7 +1005,7 @@
             <param name="tamaño"></param>
             <param name="dueño"></param>
         </member>
-        <member name="M:ClassLibrary.Tablero.ActualizarTablero(System.Int32,System.Int32,System.Char)">
+        <member name="M:ClassLibrary.Tablero.Atacar(System.Int32,System.Int32)">
             <summary>
             Metodo el cual se ejecuta para cambiar un punto de la matriz.
             </summary>
@@ -884,18 +1033,6 @@
             para asignar el int del dueño al ganador en caso 
             de que este sea el ganador
             </summary>
-        </member>
-        <member name="T:ClassLibrary.TraductorDeCoordenadas">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.TraductorDeCoordenadas.Traducir(System.String)">
-            <summary>
-            Transforma las coordenadas introducidas por el usuario en en un int[,]
-            </summary>
-            <param name="coordenada"></param>
-            <returns> Devuelve la coordenada en un arreglo de int. De ser invalida, devuelve null </returns>
         </member>
         <member name="T:JugadorNoEncontradoException">
             <summary>
@@ -973,6 +1110,45 @@
             </summary>
             <param name="message"> mensaje a mostrar </param>
             <param name="modo"> numero del jugador no encontrado </param>
+            <returns></returns>
+        </member>
+        <member name="T:TableroInvalidoException">
+            <summary>
+            Excepcion por si un tablero es invalido
+            </summary>
+        </member>
+        <member name="P:TableroInvalidoException.Tamaño">
+            <summary>
+            Tablero invalido
+            </summary>
+        </member>
+        <member name="M:TableroInvalidoException.#ctor">
+            <summary>
+            Constructor default
+            </summary>
+        </member>
+        <member name="M:TableroInvalidoException.#ctor(System.String)">
+            <summary>
+            Constructor default
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TableroInvalidoException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor default
+            </summary>
+            <param name="message"></param>
+            <param name="inner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TableroInvalidoException.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor adicional para asignar el tablero invalido al atributo
+            y para conseguir el mensaje a mostrar de ser necesario.
+            </summary>
+            <param name="message"> mensaje a mostrar </param>
+            <param name="tamaño"> numero del jugador no encontrado </param>
             <returns></returns>
         </member>
     </members>

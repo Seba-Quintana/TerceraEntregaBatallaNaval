@@ -159,7 +159,6 @@ namespace Tests
             jugador2.Remover();
 
         }
-      }
     
     }
 }
