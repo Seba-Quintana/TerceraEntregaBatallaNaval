@@ -171,7 +171,7 @@ namespace ClassLibrary
             switch (tablerobjetivo.VerCasilla(fila, columna))
             {
             case 'W':
-                return " sido atacada y contiene Agua";
+                return "La casilla ya habia sido atacada y contiene Agua";
             case 'T':
                 return "La casilla ya habia sido atacada y hay una parte de barco dañada";
             case 'B':
