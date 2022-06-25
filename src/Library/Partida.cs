@@ -112,8 +112,8 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
-                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasillaobjetivo = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[0]+=1;
                     
                     if (tablerobjetivo.terminado)
@@ -139,8 +139,8 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[0];
-                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasillaobjetivo = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[1]+=1;
                     if (tablerobjetivo.terminado)
                     {
@@ -161,28 +161,28 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo encargado de formular los mensajes que se obtienen al atacar
         /// </summary>
-        /// <param name="tablerobjetivo"></param>
-        /// <param name="fila"></param>
-        /// <param name="columna"></param>
+        /// <param name="EstadoDeLaCasilla"></param>
         /// <returns></returns>
-        public string respuestaDeAtaque(Tablero tablerobjetivo, int fila, int columna)
+        public string respuestaDeAtaque(char EstadoDeLaCasilla)
         {
             
-            switch (tablerobjetivo.VerCasilla(fila, columna))
+            switch (EstadoDeLaCasilla)
             {
             case 'W':
                 return "La casilla ya habia sido atacada y contiene Agua";
             case 'T':
-                return "La casilla ya habia sido atacada y hay una parte de barco dañada";
-            case 'B':
                 return "Buen tiro, has atacado a un barco";
-            case '\u0000':
-                return "Que lastima! has desperdiciado una bala en el agua";
             case 'H':
                 return "Felicitaciones Has hundido un Barco";
+            case 'w':
+                return "Que lastima! has desperdiciado una bala en el agua";
+            case 't':
+                return "Has atacado una casilla donde que habia sido atacada anteriormente y contenia una parte de un barco dañado";
+            case 'h':
+                return "Has atacado una casilla donde que habia sido atacada anteriormente y contenia una parte de un barco Hundido";
+            default:
+                return "Ha habido un error";
             }
-        
-            return "Se Agrego una direccion invalida";
 
         }
         /// <summary>
@@ -237,8 +237,6 @@ namespace ClassLibrary
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[0])
                 {
                     string respuesta = "";
-                    try
-                    {
                         bool SeAñadioElBarco = LogicaDeTablero.Añadirbarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
 
                         if (SeAñadioElBarco)
@@ -250,11 +248,7 @@ namespace ClassLibrary
                         {
                             respuesta += "Has intentado posicionar un barco sobre otro, Lo cual no esta permitido, envie otra coordenada por favor";
                         }
-                    }
-                    catch(IndexOutOfRangeException)
-                    {
-                        return "La coordenada enviada es invalida";
-                    }
+                    
                     if (this.cantidadDeBarcosParaPosicionar[0] == 0)
                     {
                         this.posicionamientoTerminado[0] = true;
@@ -280,8 +274,7 @@ namespace ClassLibrary
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[1])
                 {
                     string respuesta = "";
-                    try
-                    {
+                    
                         bool SeAñadioElBarco = LogicaDeTablero.Añadirbarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
 
                         if (SeAñadioElBarco)
@@ -293,11 +286,6 @@ namespace ClassLibrary
                         {
                             respuesta += "Has intentado posicionar un barco sobre otro, Lo cual no esta permitido, envie otra coordenada por favor";
                         }
-                    }
-                    catch(IndexOutOfRangeException)
-                    {
-                        return "La coordenada enviada es invalida";
-                    }
                     if (this.cantidadDeBarcosParaPosicionar[1] == 0)
                     {
                         this.posicionamientoTerminado[1] = true;

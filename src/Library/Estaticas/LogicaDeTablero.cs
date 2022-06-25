@@ -39,9 +39,9 @@ namespace ClassLibrary
     /// <param name="columna"></param>
     /// <param name="fila"></param>
     /// <returns></returns>
-    public static void Atacar( Tablero tablero,  int fila, int columna)
+    public static char Atacar( Tablero tablero,  int fila, int columna)
     {
-      tablero.Atacar(fila,columna);
+      return tablero.Atacar(fila,columna);
     }
     /// <summary>
     /// Metodo utilizado por la clase LogicaDePartida para ver si se ha quedado sin barcos el tablero despues de un ataque
