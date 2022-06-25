@@ -6,6 +6,7 @@
 
 using System;
 using ClassLibrary;
+using Telegram.Bot.Types;
 
 namespace ConsoleApplication
 {
@@ -53,6 +54,36 @@ namespace ConsoleApplication
             //Console.WriteLine(jugador2.Atacar("B6")); //Termino la partida
             jugador1.VisualizarTableros();
             jugador2.VisualizarTableros();*/
+
+            BaseHandler menu = new RegistrarHandler(null);
+            BaseHandler registrar = new RegistrarHandler(menu);
+            IHandler comenzar = new ComenzarHandler(registrar);
+            Message mensaje = new Message();
+            string respuesta;
+
+            Console.WriteLine("escriba un comando o 'salir': ");
+            Console.Write("> ");
+
+            while(true)
+            {
+                mensaje.Text = Console.ReadLine();
+                if (mensaje.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Adios");
+                    return;
+                }
+                IHandler resultado = comenzar.Handle(mensaje, out respuesta);
+                if (resultado == null)
+                {
+                    Console.WriteLine("No entiendo");
+                    Console.Write("> ");
+                }
+                else
+                {
+                    Console.WriteLine(respuesta);
+                    Console.Write("> ");
+                }
+            }
         }
     }
 }

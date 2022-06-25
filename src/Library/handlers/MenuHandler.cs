@@ -1,23 +1,24 @@
 using Telegram.Bot.Types;
+using System.Text;
 
 namespace ClassLibrary
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "Wheee".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "Menu".
     /// </summary>
-    public class WheeeHandler : BaseHandler
+    public class MenuHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="WheeeHandler"/>. Esta clase procesa el mensaje "Wheee".
+        /// Inicializa una nueva instancia de la clase <see cref="MenuHandler"/>. Esta clase procesa el mensaje "Menu".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public WheeeHandler(BaseHandler next) : base(next)
+        public MenuHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"Wheee"};
+            this.Keywords = new string[] {"/Menu"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "Wheee" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "Menu" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
@@ -26,7 +27,7 @@ namespace ClassLibrary
         {
             if (this.CanHandle(message))
             {
-                response = "Wheee";
+                response = "Menu";
                 return true;
             }
 
