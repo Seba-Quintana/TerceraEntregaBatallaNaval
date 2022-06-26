@@ -6,6 +6,8 @@
 
 using System;
 using ClassLibrary;
+using System.Collections.Generic;
+using Telegram.Bot.Types;
 
 namespace ConsoleApplication
 {
@@ -53,6 +55,48 @@ namespace ConsoleApplication
             //Console.WriteLine(jugador2.Atacar("B6")); //Termino la partida
             jugador1.VisualizarTableros();
             jugador2.VisualizarTableros();*/
+
+            BaseHandler ConfirmarBusqueda = new ConfirmarBusquedaHandler(null);
+            BaseHandler BuscarPartidaAmistosa = new BuscarPartidaAmistosaHandler(ConfirmarBusqueda);
+            BaseHandler BuscarPartida = new BuscarPartidaHandler(BuscarPartidaAmistosa);
+            BaseHandler VisualizarTableros = new VisualizarTablerosHandler(BuscarPartida);
+            BaseHandler VerHistorialPersonal = new VerHistorialPersonalHandler(VisualizarTableros);
+            BaseHandler VerHistorial = new VerHistorialHandler(VerHistorialPersonal);
+            BaseHandler VerRanking = new VerRankingHandler(VerHistorial);
+            BaseHandler VerPerfil = new VerPerfilHandler(VerRanking);
+            BaseHandler remover = new RemoverHandler(VerPerfil);
+            BaseHandler menu = new MenuHandler(remover);
+            BaseHandler inicioSesion = new InicioSesionHandler(menu);
+            BaseHandler registrar = new RegistrarHandler(menu);
+            IHandler comenzar = new ComenzarHandler(registrar);
+            Message mensaje = new Message();
+            string respuesta;
+
+            List<string> Guardado = new List<string>();
+
+            Console.WriteLine("escriba un comando o 'salir': ");
+            Console.Write("> ");
+
+            while(true)
+            {
+                mensaje.Text = Console.ReadLine();
+                if (mensaje.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Adios");
+                    return;
+                }
+                IHandler resultado = comenzar.Handle(mensaje, out respuesta);
+                if (resultado == null)
+                {
+                    Console.WriteLine("No entiendo");
+                    Console.Write("> ");
+                }
+                else
+                {
+                    Console.WriteLine(respuesta);
+                    Console.Write("> ");
+                }
+            }
         }
     }
 }
