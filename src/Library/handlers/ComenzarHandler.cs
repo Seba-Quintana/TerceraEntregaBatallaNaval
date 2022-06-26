@@ -28,6 +28,7 @@ namespace ClassLibrary
             if (this.CanHandle(mensaje))
             {
                 respuesta = "Escribe '/Registrar' para registrarte, o '/InicioSesion' para iniciar sesion";
+                UsersHistory.Instance().NuevoJugador(mensaje.Chat.Id);
                 return true;
             }
 

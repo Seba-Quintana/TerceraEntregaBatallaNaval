@@ -27,7 +27,7 @@ namespace ClassLibrary
         /// <summary>
         /// Identificación del jugador otorgada por el bot
         /// </summary>
-        private int ID;
+        public long ID;
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
@@ -87,7 +87,7 @@ namespace ClassLibrary
         /// <param name="ID"></param>
         /// <param name="Contraseña"></param>
         /// <param name="NumeroDeJugador"></param>
-        public PerfilUsuario (string Nombre, int ID, string Contraseña, int NumeroDeJugador)
+        public PerfilUsuario (string Nombre, long ID, string Contraseña, int NumeroDeJugador)
         {
             this.nombre = Nombre;
             this.ID = ID;
