@@ -14,7 +14,7 @@ namespace ClassLibrary
         /// <param name="next">El próximo "handler".</param>
         public ComenzarHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"/Comenzar"};
+            this.Keywords = new string[] {"/Start"};
         }
 
         /// <summary>

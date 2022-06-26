@@ -29,6 +29,7 @@ namespace ConsoleApplication
         // El token provisto por Telegram al crear el bot. Mira el archivo README.md en la raíz de este repo para
         // obtener indicaciones sobre cómo configurarlo.
         private static string token;
+        private static IHandler firstHandler;
 
         // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
         // secreto del bot.
@@ -98,9 +99,9 @@ namespace ConsoleApplication
         {
             Start();
 
-            Bot = new TelegramBotClient(Program.token);
-            var cts = new CancellationTokenSource();
-            BaseHandler ConfirmarBusqueda = new ConfirmarBusquedaHandler(null);
+            Bot = new TelegramBotClient(token); 
+
+            /*BaseHandler ConfirmarBusqueda = new ConfirmarBusquedaHandler(null);
             BaseHandler BuscarPartidaAmistosa = new BuscarPartidaAmistosaHandler(ConfirmarBusqueda);
             BaseHandler BuscarPartida = new BuscarPartidaHandler(BuscarPartidaAmistosa);
             BaseHandler VisualizarTableros = new VisualizarTableroHandler(BuscarPartida);
@@ -113,7 +114,17 @@ namespace ConsoleApplication
             BaseHandler inicioSesion = new InicioSesionHandler(menu);
             BaseHandler registrar = new RegistrarHandler(menu);
             IHandler comenzar = new ComenzarHandler(registrar);
-            Message mensaje = new Message();
+            Message mensaje = new Message();*/
+
+            firstHandler = new ComenzarHandler(
+                new RegistrarHandler( 
+                    new MenuHandler(
+                        new RemoverHandler(
+                            new VerPerfilHandler(
+                                null
+            )))));
+
+            var cts = new CancellationTokenSource();
 
             // Comenzamos a escuchar mensajes. Esto se hace en otro hilo (en background). El primer método
             // HandleUpdateAsync es invocado por el bot cuando se recibe un mensaje. El segundo método HandleErrorAsync
@@ -160,9 +171,6 @@ namespace ConsoleApplication
         /// <summary>
         /// Maneja los mensajes que se envían al bot.
         /// Lo único que hacemos por ahora es escuchar 3 tipos de mensajes:
-        /// - "hola": responde con texto
-        /// - "chau": responde con texto
-        /// - "foto": responde con una foto
         /// </summary>
         /// <param name="message">El mensaje recibido</param>
         /// <returns></returns>
@@ -170,47 +178,14 @@ namespace ConsoleApplication
         {
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
 
-            string response;
+            string response = string.Empty;
 
-            switch(message.Text.ToLower().Trim())
+            firstHandler.Handle(message, out response);
+
+            if (!string.IsNullOrEmpty(response))
             {
-                case "hola":
-                    response = "¡Hola! ¿Cómo estás?";
-                    break;
-
-                case "chau":
-                    response = "¡Chau! ¡Qué andes bien!";
-                    break;
-
-                case "foto":
-                    // Si nos piden una foto, mandamos la foto en vez de responder con un mensaje de texto.
-                    await SendProfileImage(message);
-                    return;
-
-                default:
-                    response = "Disculpa, ¡no se qué hacer con ese mensaje!";
-                    break;
+                await Bot.SendTextMessageAsync(message.Chat.Id, response);
             }
-
-            // Enviamos el texto de respuesta
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
-        }
-
-        /// <summary>
-        /// Envía una imagen como respuesta al mensaje recibido. Como ejemplo enviamos siempre la misma foto.
-        /// </summary>
-        static async Task SendProfileImage(Message message)
-        {
-            await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
-
-            const string filePath = @"profile.jpeg";
-            using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            var fileName = filePath.Split(Path.DirectorySeparatorChar).Last();
-            await Bot.SendPhotoAsync(
-                chatId: message.Chat.Id,
-                photo: new InputOnlineFile(fileStream, fileName),
-                caption: "Te ves bien!"
-            );
         }
 
         /// <summary>
