@@ -169,14 +169,14 @@ namespace ClassLibrary
             switch (EstadoDeLaCasilla)
             {
             case 'W':
-                return "La casilla ya habia sido atacada y contiene Agua";
+                return "Que lastima! has desperdiciado una bala en el agua";
             case 'T':
                 return "Buen tiro, has atacado a un barco";
             case 'H':
                 return "Felicitaciones Has hundido un Barco";
             case 'w':
-                return "Que lastima! has desperdiciado una bala en el agua";
-            case 't':
+                return "La casilla ya habia sido atacada y contiene agua"; 
+            case 't': 
                 return "Has atacado una casilla donde que habia sido atacada anteriormente y contenia una parte de un barco dañado";
             case 'h':
                 return "Has atacado una casilla donde que habia sido atacada anteriormente y contenia una parte de un barco Hundido";
