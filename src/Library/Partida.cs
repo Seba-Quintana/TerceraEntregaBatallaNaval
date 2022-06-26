@@ -97,7 +97,7 @@ namespace ClassLibrary
             if (!jugadores.Contains(jugador) )
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
-                }
+            }
             if (LugarDeAtaque[0] >= this.tableros[0].Tamaño || LugarDeAtaque[1] >= this.tableros[0].Tamaño)
             {
                 return "Las coordenadas enviadas son erroneas";
