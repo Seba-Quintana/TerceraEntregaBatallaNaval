@@ -58,7 +58,7 @@ namespace ClassLibrary
         /// <param name="nombre"> nombre del usuario</param>
         /// <param name="id"> id proporcionada por el bot </param>
         /// <param name="contraseña"> contraseña </param>
-        public int Registrar(string nombre, int id, string contraseña)
+        public int Registrar(string nombre, long id, string contraseña)
         {
             int numeroDeJugador = 1;
             if (listaDeUsuarios.Count != 0)
@@ -223,6 +223,17 @@ namespace ClassLibrary
                 actual++;
             }
             return ranking;
+        }
+        public bool ExisteUsuario(long iDdelUsuario)
+        {
+            foreach(PerfilUsuario perfil in listaDeUsuarios)
+            {
+                if (perfil.ID == iDdelUsuario)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
