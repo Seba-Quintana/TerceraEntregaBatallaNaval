@@ -56,7 +56,16 @@ namespace ConsoleApplication
             jugador1.VisualizarTableros();
             jugador2.VisualizarTableros();*/
 
-            BaseHandler menu = new MenuHandler(null);
+            BaseHandler ConfirmarBusqueda = new ConfirmarBusquedaHandler(null);
+            BaseHandler BuscarPartidaAmistosa = new BuscarPartidaAmistosaHandler(ConfirmarBusqueda);
+            BaseHandler BuscarPartida = new BuscarPartidaHandler(BuscarPartidaAmistosa);
+            BaseHandler VisualizarTableros = new VisualizarTablerosHandler(BuscarPartida);
+            BaseHandler VerHistorialPersonal = new VerHistorialPersonalHandler(VisualizarTableros);
+            BaseHandler VerHistorial = new VerHistorialHandler(VerHistorialPersonal);
+            BaseHandler VerRanking = new VerRankingHandler(VerHistorial);
+            BaseHandler VerPerfil = new VerPerfilHandler(VerRanking);
+            BaseHandler remover = new RemoverHandler(VerPerfil);
+            BaseHandler menu = new MenuHandler(remover);
             BaseHandler inicioSesion = new InicioSesionHandler(menu);
             BaseHandler registrar = new RegistrarHandler(menu);
             IHandler comenzar = new ComenzarHandler(registrar);
