@@ -119,10 +119,11 @@ namespace ConsoleApplication
             firstHandler = new ComenzarHandler(
                 new RegistrarHandler( 
                     new MenuHandler(
-                        new RemoverHandler(
-                            new VerPerfilHandler(
-                                null
-            )))));
+                        new AyudaHandler(
+                            new RemoverHandler(
+                                new VerPerfilHandler(
+                                    null
+            ))))));
 
             var cts = new CancellationTokenSource();
 
