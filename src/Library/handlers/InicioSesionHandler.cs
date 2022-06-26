@@ -1,24 +1,23 @@
 using Telegram.Bot.Types;
-using System.Text;
 
 namespace ClassLibrary
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "Menu".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "InicioSesion".
     /// </summary>
-    public class MenuHandler : BaseHandler
+    public class InicioSesionHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "Menu".
+        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "InicioSesion".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public MenuHandler(BaseHandler next) : base(next)
+        public InicioSesionHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"/Menu"};
+            this.Keywords = new string[] {"/InicioSesion"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "Menu" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "InicioSesion" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
@@ -27,7 +26,7 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
-                respuesta = "Menu";
+                respuesta = "Ingrese su nombre";
                 return true;
             }
 

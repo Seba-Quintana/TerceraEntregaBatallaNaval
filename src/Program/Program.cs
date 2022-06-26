@@ -6,6 +6,7 @@
 
 using System;
 using ClassLibrary;
+using System.Collections.Generic;
 using Telegram.Bot.Types;
 
 namespace ConsoleApplication
@@ -55,11 +56,14 @@ namespace ConsoleApplication
             jugador1.VisualizarTableros();
             jugador2.VisualizarTableros();*/
 
-            BaseHandler menu = new RegistrarHandler(null);
+            BaseHandler menu = new MenuHandler(null);
+            BaseHandler inicioSesion = new InicioSesionHandler(menu);
             BaseHandler registrar = new RegistrarHandler(menu);
             IHandler comenzar = new ComenzarHandler(registrar);
             Message mensaje = new Message();
             string respuesta;
+
+            List<string> Guardado = new List<string>();
 
             Console.WriteLine("escriba un comando o 'salir': ");
             Console.Write("> ");
