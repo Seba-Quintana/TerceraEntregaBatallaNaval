@@ -119,6 +119,8 @@ namespace Tests
 			List<PerfilUsuario> ranking = Test.ObtenerRanking();
 			PerfilUsuario perfilGanador = Test.ObtenerPerfil(2);
 			Assert.AreEqual(perfilGanador.NumeroDeJugador, ranking[0].NumeroDeJugador);
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(remover.ObtenerPartida(1));
         }
     }
 }

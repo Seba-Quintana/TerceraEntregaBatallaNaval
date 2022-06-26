@@ -39,6 +39,8 @@ namespace Tests
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,3]);
             Assert.AreEqual('\u0000', tableroActualizado[4,2]);
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
@@ -55,6 +57,8 @@ namespace Tests
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,5]);
             Assert.AreEqual('\u0000', tableroActualizado[4,6]);
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
@@ -71,6 +75,8 @@ namespace Tests
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[1,7]);
             Assert.AreEqual('\u0000', tableroActualizado[0,7]);
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos verticales al ser asignados al tablero
@@ -87,6 +93,8 @@ namespace Tests
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
             Assert.AreEqual('\u0000', tableroActualizado[6,7]);
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
@@ -101,6 +109,8 @@ namespace Tests
             Tablero tablero = partida.tableros[1];
             //char[,] charAct = tablero.VerCasilla(1, 7);
             Assert.AreEqual(expected, tablero.VerCasilla(0,0));
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -117,6 +127,8 @@ namespace Tests
             char expected = 'T';
             Tablero tablero = partida.tableros[1];
             Assert.AreEqual(expected, tablero.VerCasilla(5,7));
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -134,6 +146,8 @@ namespace Tests
             char expected = 'T';
             Tablero tablero = partida.tableros[1];
             Assert.AreEqual(expected, tablero.VerCasilla(5,7));
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -150,6 +164,8 @@ namespace Tests
             char expected = 'T';
             Tablero tablero = partida.tableros[1];
             Assert.AreEqual(expected, tablero.VerCasilla(7,4));
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
          /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -169,6 +185,8 @@ namespace Tests
             char expected = 'T';
             Tablero tablero = partida.tableros[1];
             Assert.AreEqual(expected, tablero.VerCasilla(7,5));
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
         }
     }
 }
