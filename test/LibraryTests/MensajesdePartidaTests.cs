@@ -11,13 +11,12 @@ namespace Tests
     public class MensajesdePartidaTests
     {
         /// <summary>
-        /// El tablero que va a ser utilizado para los tests.Es necesario ya que Logica solo
-        ///  se ejecuta si esta en conjunto de la clase tablero;
+        /// La partida que va a ser utilizado para los tests.
         /// </summary>
         private Partida partida;
 
         /// <summary>
-        /// SetUp Creado con el objetivo de tener un tablero vacio al principio de cada test.
+        /// SetUp Creado con el objetivo de tener una partida al principio de cada test.
         /// </summary>
         [SetUp]
         public void Setup()
