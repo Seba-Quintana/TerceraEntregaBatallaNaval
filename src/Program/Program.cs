@@ -29,6 +29,8 @@ namespace ConsoleApplication
         // El token provisto por Telegram al crear el bot. Mira el archivo README.md en la raíz de este repo para
         // obtener indicaciones sobre cómo configurarlo.
         private static string token;
+        private static UsersHistory HistoriaDeUsuarios = UsersHistory.Instance();
+        private static IHandler startHandler;
         private static IHandler firstHandler;
 
         // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
@@ -101,28 +103,22 @@ namespace ConsoleApplication
 
             Bot = new TelegramBotClient(token); 
 
-            /*BaseHandler ConfirmarBusqueda = new ConfirmarBusquedaHandler(null);
-            BaseHandler BuscarPartidaAmistosa = new BuscarPartidaAmistosaHandler(ConfirmarBusqueda);
-            BaseHandler BuscarPartida = new BuscarPartidaHandler(BuscarPartidaAmistosa);
-            BaseHandler VisualizarTableros = new VisualizarTableroHandler(BuscarPartida);
-            BaseHandler VerHistorialPersonal = new VerHistorialPersonalHandler(VisualizarTableros);
-            BaseHandler VerHistorial = new VerHistorialHandler(VerHistorialPersonal);
-            BaseHandler VerRanking = new VisualizarRankingHandler(VerHistorial);
-            BaseHandler VerPerfil = new VerPerfilHandler(VerRanking);
-            BaseHandler remover = new RemoverHandler(VerPerfil);
-            BaseHandler menu = new MenuHandler(remover);
-            BaseHandler inicioSesion = new InicioSesionHandler(menu);
-            BaseHandler registrar = new RegistrarHandler(menu);
-            IHandler comenzar = new ComenzarHandler(registrar);
-            Message mensaje = new Message();*/
+            /*new ConfirmarBusquedaHandler();
+            new BuscarPartidaAmistosaHandler();
+                new BuscarPartidaHandler();
+                    new VisualizarTableroHandler();
+                        new VerHistorialPersonalHandler();
+                            new VerHistorialHandler();
+                                new VisualizarRankingHandler();
+                                    new VerPerfilHandler();
+                                        new RemoverHandler();
+                                            new InicioSesionHandler();
+                                                new MenuHandler(
+                                                    new RemoverHandler(
+                                                        new VerPerfilHandler(*/
+            startHandler = new ComenzarHandler(null);
 
-            firstHandler = new ComenzarHandler(
-                new RegistrarHandler( 
-                    new MenuHandler(
-                        new RemoverHandler(
-                            new VerPerfilHandler(
-                                null
-            )))));
+            firstHandler = new RegistrarHandler(null);
 
             var cts = new CancellationTokenSource();
 
@@ -176,15 +172,27 @@ namespace ConsoleApplication
         /// <returns></returns>
         private static async Task HandleMessageReceived(ITelegramBotClient botClient, Message message)
         {
+            long IdDeUsuario = message.Chat.Id;
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
-
             string response = string.Empty;
-
-            firstHandler.Handle(message, out response);
-
+            if(HistoriaDeUsuarios.ContieneId(IdDeUsuario))
+            {
+                int EstadoActual = HistoriaDeUsuarios.VerEstado(IdDeUsuario);
+                switch(EstadoActual)
+                {
+                    case 0:
+                        firstHandler.Handle(message, out response);
+                        break;            
+                }
+            }
+            else
+            {
+                startHandler.Handle(message, out response);
+            }
+            
             if (!string.IsNullOrEmpty(response))
             {
-                await Bot.SendTextMessageAsync(message.Chat.Id, response);
+                await Bot.SendTextMessageAsync(IdDeUsuario, response);
             }
         }
 
