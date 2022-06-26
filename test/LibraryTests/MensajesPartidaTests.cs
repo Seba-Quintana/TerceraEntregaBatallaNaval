@@ -8,7 +8,7 @@ namespace Tests
     /// Tests de traductor <see cref="Partida"/>
     /// </summary>
     [TestFixture]
-    public class MensajesdePartidaTests
+    public class MensajesPartidaTests
     {
         /// <summary>
         /// El tablero que va a ser utilizado para los tests.Es necesario ya que Logica solo
@@ -410,4 +410,3 @@ namespace Tests
         }
     }
 }
-
