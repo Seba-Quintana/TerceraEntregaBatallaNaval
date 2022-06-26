@@ -70,8 +70,8 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
-                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    Char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     this.tiradas[0]+=1;
                     
                     if (tablerobjetivo.terminado)
@@ -87,8 +87,8 @@ namespace ClassLibrary
                 else if (this.Segundastiradas[0]==this.Segundastiradas[1])
                 {
                     Tablero tablerobjetivo = this.tableros[1];
-                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     this.Segundastiradas[0]+=1;
                     
                     if (tablerobjetivo.terminado)
@@ -113,8 +113,8 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = tableros[0];
-                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     tiradas[1]+=1;
                     if (tablerobjetivo.terminado)
                     {
@@ -129,8 +129,9 @@ namespace ClassLibrary
                 else if (this.Segundastiradas[0] > this.Segundastiradas[1])
                 {
                     Tablero tablerobjetivo = this.tableros[0];
-                    string respuesta = respuestaDeAtaque(tablerobjetivo, fila, columna);
-                    LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
+                    
                     this.Segundastiradas[1]+=1;
                     if (tablerobjetivo.terminado)
                     {

@@ -50,6 +50,14 @@ namespace ClassLibrary
             this.matriz = new char[tamaño, tamaño];
             this.DueñodelTablero = dueño;
         }
+        /// <summary>
+        /// Metodo Utilizado por el tablero para añadir un barco.
+        /// </summary>
+        /// <param name="filaInicio"></param>
+        /// <param name="columnaInicio"></param>
+        /// <param name="filaFinal"></param>
+        /// <param name="columnaFinal"></param>
+        /// <returns></returns>
         public bool AñadirBarco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
         {
             List<int[]> CoordenadasQueSeQuierenUtilizar = this.EspaciosAUtilizar(filaInicio, columnaInicio, filaFinal, columnaFinal);
@@ -69,9 +77,10 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="fila"></param>
         /// <param name="columna"></param>
-        /// <param name="nuevovalor"></param>
-        public void Atacar(int fila, int columna)
+        public char Atacar(int fila, int columna)
         {
+            bool objetivoCasillaVacia = casillaVacia(fila,columna);
+
             if (ExisteBarcoEnEsaPosicion(fila, columna))
             {
                 int[] coordenadaARemover = new int[2];
@@ -88,8 +97,6 @@ namespace ClassLibrary
                                 coordenadaARemover[0] = fila;
                                 coordenadaARemover[1] = columna;
                                 this.matriz[fila, columna] = 'T';
-                                
-                                
                                 break;
                             case 'T':
                                 //Dejo el caso por si mas adelante queremos que haga algo cuando se ataca una coordenada dañada
@@ -101,7 +108,6 @@ namespace ClassLibrary
                                 barcoHundido =posibleObjetivo;
                                 break;
                         }
-
                     }
                 }
                 if (barcoHundido !=null)
@@ -111,9 +117,30 @@ namespace ClassLibrary
             }
             else
             {
-            matriz[fila,columna] = 'W';
+                matriz[fila,columna] = 'W';
+            }
+            if (objetivoCasillaVacia)
+            {
+                
+                return matriz[fila,columna];
+            }
+            else
+            {
+                char coordenadaChar = matriz[fila,columna];
+                string coordenadaStr = (coordenadaChar.ToString()).ToLower();
+                char coordenadaFinal = Convert.ToChar(coordenadaStr);
+                return coordenadaFinal;
             }
         }
+        private bool casillaVacia(int fila, int columna)
+        {
+            return matriz[fila,columna] == '\u0000';
+        }
+        /// <summary>
+        /// Metodo encargado de hacer lo necesario cuando un barco es hundido
+        /// </summary>
+        /// <param name="partesDeBarcoACambiar"></param>
+        /// <param name="barcoEliminado"></param>
         public void barcoHundido(List<int[]> partesDeBarcoACambiar, Barco barcoEliminado)
         {
             foreach (int[] coordenada in partesDeBarcoACambiar)
@@ -125,6 +152,9 @@ namespace ClassLibrary
             barcos.Remove(barcoEliminado);
             this.TerminoTablero();
         }
+        /// <summary>
+        /// Metodo encargado de ver si la partida a terminado y cambiar el atributo de terminado a true.
+        /// </summary>
         public void TerminoTablero()
         {
             if (this.barcos.Count==0)
