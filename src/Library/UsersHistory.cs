@@ -33,20 +33,19 @@ namespace ClassLibrary
         
         public void ReiniciarEstados(long ID)
         {
-            this.EstadosDeJugadores[ID]=0;
+            this.EstadosDeJugadores[ID]=1;
         }
-        public void AvanzarEstados(long ID, int estadoAAvanzar)
+        public void AvanzarEstados(long ID, int estadosAAvanzar)
         {
-            this.EstadosDeJugadores[ID]+=estadoAAvanzar;
+            this.EstadosDeJugadores[ID]+=estadosAAvanzar;
         }
-        public void RetrocederEstados(long ID, int estadoARetroceder)
+        public void RetrocederEstados(long ID, int estadosARetroceder)
         {
-            this.EstadosDeJugadores[ID]-=estadoARetroceder;
+            this.EstadosDeJugadores[ID]-=estadosARetroceder;
         }
         public void NuevoJugador(long ID)
         {
             EstadosDeJugadores.Add(ID,0);
         }
-        
     }
 }

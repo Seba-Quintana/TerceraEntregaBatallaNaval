@@ -17,7 +17,7 @@ namespace ClassLibrary
         /// <param name="nombre"> nombre del usuario</param>
         /// <param name="id"> id proporcionada por el bot </param>
         /// <param name="contraseña"> contraseña </param>
-        public static int Registrar(string nombre, int id, string contraseña)
+        public static int Registrar(string nombre, long id, string contraseña)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario registro = AlmacenamientoUsuario.Instance();
