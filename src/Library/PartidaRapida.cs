@@ -52,7 +52,7 @@ namespace ClassLibrary
             {
                 return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
             }
-            if (this.jugadores[0] != jugador || this.jugadores[1] != jugador) //no uso jugadores.Contains(jugador) ya que por alguna razon no deja utilizar el metodo con un atributo array heredado
+            if (this.jugadores[0] != jugador && this.jugadores[1] != jugador) //no uso jugadores.Contains(jugador) ya que por alguna razon no deja utilizar el metodo con un atributo array heredado
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
                 }
