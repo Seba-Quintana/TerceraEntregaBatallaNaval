@@ -32,6 +32,7 @@ namespace ConsoleApplication
         private static UsersHistory HistoriaDeUsuarios = UsersHistory.Instance();
         private static IHandler startHandler;
         private static IHandler firstHandler;
+        private static IHandler secondHandler;
 
         // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
         // secreto del bot.
@@ -120,6 +121,8 @@ namespace ConsoleApplication
 
             firstHandler = new RegistrarHandler(null);
 
+            secondHandler = new VerHistorialHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+
             var cts = new CancellationTokenSource();
 
             // Comenzamos a escuchar mensajes. Esto se hace en otro hilo (en background). El primer método
@@ -175,6 +178,7 @@ namespace ConsoleApplication
             long IdDeUsuario = message.Chat.Id;
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
             string response = string.Empty;
+
             if(HistoriaDeUsuarios.ContieneId(IdDeUsuario))
             {
                 int EstadoActual = HistoriaDeUsuarios.VerEstado(IdDeUsuario);
@@ -182,7 +186,10 @@ namespace ConsoleApplication
                 {
                     case 0:
                         firstHandler.Handle(message, out response);
-                        break;            
+                        break;     
+                    case 1:
+                        secondHandler.Handle(message, out response);
+                        break;        
                 }
             }
             else
