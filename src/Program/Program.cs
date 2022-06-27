@@ -186,10 +186,10 @@ namespace ConsoleApplication
                 {
                     case 0:
                         firstHandler.Handle(message, out response);
-                        break;     
+                        break;
                     case 1:
                         secondHandler.Handle(message, out response);
-                        break;        
+                        break;
                 }
             }
             else

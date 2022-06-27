@@ -66,8 +66,9 @@ namespace ClassLibrary
                     {
                             HistoriaLocal[IDdeljugador][2] = mensaje.Text;
                             int numDeUsuario = Planificador.Registrar(HistoriaLocal[IDdeljugador][1] , IDdeljugador, HistoriaLocal[IDdeljugador][2]);
-                            respuesta += $"nombre {HistoriaLocal[IDdeljugador][1]} y contraseña {HistoriaLocal[IDdeljugador][2]}";
-                            respuesta += $"Este es tu numero de Usuario {numDeUsuario} , recuerdalo  \n" + $"Registro Completado \nEscriba /menu para ingresar al menu";
+                            respuesta += "Registro Completado";
+                            respuesta += $"\nNombre {HistoriaLocal[IDdeljugador][1]} y Contraseña {HistoriaLocal[IDdeljugador][2]} ";
+                            respuesta += $"\nEste es tu numero de Usuario {numDeUsuario} , recuerdalo  ";
                             historia.AvanzarEstados(IDdeljugador, 1);
                             return true;
                     }
