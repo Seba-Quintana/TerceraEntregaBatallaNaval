@@ -1,24 +1,23 @@
 using Telegram.Bot.Types;
-using System.Text;
 
 namespace ClassLibrary
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "Comenzar".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "Ayuda".
     /// </summary>
-    public class ComenzarHandler : BaseHandler
+    public class AyudaHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "Comenzar".
+        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "Ayuda".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public ComenzarHandler(BaseHandler next) : base(next)
+        public AyudaHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"/Start"};
+            this.Keywords = new string[] {"/Ayuda"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "Comenzar" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "Ayuda" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
@@ -27,9 +26,7 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
-
-                respuesta = "Escribe '/Registrar' para registrarte, o '/InicioSesion' para iniciar sesion";
-                UsersHistory.Instance().NuevoJugador(mensaje.Chat.Id);
+                respuesta = "Aqui va explicacion de comandos";
                 return true;
             }
 
