@@ -88,7 +88,10 @@ namespace Tests
             Assert.AreEqual(expected,actual);
             jugador1.Remover();
         }
-    
+        /// <summary>
+        /// Con este test se verifica de que el método Rendirse de la clase Jugador funcione, primero de todo se simula una parte de la partida, 
+        /// llamando al método con uno de los jugadores que están en la partida.  
+        /// </summary>
         [Test]
         public void Rendir()
         {
@@ -122,9 +125,12 @@ namespace Tests
             jugador2.Remover();
 
         }
-
+        /// <summary>
+        /// Este test es similar al anterior, hace lo mismo a diferencia de que se comprueba de que el Jugador que se haya rendido no tenga la partida ganada,
+        /// en cambio de comprobar que al otro Jugador se le añada la partida ganada. 
+        /// </summary>
         [Test]
-        public void Rendirseconganada()
+        public void RendirseConGanada()
         {
             AlmacenamientoUsuario perfil = AlmacenamientoUsuario.Instance();
             List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
@@ -152,9 +158,12 @@ namespace Tests
 
             jugador1.Rendirse();
             PerfilUsuario perfil1 = perfil.ObtenerPerfil(jugador1.NumeroDeJugador);
-            int actual= perfil1.Ganadas;
+            PerfilUsuario perfil2 = perfil.ObtenerPerfil(jugador2.NumeroDeJugador);
+            int ganadasj1= perfil1.Ganadas;
+            int ganadasj2 = perfil2.Ganadas;
 
-            Assert.AreEqual(0,actual);
+            Assert.AreEqual(0,ganadasj1);
+            Assert.AreEqual(1,ganadasj2);
             jugador1.Remover();
             jugador2.Remover();
 
