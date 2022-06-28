@@ -70,6 +70,7 @@ namespace ClassLibrary
                             respuesta += $"\nNombre {HistoriaLocal[IDdeljugador][1]} y Contraseña {HistoriaLocal[IDdeljugador][2]} ";
                             respuesta += $"\nEste es tu numero de Usuario {numDeUsuario} , recuerdalo  ";
                             historia.AvanzarEstados(IDdeljugador, 1);
+                            HistoriaLocal.Remove(IDdeljugador);
                             return true;
                     }
                 }
