@@ -73,7 +73,7 @@ namespace ClassLibrary
         /// Si el numero de usuarios pertenece a un PerfilUsuario existente
         /// en la lista de perfiles de AlmacenamientoUsuario, lo elimina de la misma.
         /// </summary>
-        /// <param name="NumeroDeJugador"></param>
+        /// <param name="NumeroDeJugador"> numero del jugador a remover </param>
         public void Remover(int NumeroDeJugador)
         {
             if(ObtenerPerfil(NumeroDeJugador) != null)
