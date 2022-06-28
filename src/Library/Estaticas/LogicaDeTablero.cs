@@ -17,19 +17,19 @@ namespace ClassLibrary
   /// <param name="filafinal"></param>
   /// <param name="columnafinal"></param>
   
-  public static bool Añadirbarco(Tablero tablero, int filainicio, int columnainicio,  int filafinal, int columnafinal)
+  public static bool AgregarBarco(Tablero tablero, int filainicio, int columnainicio,  int filafinal, int columnafinal)
   {
-    bool SeAñadioElBarco;
+    bool SeAgregoElBarco;
     if (filainicio == filafinal)
     {
-      SeAñadioElBarco = tablero.AñadirBarco(filainicio, columnainicio, filafinal, columnafinal);
+      SeAgregoElBarco = tablero.AgregarBarco(filainicio, columnainicio, filafinal, columnafinal);
     }
 
     else
     {       
-      SeAñadioElBarco = tablero.AñadirBarco(filainicio, columnainicio, filafinal, columnafinal);
+      SeAgregoElBarco = tablero.AgregarBarco(filainicio, columnainicio, filafinal, columnafinal);
     }
-    return SeAñadioElBarco;
+    return SeAgregoElBarco;
 
     }
     /// <summary>

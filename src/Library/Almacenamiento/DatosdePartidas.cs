@@ -36,10 +36,10 @@ namespace ClassLibrary
         public void Almacenar(Tablero[] tablerosParaAgregar, int[] jugadas)
         {
             almacenarTableros(tablerosParaAgregar);
-            almacenarJugador(tablerosParaAgregar[0].DueñodelTablero);
-            almacenarJugador(tablerosParaAgregar[1].DueñodelTablero);
-            Jugadores[0] = tablerosParaAgregar[0].DueñodelTablero;
-            Jugadores[1] = tablerosParaAgregar[1].DueñodelTablero;
+            almacenarJugador(tablerosParaAgregar[0].DuenodelTablero);
+            almacenarJugador(tablerosParaAgregar[1].DuenodelTablero);
+            Jugadores[0] = tablerosParaAgregar[0].DuenodelTablero;
+            Jugadores[1] = tablerosParaAgregar[1].DuenodelTablero;
             Tiradas = jugadas;
 
             if (tablerosParaAgregar[0].Ganada)

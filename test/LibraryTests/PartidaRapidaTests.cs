@@ -78,7 +78,7 @@ namespace Tests
         {
             string inicioDelBarco = "B8";
             string finalDelBarco = "F8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "F8";
             int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
             LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
@@ -96,7 +96,7 @@ namespace Tests
         {
             string inicioDelBarco = "B8";
             string finalDelBarco = "F8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "F8";
             int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
             LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
@@ -115,7 +115,7 @@ namespace Tests
         {
             string inicioDelBarco = "H4";
             string finalDelBarco = "H8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "H5";
             int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
             LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
@@ -133,7 +133,7 @@ namespace Tests
         {
             string inicioDelBarco = "H4";
             string finalDelBarco = "H8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "H6";
             partida.Atacar(LugarAAtacar, 2);
             partida.Atacar(LugarAAtacar, 2);

@@ -121,7 +121,7 @@ namespace ConsoleApplication
 
             firstHandler = new RegistrarHandler(null);
 
-            secondHandler = new VerHistorialHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+            secondHandler = new VerHistorialHandler(new RemoverUsuarioHandler(null));
 
             var cts = new CancellationTokenSource();
 
