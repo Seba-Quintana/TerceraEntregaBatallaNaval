@@ -26,7 +26,13 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
-                respuesta = "Aqui va explicacion de comandos";
+                respuesta = "Para registrarte, escribe /Registrar.\n";
+                respuesta += "Para iniciar sesión con tu perfil, escriba /InicioSesión.\n";
+                respuesta += "Si quieres remover un usuario, escribe /Remover.\n";
+                respuesta += "Si quieres jugar utiliza los comandos /BuscarPartida, en caso de querer jugar con un amigo, utiliza /BuscarPartidaAmistosa.\n";
+                respuesta += "Para ver el historial de partidas, escribe /VerHistorial";
+                respuesta += "Para ver tu historial, escribe /VerHistorialPersonal.\n";
+                respuesta += "Para ver tu perfil, escribe /VerPerfil";
                 return true;
             }
 
