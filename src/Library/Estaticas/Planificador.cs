@@ -31,12 +31,11 @@ namespace ClassLibrary
         /// Le comunica al jugador la accion realizada
         /// </summary>
         /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
-        public static string Remover(int NumeroDeJugador)
+        public static void Remover(int NumeroDeJugador)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario removedor = AlmacenamientoUsuario.Instance();
             removedor.Remover(NumeroDeJugador);
-            return $"Jugador {NumeroDeJugador} removido";
         }
         
         /// <summary>

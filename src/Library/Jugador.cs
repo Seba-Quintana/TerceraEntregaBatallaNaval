@@ -37,21 +37,6 @@ namespace ClassLibrary
           impresora.RecibirMensajes("no se pudo crear un jugador");
         }
       }
-
-      /// <summary>
-      /// Remueve el jugador de la lista de usuarios
-      /// </summary>
-      public string Remover()
-      {
-        try
-        {
-          return Planificador.Remover(this.NumeroDeJugador);
-        }
-        catch (Exception)
-        {
-          return "no se pudo remover el jugador";
-        }
-      }
       
       /// <summary>
       /// Permite al jugador visualizar su perfil
