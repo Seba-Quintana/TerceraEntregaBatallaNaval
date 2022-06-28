@@ -73,12 +73,10 @@ namespace ClassLibrary
         /// Si el numero de usuarios pertenece a un PerfilUsuario existente
         /// en la lista de perfiles de AlmacenamientoUsuario, lo elimina de la misma.
         /// </summary>
-        /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
+        /// <param name="NumeroDeJugador"></param>
+        /// <param name="respuesta"></param>
         public void Remover(int NumeroDeJugador)
         {
-            if (!listaDeUsuarios.Contains(ObtenerPerfil(NumeroDeJugador)))
-            {}
-            else
             if(ObtenerPerfil(NumeroDeJugador) != null)
             {
                 int i = 0;
