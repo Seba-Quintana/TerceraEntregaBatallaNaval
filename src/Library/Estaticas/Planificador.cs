@@ -160,7 +160,7 @@ namespace ClassLibrary
         /// <param name="modo"> modo elegido </param>
         /// <param name="jugador"> jugador que busca partida </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static string Emparejar(int modo, int jugador, int tamano)
+        public static bool Emparejar(int modo, int jugador, int tamano)
         {
             AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
             Emparejamiento emparejamiento = Emparejamiento.Instance();
@@ -170,10 +170,10 @@ namespace ClassLibrary
                 if (jugadores != null)
                 {
                     CrearPartida(tamano, modo, jugadores);
-                    return "Emparejamiento completado";
+                    return true;
                 }
             }
-            return "No se ha podido efectuar el emparejamiento";
+            return false;
         }
 
         /// <summary>

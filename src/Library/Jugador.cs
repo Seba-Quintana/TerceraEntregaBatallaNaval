@@ -163,7 +163,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Planificador.Emparejar(modo, this.NumeroDeJugador, tamano);
+          return "";//Planificador.Emparejar(modo, this.NumeroDeJugador, tamano);
         }
         catch (Exception)
         {
