@@ -74,7 +74,6 @@ namespace ClassLibrary
         /// en la lista de perfiles de AlmacenamientoUsuario, lo elimina de la misma.
         /// </summary>
         /// <param name="NumeroDeJugador"></param>
-        /// <param name="respuesta"></param>
         public void Remover(int NumeroDeJugador)
         {
             if(ObtenerPerfil(NumeroDeJugador) != null)
