@@ -14,7 +14,7 @@ namespace ClassLibrary
         /// <param name="next">El próximo "handler".</param>
         public ConfirmarBusquedaHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"/ConfirmarBusqueda"};
+            this.Keywords = new string[] {"/Aceptar"};
         }
 
         /// <summary>
@@ -27,6 +27,11 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
+				long? invitado = Planificador.VerListaEsperaAmigos(mensaje.Chat.Id);
+				if (invitado != null)
+				{
+					respuesta = "";
+				}
                 respuesta = "";
                 return true;
             }
