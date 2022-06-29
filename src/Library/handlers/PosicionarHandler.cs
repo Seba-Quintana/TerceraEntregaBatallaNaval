@@ -35,6 +35,10 @@ namespace ClassLibrary
             {
                 return base.CanHandle(message);
             }
+            else if ((message.Text).StartsWith("/"))
+            {
+                return false;
+            }
             else
             {
                 return true;
