@@ -30,9 +30,13 @@ namespace ConsoleApplication
         // obtener indicaciones sobre cómo configurarlo.
         private static string token;
         private static UsersHistory HistoriaDeUsuarios = UsersHistory.Instance();
-        private static IHandler startHandler;
-        private static IHandler firstHandler;
-        private static IHandler secondHandler;
+        private static IHandler inicialHandler;
+        private static IHandler primerHandler;
+        private static IHandler segundoHandler;
+        private static IHandler tercerHandler;
+        private static IHandler cuartoHandler;
+        private static IHandler quintoHandler;
+
 
         // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
         // secreto del bot.
@@ -117,11 +121,18 @@ namespace ConsoleApplication
                                                 new MenuHandler(
                                                     new RemoverHandler(
                                                         new VerPerfilHandler(*/
-            startHandler = new ComenzarHandler(null);
+            inicialHandler = new ComenzarHandler(null);
 
-            firstHandler = new RegistrarHandler(null);
+            primerHandler = new RegistrarHandler(null);
 
-            secondHandler = new VerHistorialHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+            segundoHandler = new VerHistorialHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+
+            //tercerHandler =  new EsperarHandler(SalirEsperaHandler(null));
+            //mete en el tercer la cola seba
+            //cuartoHandler = new PosicionarHandler(Rendirse(null));
+
+            //quintoHandler = new AtacarHandler(Rendirse(null));
+            
 
             var cts = new CancellationTokenSource();
 
@@ -172,6 +183,8 @@ namespace ConsoleApplication
         /// Lo único que hacemos por ahora es escuchar 3 tipos de mensajes:
         /// </summary>
         /// <param name="message">El mensaje recibido</param>
+        /// <param name="botClient"></param>
+
         /// <returns></returns>
         private static async Task HandleMessageReceived(ITelegramBotClient botClient, Message message)
         {
@@ -185,16 +198,25 @@ namespace ConsoleApplication
                 switch(EstadoActual)
                 {
                     case 0:
-                        firstHandler.Handle(message, out response);
+                        primerHandler.Handle(message, out response);
                         break;
                     case 1:
-                        secondHandler.Handle(message, out response);
+                        segundoHandler.Handle(message, out response);
+                        break;
+                    case 2:
+                        tercerHandler.Handle(message, out response);
+                        break;
+                    case 3:
+                        cuartoHandler.Handle(message, out response);
+                        break;
+                    case 4:
+                        quintoHandler.Handle(message, out response);
                         break;
                 }
             }
             else
             {
-                startHandler.Handle(message, out response);
+                inicialHandler.Handle(message, out response);
             }
             
             if (!string.IsNullOrEmpty(response))
