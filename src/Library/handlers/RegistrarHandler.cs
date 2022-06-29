@@ -22,7 +22,6 @@ namespace ClassLibrary
             this.Keywords = new string[] { "/Registrar" };
         }
 
-
         protected override bool CanHandle(Message message)
         {
             if (!HistoriaLocal.ContainsKey(message.Chat.Id))
@@ -36,7 +35,7 @@ namespace ClassLibrary
         }
         /// <summary>
         /// Procesa el mensaje "Registrar" y retorna true; retorna false en caso contrario.
-        /// <summary>
+        /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
@@ -67,8 +66,10 @@ namespace ClassLibrary
                             HistoriaLocal[IDdeljugador][2] = mensaje.Text;
                             int numDeUsuario = Planificador.Registrar(HistoriaLocal[IDdeljugador][1] , IDdeljugador, HistoriaLocal[IDdeljugador][2]);
                             respuesta += "Registro Completado";
-                            respuesta += $"\nNombre {HistoriaLocal[IDdeljugador][1]} y Contraseña {HistoriaLocal[IDdeljugador][2]} ";
-                            respuesta += $"\nEste es tu numero de Usuario {numDeUsuario} , recuerdalo  ";
+                            respuesta += $"\nSu nombre de usuario es {HistoriaLocal[IDdeljugador][1]} y su contraseña {HistoriaLocal[IDdeljugador][2]}.";
+                            respuesta += $"\nEste es tu numero de Usuario {numDeUsuario}. Recuerdelo.";
+                            respuesta += $"\nSeras enviado al menu principal,";
+                            respuesta += $"\nUtilice /menu para poder obtener mas información.";
                             historia.AvanzarEstados(IDdeljugador, 1);
                             HistoriaLocal.Remove(IDdeljugador);
                             return true;
