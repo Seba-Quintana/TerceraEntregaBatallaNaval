@@ -12,27 +12,32 @@ namespace ClassLibrary
         /// <summary>
         /// Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
         /// /// </summary>
-        public bool PartidaTerminada;
+        protected bool PartidaTerminada;
         /// <summary>
         /// Variable encargada de controlar si se puede empezar a atacar (no se puede posicionar mas).
         /// /// </summary>
-        public bool[] posicionamientoTerminado = new bool[2];
+        protected bool[] posicionamientoTerminado = new bool[2];
         /// <summary>
         /// Array encargado de guardar los 2 tableros necesarios para una partida.
         /// </summary>
-        public Tablero[] tableros = new Tablero[2];
+        protected Tablero[] tableros = new Tablero[2];
         /// <summary>
         /// Almacena los int caracteristicos de cada jugador
         /// </summary>
-        public int [] jugadores = new int[2];
+        protected int [] jugadores = new int[2];
+        /// <summary>
+        /// Copia publica de jugadores, utilizado para respetar encapsulamiento.
+        /// </summary>
+        /// <value></value>
+        public int [] Jugadores {get{return jugadores;}}
         /// <summary>
         /// Cantidad de ataques hechos por cada jugador
         /// </summary>
-        public int [] tiradas = new int[2];
+        protected int [] tiradas = new int[2];
         /// <summary>
         /// Simboliza la cantidad de barcos que quedan para ubicar
         /// </summary>
-        public int [] cantidadDeBarcosParaPosicionar = new int[2]; 
+        protected int [] cantidadDeBarcosParaPosicionar = new int[2]; 
         /// <summary>
         ///  Constructor de la clase Partida.
         /// </summary>
@@ -559,6 +564,24 @@ namespace ClassLibrary
                 }
             }
             return matriz;
+        }
+        /// <summary>
+        /// Metodo Utilizado para ver si la etapa de posicionamiento de un jugador a finalizado
+        /// desde otra clase.
+        /// </summary>
+        /// <param name="jugadorQueConsulta"></param>
+        /// <returns></returns>
+        public bool PosicionamientoFinalizado(int jugadorQueConsulta)
+        {
+            if (jugadores[0] == jugadorQueConsulta)
+            {
+                return posicionamientoTerminado[0];
+            }
+            else
+            {
+                return posicionamientoTerminado[1];
+            }
+            
         }
     }
 }
