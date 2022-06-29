@@ -31,13 +31,9 @@ namespace ClassLibrary
         /// <returns></returns>
         protected override bool CanHandle(Message message)
         {
-            if (!EstadoLocal.ContainsKey(message.Chat.Id))
+            if (!EstadoLocal.ContainsKey(message.Chat.Id) || (message.Text).StartsWith("/"))
             {
                 return base.CanHandle(message);
-            }
-            else if ((message.Text).StartsWith("/"))
-            {
-                return false;
             }
             else
             {
