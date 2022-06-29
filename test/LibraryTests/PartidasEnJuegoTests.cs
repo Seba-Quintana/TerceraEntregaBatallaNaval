@@ -11,6 +11,7 @@ namespace Tests
     [TestFixture]
     public class PartidasEnJuegoTests
     {
+        /*
         /// <summary>
         /// Verifica que una Partida se agregue correctamente a la lista de PartidasEnJuego
         /// </summary>
@@ -44,6 +45,6 @@ namespace Tests
             Partida part = new Partida(9, 5, 6);
             test.RemoverPartida(part);
             Assert.AreEqual(test.ObtenerPartida(5),null);
-        }
+        }*/
     }
 }

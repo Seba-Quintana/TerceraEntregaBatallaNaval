@@ -96,6 +96,7 @@ namespace Tests
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
         }
+        /*
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
         /// </summary>
@@ -187,6 +188,6 @@ namespace Tests
             Assert.AreEqual(expected, tablero.VerCasilla(7,5));
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
-        }
+        }*/
     }
 }
