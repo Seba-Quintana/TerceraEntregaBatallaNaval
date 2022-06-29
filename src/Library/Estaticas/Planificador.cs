@@ -227,7 +227,7 @@ namespace ClassLibrary
             string mensajeBarco = juego.AgregarBarco(inicio, final, jugador);
             return mensajeBarco;
         }
-
+ 
         /// <summary>
         /// Permite al jugador atacar
         /// </summary>
@@ -268,6 +268,41 @@ namespace ClassLibrary
             }
             else
                 return "no se pudo rendir";
+        }
+        /// <summary>
+        /// Metodo utilizado para ver si la etapa de posicionamiento de
+        /// un jugador en la partida que esta jugando a finalizado. 
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static bool PosicionamientoFinalizado(int jugador)
+        {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida juego = partidas.ObtenerPartida(jugador);
+            return juego.PosicionamientoFinalizado(jugador);
+        }
+        /// <summary>
+        /// Responsable de enviar la matriz del tablero a los handlers.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static string ObtenerTableroTelegram(int jugador)
+        {
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+            char[,] tableroPropio = buscador.ObtenerTablero(jugador);
+            string tableroParaImprimir = Mensajes.ImprimirTablero(tableroPropio, true);
+            return tableroParaImprimir;
+        }
+        /// <summary>
+        /// Responsable de enviar el numero de jugador de una partida.
+        /// El cual consulta el numero del oponente. Para luego enviarle mensajes en los handlers
+        /// </summary>
+        /// <param name="JugadorQueConsulta"></param>
+        /// <returns></returns>
+        public static int ObtenerNumOponente(int JugadorQueConsulta)
+        {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            return partidas.ObtenerNumOponente(JugadorQueConsulta);
         }
     }
 }
