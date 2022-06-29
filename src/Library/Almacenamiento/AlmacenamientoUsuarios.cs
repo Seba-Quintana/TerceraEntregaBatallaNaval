@@ -243,5 +243,16 @@ namespace ClassLibrary
             }
             return 0;
         }
+        public long ConversorNumaID(int numdelUsuario)
+        {
+            foreach(PerfilUsuario perfil in listaDeUsuarios)
+            {
+                if (perfil.NumeroDeJugador == numdelUsuario)
+                {
+                    return perfil.ID;
+                }
+            }
+            return 0;
+        }
     }
 }
