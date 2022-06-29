@@ -125,11 +125,11 @@ namespace ConsoleApplication
 
             primerHandler = new RegistrarHandler(null);
 
-            segundoHandler = new RemoverHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new AyudaHandler(null)));
 
-            //tercerHandler =  new SalirColaDeEsperaHandler(null);
-            //mete en el tercer la cola seba
-            //cuartoHandler = new PosicionarHandler(Rendirse(null));
+            tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
+
+            cuartoHandler = new PosicionarHandler(null);
 
             //quintoHandler = new AtacarHandler(Rendirse(null));
        
