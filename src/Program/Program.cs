@@ -125,7 +125,7 @@ namespace ConsoleApplication
 
             primerHandler = new RegistrarHandler(null);
 
-            segundoHandler = new RemoverHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new ConfirmarBusquedaHandler(new BuscarPartidaAmistosaHandler(new VerPerfilHandler(null)))));
 
             //tercerHandler =  new SalirColaDeEsperaHandler(null);
             //mete en el tercer la cola seba

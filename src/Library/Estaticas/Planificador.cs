@@ -200,13 +200,16 @@ namespace ClassLibrary
             return false;
         }
 
-        public static long? VerListaEsperaAmigos(long jugador)
+        public static void anadirListaEsperaAmigos(long jugador, long invitado)
+        {
+            Emparejamiento visualizador = Emparejamiento.Instance();
+            visualizador.AnadirAmigosAEspera(jugador, invitado);
+        }
+        public static long VerListaEsperaAmigos(long jugador)
         {
             Emparejamiento visualizador = Emparejamiento.Instance();
             Tuple<long, long> jugadores = visualizador.VerListaEsperaAmigos(jugador);
-            if (jugadores != null)
-                return jugadores.Item2;
-            return null;
+            return jugadores.Item2;
         }
 
         /// <summary>
