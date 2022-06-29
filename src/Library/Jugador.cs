@@ -131,7 +131,7 @@ namespace ClassLibrary
       {
         try
         {
-          return Planificador.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
+          return "";//Planificador.EmparejarAmigos(modo, this.NumeroDeJugador, jugador2, tamano);
         }
         catch (Exception)
         {

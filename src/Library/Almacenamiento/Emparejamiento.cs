@@ -201,7 +201,6 @@ namespace ClassLibrary
                     parejaRetornar = pareja;
                 }
             }
-            listaEsperaAmigos.Remove(parejaRetornar);
             return parejaRetornar;
         }
     }
