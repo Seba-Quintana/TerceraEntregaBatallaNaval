@@ -1,7 +1,8 @@
-using Telegram.Bot.Types;
-using System.Collections.Generic;
-using System.Text;
 using System;
+using System.Collections.Generic;
+using Telegram.Bot;
+using Telegram.Bot.Types;
+
 
 namespace ClassLibrary
 {
@@ -65,11 +66,27 @@ namespace ClassLibrary
 					HistoriaLocal[IDdeljugador][1] = mensaje.Text;
 					
 					AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-					bool emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDdeljugador][0]), conversor.ConversorIDaNum(IDdeljugador), Int32.Parse(HistoriaLocal[IDdeljugador][1]));
-					if (!emparejado)
+                    UsersHistory Estados = UsersHistory.Instance();
+                    int[] emparejado; 
+                    emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDdeljugador][0]), conversor.ConversorIDaNum(IDdeljugador), Int32.Parse(HistoriaLocal[IDdeljugador][1]));
+                    if (emparejado==null)
+                    {
 						respuesta = "Buscando partida... \n";
+                        HistoriaLocal.Remove(IDdeljugador);
+                        Estados.AvanzarEstados(IDdeljugador,1);
+                    }
 					else
-						respuesta = "Partida encontrada! \n";
+                    {
+                		respuesta = "Partida encontrada! \n";
+                        TelegramBotClient bot = SingletonBot.Instance("a");
+                        AlmacenamientoUsuario almacenamientodeUsuarios = AlmacenamientoUsuario.Instance();
+                        int IntJugadorEnemigo = emparejado[0];
+                        long IDJugadorEnemigo = almacenamientodeUsuarios.ConversorNumaID(IntJugadorEnemigo);
+                        bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \n");
+                        HistoriaLocal.Remove(IDdeljugador);
+                        Estados.AvanzarEstados(IDdeljugador,2);
+                        Estados.AvanzarEstados(IDJugadorEnemigo,1);
+                    }	
 					return true;
 				}
             }
