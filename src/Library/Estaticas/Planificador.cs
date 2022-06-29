@@ -159,20 +159,22 @@ namespace ClassLibrary
         /// <param name="modo"> modo elegido </param>
         /// <param name="jugador"> jugador que busca partida </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static bool Emparejar(int modo, int jugador, int tamano)
+        public static int[] Emparejar(int modo, int jugador, int tamano)
         {
             AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
             Emparejamiento emparejamiento = Emparejamiento.Instance();
+            int[] jugadores = null;
             if (jugadorExistente.ObtenerPerfil(jugador) != null)
             {
-                int[] jugadores = emparejamiento.EmparejarAleatorio(modo, jugador);
+                jugadores = emparejamiento.EmparejarAleatorio(modo, jugador);
                 if (jugadores != null)
                 {
                     CrearPartida(tamano, modo, jugadores);
-                    return true;
+                    return jugadores;
                 }
+                return jugadores;
             }
-            return false;
+            return null;
         }
 
         /// <summary>
