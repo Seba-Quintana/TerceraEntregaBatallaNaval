@@ -15,7 +15,7 @@ namespace Tests
         /// Verifica que un DatosdePartida se agregue correctamente a la lista de Historial
         /// </summary>
         [Test]
-        public void AñadirUnDatosdePartida()
+        public void AgregarUnDatosdePartida()
         {
             //Partida completa simulada
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();

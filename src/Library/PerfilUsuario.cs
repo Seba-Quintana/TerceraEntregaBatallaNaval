@@ -31,7 +31,7 @@ namespace ClassLibrary
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
-        private string contraseña;
+        private string contrasena;
         /// <summary>
         /// Identificación numerica del jugador
         /// </summary>
@@ -85,20 +85,20 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="Nombre"></param>
         /// <param name="ID"></param>
-        /// <param name="Contraseña"></param>
+        /// <param name="Contrasena"></param>
         /// <param name="NumeroDeJugador"></param>
-        public PerfilUsuario (string Nombre, long ID, string Contraseña, int NumeroDeJugador)
+        public PerfilUsuario (string Nombre, long ID, string Contrasena, int NumeroDeJugador)
         {
             this.nombre = Nombre;
             this.ID = ID;
-            this.contraseña = Contraseña;
+            this.contrasena = Contrasena;
             this.NumeroDeJugador = NumeroDeJugador;
         }
         /// <summary>
         /// Añade partidas al historial personal del usuario
         /// </summary>
         /// <param name="partida"> Partida a añadir </param>
-        public void AñadiralHistorial(DatosdePartida partida)
+        public void AgregarAlHistorial(DatosdePartida partida)
         {
             if (partida.Ganador == NumeroDeJugador)
             {

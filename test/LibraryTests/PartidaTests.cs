@@ -34,7 +34,7 @@ namespace Tests
         {
             string inicioDelBarco = "E4";
             string finalDelBarco = "E6";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,3]);
@@ -52,7 +52,7 @@ namespace Tests
         {
             string inicioDelBarco = "E4";
             string finalDelBarco = "E6";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[4,5]);
@@ -70,7 +70,7 @@ namespace Tests
         {
             string inicioDelBarco = "B8";
             string finalDelBarco = "F8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[1,7]);
@@ -88,7 +88,7 @@ namespace Tests
         {
             string inicioDelBarco = "B8";
             string finalDelBarco = "F8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
             char[ , ]tableroActualizado = partida.VerTableroPropio(1);
             Assert.AreEqual(expected, tableroActualizado[5,7]);
@@ -120,7 +120,7 @@ namespace Tests
         {
             string inicioDelBarco = "B8";
             string finalDelBarco = "F8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "F8";
             int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
             LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
@@ -138,7 +138,7 @@ namespace Tests
         {
             string inicioDelBarco = "B8";
             string finalDelBarco = "F8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "F8";
             int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
             LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
@@ -157,7 +157,7 @@ namespace Tests
         {
             string inicioDelBarco = "H4";
             string finalDelBarco = "H8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "H5";
             int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
             LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
@@ -175,7 +175,7 @@ namespace Tests
         {
             string inicioDelBarco = "H4";
             string finalDelBarco = "H8";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string LugarAAtacar = "H6";
             partida.Atacar(LugarAAtacar, 2);
             partida.Atacar(LugarAAtacar, 2);

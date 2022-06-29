@@ -14,18 +14,18 @@ namespace ClassLibrary
         /// <summary>
         /// En este contructor se asigna el tamaño de la matriz, se crea la misma y se asigna el dueño del Tablero.
         /// </summary>
-        /// <param name="tamaño"></param>
+        /// <param name="tamano"></param>
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
         /// <returns></returns>
-        public PartidaRapida(int tamaño ,int jugador1, int jugador2) : base (tamaño , jugador1, jugador2)
+        public PartidaRapida(int tamano ,int jugador1, int jugador2) : base (tamano , jugador1, jugador2)
         {
-            this.tableros[0] = new Tablero(tamaño,jugador1);
+            this.tableros[0] = new Tablero(tamano,jugador1);
             this.jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
             this.jugadores[1]=jugador2;
-            this.tableros[1] = new Tablero(tamaño,jugador2);
-            this.cantidadDeBarcosParaPosicionar[0]= (tamaño * tamaño*25)/100;
-            this.cantidadDeBarcosParaPosicionar[1]= (tamaño * tamaño*25)/100;
+            this.tableros[1] = new Tablero(tamano,jugador2);
+            this.cantidadDeBarcosParaPosicionar[0]= (tamano * tamano*25)/100;
+            this.cantidadDeBarcosParaPosicionar[1]= (tamano * tamano*25)/100;
             this.tiradas[0]=0;
             this.tiradas[1]=0;
             this.Segundastiradas[0]=0;
@@ -56,7 +56,7 @@ namespace ClassLibrary
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
                 }
-            if (LugarDeAtaque[0] >= this.tableros[0].Tamaño || LugarDeAtaque[1] >= this.tableros[0].Tamaño)
+            if (LugarDeAtaque[0] >= this.tableros[0].Tamano || LugarDeAtaque[1] >= this.tableros[0].Tamano)
             {
                 return "Las coordenadas enviadas son erroneas";
                 }

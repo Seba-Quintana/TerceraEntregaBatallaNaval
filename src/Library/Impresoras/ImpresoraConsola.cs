@@ -6,7 +6,7 @@ namespace ClassLibrary
     /// <summary>
     /// Muestra por consola todo lo que desee imprimir implementando la interfaz Iimpresora con una operación polimórfica.
     /// </summary>
-    public class ImpresoraConsola : Iimpresora
+    public class ImpresoraConsola : IImpresora
     {
         /// <summary>
         /// Parte de singleton. Atributo donde se guarda la instancia de la impresora (o null si no fue creada).

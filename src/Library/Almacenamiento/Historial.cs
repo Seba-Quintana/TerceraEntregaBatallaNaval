@@ -58,8 +58,8 @@ namespace ClassLibrary
         AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
         PerfilUsuario jugador1 = buscador.ObtenerPerfil(partida.Jugadores[0]);
         PerfilUsuario jugador2 = buscador.ObtenerPerfil(partida.Jugadores[1]);
-        jugador1.AñadiralHistorial(partida);
-        jugador2.AñadiralHistorial(partida);
+        jugador1.AgregarAlHistorial(partida);
+        jugador2.AgregarAlHistorial(partida);
         partidas.Add(partida);
       }
     }

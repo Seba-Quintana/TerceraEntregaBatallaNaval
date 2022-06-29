@@ -57,15 +57,15 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="nombre"> nombre del usuario</param>
         /// <param name="id"> id proporcionada por el bot </param>
-        /// <param name="contraseña"> contraseña </param>
-        public int Registrar(string nombre, long id, string contraseña)
+        /// <param name="contrasena"> contraseña </param>
+        public int Registrar(string nombre, long id, string contrasena)
         {
             int numeroDeJugador = 1;
             if (listaDeUsuarios.Count != 0)
             {
                 numeroDeJugador = listaDeUsuarios[listaDeUsuarios.Count - 1].NumeroDeJugador + 1;
             }    
-            PerfilUsuario usuario = new PerfilUsuario(nombre, id, contraseña, numeroDeJugador);
+            PerfilUsuario usuario = new PerfilUsuario(nombre, id, contrasena, numeroDeJugador);
             listaDeUsuarios.Add(usuario);
             return numeroDeJugador;
         }

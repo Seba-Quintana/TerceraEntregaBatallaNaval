@@ -12,7 +12,7 @@ namespace ClassLibrary
     /// <summary>
     /// Para evitar tener que preguntar por el destino de la impresión en Program.cs el código que varía según el destino se encuentra en diferentes clases que implementan esta interfaz.
     /// </summary>
-    public interface Iimpresora
+    public interface IImpresora
     {
         /// <summary>
         /// Esta operación se encarga de Imprimir el tablero del juego, teniendo como parametros

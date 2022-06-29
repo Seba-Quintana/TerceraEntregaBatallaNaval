@@ -24,12 +24,12 @@ namespace ClassLibrary
       /// <param name="nombre"> nombre del jugador </param>
       /// <param name="id"> La id es para simular la id caracteristica del usuario,
       /// la cual es proporcionada por el bot </param>
-      /// <param name="contraseña"> contraseña del jugador </param>
-      public Jugador(string nombre, int id, string contraseña)
+      /// <param name="contrasena"> contraseña del jugador </param>
+      public Jugador(string nombre, int id, string contrasena)
       {
         try
         {
-          this.NumeroDeJugador = Planificador.Registrar(nombre, id, contraseña);
+          this.NumeroDeJugador = Planificador.Registrar(nombre, id, contrasena);
         }
         catch (Exception)
         {
