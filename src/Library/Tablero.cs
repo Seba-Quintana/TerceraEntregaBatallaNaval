@@ -12,7 +12,7 @@ namespace ClassLibrary
         /// <summary>
         /// Este atributo sirve para saber el tamaño de la matriz sin tener que recurrir a metodos que midan su tamaño
         /// </summary>
-        public int Tamaño{get;}
+        public int Tamano{get;}
         /// <summary>
         /// Este ArrayList de char es donde esta contenido una gran parte de los datos del juego (contiene el tablero).
         /// </summary>
@@ -29,7 +29,7 @@ namespace ClassLibrary
         /// <summary>
         /// En este atributo se ve el numero de jugador de quien es el dueño del tablero, osea el que puede ver la informacion de los barcos intactos principalmente.
         /// </summary>
-        public int DueñodelTablero;
+        public int DuenodelTablero;
         /// <summary>
         /// Variable que facilita saber si el dueño del tablero fue quien gano la partida.
         /// </summary>
@@ -42,13 +42,13 @@ namespace ClassLibrary
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
-        /// <param name="tamaño"></param>
-        /// <param name="dueño"></param>
-        public Tablero(int tamaño, int dueño)
+        /// <param name="tamano"> tamaño que sera el tablero </param>
+        /// <param name="dueno"> dueño del tablero </param>
+        public Tablero(int tamano, int dueno)
         {
-            this.Tamaño = tamaño;
-            this.matriz = new char[tamaño, tamaño];
-            this.DueñodelTablero = dueño;
+            this.Tamano = tamano;
+            this.matriz = new char[tamano, tamano];
+            this.DuenodelTablero = dueno;
         }
         /// <summary>
         /// Metodo Utilizado por el tablero para añadir un barco.
@@ -58,7 +58,7 @@ namespace ClassLibrary
         /// <param name="filaFinal"></param>
         /// <param name="columnaFinal"></param>
         /// <returns></returns>
-        public bool AñadirBarco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
+        public bool AgregarBarco(int filaInicio, int columnaInicio, int filaFinal, int columnaFinal)
         {
             List<int[]> CoordenadasQueSeQuierenUtilizar = this.EspaciosAUtilizar(filaInicio, columnaInicio, filaFinal, columnaFinal);
 
@@ -90,7 +90,7 @@ namespace ClassLibrary
                 {
                     if (posibleObjetivo.ParteDelBarco(fila, columna))
                     {   
-                        char respuestaDeBarco = posibleObjetivo.Dañar(fila, columna);
+                        char respuestaDeBarco = posibleObjetivo.Danar(fila, columna);
                         switch(respuestaDeBarco)
                         {
                             case 'D':

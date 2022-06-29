@@ -45,16 +45,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             string respuesta = partida.Atacar("D1", 2);
             string expected = "Debe esperar a que el otro jugador lo ataque.";
             Assert.AreEqual(expected, respuesta);
@@ -69,16 +69,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             partida.Atacar("D1", 1);
             string respuesta = partida.Atacar("D1", 2);
             string expected = "Debe esperar a que el otro jugador lo ataque.";
@@ -94,16 +94,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             string respuesta = partida.Atacar("D1", 1);
             string expected = "Que lastima! has desperdiciado una bala en el agua";
             Assert.AreEqual(expected, respuesta);
@@ -118,16 +118,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             partida.Atacar("D1", 1);
             partida.Atacar("D1", 2);
             string respuesta = partida.Atacar("D1", 1);
@@ -142,16 +142,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             string respuesta = partida.Atacar("A1", 1);
             string expected = "Buen tiro, has atacado a un barco";
             Assert.AreEqual(expected, respuesta);
@@ -166,16 +166,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             partida.Atacar("A1", 1);
             partida.Atacar("D1", 2);
             string respuesta = partida.Atacar("A1", 1);
@@ -190,16 +190,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             int i = 1;
             while (i<7)
             {
@@ -221,16 +221,16 @@ namespace Tests
         {
             string inicioDelBarco = "A1";
             string finalDelBarco = "A7";
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,1);
-            partida.AñadirBarco(inicioDelBarco ,finalDelBarco,2);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
+            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
             string inicioDelBarco1 = "B1";
             string finalDelBarco1 = "B7";
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,1);
-            partida.AñadirBarco(inicioDelBarco1 ,finalDelBarco1,2);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,1);
+            partida.AgregarBarco(inicioDelBarco1 ,finalDelBarco1,2);
             string inicioDelBarco2 = "C1";
             string finalDelBarco2 = "C6";
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,1);
-            partida.AñadirBarco(inicioDelBarco2 ,finalDelBarco2,2);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,1);
+            partida.AgregarBarco(inicioDelBarco2 ,finalDelBarco2,2);
             int i = 1;
             while (i<=7)
             {

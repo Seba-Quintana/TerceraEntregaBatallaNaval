@@ -125,14 +125,14 @@ namespace ConsoleApplication
 
             primerHandler = new RegistrarHandler(null);
 
-            segundoHandler = new VerHistorialHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
+            segundoHandler = new RemoverHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
 
             //tercerHandler =  new SalirColaDeEsperaHandler(null);
             //mete en el tercer la cola seba
             //cuartoHandler = new PosicionarHandler(Rendirse(null));
 
             //quintoHandler = new AtacarHandler(Rendirse(null));
-            
+       
 
             var cts = new CancellationTokenSource();
 

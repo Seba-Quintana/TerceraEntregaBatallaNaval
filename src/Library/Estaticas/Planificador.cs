@@ -16,12 +16,12 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="nombre"> nombre del usuario</param>
         /// <param name="id"> id proporcionada por el bot </param>
-        /// <param name="contraseña"> contraseña </param>
-        public static int Registrar(string nombre, long id, string contraseña)
+        /// <param name="contrasena"> contraseña </param>
+        public static int Registrar(string nombre, long id, string contrasena)
         {
             ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario registro = AlmacenamientoUsuario.Instance();
-            int NumeroDeJugador = registro.Registrar(nombre, id, contraseña);
+            int NumeroDeJugador = registro.Registrar(nombre, id, contrasena);
             imprimir.RecibirMensajes($"Su numero de jugador es: {NumeroDeJugador}");
             return NumeroDeJugador;
         }
@@ -46,7 +46,7 @@ namespace ClassLibrary
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             PerfilUsuario perfilDelUsuario = buscador.ObtenerPerfil(usuario);
-            Iimpresora imprimir = ImpresoraConsola.Instance();
+            IImpresora imprimir = ImpresoraConsola.Instance();
             imprimir.ImprimirPerfilUsuario(perfilDelUsuario);
         }
 
@@ -134,19 +134,19 @@ namespace ClassLibrary
         /// Crea una Partida, asignandole un tamaño, un modo
         /// y los dos numeros de jugador de quienes quieren comenzar una partida.
         /// </summary>
-        /// <param name="tamaño"> tamaño del tablero </param>
+        /// <param name="tamano"> tamaño del tablero </param>
         /// <param name="modo"> modo de juego a jugar </param>
         /// <param name="jugadores"> jugadores </param>
-        public static string CrearPartida(int tamaño, int modo, int[] jugadores)
+        public static string CrearPartida(int tamano, int modo, int[] jugadores)
         {
             if (modo == 0)
             {
-                Partida partida = new Partida(tamaño, jugadores[0], jugadores[1]);
+                Partida partida = new Partida(tamano, jugadores[0], jugadores[1]);
                 return "partida creada";
             }
             else if (modo == 1)
             {
-                PartidaRapida partida = new PartidaRapida(tamaño, jugadores[0], jugadores[1]);
+                PartidaRapida partida = new PartidaRapida(tamano, jugadores[0], jugadores[1]);
                 return "partida creada";
             }
             return "no se ha podido crear la partida";
@@ -224,7 +224,7 @@ namespace ClassLibrary
             }
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
-            string mensajeBarco = juego.AñadirBarco(inicio, final, jugador);
+            string mensajeBarco = juego.AgregarBarco(inicio, final, jugador);
             return mensajeBarco;
         }
 

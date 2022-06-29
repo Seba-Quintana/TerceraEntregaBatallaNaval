@@ -36,26 +36,26 @@ namespace ClassLibrary
         /// <summary>
         ///  Constructor de la clase Partida.
         /// </summary>
-        /// <param name="tamaño"></param>
+        /// <param name="tamano"></param>
         /// <param name="jugador1"></param>
         /// <param name="jugador2"></param>
-        public Partida(int tamaño ,int jugador1, int jugador2)
+        public Partida(int tamano ,int jugador1, int jugador2)
         {
             try
             {
-                if (tamaño > 15)
+                if (tamano > 15)
                     throw new TableroInvalidoException();
             }
             catch (TableroInvalidoException)
             {
-                throw new TableroInvalidoException("Tablero demasiado grande", tamaño);
+                throw new TableroInvalidoException("Tablero demasiado grande", tamano);
             }
-            this.tableros[0] = new Tablero(tamaño,jugador1);
+            this.tableros[0] = new Tablero(tamano,jugador1);
             this.jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
-            this.tableros[1] = new Tablero(tamaño,jugador2);
+            this.tableros[1] = new Tablero(tamano,jugador2);
             this.jugadores[1]=jugador2;
-            this.cantidadDeBarcosParaPosicionar[0]= (tamaño*tamaño*25)/100;
-            this.cantidadDeBarcosParaPosicionar[1]= (tamaño*tamaño*25)/100;
+            this.cantidadDeBarcosParaPosicionar[0]= (tamano*tamano*25)/100;
+            this.cantidadDeBarcosParaPosicionar[1]= (tamano*tamano*25)/100;
             this.tiradas[0]=0;
             this.tiradas[1]=0;
             this.posicionamientoTerminado[0]=false;
@@ -98,7 +98,7 @@ namespace ClassLibrary
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
             }
-            if (LugarDeAtaque[0] >= this.tableros[0].Tamaño || LugarDeAtaque[1] >= this.tableros[0].Tamaño)
+            if (LugarDeAtaque[0] >= this.tableros[0].Tamano || LugarDeAtaque[1] >= this.tableros[0].Tamano)
             {
                 return "Las coordenadas enviadas son erroneas";
                 }
@@ -192,7 +192,7 @@ namespace ClassLibrary
         /// <param name="coordenadaDos"></param>
         /// <param name="jugador"></param>
         /// <returns></returns>
-        public string AñadirBarco(string coordenadanUno, string coordenadaDos, int jugador)
+        public string AgregarBarco(string coordenadanUno, string coordenadaDos, int jugador)
         {
             int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadanUno);
             int [] coordenada2 = TraductorDeCoordenadas.Traducir(coordenadaDos);
@@ -208,11 +208,11 @@ namespace ClassLibrary
             {
                 return "Posicionamiento no ejecutado, ya que quien posiciona el barco no es uno de los jugadores de la partida";
                 }
-            if (coordenada1[0] >= this.tableros[0].Tamaño || coordenada1[1] >= this.tableros[0].Tamaño)
+            if (coordenada1[0] >= this.tableros[0].Tamano || coordenada1[1] >= this.tableros[0].Tamano)
             {
                 return "La primer coordenada enviada es invalida";
                 }
-            if (coordenada2[0] >= this.tableros[0].Tamaño || coordenada2[1] >= this.tableros[0].Tamaño)
+            if (coordenada2[0] >= this.tableros[0].Tamano || coordenada2[1] >= this.tableros[0].Tamano)
             {
                 return "La segunda coordenada enviada es invalida";
             }
@@ -237,9 +237,9 @@ namespace ClassLibrary
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[0])
                 {
                     string respuesta = "";
-                        bool SeAñadioElBarco = LogicaDeTablero.Añadirbarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+                        bool SeAgregoElBarco = LogicaDeTablero.AgregarBarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
 
-                        if (SeAñadioElBarco)
+                        if (SeAgregoElBarco)
                         {
                             respuesta += "Se Agrego correctamente el barco";
                             this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
@@ -275,9 +275,9 @@ namespace ClassLibrary
                 {
                     string respuesta = "";
                     
-                        bool SeAñadioElBarco = LogicaDeTablero.Añadirbarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+                        bool SeAgregoElBarco = LogicaDeTablero.AgregarBarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
 
-                        if (SeAñadioElBarco)
+                        if (SeAgregoElBarco)
                         {
                             respuesta += "Se Agrego correctamente el barco";
                             this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;
@@ -390,7 +390,7 @@ namespace ClassLibrary
             if (!this.jugadores.Contains(jugador))
             {
                 return null;}
-            if (this.tableros[0].DueñodelTablero==jugador)
+            if (this.tableros[0].DuenodelTablero==jugador)
             {
                 return this.tableros[0].VerTablero();
             }
@@ -409,13 +409,13 @@ namespace ClassLibrary
             if (!this.jugadores.Contains(jugador))
             {
                 return null;}
-            if (this.tableros[0].DueñodelTablero==jugador)
+            if (this.tableros[0].DuenodelTablero==jugador)
             {
                 char[ , ] matrizSinBarcos = this.tableros[1].VerTablero();
                 
-                for (int i = 0; i < this.tableros[1].Tamaño; i++)
+                for (int i = 0; i < this.tableros[1].Tamano; i++)
                 {
-                    for (int j = 0; j < this.tableros[1].Tamaño; j++)
+                    for (int j = 0; j < this.tableros[1].Tamano; j++)
                     {
                         if (matrizSinBarcos[i,j]== 'B')
                         {
@@ -429,9 +429,9 @@ namespace ClassLibrary
             else 
             {
                 char[ , ] matrizSinBarcos = this.tableros[0].VerTablero();
-                for (int i = 0; i < this.tableros[0].Tamaño; i++)
+                for (int i = 0; i < this.tableros[0].Tamano; i++)
                 {
-                    for (int j = 0; j < this.tableros[0].Tamaño; j++)
+                    for (int j = 0; j < this.tableros[0].Tamano; j++)
                     {
                         if (matrizSinBarcos[i,j]== 'B')
                         {
@@ -449,42 +449,42 @@ namespace ClassLibrary
         /// <param name="matriz"></param>
         public char[ , ] ayudanteDeTiro (char[ , ] matriz)
         {
-            int tamañoDeFilas =  matriz.GetLength(0);
-            int tamañoDeColumnas = matriz.GetLength(1);
+            int tamanoDeFilas =  matriz.GetLength(0);
+            int tamanoDeColumnas = matriz.GetLength(1);
 
-            for (int i = 0; i < tamañoDeFilas; i++)
+            for (int i = 0; i < tamanoDeFilas; i++)
             {
-                for (int j = 0; j < tamañoDeColumnas; j++)
+                for (int j = 0; j < tamanoDeColumnas; j++)
                 {
                     if (matriz[i,j] == 'T')
                     {
-                        bool casillaIzquierdaDañada = false;
-                        bool casillaDerechaDañada = false;
-                        bool casillaInferiorDañada = false;
-                        bool casillaSuperiorDañada = false;
+                        bool casillaIzquierdaDisparada = false;
+                        bool casillaDerechaDisparada = false;
+                        bool casillaInferiorDisparada = false;
+                        bool casillaSuperiorDisparada = false;
                         char casillaVacia = '\u0000';
 
                         if (i != 0)//n
                         {
-                            casillaIzquierdaDañada = (matriz[i-1,j] == 'T');
+                            casillaIzquierdaDisparada = (matriz[i-1,j] == 'T');
                         }
-                        if(i != tamañoDeFilas-1)//e
+                        if(i != tamanoDeFilas-1)//e
                         {
-                            casillaDerechaDañada = (matriz[i+1,j] == 'T');
+                            casillaDerechaDisparada = (matriz[i+1,j] == 'T');
                         }
                         if (j != 0)//f
                         {
-                            casillaSuperiorDañada = (matriz[i,j-1] == 'T');
+                            casillaSuperiorDisparada = (matriz[i,j-1] == 'T');
                         }
-                        if (j != tamañoDeColumnas-1)//g
+                        if (j != tamanoDeColumnas-1)//g
                         {
-                            casillaInferiorDañada = (matriz[i,j+1] == 'T');
+                            casillaInferiorDisparada = (matriz[i,j+1] == 'T');
                         }
-                        bool sinAlrededoresDañada = !(casillaIzquierdaDañada || casillaDerechaDañada || casillaInferiorDañada || casillaSuperiorDañada);
-                        bool barcoVertical = (casillaInferiorDañada ^ casillaSuperiorDañada);
-                        bool barcoHorizontal = (casillaIzquierdaDañada ^ casillaDerechaDañada);
+                        bool sinAlrededoresDanada = !(casillaIzquierdaDisparada || casillaDerechaDisparada || casillaInferiorDisparada || casillaSuperiorDisparada);
+                        bool barcoVertical = (casillaInferiorDisparada ^ casillaSuperiorDisparada);
+                        bool barcoHorizontal = (casillaIzquierdaDisparada ^ casillaDerechaDisparada);
                         
-                        if (sinAlrededoresDañada)
+                        if (sinAlrededoresDanada)
                         {
                             if (i != 0 )//n
                             {
@@ -494,7 +494,7 @@ namespace ClassLibrary
                                 }
                                 
                             }
-                            if(i != tamañoDeFilas-1 )//e
+                            if(i != tamanoDeFilas-1 )//e
                             {
                                 if (matriz[i+1,j] == casillaVacia)
                                 {
@@ -509,7 +509,7 @@ namespace ClassLibrary
                                     matriz[i,j-1] = '-';
                                 }
                             }
-                            if (j != tamañoDeColumnas-1 )//g
+                            if (j != tamanoDeColumnas-1 )//g
                             {
                                 if (matriz[i,j+1] == casillaVacia)
                                 {
@@ -521,14 +521,14 @@ namespace ClassLibrary
                         {
                             if (barcoVertical)
                             {
-                                if (j != 0 && !casillaSuperiorDañada )//f
+                                if (j != 0 && !casillaSuperiorDisparada )//f
                                 {
                                     if (matriz[i,j-1] == casillaVacia)
                                     {
                                         matriz[i,j-1] = '-';
                                     }
                                 }
-                                if (j != tamañoDeColumnas-1  && !casillaInferiorDañada )//g
+                                if (j != tamanoDeColumnas-1  && !casillaInferiorDisparada )//g
                                 {
                                     if (matriz[i,j+1] == casillaVacia)
                                     {
@@ -538,14 +538,14 @@ namespace ClassLibrary
                             }
                             if (barcoHorizontal)
                             {
-                                if (i != 0 && !casillaIzquierdaDañada )//n
+                                if (i != 0 && !casillaIzquierdaDisparada )//n
                                 {
                                     if (matriz[i-1,j] == casillaVacia)
                                     {
                                         matriz[i-1,j] = '-';
                                     }
                                 }
-                                if(i != tamañoDeFilas-1 && !casillaDerechaDañada)//e
+                                if(i != tamanoDeFilas-1 && !casillaDerechaDisparada)//e
                                 {
                                     if (matriz[i+1,j] == casillaVacia)
                                     {

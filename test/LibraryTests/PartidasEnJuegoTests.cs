@@ -15,7 +15,7 @@ namespace Tests
         /// Verifica que una Partida se agregue correctamente a la lista de PartidasEnJuego
         /// </summary>
         [Test]
-        public void AñadirUnaPartida()
+        public void AgregarUnaPartida()
         {
             PartidasEnJuego test = PartidasEnJuego.Instance();
             Partida part = new Partida(9, 5, 6);

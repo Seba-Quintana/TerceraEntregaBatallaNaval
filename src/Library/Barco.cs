@@ -132,7 +132,7 @@ namespace ClassLibrary
         /// <param name="filaAtaque"></param>
         /// <param name="columnaAtaque"></param>
         /// <returns></returns>
-        public char Dañar(int filaAtaque, int columnaAtaque)
+        public char Danar(int filaAtaque, int columnaAtaque)
         {
             if (this.orientacion == "Horizontal")
             {
