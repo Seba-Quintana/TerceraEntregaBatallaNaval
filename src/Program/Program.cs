@@ -127,7 +127,7 @@ namespace ConsoleApplication
 
             segundoHandler = new VerHistorialHandler(new BuscarPartidaHandler(new VerPerfilHandler(null)));
 
-            //tercerHandler =  new EsperarHandler(SalirEsperaHandler(null));
+            //tercerHandler =  new SalirColaDeEsperaHandler(null);
             //mete en el tercer la cola seba
             //cuartoHandler = new PosicionarHandler(Rendirse(null));
 
