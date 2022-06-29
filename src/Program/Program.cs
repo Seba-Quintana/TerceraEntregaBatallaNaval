@@ -102,7 +102,7 @@ namespace ConsoleApplication
         {
             Start();
 
-            Bot = new TelegramBotClient(token); 
+            Bot = SingletonBot.Instance(token); 
 
             /*new ConfirmarBusquedaHandler();
             new BuscarPartidaAmistosaHandler();
