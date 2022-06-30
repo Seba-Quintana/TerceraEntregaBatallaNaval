@@ -50,20 +50,23 @@ namespace ClassLibrary
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
             respuesta = string.Empty;
+            long IDDelJugador = mensaje.Chat.Id;
             if (this.CanHandle(mensaje))
             {
                 UsersHistory historia = UsersHistory.Instance();
                 AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                long IDDelJugador = mensaje.Chat.Id;
                 int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
+                
                 int NumDelJugadorOponente = Planificador.ObtenerNumOponente(numdelJugador);
                 long IDDelOponente = almacenamiento.ConversorNumaID (NumDelJugadorOponente);
                 TelegramBotClient bot = SingletonBot.Instance(null);
                
                 if (!EstadoLocal.ContainsKey(IDDelJugador))
                 {
+                    respuesta += "Bienvenido a la etapa de posicionamiento";
+                    respuesta += "En esta etapa no se pueden posicionar barcos diagonalmente";
                     EstadoLocal.Add(IDDelJugador, new string[3]);
-                    respuesta = "Indique el lugar de inicio del barco :";
+                    respuesta += $"\nIndique la casilla de inicio del barco :";
                     return true;
                 }
                 else
@@ -71,10 +74,10 @@ namespace ClassLibrary
                     if (EstadoLocal[IDDelJugador][0] == null)
                     {
                         EstadoLocal[IDDelJugador][0] = mensaje.Text;
-                        respuesta = "Indique el final del barco :";
+                        respuesta = "Indique la casilla final del barco :";
                         return true;
                     }
-                    else if (EstadoLocal[IDDelJugador][1] == null || EstadoLocal[IDDelJugador][1] == "PosicionarLoqueQueda")
+                    else if (EstadoLocal[IDDelJugador][1] == null)
                     {
                         EstadoLocal[IDDelJugador][1] = mensaje.Text;
                         string ResultadoPosicionamiento = Planificador.Posicionar(EstadoLocal[IDDelJugador][0] , EstadoLocal[IDDelJugador][1], numdelJugador);
@@ -98,11 +101,15 @@ namespace ClassLibrary
                         }
                         else
                         {
-                            respuesta += "Indique el lugar de inicio del proximo barco :";
+                            respuesta += "Indique la casilla de inicio del proximo barco :";
                         }
                         return true;
                     }
                 }
+            }
+            if (EstadoLocal.ContainsKey(IDDelJugador))
+            {
+                EstadoLocal.Remove(IDDelJugador);
             }
 
             return false;
