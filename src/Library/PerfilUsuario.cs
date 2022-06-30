@@ -32,6 +32,17 @@ namespace ClassLibrary
         /// Contraseña del usuario
         /// </summary>
         private string contrasena;
+        
+        /// <summary>
+        /// getter contraseña
+        /// </summary>
+        public string Contrasena
+        {
+            get
+            {
+                return contrasena;
+            }
+        }
         /// <summary>
         /// Identificación numerica del jugador
         /// </summary>

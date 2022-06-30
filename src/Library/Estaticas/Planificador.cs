@@ -26,6 +26,12 @@ namespace ClassLibrary
             return NumeroDeJugador;
         }
 
+        public static bool IniciarSesion(int numeroDeJugador, string nombre, string contrasena)
+        {
+            AlmacenamientoUsuario inicio = AlmacenamientoUsuario.Instance();
+            return inicio.InicioSesion(numeroDeJugador, nombre, contrasena);
+        }
+
         /// <summary>
         /// Le pide a AlmacenamientoUsuario eliminar un NumeroDeJugador de la lista
         /// Le comunica al jugador la accion realizada

@@ -1,4 +1,6 @@
 using Telegram.Bot.Types;
+using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -7,6 +9,8 @@ namespace ClassLibrary
     /// </summary>
     public class InicioSesionHandler : BaseHandler
     {
+		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "InicioSesion".
         /// </summary>
@@ -24,13 +28,42 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
+            respuesta = string.Empty;
             if (this.CanHandle(mensaje))
             {
-                respuesta = "Ingrese su nombre";
-                return true;
+                long IDdeljugador = mensaje.Chat.Id;
+                UsersHistory historia = UsersHistory.Instance();
+                if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                {
+                    HistoriaLocal.Add(IDdeljugador, new string[3]);
+                    HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                    respuesta = "Indique su nombre: ";
+                    return true;
+                }
+                else
+                {
+                    if (HistoriaLocal[IDdeljugador][1] == null)
+                    {
+						HistoriaLocal[IDdeljugador][1] = mensaje.Text;
+						respuesta = "Indique su contraseña :";
+						return true;
+                    }
+                    else if (HistoriaLocal[IDdeljugador][2] == null)
+                    {
+						HistoriaLocal[IDdeljugador][2] = mensaje.Text;
+						AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
+						if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDdeljugador), HistoriaLocal[IDdeljugador][1], HistoriaLocal[IDdeljugador][2]))
+							respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \n";
+						else
+						{
+							respuesta += "Bienvenido, cazador de barcos. Presiona /Menu para ver los comandos disponibles \n";
+							historia.AvanzarEstados(IDdeljugador, 1);
+							HistoriaLocal.Remove(IDdeljugador);
+                    	}
+						return true;
+					}
+                }
             }
-
-            respuesta = string.Empty;
             return false;
         }
     }
