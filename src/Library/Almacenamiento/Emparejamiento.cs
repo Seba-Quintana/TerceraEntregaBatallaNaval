@@ -9,6 +9,9 @@ namespace ClassLibrary
     /// </summary>
     public class Emparejamiento
     {
+
+        private List<Tuple<long, long>> listaEsperaAmigos = new List<Tuple<long,long>>();
+
         /// <summary>
         /// Cola de emparejamiento (modo normal)
         /// </summary>
@@ -158,7 +161,7 @@ namespace ClassLibrary
                 throw new ModoInvalidoException("Modo invalido", modo);
             }
 
-            int[] Amigos = new int[4];
+            int[] Amigos = new int[2];
             // Como se diferencian los modos?
             if (modo == 0) // modo normal
             {
@@ -171,6 +174,34 @@ namespace ClassLibrary
                 Amigos[1] = jugador2;
             }
             return Amigos;
+        }
+
+        public void AnadirAmigosAEspera(long anfitrion, long invitado)
+        {
+            Tuple<long, long> jugadores = new Tuple<long, long>(anfitrion, invitado);
+            this.listaEsperaAmigos.Add(jugadores);
+        }
+
+        public void RemoverAmigosDeEspera(long anfitrion, long invitado)
+        {
+            Tuple<long, long> jugadores = new Tuple<long, long>(anfitrion, invitado);
+            if (listaEsperaAmigos.Contains(jugadores))
+            {
+                listaEsperaAmigos.Remove(jugadores);
+            }
+        }
+
+        public Tuple<long, long> VerListaEsperaAmigos(long invitado)
+        {
+            Tuple<long, long> parejaRetornar = null;
+            foreach (Tuple<long, long> pareja in listaEsperaAmigos)
+            {
+                if (pareja.Item2 == invitado)
+                {
+                    parejaRetornar = pareja;
+                }
+            }
+            return parejaRetornar;
         }
     }
 }

@@ -127,6 +127,7 @@ namespace ConsoleApplication
 
             segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new AyudaHandler(new MenuHandler(null))));
 
+
             tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
 
             cuartoHandler = new PosicionarHandler(new RendirseHandler(null));

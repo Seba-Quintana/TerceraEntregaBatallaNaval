@@ -184,7 +184,7 @@ namespace ClassLibrary
         /// <param name="jugador1"> jugador 1 </param>
         /// <param name="jugador2"> jugador 2 </param>
         /// <param name="tamano"> tamaño del tablero </param>
-        public static string EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
+        public static bool EmparejarAmigos(int modo, int jugador1, int jugador2, int tamano)
         {
             Emparejamiento emparejamiento = Emparejamiento.Instance();
             AlmacenamientoUsuario jugadorExistente = AlmacenamientoUsuario.Instance();
@@ -194,11 +194,24 @@ namespace ClassLibrary
                 {
                     int[] jugadores = emparejamiento.EmparejarAmigos(modo, jugador1, jugador2);
                     CrearPartida(tamano, modo, jugadores);
-                    return "Emparejamiento completado";
+                    return true;
                 }
             }
-            return "No se ha podido efectuar el emparejamiento";
+            return false;
         }
+
+        public static void anadirListaEsperaAmigos(long jugador, long invitado)
+        {
+            Emparejamiento visualizador = Emparejamiento.Instance();
+            visualizador.AnadirAmigosAEspera(jugador, invitado);
+        }
+        public static long VerListaEsperaAmigos(long jugador)
+        {
+            Emparejamiento visualizador = Emparejamiento.Instance();
+            Tuple<long, long> jugadores = visualizador.VerListaEsperaAmigos(jugador);
+            return jugadores.Item2;
+        }
+
         /// <summary>
         /// Pide a Emparejamiento remover un usuario de la lista de espera y manda el mensaje correspondiente a impresora.
         /// </summary>
