@@ -257,18 +257,18 @@ namespace ClassLibrary
                     if (this.cantidadDeBarcosParaPosicionar[0] == 0)
                     {
                         this.posicionamientoTerminado[0] = true;
-                        respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
+                        respuesta += $"\nHas posicionado todas las casillas de barcos que tenias disponibles en esta partida";
                     }
                     
                     else
                     {
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]} barcos para pocicionar";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[0]} casilla/s de barco/s para posicionar";
                     }
                     return respuesta;
                 }
                 else
                 {
-                    return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[0]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                    return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[0]} casilla/s para poner barcos, una cantidad inferior a el tamaño del barco que quiso colocar";
                 }
                 
             
@@ -294,18 +294,18 @@ namespace ClassLibrary
                     if (this.cantidadDeBarcosParaPosicionar[1] == 0)
                     {
                         this.posicionamientoTerminado[1] = true;
-                        respuesta += $"\nHas posicionado todos Los barcos que tenias disponibles en esta partida";
+                        respuesta += $"\nHas posicionado todas las casillas de barcos que tenias disponibles en esta partida";
                     }
                     
                     else
                     {
-                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]} barcos para pocicionar";
+                        respuesta += $"\nLe quedan {this.cantidadDeBarcosParaPosicionar[1]} casilla/s de barco/s para posicionar";
                     }
                     return respuesta;
                 }
                 else
                 {
-                    return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[1]} lugar/es para poner barcos, una cantidad inferior a el tamaño del barco que quiso poner";
+                    return $"No se añadio su barco ya que le quedan {this.cantidadDeBarcosParaPosicionar[1]} casilla/s para poner barcos, una cantidad inferior a el tamaño del barco que quiso colocar";
                 }
                 
             }
