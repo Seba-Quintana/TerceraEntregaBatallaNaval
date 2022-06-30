@@ -1,4 +1,5 @@
 using Telegram.Bot.Types;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ClassLibrary
@@ -25,13 +26,18 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
+            respuesta = string.Empty;
             if (this.CanHandle(mensaje))
             {
-                respuesta = "";
+                long IDdeljugador = mensaje.Chat.Id;
+                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                List <PerfilUsuario> ranking = almacenamiento.ObtenerRanking();
+                Planificador.VerRanking();
+                respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas. ";
                 return true;
             }
 
-            respuesta = string.Empty;
+            respuesta = "No hay jugadores en el Ranking";
             return false;
         }
     }
