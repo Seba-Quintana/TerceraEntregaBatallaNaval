@@ -70,12 +70,12 @@ namespace ClassLibrary
         {
             foreach (Partida partida in partidas)
             {
-                if(partida.jugadores[0] == numeroDeJugador)
+                if(partida.Jugadores[0] == numeroDeJugador)
                 {
                     return partida;
                     
                 }
-                else if (partida.jugadores[1] == numeroDeJugador)
+                else if (partida.Jugadores[1] == numeroDeJugador)
                 {
                     return partida;
                 }
@@ -92,17 +92,39 @@ namespace ClassLibrary
         {
             foreach (Partida partida in partidas)
             {
-                if(partida.jugadores[0] == numeroDeJugador)
+                if(partida.Jugadores[0] == numeroDeJugador)
                 {
                     return true;
                     
                 }
-                else if (partida.jugadores[1] == numeroDeJugador)
+                else if (partida.Jugadores[1] == numeroDeJugador)
                 {
                     return true;
                 }
             }
             return false;
+        }
+        /// <summary>
+        /// Metodo creado con el objetivo de obtener el NumeroDeJugador del oponente
+        /// de un jugador que consulta.
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <returns></returns>
+        public int ObtenerNumOponente (int numeroDeJugador)
+        {
+            foreach (Partida partida in partidas)
+            {
+                if(partida.Jugadores[0] == numeroDeJugador)
+                {
+                    return partida.Jugadores[1];
+                    
+                }
+                else if (partida.Jugadores[1] == numeroDeJugador)
+                {
+                    return partida.Jugadores[0];
+                }
+            }
+            return 0;
         }
     }
 }

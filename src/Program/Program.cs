@@ -125,11 +125,12 @@ namespace ConsoleApplication
 
             primerHandler = new RegistrarHandler(null);
 
-            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new ConfirmarBusquedaHandler(new BuscarPartidaAmistosaHandler(new VerPerfilHandler(null)))));
+            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new AyudaHandler(new MenuHandler(null))));
 
-            //tercerHandler =  new SalirColaDeEsperaHandler(null);
-            //mete en el tercer la cola seba
-            //cuartoHandler = new PosicionarHandler(Rendirse(null));
+
+            tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
+
+            cuartoHandler = new PosicionarHandler(new RendirseHandler(null));
 
             //quintoHandler = new AtacarHandler(Rendirse(null));
        
@@ -153,6 +154,7 @@ namespace ConsoleApplication
 
             // Esperamos a que el usuario aprete Enter en la consola para terminar el bot.
             Console.ReadLine();
+
 
             // Terminamos el bot.
             cts.Cancel();

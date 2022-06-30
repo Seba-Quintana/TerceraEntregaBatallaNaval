@@ -22,6 +22,7 @@ namespace Tests
         {
             this.partida = new PartidaRapida(9, 1, 2);
         }
+        /*
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla fuera de turno no se realiza el ataque.
         /// </summary>
@@ -145,7 +146,7 @@ namespace Tests
             Assert.AreEqual(expected, tablero.VerCasilla(7,5));
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
-        }
+        }*/
     }
 }
 
