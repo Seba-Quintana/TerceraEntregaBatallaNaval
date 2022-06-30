@@ -25,6 +25,12 @@ namespace ClassLibrary
             this.Keywords = new string[] {"/BuscarPartida"};
         }
 
+		/// <summary>
+		/// Determina si este "handler" puede procesar el mensaje.
+		/// </summary>
+		/// <param name="message"> mensaje a procesar </param>
+		/// <returns> Devuelve base.CanHandler si el usuario tiene estado,
+        /// de lo contrario devuelve false </returns>
 		protected override bool CanHandle(Message message)
         {
             if (!HistoriaLocal.ContainsKey(message.Chat.Id))

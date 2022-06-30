@@ -10,6 +10,13 @@ namespace ClassLibrary
     /// </summary>
     public class ConfirmarBusquedaHandler : BaseHandler
     {
+        /// <summary>
+        /// Diccionario que almacena los mensajes ingresados por cada uno
+        /// de los jugadores que se encuentran en esta etapa.
+        /// </summary>
+        /// <typeparam name="long"> Id del jugador </typeparam>
+        /// <typeparam name="string[]"> ultimo mensaje ingresado </typeparam>
+        /// <returns></returns>
 		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
         /// <summary>
@@ -21,6 +28,12 @@ namespace ClassLibrary
             this.Keywords = new string[] {"/BuscarPartidaAmistosa"};
         }
 
+        /// <summary>
+        /// Determina si este "handler" puede procesar el mensaje.
+        /// </summary>
+        /// <param name="message"> mensaje a procesar </param>
+        /// <returns> Devuelve base.CanHandler si el usuario tiene estado,
+        /// de lo contrario devuelve false </returns>
 		protected override bool CanHandle(Message message)
         {
             if (!HistoriaLocal.ContainsKey(message.Chat.Id))
