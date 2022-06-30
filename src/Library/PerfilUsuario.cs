@@ -6,24 +6,14 @@ namespace ClassLibrary
     /// <summary>
     /// Esta clase almacena el perfil de un usuario.
     /// Implementa la interfaz ICloneable para poder crear una copia superficial de un perfil. 
+    /// Metodos publicos para poder serializar
     /// </summary>
     public class PerfilUsuario:ICloneable
     {
         /// <summary>
         /// Nombre del jugador
         /// </summary>
-        private string nombre;
-        /// <summary>
-        /// Atributo encargado de mostrar el nombre del perfil de usuario del jugador.
-        /// </summary>
-        /// <value></value>
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-        }
+        public string Nombre;
         /// <summary>
         /// Identificación del jugador otorgada por el bot
         /// </summary>
@@ -31,7 +21,7 @@ namespace ClassLibrary
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
-        private string contrasena;
+        public string Contrasena;
         /// <summary>
         /// Identificación numerica del jugador
         /// </summary>
@@ -39,38 +29,17 @@ namespace ClassLibrary
         /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
-        private int ganadas = 0;
-        /// <summary>
-        /// Atributo encargado de mostrar la cantidad de partidas ganadas.
-        /// </summary>
-        /// <value></value>
-        public int Ganadas
-        {
-            get
-            {
-                return ganadas;
-            }
-        }
+        public int Ganadas;
 
         /// <summary>
         /// Cantidad de partidas perdidas
         /// </summary>
-        private int perdidas = 0;
-        /// <summary>
-        /// Atributo encargado de mostrar la cantidad de partidas perdidas.
-        /// </summary>
-        /// <value></value>
-        public int Perdidas
-        {
-            get
-            {
-                return perdidas;
-            }
-        } 
+        public int Perdidas;
+
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        private List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
+        public List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
         /// </summary>
@@ -85,14 +54,16 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="Nombre"></param>
         /// <param name="ID"></param>
-        /// <param name="Contrasena"></param>
+        /// <param name="contrasena"></param>
         /// <param name="NumeroDeJugador"></param>
-        public PerfilUsuario (string Nombre, long ID, string Contrasena, int NumeroDeJugador)
+        public PerfilUsuario (string Nombre, long ID, string contrasena, int NumeroDeJugador)
         {
-            this.nombre = Nombre;
+            this.Nombre = Nombre;
             this.ID = ID;
-            this.contrasena = Contrasena;
+            this.Contrasena = contrasena;
             this.NumeroDeJugador = NumeroDeJugador;
+            this.Ganadas = 0;
+            this.Perdidas = 0;
         }
         /// <summary>
         /// Añade partidas al historial personal del usuario
@@ -102,11 +73,11 @@ namespace ClassLibrary
         {
             if (partida.Ganador == NumeroDeJugador)
             {
-                ganadas++;
+                Ganadas++;
             }
             else
             {
-                perdidas++;
+                Perdidas++;
             }
             this.HistorialPersonal.Add(partida);
         }
