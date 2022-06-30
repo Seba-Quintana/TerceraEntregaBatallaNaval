@@ -51,7 +51,7 @@ namespace ClassLibrary
                 UsersHistory historia = UsersHistory.Instance();
                 if (!HistoriaLocal.ContainsKey(IDdeljugador))
                 {
-                    HistoriaLocal.Add(IDdeljugador, new string[2]);
+                    HistoriaLocal.Add(IDdeljugador, new string[3]);
                     respuesta = "Indique el modo de juego: \n";
                     return true;
                 }
@@ -72,8 +72,6 @@ namespace ClassLibrary
                     if (emparejado==null)
                     {
 						respuesta = "Buscando partida... \n";
-                        HistoriaLocal.Remove(IDdeljugador);
-                        Estados.AvanzarEstados(IDdeljugador,1);
                     }
 					else
                     {
@@ -82,11 +80,21 @@ namespace ClassLibrary
                         AlmacenamientoUsuario almacenamientodeUsuarios = AlmacenamientoUsuario.Instance();
                         int IntJugadorEnemigo = emparejado[0];
                         long IDJugadorEnemigo = almacenamientodeUsuarios.ConversorNumaID(IntJugadorEnemigo);
-                        bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \n");
+                        bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \n Presione /Posicionar para posicionar un barco");
                         HistoriaLocal.Remove(IDdeljugador);
-                        Estados.AvanzarEstados(IDdeljugador,2);
+                        Estados.AvanzarEstados(IDdeljugador,1);
                         Estados.AvanzarEstados(IDJugadorEnemigo,1);
-                    }	
+                    }
+					return true;
+				}
+				else if (HistoriaLocal[IDdeljugador][2] == null)
+				{
+					if (mensaje.Text == "/SalirEmparejamiento")
+					{
+						HistoriaLocal.Remove(IDdeljugador);
+						return false;
+					}
+					respuesta = "Buscando partida... \n Si desea salir del emparejamiento, presione /SalirEmparejamiento \n";
 					return true;
 				}
             }
