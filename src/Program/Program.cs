@@ -132,7 +132,7 @@ namespace ConsoleApplication
 
             cuartoHandler = new PosicionarHandler(new RendirseHandler(null));
 
-            //quintoHandler = new AtacarHandler(Rendirse(null));
+            quintoHandler = new AtacarHandler(new RendirseHandler(null));
        
 
             var cts = new CancellationTokenSource();

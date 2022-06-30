@@ -82,7 +82,7 @@ namespace ClassLibrary
                         EstadoLocal[IDDelJugador][1] = mensaje.Text;
                         string ResultadoPosicionamiento = Planificador.Posicionar(EstadoLocal[IDDelJugador][0] , EstadoLocal[IDDelJugador][1], numdelJugador);
                         respuesta += ResultadoPosicionamiento;
-                        respuesta += $"\n{Planificador.ObtenerTableroTelegram(numdelJugador)}";
+                        respuesta += $"\n{Planificador.ObtenerTableroPropio(numdelJugador)}";
                         this.EstadoLocal[IDDelJugador][0] = null;
                         this.EstadoLocal[IDDelJugador][1] = null;
                         if (Planificador.PosicionamientoFinalizado(numdelJugador))
