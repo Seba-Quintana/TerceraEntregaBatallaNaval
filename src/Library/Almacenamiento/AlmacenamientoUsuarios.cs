@@ -254,5 +254,28 @@ namespace ClassLibrary
             }
             return 0;
         }
+
+        /// <summary>
+        /// Se fija si un usuario existe, y de existir devuelve true
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <param name="nombre"></param>
+        /// <param name="contrasena"></param>
+        /// <returns></returns>
+        public bool InicioSesion(int numeroDeJugador, string nombre, string contrasena)
+        {
+            PerfilUsuario jugador = ObtenerPerfil(numeroDeJugador);
+            foreach (PerfilUsuario perfil in listaDeUsuarios)
+            {
+                if (perfil.Nombre == nombre)
+                {
+                    if (perfil.Contrasena == contrasena)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
