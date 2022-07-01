@@ -26,18 +26,26 @@ namespace ClassLibrary
             {
                 respuesta += ("TABLERO OPONENTE\n");
             }
-            string filaImprimir = "  ";
-            List<string> letras = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O" };
+            string filaImprimir = "   ";
+            List<string> letras = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", " I", "J", "K", "L", "M", "N", "O" };
             respuesta += "\n";
             for (int i = 0; i < tablero.GetLength(1); i++)
             {
-                if (i < 10)
+                if (i < 5)
                 {
-                    filaImprimir = filaImprimir + $" {i + 1} ";
+                    filaImprimir = filaImprimir + $"  {i + 1}";
+                }
+                else if (i == 5)
+                {
+                    filaImprimir = filaImprimir + $"   {i + 1}";
+                }
+                else if (i < 10)
+                {
+                    filaImprimir = filaImprimir + $"  {i + 1}";
                 }
                 else
                 {
-                    filaImprimir = filaImprimir + $"{i + 1} ";
+                    filaImprimir = filaImprimir + $" {i + 1} ";
                 }
             }
             respuesta += ($"{filaImprimir}\n");

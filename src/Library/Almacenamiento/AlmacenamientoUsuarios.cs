@@ -216,6 +216,12 @@ namespace ClassLibrary
             }
             return ranking;
         }
+
+        /// <summary>
+        /// Se fija si un usuario existe o no
+        /// </summary>
+        /// <param name="iDdelUsuario"> ID del usuario </param>
+        /// <returns> devuelve true de existir el usuario, y de lo contrario false </returns>
         public bool ExisteUsuario(long iDdelUsuario)
         {
             foreach(PerfilUsuario perfil in ListaDeUsuarios)
@@ -227,6 +233,12 @@ namespace ClassLibrary
             }
             return false;
         }
+
+        /// <summary>
+        /// Convierte la ID de un usuario a su respectivo numero de jugador
+        /// </summary>
+        /// <param name="iDdelUsuario"> ID del usuario</param>
+        /// <returns> numero de jugador del usuario </returns>
         public int ConversorIDaNum(long iDdelUsuario)
         {
             foreach(PerfilUsuario perfil in ListaDeUsuarios)
@@ -238,6 +250,12 @@ namespace ClassLibrary
             }
             return 0;
         }
+
+        /// <summary>
+        /// Convierte el numero de jugador de un usuario a su respectiva ID
+        /// </summary>
+        /// <param name="numdelUsuario"> numero del jugador </param>
+        /// <returns> ID del jugador </returns>
         public long ConversorNumaID(int numdelUsuario)
         {
             foreach(PerfilUsuario perfil in ListaDeUsuarios)
@@ -249,6 +267,30 @@ namespace ClassLibrary
             }
             return 0;
         }
+        
+        /// <summary>
+        /// Se fija si un usuario existe, y de existir devuelve true
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <param name="nombre"></param>
+        /// <param name="contrasena"></param>
+        /// <returns></returns>
+        public bool InicioSesion(int numeroDeJugador, string nombre, string contrasena)
+        {
+            PerfilUsuario jugador = ObtenerPerfil(numeroDeJugador);
+            foreach (PerfilUsuario perfil in listaDeUsuarios)
+            {
+                if (perfil.Nombre == nombre)
+                {
+                    if (perfil.Contrasena == contrasena)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
         public string SerializarUsuarios()
         {
             
@@ -274,5 +316,7 @@ namespace ClassLibrary
                 this.ListaDeUsuarios.Add(usuario);
             }
         }
+
+       
     }
 }

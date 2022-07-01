@@ -27,6 +27,7 @@ namespace ClassLibrary
         /// </summary>
         [JsonInclude]
         public string Contrasena;
+
         /// <summary>
         /// Identificación numerica del jugador
         /// </summary>
