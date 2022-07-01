@@ -45,7 +45,7 @@ namespace ClassLibrary
                     if (HistoriaLocal[IDdeljugador][1] == null)
                     {
 						HistoriaLocal[IDdeljugador][1] = mensaje.Text;
-						respuesta = "Indique su contraseña :";
+						respuesta = "Indique su contraseña: ";
 						return true;
                     }
                     else if (HistoriaLocal[IDdeljugador][2] == null)
@@ -53,7 +53,10 @@ namespace ClassLibrary
 						HistoriaLocal[IDdeljugador][2] = mensaje.Text;
 						AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
 						if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDdeljugador), HistoriaLocal[IDdeljugador][1], HistoriaLocal[IDdeljugador][2]))
-							respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \n";
+						{
+							HistoriaLocal.Remove(IDdeljugador);
+							respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \n Presione /InicioSesion";
+						}
 						else
 						{
 							respuesta += "Bienvenido, cazador de barcos. Presiona /Menu para ver los comandos disponibles \n";
