@@ -33,7 +33,7 @@ namespace ClassLibrary
         
         public void ReiniciarEstados(long ID)
         {
-            this.EstadosDeJugadores[ID]=0;
+            this.EstadosDeJugadores[ID]=1;
         }
         public void AvanzarEstados(long ID, int estadosAAvanzar)
         {
