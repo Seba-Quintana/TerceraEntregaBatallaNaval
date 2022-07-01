@@ -27,7 +27,7 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
-                respuesta = "Comandos: \n /Remover \n /VerPerfil \n /VerRanking \n /VerHistorial \n /VerHistorialPersonal \n /VisualizarTableros \n /BuscarPartida \n /BuscarPartidaAmistosa \n /ConfirmarBusquedaDePartida \n /Ayuda";
+                respuesta = "Comandos: \n /Remover \n /VerPerfil \n /VerRanking \n /VerHistorial \n /VerHistorialPersonal \n /VisualizarTableros \n /BuscarPartida \n /BuscarPartidaAmistosa \n Para mas informacion, presione: /Ayuda";
                 return true;
             }
 
