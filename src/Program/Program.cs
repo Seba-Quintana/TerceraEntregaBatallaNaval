@@ -12,6 +12,9 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
+using System.Text.Json;
+using System.IO;
+using System.Linq;
 
 namespace ConsoleApplication
 {
@@ -104,29 +107,21 @@ namespace ConsoleApplication
         /// </summary>
         public static void Main(string[] args)
         {
+            AlmacenamientoUsuario UsuariosGuardados = AlmacenamientoUsuario.Instance();
             Start();
 
             Bot = SingletonBot.Instance(token); 
+            if (System.IO.File.Exists(@"Usuarios.json"))
+            {
+                
+                UsuariosGuardados.LoadFromJson(@"Usuarios.json");
+            }
 
-            /*new ConfirmarBusquedaHandler();
-            new BuscarPartidaAmistosaHandler();
-                new BuscarPartidaHandler();
-                    new VisualizarTableroHandler();
-                        new VerHistorialPersonalHandler();
-                            new VerHistorialHandler();
-                                new VisualizarRankingHandler();
-                                    new VerPerfilHandler();
-                                        new RemoverHandler();
-                                            new InicioSesionHandler();
-                                                new MenuHandler(
-                                                    new RemoverHandler(
-                                                        new VerPerfilHandler(*/
             inicialHandler = new ComenzarHandler(null);
 
             primerHandler = new RegistrarHandler(null);
 
             segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new SalirEmparejamientoHandler(new AyudaHandler(new MenuHandler(null)))));
-
 
             tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
 
@@ -155,6 +150,7 @@ namespace ConsoleApplication
             // Esperamos a que el usuario aprete Enter en la consola para terminar el bot.
             Console.ReadLine();
 
+            System.IO.File.WriteAllText(@"Usuarios.json", UsuariosGuardados.SerializarUsuarios());
 
             // Terminamos el bot.
             cts.Cancel();
