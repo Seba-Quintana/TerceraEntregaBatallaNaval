@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ClassLibrary
 {
@@ -62,5 +64,30 @@ namespace ClassLibrary
         jugador2.AgregarAlHistorial(partida);
         partidas.Add(partida);
       }
+      public string SerializarUsuarios()
+        {
+            
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = MyReferenceHandler.Instance,
+                WriteIndented = true
+            };
+            string usuarios= JsonSerializer.Serialize<List<DatosdePartida>>(partidas,options);
+            return usuarios;
+        }
+        public void LoadFromJson(string rutaDeArchivo)
+        {
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = MyReferenceHandler.Instance,
+                WriteIndented = true
+            };
+            string json = System.IO.File.ReadAllText(rutaDeArchivo);
+            List<DatosdePartida> listavieja = JsonSerializer.Deserialize<List<DatosdePartida>>(json, options);
+            foreach (DatosdePartida partidasviejas in listavieja)
+            {
+              this.partidas.Add(partidasviejas);
+            }
+        }
     }
 }

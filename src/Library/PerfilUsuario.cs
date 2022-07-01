@@ -1,87 +1,55 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ClassLibrary
 {
     /// <summary>
     /// Esta clase almacena el perfil de un usuario.
     /// Implementa la interfaz ICloneable para poder crear una copia superficial de un perfil. 
+    /// Metodos publicos para poder serializar
     /// </summary>
-    public class PerfilUsuario:ICloneable
+    public class PerfilUsuario:ICloneable 
     {
         /// <summary>
         /// Nombre del jugador
         /// </summary>
-        private string nombre;
-        /// <summary>
-        /// Atributo encargado de mostrar el nombre del perfil de usuario del jugador.
-        /// </summary>
-        /// <value></value>
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-        }
+        [JsonInclude]
+        public string Nombre;
         /// <summary>
         /// Identificación del jugador otorgada por el bot
         /// </summary>
+        [JsonInclude]
         public long ID;
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
-        private string contrasena;
-        
-        /// <summary>
-        /// getter contraseña
-        /// </summary>
-        public string Contrasena
-        {
-            get
-            {
-                return contrasena;
-            }
-        }
+        [JsonInclude]
+        public string Contrasena;
+
         /// <summary>
         /// Identificación numerica del jugador
         /// </summary>
+        [JsonInclude]
         public int NumeroDeJugador;
         /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
-        private int ganadas = 0;
-        /// <summary>
-        /// Atributo encargado de mostrar la cantidad de partidas ganadas.
-        /// </summary>
-        /// <value></value>
-        public int Ganadas
-        {
-            get
-            {
-                return ganadas;
-            }
-        }
+        [JsonInclude]
+        public int Ganadas;
 
         /// <summary>
         /// Cantidad de partidas perdidas
         /// </summary>
-        private int perdidas = 0;
-        /// <summary>
-        /// Atributo encargado de mostrar la cantidad de partidas perdidas.
-        /// </summary>
-        /// <value></value>
-        public int Perdidas
-        {
-            get
-            {
-                return perdidas;
-            }
-        } 
+        [JsonInclude]
+        public int Perdidas;
+
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        private List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
+        [JsonInclude]
+        public List<DatosdePartida> HistorialPersonal;
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
         /// </summary>
@@ -90,20 +58,27 @@ namespace ClassLibrary
         {
             return this.MemberwiseClone();
         }
+        [JsonConstructor]
+        public PerfilUsuario ()
+        {
+        }
 
         /// <summary>
         /// Constructor del perfil de usuario.
         /// </summary>
-        /// <param name="Nombre"></param>
+        /// <param name="nombre"></param>
         /// <param name="ID"></param>
-        /// <param name="Contrasena"></param>
-        /// <param name="NumeroDeJugador"></param>
-        public PerfilUsuario (string Nombre, long ID, string Contrasena, int NumeroDeJugador)
+        /// <param name="contrasena"></param>
+        /// <param name="numeroDeJugador"></param>
+        public PerfilUsuario (string nombre, long ID, string contrasena, int numeroDeJugador)
         {
-            this.nombre = Nombre;
+            this.Nombre = nombre;
             this.ID = ID;
-            this.contrasena = Contrasena;
-            this.NumeroDeJugador = NumeroDeJugador;
+            this.Contrasena = contrasena;
+            this.NumeroDeJugador = numeroDeJugador;
+            this.Ganadas = 0;
+            this.Perdidas = 0;
+            this.HistorialPersonal = new List<DatosdePartida>();
         }
         /// <summary>
         /// Añade partidas al historial personal del usuario
@@ -113,11 +88,11 @@ namespace ClassLibrary
         {
             if (partida.Ganador == NumeroDeJugador)
             {
-                ganadas++;
+                Ganadas++;
             }
             else
             {
-                perdidas++;
+                Perdidas++;
             }
             this.HistorialPersonal.Add(partida);
         }
@@ -144,5 +119,6 @@ namespace ClassLibrary
             }
             return historial;
         }
+        
     }
 }
