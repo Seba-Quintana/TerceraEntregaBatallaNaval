@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ClassLibrary
 {
@@ -8,32 +10,38 @@ namespace ClassLibrary
     /// Implementa la interfaz ICloneable para poder crear una copia superficial de un perfil. 
     /// Metodos publicos para poder serializar
     /// </summary>
-    public class PerfilUsuario:ICloneable
+    public class PerfilUsuario:ICloneable 
     {
         /// <summary>
         /// Nombre del jugador
         /// </summary>
+        [JsonInclude]
         public string Nombre;
         /// <summary>
         /// Identificación del jugador otorgada por el bot
         /// </summary>
+        [JsonInclude]
         public long ID;
         /// <summary>
         /// Contraseña del usuario
         /// </summary>
+        [JsonInclude]
         public string Contrasena;
         /// <summary>
         /// Identificación numerica del jugador
         /// </summary>
+        [JsonInclude]
         public int NumeroDeJugador;
         /// <summary>
         /// Cantidad de partidas ganadas
         /// </summary>
+        [JsonInclude]
         public int Ganadas;
 
         /// <summary>
         /// Cantidad de partidas perdidas
         /// </summary>
+        [JsonInclude]
         public int Perdidas;
 
         /// <summary>
@@ -48,20 +56,24 @@ namespace ClassLibrary
         {
             return this.MemberwiseClone();
         }
+        [JsonConstructor]
+        public PerfilUsuario ()
+        {
+        }
 
         /// <summary>
         /// Constructor del perfil de usuario.
         /// </summary>
-        /// <param name="Nombre"></param>
+        /// <param name="nombre"></param>
         /// <param name="ID"></param>
         /// <param name="contrasena"></param>
-        /// <param name="NumeroDeJugador"></param>
-        public PerfilUsuario (string Nombre, long ID, string contrasena, int NumeroDeJugador)
+        /// <param name="numeroDeJugador"></param>
+        public PerfilUsuario (string nombre, long ID, string contrasena, int numeroDeJugador)
         {
-            this.Nombre = Nombre;
+            this.Nombre = nombre;
             this.ID = ID;
             this.Contrasena = contrasena;
-            this.NumeroDeJugador = NumeroDeJugador;
+            this.NumeroDeJugador = numeroDeJugador;
             this.Ganadas = 0;
             this.Perdidas = 0;
         }
@@ -104,5 +116,6 @@ namespace ClassLibrary
             }
             return historial;
         }
+        
     }
 }
