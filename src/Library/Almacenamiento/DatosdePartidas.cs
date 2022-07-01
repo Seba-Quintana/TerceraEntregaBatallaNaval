@@ -11,7 +11,7 @@ namespace ClassLibrary
         /// <summary>
         /// Lugar donde se almacenan los tableros.
         /// </summary>
-        public Tablero[] Tableros = new Tablero[2];
+        public Tablero[] Tableros;
         /// <summary>
         /// Lugar donde se almacenan los jugadores.
         /// </summary>
@@ -38,6 +38,7 @@ namespace ClassLibrary
             almacenarTableros(tablerosParaAgregar);
             almacenarJugador(tablerosParaAgregar[0].DuenodelTablero);
             almacenarJugador(tablerosParaAgregar[1].DuenodelTablero);
+            Jugadores = new int[2];     
             Jugadores[0] = tablerosParaAgregar[0].DuenodelTablero;
             Jugadores[1] = tablerosParaAgregar[1].DuenodelTablero;
             Tiradas = jugadas;
@@ -61,6 +62,10 @@ namespace ClassLibrary
         /// <param name="tablerosParaAgregar"></param>
         private void almacenarTableros(Tablero[] tablerosParaAgregar)
         {
+            if (Tableros == null)
+            {
+                Tableros = new Tablero[2];   
+            }
             Tableros = tablerosParaAgregar;
 
         }
