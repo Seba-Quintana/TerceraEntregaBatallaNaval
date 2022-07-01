@@ -176,12 +176,24 @@ namespace ClassLibrary
             return Amigos;
         }
 
+        /// <summary>
+        /// Añade a los jugadores como tupla a una
+        /// lista de espera de confirmacion para partidas amistosas
+        /// </summary>
+        /// <param name="anfitrion"> jugador que invita </param>
+        /// <param name="invitado"> jugador invitado </param>
         public void AnadirAmigosAEspera(long anfitrion, long invitado)
         {
             Tuple<long, long> jugadores = new Tuple<long, long>(anfitrion, invitado);
             this.listaEsperaAmigos.Add(jugadores);
         }
 
+        /// <summary>
+        /// Remueve a los jugadores de la
+        /// lista de espera de confirmacion para partidas amistosas
+        /// </summary>
+        /// <param name="anfitrion"> jugador que invita </param>
+        /// <param name="invitado"> jugador invitado </param>
         public void RemoverAmigosDeEspera(long anfitrion, long invitado)
         {
             Tuple<long, long> jugadores = new Tuple<long, long>(anfitrion, invitado);
@@ -191,6 +203,11 @@ namespace ClassLibrary
             }
         }
 
+        /// <summary>
+        /// Se fija quien es el rival de un usuario en el contexto de una partida amistosa
+        /// </summary>
+        /// <param name="invitado"> jugador invitado </param>
+        /// <returns> pareja de jugadores (tupla) </returns>
         public Tuple<long, long> VerListaEsperaAmigos(long invitado)
         {
             Tuple<long, long> parejaRetornar = null;

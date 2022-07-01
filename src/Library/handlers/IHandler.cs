@@ -11,7 +11,7 @@ namespace ClassLibrary
     /// <remarks>
     /// La interfaz se crea en función del principio de inversión de dependencias, para que los clientes de la cadena de
     /// responsabilidad, que pueden ser concretos, no dependan de una clase "handler" que potencialmente es abstracta.
-    /// <remarks/>
+    /// </remarks>
     /// </summary>
     public interface IHandler
     {
