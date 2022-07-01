@@ -315,15 +315,27 @@ namespace ClassLibrary
             return juego.PosicionamientoFinalizado(jugador);
         }
         /// <summary>
-        /// Responsable de enviar la matriz del tablero a los handlers.
+        /// Responsable de enviar un string que contiene la matriz del tablero a los handlers.
         /// </summary>
         /// <param name="jugador"></param>
         /// <returns></returns>
-        public static string ObtenerTableroTelegram(int jugador)
+        public static string ObtenerTableroPropio(int jugador)
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             char[,] tableroPropio = buscador.ObtenerTablero(jugador);
             string tableroParaImprimir = Mensajes.ImprimirTablero(tableroPropio, true);
+            return tableroParaImprimir;
+        }
+        /// <summary>
+        /// Responsable de enviar un string que contiene la matriz del tablero del oponente a los handlers.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static string ObtenerTableroOponente(int jugador)
+        {
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+            char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
+            string tableroParaImprimir = Mensajes.ImprimirTablero(tableroOponente, false);
             return tableroParaImprimir;
         }
         /// <summary>
@@ -336,6 +348,11 @@ namespace ClassLibrary
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             return partidas.ObtenerNumOponente(JugadorQueConsulta);
+        }
+        public static bool PartidaFinalizada(int numeroDeJugador)
+        {
+            PartidasEnJuego partida = PartidasEnJuego.Instance();
+            return partida.EstaTerminada(numeroDeJugador);
         }
     }
 }

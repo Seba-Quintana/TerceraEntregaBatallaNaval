@@ -48,7 +48,7 @@ namespace ClassLibrary
                     filaImprimir = filaImprimir + $" {i + 1} ";
                 }
             }
-            respuesta += ($"{filaImprimir}\n");
+            respuesta += ($" {filaImprimir}\n");
             for (int fila = 0; fila < tablero.GetLength(0); fila++)
             {
                 filaImprimir = letras[fila] + " ";

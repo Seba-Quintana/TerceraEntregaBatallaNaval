@@ -126,5 +126,26 @@ namespace ClassLibrary
             }
             return 0;
         }
+        /// <summary>
+        /// Verifica si la partida del jugador esta terminada
+        /// </summary>
+        /// <param name="numeroDeJugador"> Jugador en partida </param>
+        /// <returns> true si la partida esta finalizada y false en caso contrario </returns>
+        public bool EstaTerminada(int numeroDeJugador)
+        {
+            foreach (Partida partida in partidas)
+            {
+                if(partida.Jugadores[0] == numeroDeJugador)
+                {
+                    return partida.PartidaTerminada();                  
+                }
+                else if (partida.Jugadores[1] == numeroDeJugador)
+                {
+                    return partida.PartidaTerminada();
+                }
+            }
+            return false;
+        }
     }
 }
+
