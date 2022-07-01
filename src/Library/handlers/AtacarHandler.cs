@@ -59,7 +59,7 @@ namespace ClassLibrary
                 int NumDelJugadorOponente = Planificador.ObtenerNumOponente(numdelJugador);
                 long IDDelOponente = almacenamiento.ConversorNumaID(NumDelJugadorOponente);
 
-                TelegramBotClient bot = SingletonBot.Instance(null);
+                TelegramBotClient bot = SingletonBot.Instance();
                
                 if (!EstadoLocal.Contains(IDDelJugador))
                 {

@@ -82,7 +82,7 @@ namespace ClassLibrary
 					else
                     {
                 		respuesta = "Partida encontrada! \n";
-                        TelegramBotClient bot = SingletonBot.Instance("a");
+                        TelegramBotClient bot = SingletonBot.Instance();
                         AlmacenamientoUsuario almacenamientodeUsuarios = AlmacenamientoUsuario.Instance();
                         int IntJugadorEnemigo = emparejado[0];
                         long IDJugadorEnemigo = almacenamientodeUsuarios.ConversorNumaID(IntJugadorEnemigo);

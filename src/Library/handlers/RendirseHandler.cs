@@ -33,7 +33,7 @@ namespace ClassLibrary
                 int jugadorRendido = almacenamiento.ConversorIDaNum(IDdeljugadorRendido);
                 int NumOponente = Planificador.ObtenerNumOponente(jugadorRendido);
                 long IDOponente = almacenamiento.ConversorNumaID(NumOponente);
-                TelegramBotClient bot = SingletonBot.Instance(null);
+                TelegramBotClient bot = SingletonBot.Instance();
                 respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
                 UsersHistory estados = UsersHistory.Instance();
                 if (estados.VerEstado(IDdeljugadorRendido) == 3)
