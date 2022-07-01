@@ -47,7 +47,8 @@ namespace ClassLibrary
         /// <summary>
         /// historial del usuario en concreto
         /// </summary>
-        public List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
+        [JsonInclude]
+        public List<DatosdePartida> HistorialPersonal;
         /// <summary>
         /// Metodo de la interfaz ICloneable para crear un clon
         /// </summary>
@@ -76,6 +77,7 @@ namespace ClassLibrary
             this.NumeroDeJugador = numeroDeJugador;
             this.Ganadas = 0;
             this.Perdidas = 0;
+            this.HistorialPersonal = new List<DatosdePartida>();
         }
         /// <summary>
         /// Añade partidas al historial personal del usuario
