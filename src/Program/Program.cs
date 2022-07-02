@@ -13,8 +13,6 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 using System.Text.Json;
-using System.IO;
-using System.Linq;
 
 namespace ConsoleApplication
 {
@@ -108,6 +106,7 @@ namespace ConsoleApplication
         public static void Main(string[] args)
         {
             AlmacenamientoUsuario UsuariosGuardados = AlmacenamientoUsuario.Instance();
+            Historial HistorialGuardado = Historial.Instance();
             Start();
 
             Bot = SingletonBot.Instance(token); 
@@ -116,14 +115,17 @@ namespace ConsoleApplication
                 
                 UsuariosGuardados.LoadFromJson(@"Usuarios.json");
             }
+            if (System.IO.File.Exists(@"HistorialGeneral.json"))
+            {
+                
+                HistorialGuardado.LoadFromJson(@"HistorialGeneral.json");
+            }
 
             inicialHandler = new ComenzarHandler(null);
 
             primerHandler = new RegistrarHandler(null);
 
             segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new SalirEmparejamientoHandler(new AyudaHandler(new MenuHandler(null)))));
-
-            tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
 
             cuartoHandler = new PosicionarHandler(new RendirseHandler(null));
 
@@ -151,6 +153,7 @@ namespace ConsoleApplication
             Console.ReadLine();
 
             System.IO.File.WriteAllText(@"Usuarios.json", UsuariosGuardados.SerializarUsuarios());
+            System.IO.File.WriteAllText(@"HistorialGeneral.json", HistorialGuardado.SerializarUsuarios());
 
             // Terminamos el bot.
             cts.Cancel();
@@ -202,12 +205,9 @@ namespace ConsoleApplication
                         segundoHandler.Handle(message, out response);
                         break;
                     case 2:
-                        tercerHandler.Handle(message, out response);
-                        break;
-                    case 3:
                         cuartoHandler.Handle(message, out response);
                         break;
-                    case 4:
+                    case 3:
                         quintoHandler.Handle(message, out response);
                         break;
                 }
