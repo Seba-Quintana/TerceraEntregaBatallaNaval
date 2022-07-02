@@ -278,7 +278,7 @@ namespace ClassLibrary
         public bool InicioSesion(int numeroDeJugador, string nombre, string contrasena)
         {
             PerfilUsuario jugador = ObtenerPerfil(numeroDeJugador);
-            foreach (PerfilUsuario perfil in listaDeUsuarios)
+            foreach (PerfilUsuario perfil in ListaDeUsuarios)
             {
                 if (perfil.Nombre == nombre)
                 {
