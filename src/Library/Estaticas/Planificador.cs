@@ -19,10 +19,8 @@ namespace ClassLibrary
         /// <param name="contrasena"> contraseña </param>
         public static int Registrar(string nombre, long id, string contrasena)
         {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario registro = AlmacenamientoUsuario.Instance();
             int NumeroDeJugador = registro.Registrar(nombre, id, contrasena);
-            imprimir.RecibirMensajes($"Su numero de jugador es: {NumeroDeJugador}");
             return NumeroDeJugador;
         }
 
@@ -33,7 +31,6 @@ namespace ClassLibrary
         /// <param name="NumeroDeJugador"> numero del jugador a remover</param>
         public static void Remover(int NumeroDeJugador)
         {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
             AlmacenamientoUsuario removedor = AlmacenamientoUsuario.Instance();
             removedor.Remover(NumeroDeJugador);
         }
@@ -46,7 +43,7 @@ namespace ClassLibrary
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             PerfilUsuario perfilDelUsuario = buscador.ObtenerPerfil(usuario);
-            IImpresora imprimir = ImpresoraConsola.Instance();
+            Mensajes imprimir = new Mensajes();
             imprimir.ImprimirPerfilUsuario(perfilDelUsuario);
         }
 
@@ -55,24 +52,22 @@ namespace ClassLibrary
         /// pide mostrar el tablero del oponente.
         /// </summary>
         /// <param name="jugador"> jugador en partida </param>
-        public static void VerTableroOponente(int jugador)
+        public static string VerTableroOponente(int jugador)
         {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            IImprimirTablero imprimir = new ImprimirTableroOponente();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            char[,] tableroOponente = buscador.ObtenerTableroOponente(jugador);
-            if(tableroOponente == null)
-            {
-                imprimir.RecibirMensajes("No se ha podido imprimir el tablero ya que no estas en partida");
-            }
-            else
+            Tablero tableroOponente = buscador.ObtenerTablero(jugador);
+            string respuesta = "No se pudo imprimir el tablero";
+            if(tableroOponente != null)
             {
                 PartidasEnJuego partidas = PartidasEnJuego.Instance();
                 Partida juego = partidas.ObtenerPartida(jugador);
                 if (juego != null)
                 {
-                    imprimir.ImprimirTablero(tableroOponente, false);
+                    respuesta = imprimir.ImprimirTablero(tableroOponente);
                 }
             }
+            return respuesta;
         }
 
         /// <summary>
@@ -80,27 +75,24 @@ namespace ClassLibrary
         /// pide mostrar su propio tablero.
         /// </summary>
         /// <param name="jugador"> jugador en partida </param>
-        public static void VerTablero(int jugador)
+        public static string VerTablero(int jugador)
         {
-            ImpresoraConsola impresora = ImpresoraConsola.Instance();
+            IImprimirTablero impresora = new ImprimirTableroPropio();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            char[,] tableroPropio = buscador.ObtenerTablero(jugador);
-            if(tableroPropio == null)
+            Tablero tableroPropio = buscador.ObtenerTablero(jugador);
+            string respuesta = "No se pudo imprimir el tablero";
+            if(tableroPropio != null)
             {
-                impresora.RecibirMensajes("No se ha podido imprimir el tablero ya que no estas en partida");
+                respuesta = impresora.ImprimirTablero(tableroPropio);
             }
-            else
-            {
-                impresora.ImprimirTablero(tableroPropio, true);
-            }
+            return respuesta;
         }
-
         /// <summary>
         /// Pide mostrar el historial general de todos las partidas jugadas.
         /// </summary>
         public static void VerHistorial()
         {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            Mensajes imprimir = new Mensajes();
             Historial historial = Historial.Instance();
             List<DatosdePartida> historialDePartidas = historial.Partidas;
             imprimir.ImprimirHistorial(historialDePartidas);
@@ -114,7 +106,7 @@ namespace ClassLibrary
         /// <param name="numerodejugador"> historial que se quiere ver</param>
         public static void VerHistorialPersonal(int numerodejugador)
         {
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            Mensajes imprimir = new Mensajes();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             imprimir.ImprimirHistorial(buscador.ObtenerHistorialPersonal(numerodejugador));
         }
@@ -126,7 +118,7 @@ namespace ClassLibrary
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             List<PerfilUsuario> ranking = buscador.ObtenerRanking();
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
+            Mensajes imprimir = new Mensajes();
             imprimir.ImprimirRanking(ranking);
         }
 
@@ -199,7 +191,6 @@ namespace ClassLibrary
             }
             return false;
         }
-
         public static void anadirListaEsperaAmigos(long jugador, long invitado)
         {
             Emparejamiento visualizador = Emparejamiento.Instance();
@@ -211,15 +202,13 @@ namespace ClassLibrary
             Tuple<long, long> jugadores = visualizador.VerListaEsperaAmigos(jugador);
             return jugadores.Item2;
         }
-
         /// <summary>
         /// Pide a Emparejamiento remover un usuario de la lista de espera y manda el mensaje correspondiente a impresora.
         /// </summary>
         public static void removerListaEspera(int usuario)
         {
             Emparejamiento emparejamiento = Emparejamiento.Instance();
-            ImpresoraConsola imprimir = ImpresoraConsola.Instance();
-            imprimir.RecibirMensajes(emparejamiento.RemoverListaEspera(usuario));
+            emparejamiento.RemoverListaEspera(usuario);
         }
         /// <summary>
         /// Metodo para posicionar barcos
@@ -293,18 +282,6 @@ namespace ClassLibrary
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
             return juego.PosicionamientoFinalizado(jugador);
-        }
-        /// <summary>
-        /// Responsable de enviar la matriz del tablero a los handlers.
-        /// </summary>
-        /// <param name="jugador"></param>
-        /// <returns></returns>
-        public static string ObtenerTableroTelegram(int jugador)
-        {
-            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            char[,] tableroPropio = buscador.ObtenerTablero(jugador);
-            string tableroParaImprimir = Mensajes.ImprimirTablero(tableroPropio, true);
-            return tableroParaImprimir;
         }
         /// <summary>
         /// Responsable de enviar el numero de jugador de una partida.
