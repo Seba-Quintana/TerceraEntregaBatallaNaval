@@ -6,7 +6,7 @@ namespace ClassLibrary
     /// <summary>
     /// Envia a los handlers a modo de string todo lo que desee imprimir.
     /// </summary>
-    public class MensajesT
+    public class Mensajes
     {
         /// <summary>
         /// Este metodo forma un string con los datos publicos de los usuarios, 

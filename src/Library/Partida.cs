@@ -10,10 +10,6 @@ namespace ClassLibrary
     public class Partida
     {
         /// <summary>
-        /// Variable encargada de el controlar si se puede empezar a atacar y no se puede posicionar mas.
-        /// /// </summary>
-        protected bool PartidaTerminada;
-        /// <summary>
         /// Variable encargada de controlar si se puede empezar a atacar (no se puede posicionar mas).
         /// /// </summary>
         protected bool[] posicionamientoTerminado = new bool[2];
@@ -119,16 +115,7 @@ namespace ClassLibrary
                     Tablero tablerobjetivo = this.tableros[1];
                     char EstadoDeLaCasillaobjetivo = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
-                    this.tiradas[0]+=1;
-                    
-                    if (tablerobjetivo.terminado)
-                    {
-                        this.PartidaTerminada=true;
-                        respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
-                        this.Finalizar();
-                    }
-                    
+                    this.tiradas[0]+=1;                    
                     return respuesta;
 
                 }
@@ -147,13 +134,6 @@ namespace ClassLibrary
                     char EstadoDeLaCasillaobjetivo = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[1]+=1;
-                    if (tablerobjetivo.terminado)
-                    {
-                        this.PartidaTerminada=true;
-                        respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
-                        this.Finalizar();
-                    }
                     return respuesta;
                 }
                 else
@@ -173,20 +153,20 @@ namespace ClassLibrary
             
             switch (EstadoDeLaCasilla)
             {
-            case 'W':
-                return "Que lastima! has desperdiciado una bala en el agua";
-            case 'T':
-                return "Buen tiro, has atacado a un barco";
-            case 'H':
-                return "Felicitaciones Has hundido un Barco";
-            case 'w':
-                return "La casilla ya habia sido atacada y contiene agua"; 
-            case 't': 
-                return "Has atacado una casilla donde que habia sido atacada anteriormente y contenia una parte de un barco dañado";
-            case 'h':
-                return "Has atacado una casilla donde que habia sido atacada anteriormente y contenia una parte de un barco Hundido";
-            default:
-                return "Ha habido un error";
+                case 'W':
+                    return "Que lastima! has desperdiciado una bala en el agua";
+                case 'T':
+                    return "Buen tiro, has atacado a un barco";
+                case 'H':
+                    return "Felicitaciones has hundido un barco";
+                case 'w':
+                    return "La casilla ya había sido atacada y contiene agua"; 
+                case 't': 
+                    return "Has atacado una casilla donde que había sido atacada anteriormente y contenía una parte de un barco dañado";
+                case 'h':
+                    return "Has atacado una casilla donde que había sido atacada anteriormente y contenía una parte de un barco Hundido";
+                default:
+                    return "Ha habido un error";
             }
 
         }
@@ -422,6 +402,26 @@ namespace ClassLibrary
                 return posicionamientoTerminado[1];
             }
             
+        }
+        /// <summary>
+        /// Se encarga de finalizar la partida y devuelve un bool
+        /// </summary>
+        /// <returns></returns>
+        public bool PartidaTerminada()
+        {
+            if (tableros[0].terminado)
+            {
+                LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
+                this.Finalizar();
+                return true;
+            }
+            else if (tableros[1].terminado)
+            {
+                LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
+                this.Finalizar();
+                return true;
+            }
+            return false;
         }
     }
 }

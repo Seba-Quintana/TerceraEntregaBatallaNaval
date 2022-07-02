@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
 using System.Collections.Generic;
+using System;
 
 namespace ClassLibrary
 {
@@ -22,6 +23,12 @@ namespace ClassLibrary
             this.Keywords = new string[] { "/Registrar" };
         }
 
+        /// <summary>
+		/// Determina si este "handler" puede procesar el mensaje.
+		/// </summary>
+		/// <param name="message"> mensaje a procesar </param>
+		/// <returns> Devuelve base.CanHandler si el usuario tiene estado,
+        /// de lo contrario devuelve false </returns>
         protected override bool CanHandle(Message message)
         {
             if (!HistoriaLocal.ContainsKey(message.Chat.Id))
@@ -41,28 +48,30 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-                long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory historia = UsersHistory.Instance();
-                if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
                 {
-                    HistoriaLocal.Add(IDdeljugador, new string[3]);
-                    HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-                    respuesta = "Indique su nombre :";
-                    return true;
-                }
-                else
-                {
-                    if (HistoriaLocal[IDdeljugador][1] == null)
+                    long IDdeljugador = mensaje.Chat.Id;
+                    UsersHistory historia = UsersHistory.Instance();
+                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
                     {
+                        HistoriaLocal.Add(IDdeljugador, new string[3]);
+                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        respuesta = "Indique su nombre :";
+                        return true;
+                    }
+                    else
+                    {
+                        if (HistoriaLocal[IDdeljugador][1] == null)
+                        {
                             HistoriaLocal[IDdeljugador][1] = mensaje.Text;
                             respuesta = $"{HistoriaLocal[IDdeljugador][1]} \n" + "Indique su contraseña :";
                             return true;
-                    }
-                    else if (HistoriaLocal[IDdeljugador][2] == null)
-                    {
+                        }
+                        else if (HistoriaLocal[IDdeljugador][2] == null)
+                        {
                             HistoriaLocal[IDdeljugador][2] = mensaje.Text;
                             int numDeUsuario = Planificador.Registrar(HistoriaLocal[IDdeljugador][1] , IDdeljugador, HistoriaLocal[IDdeljugador][2]);
                             respuesta += "Registro Completado";
@@ -73,11 +82,17 @@ namespace ClassLibrary
                             historia.AvanzarEstados(IDdeljugador, 1);
                             HistoriaLocal.Remove(IDdeljugador);
                             return true;
+                        }
                     }
                 }
+                return false;
             }
-
-            return false;
+            catch (Exception)
+            {
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                return true;
+            }
         }
     }
 }

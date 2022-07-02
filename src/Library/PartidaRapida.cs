@@ -72,16 +72,7 @@ namespace ClassLibrary
                     Tablero tablerobjetivo = this.tableros[1];
                     Char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
-                    this.tiradas[0]+=1;
-                    
-                    if (tablerobjetivo.terminado)
-                    {
-                        this.PartidaTerminada=true;
-                        respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
-                        this.Finalizar();
-                    }
-                    
+                    this.tiradas[0]+=1;                    
                     return respuesta;
                 }
                 else if (this.Segundastiradas[0]==this.Segundastiradas[1])
@@ -90,15 +81,6 @@ namespace ClassLibrary
                     char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     this.Segundastiradas[0]+=1;
-                    
-                    if (tablerobjetivo.terminado)
-                    {
-                        this.PartidaTerminada=true;
-                        respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
-                        this.Finalizar();
-                    }
-                    
                     return respuesta;
                 }
                 else
@@ -116,13 +98,6 @@ namespace ClassLibrary
                     char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     tiradas[1]+=1;
-                    if (tablerobjetivo.terminado)
-                    {
-                        this.PartidaTerminada=true;
-                        respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(tableros[1]);
-                        this.Finalizar();
-                    }
                     return respuesta;
 
                 }
@@ -133,13 +108,6 @@ namespace ClassLibrary
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     
                     this.Segundastiradas[1]+=1;
-                    if (tablerobjetivo.terminado)
-                    {
-                        this.PartidaTerminada=true;
-                        respuesta += $"\nFelicitaciones has ganado la partida";
-                        LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
-                        this.Finalizar();
-                    }
                     return respuesta;
                 }
                 else
@@ -154,7 +122,5 @@ namespace ClassLibrary
             }
 
         }
-       
-        
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ClassLibrary
 {
@@ -11,19 +13,7 @@ namespace ClassLibrary
         /// <summary>
         /// Almacenamiento de usuarios
         /// </summary>
-        private List<PerfilUsuario> listaDeUsuarios = new List<PerfilUsuario>();
-
-        /// <summary>
-        /// Getter de listaDeUsuarios
-        /// </summary>
-        /// <value> Lista de usuarios </value>
-        public List<PerfilUsuario> ListaDeUsuarios
-        {
-            get
-            {
-                return listaDeUsuarios;
-            }
-        }
+        public List<PerfilUsuario> ListaDeUsuarios;
         
         /// <summary>
         /// Parte de singleton. Atributo donde se guarda la instancia del AlmacenamientoUsuario (o null si no fue creada).
@@ -35,6 +25,7 @@ namespace ClassLibrary
         /// </summary>
         private AlmacenamientoUsuario()
         {
+            this.Inicializar();
         }
 
         /// <summary>
@@ -49,6 +40,10 @@ namespace ClassLibrary
             }
             return instance;
         }
+        public void Inicializar()
+        {
+            ListaDeUsuarios = new List<PerfilUsuario>();
+        }
         /// <summary>
         /// Crea un nuevo perfil de usuario asignandole un numero de jugador.
         /// Si es el primer usuario creado le asigna el numero 1, de lo contrario le asigna el
@@ -61,12 +56,12 @@ namespace ClassLibrary
         public int Registrar(string nombre, long id, string contrasena)
         {
             int numeroDeJugador = 1;
-            if (listaDeUsuarios.Count != 0)
+            if (ListaDeUsuarios.Count != 0)
             {
-                numeroDeJugador = listaDeUsuarios[listaDeUsuarios.Count - 1].NumeroDeJugador + 1;
+                numeroDeJugador = ListaDeUsuarios[ListaDeUsuarios.Count - 1].NumeroDeJugador + 1;
             }    
             PerfilUsuario usuario = new PerfilUsuario(nombre, id, contrasena, numeroDeJugador);
-            listaDeUsuarios.Add(usuario);
+            ListaDeUsuarios.Add(usuario);
             return numeroDeJugador;
         }
         /// <summary>
@@ -79,11 +74,11 @@ namespace ClassLibrary
             if(ObtenerPerfil(NumeroDeJugador) != null)
             {
                 int i = 0;
-                while (i < listaDeUsuarios.Count )
+                while (i < ListaDeUsuarios.Count )
                 {
-                    if (listaDeUsuarios[i].NumeroDeJugador == NumeroDeJugador)
+                    if (ListaDeUsuarios[i].NumeroDeJugador == NumeroDeJugador)
                     {
-                        listaDeUsuarios.Remove(listaDeUsuarios[i]);  
+                        ListaDeUsuarios.Remove(ListaDeUsuarios[i]);  
                         i = i - 1;
                     }
                     i = i + 1;
@@ -98,7 +93,7 @@ namespace ClassLibrary
         /// <returns> perfil de usuario </returns>
         public PerfilUsuario ObtenerPerfil(int usuario)
         {
-            foreach(PerfilUsuario perfil in listaDeUsuarios)
+            foreach(PerfilUsuario perfil in ListaDeUsuarios)
             {
                 if (perfil.NumeroDeJugador == usuario)
                 {
@@ -117,7 +112,7 @@ namespace ClassLibrary
         {
             try
             {
-                if (!listaDeUsuarios.Contains(ObtenerPerfil(jugador)))
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador)))
                     throw new JugadorNoEncontradoException();
             }
             catch (JugadorNoEncontradoException)
@@ -144,7 +139,7 @@ namespace ClassLibrary
         {
             try
             {
-                if (!listaDeUsuarios.Contains(ObtenerPerfil(jugador)))
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(jugador)))
                     throw new JugadorNoEncontradoException();
             }
             catch (JugadorNoEncontradoException)
@@ -170,7 +165,7 @@ namespace ClassLibrary
         {
             try
             {
-                if (!listaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
+                if (!ListaDeUsuarios.Contains(ObtenerPerfil(numerodejugador)))
                     throw new JugadorNoEncontradoException();
             }
             catch (JugadorNoEncontradoException)
@@ -190,9 +185,9 @@ namespace ClassLibrary
         {
             List<PerfilUsuario> ranking = new List<PerfilUsuario>();
             int i = 0;
-            while (i < listaDeUsuarios.Count)
+            while (i < ListaDeUsuarios.Count)
             {
-                ranking.Add(listaDeUsuarios[i]);
+                ranking.Add(ListaDeUsuarios[i]);
                 i++;
             }
             int j = 0;
@@ -221,9 +216,15 @@ namespace ClassLibrary
             }
             return ranking;
         }
+
+        /// <summary>
+        /// Se fija si un usuario existe o no
+        /// </summary>
+        /// <param name="iDdelUsuario"> ID del usuario </param>
+        /// <returns> devuelve true de existir el usuario, y de lo contrario false </returns>
         public bool ExisteUsuario(long iDdelUsuario)
         {
-            foreach(PerfilUsuario perfil in listaDeUsuarios)
+            foreach(PerfilUsuario perfil in ListaDeUsuarios)
             {
                 if (perfil.ID == iDdelUsuario)
                 {
@@ -232,9 +233,15 @@ namespace ClassLibrary
             }
             return false;
         }
+
+        /// <summary>
+        /// Convierte la ID de un usuario a su respectivo numero de jugador
+        /// </summary>
+        /// <param name="iDdelUsuario"> ID del usuario</param>
+        /// <returns> numero de jugador del usuario </returns>
         public int ConversorIDaNum(long iDdelUsuario)
         {
-            foreach(PerfilUsuario perfil in listaDeUsuarios)
+            foreach(PerfilUsuario perfil in ListaDeUsuarios)
             {
                 if (perfil.ID == iDdelUsuario)
                 {
@@ -243,9 +250,15 @@ namespace ClassLibrary
             }
             return 0;
         }
+
+        /// <summary>
+        /// Convierte el numero de jugador de un usuario a su respectiva ID
+        /// </summary>
+        /// <param name="numdelUsuario"> numero del jugador </param>
+        /// <returns> ID del jugador </returns>
         public long ConversorNumaID(int numdelUsuario)
         {
-            foreach(PerfilUsuario perfil in listaDeUsuarios)
+            foreach(PerfilUsuario perfil in ListaDeUsuarios)
             {
                 if (perfil.NumeroDeJugador == numdelUsuario)
                 {
@@ -254,5 +267,56 @@ namespace ClassLibrary
             }
             return 0;
         }
+        
+        /// <summary>
+        /// Se fija si un usuario existe, y de existir devuelve true
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <param name="nombre"></param>
+        /// <param name="contrasena"></param>
+        /// <returns></returns>
+        public bool InicioSesion(int numeroDeJugador, string nombre, string contrasena)
+        {
+            PerfilUsuario jugador = ObtenerPerfil(numeroDeJugador);
+            foreach (PerfilUsuario perfil in ListaDeUsuarios)
+            {
+                if (perfil.Nombre == nombre)
+                {
+                    if (perfil.Contrasena == contrasena)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        public string SerializarUsuarios()
+        {
+            
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = MyReferenceHandler.Instance,
+                WriteIndented = true
+            };
+            string usuarios= JsonSerializer.Serialize<List<PerfilUsuario>>(ListaDeUsuarios,options);
+            return usuarios;
+        }
+        public void LoadFromJson(string rutaDeArchivo)
+        {
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = MyReferenceHandler.Instance,
+                WriteIndented = true
+            };
+            string json = System.IO.File.ReadAllText(rutaDeArchivo);
+            List<PerfilUsuario> listavieja = JsonSerializer.Deserialize<List<PerfilUsuario>>(json, options);
+            foreach (PerfilUsuario usuario in listavieja)
+            {
+                this.ListaDeUsuarios.Add(usuario);
+            }
+        }
+
+       
     }
 }

@@ -24,6 +24,12 @@ namespace ClassLibrary
             return NumeroDeJugador;
         }
 
+        public static bool IniciarSesion(int numeroDeJugador, string nombre, string contrasena)
+        {
+            AlmacenamientoUsuario inicio = AlmacenamientoUsuario.Instance();
+            return inicio.InicioSesion(numeroDeJugador, nombre, contrasena);
+        }
+
         /// <summary>
         /// Le pide a AlmacenamientoUsuario eliminar un NumeroDeJugador de la lista
         /// Le comunica al jugador la accion realizada
@@ -191,11 +197,24 @@ namespace ClassLibrary
             }
             return false;
         }
+
+        /// <summary>
+        /// Añade a los jugadores como tupla a una
+        /// lista de espera de confirmacion para partidas amistosas
+        /// </summary>
+        /// <param name="jugador"> jugador que invita </param>
+        /// <param name="invitado"> jugador invitado </param>
         public static void anadirListaEsperaAmigos(long jugador, long invitado)
         {
             Emparejamiento visualizador = Emparejamiento.Instance();
             visualizador.AnadirAmigosAEspera(jugador, invitado);
         }
+
+        /// <summary>
+        /// Se fija quien es el rival de un usuario en el contexto de una partida amistosa
+        /// </summary>
+        /// <param name="jugador"> jugador invitado </param>
+        /// <returns> pareja de jugadores (tupla) </returns>
         public static long VerListaEsperaAmigos(long jugador)
         {
             Emparejamiento visualizador = Emparejamiento.Instance();
@@ -205,11 +224,13 @@ namespace ClassLibrary
         /// <summary>
         /// Pide a Emparejamiento remover un usuario de la lista de espera y manda el mensaje correspondiente a impresora.
         /// </summary>
+        /// <param name="usuario"> usuario a remover </param>
         public static void removerListaEspera(int usuario)
         {
             Emparejamiento emparejamiento = Emparejamiento.Instance();
             emparejamiento.RemoverListaEspera(usuario);
         }
+        
         /// <summary>
         /// Metodo para posicionar barcos
         /// </summary>
@@ -284,6 +305,32 @@ namespace ClassLibrary
             return juego.PosicionamientoFinalizado(jugador);
         }
         /// <summary>
+        /// Responsable de enviar un string que contiene la matriz del tablero a los handlers.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static string ObtenerTableroPropio(int jugador)
+        {
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+            IImprimirTablero imprimir = new ImprimirTableroPropio();
+            Tablero tableroPropio = buscador.ObtenerTablero(jugador);
+            string tableroParaImprimir = imprimir.ImprimirTablero(tableroPropio);
+            return tableroParaImprimir;
+        }
+        /// <summary>
+        /// Responsable de enviar un string que contiene la matriz del tablero del oponente a los handlers.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static string ObtenerTableroOponente(int jugador)
+        {
+            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
+            IImprimirTablero imprimir = new ImprimirTableroOponente();
+            Tablero tableroOponente = buscador.ObtenerTableroOponente(jugador);
+            string tableroParaImprimir = imprimir.ImprimirTablero(tableroOponente);
+            return tableroParaImprimir;
+        }
+        /// <summary>
         /// Responsable de enviar el numero de jugador de una partida.
         /// El cual consulta el numero del oponente. Para luego enviarle mensajes en los handlers
         /// </summary>
@@ -293,6 +340,11 @@ namespace ClassLibrary
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             return partidas.ObtenerNumOponente(JugadorQueConsulta);
+        }
+        public static bool PartidaFinalizada(int numeroDeJugador)
+        {
+            PartidasEnJuego partida = PartidasEnJuego.Instance();
+            return partida.EstaTerminada(numeroDeJugador);
         }
     }
 }
