@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using ClassLibrary;
 using NUnit.Framework;
 
@@ -53,7 +53,9 @@ namespace Tests
         {
             jugador1.Atacar("C3");
 
-            char[,] matrizTest = PartidaTest.VistaOponente(NumeroDeJugador1);
+            Tablero tableroTest = PartidaTest.VerTablero(NumeroDeJugador1);
+            ImprimirTableroOponente ayudanteTest = new ImprimirTableroOponente();
+            char[,] matrizTest = ayudanteTest.ayudanteDeTiro(tableroTest.VerTablero());
             
             int[] coordenadaSuperior = TraductorDeCoordenadas.Traducir("B3");
             int coordenadaSuperiorFila = coordenadaSuperior[0];
@@ -129,8 +131,8 @@ namespace Tests
             Console.WriteLine(jugador2.Atacar("A1"));
             Console.WriteLine(jugador1.Atacar("C5"));
             Console.WriteLine(jugador2.Atacar("A1"));
-            jugador1.VisualizarTableros();*/
+            jugador1.VisualizarTableros();
 
 
     }
-}
+}*/
