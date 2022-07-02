@@ -28,46 +28,55 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-                long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory historia = UsersHistory.Instance();
-                if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
                 {
-                    HistoriaLocal.Add(IDdeljugador, new string[3]);
-                    HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-                    respuesta = "Indique su nombre: ";
-                    return true;
-                }
-                else
-                {
-                    if (HistoriaLocal[IDdeljugador][1] == null)
+                    long IDdeljugador = mensaje.Chat.Id;
+                    UsersHistory historia = UsersHistory.Instance();
+                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
                     {
-						HistoriaLocal[IDdeljugador][1] = mensaje.Text;
-						respuesta = "Indique su contraseña: ";
-						return true;
+                        HistoriaLocal.Add(IDdeljugador, new string[3]);
+                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        respuesta = "Indique su nombre: ";
+                        return true;
                     }
-                    else if (HistoriaLocal[IDdeljugador][2] == null)
+                    else
                     {
-						HistoriaLocal[IDdeljugador][2] = mensaje.Text;
-						AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-						if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDdeljugador), HistoriaLocal[IDdeljugador][1], HistoriaLocal[IDdeljugador][2]))
-						{
-							HistoriaLocal.Remove(IDdeljugador);
-							respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \n Presione /InicioSesion";
-						}
-						else
-						{
-							respuesta += "Bienvenido, cazador de barcos. Presiona /Menu para ver los comandos disponibles \n";
-							historia.AvanzarEstados(IDdeljugador, 1);
-							HistoriaLocal.Remove(IDdeljugador);
-                    	}
-						return true;
-					}
+                        if (HistoriaLocal[IDdeljugador][1] == null)
+                        {
+                            HistoriaLocal[IDdeljugador][1] = mensaje.Text;
+                            respuesta = "Indique su contraseña: ";
+                            return true;
+                        }
+                        else if (HistoriaLocal[IDdeljugador][2] == null)
+                        {
+                            HistoriaLocal[IDdeljugador][2] = mensaje.Text;
+                            AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
+                            if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDdeljugador), HistoriaLocal[IDdeljugador][1], HistoriaLocal[IDdeljugador][2]))
+                            {
+                                HistoriaLocal.Remove(IDdeljugador);
+                                respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \n Presione /InicioSesion";
+                            }
+                            else
+                            {
+                                respuesta += "Bienvenido, cazador de barcos. Presiona /Menu para ver los comandos disponibles \n";
+                                historia.AvanzarEstados(IDdeljugador, 1);
+                                HistoriaLocal.Remove(IDdeljugador);
+                            }
+                            return true;
+                        }
+                    }
                 }
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                respuesta = string.Empty;
+                respuesta += "Ha habido un error. Intente de nuevo \n";
+                return true;
+            }
         }
     }
 }

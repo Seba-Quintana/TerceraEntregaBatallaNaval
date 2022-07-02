@@ -49,47 +49,59 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-                AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-				long invitado = Planificador.VerListaEsperaAmigos(mensaje.Chat.Id);
-				if (!HistoriaLocal.ContainsKey(mensaje.Chat.Id))
-				{
-					respuesta = $"Desea aceptar la partida?";
-					HistoriaLocal.Add(mensaje.Chat.Id, new string[3]);
-					return true;
-				}
-                long IDdeljugador = mensaje.Chat.Id;
-				if (HistoriaLocal[IDdeljugador][0] == null)
-				{
-					HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-					respuesta = $"{HistoriaLocal[IDdeljugador][0]} \n" + "Indique el modo de juego: \n";
-					return true;
-				}
-				else if (HistoriaLocal[IDdeljugador][1] == null)
-				{
-					HistoriaLocal[IDdeljugador][1] = mensaje.Text;
-					respuesta = $"{HistoriaLocal[IDdeljugador][1]} \n" + "Indique el tamaño del tablero: \n";
-					return true;
-				}
-				
-				else if (HistoriaLocal[IDdeljugador][2] == null)
-				{
-					HistoriaLocal[IDdeljugador][2] = mensaje.Text;
-					
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
+                {
+                    AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
+                    long invitado = Planificador.VerListaEsperaAmigos(mensaje.Chat.Id);
+                    if (!HistoriaLocal.ContainsKey(mensaje.Chat.Id))
+                    {
+                        respuesta = $"Desea aceptar la partida?";
+                        HistoriaLocal.Add(mensaje.Chat.Id, new string[3]);
+                        return true;
+                    }
+                    long IDdeljugador = mensaje.Chat.Id;
+                    if (HistoriaLocal[IDdeljugador][0] == null)
+                    {
+                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        respuesta = $"{HistoriaLocal[IDdeljugador][0]} \n" + "Indique el modo de juego: \n";
+                        return true;
+                    }
+                    else if (HistoriaLocal[IDdeljugador][1] == null)
+                    {
+                        HistoriaLocal[IDdeljugador][1] = mensaje.Text;
+                        respuesta = $"{HistoriaLocal[IDdeljugador][1]} \n" + "Indique el tamaño del tablero: \n";
+                        return true;
+                    }
+                    
+                    else if (HistoriaLocal[IDdeljugador][2] == null)
+                    {
+                        HistoriaLocal[IDdeljugador][2] = mensaje.Text;
+                        
 
-					bool emparejado = Planificador.EmparejarAmigos(
-                    Int32.Parse(HistoriaLocal[IDdeljugador][1]),
-                    conversor.ConversorIDaNum(IDdeljugador),
-                    conversor.ConversorIDaNum(invitado),
-                    Int32.Parse(HistoriaLocal[IDdeljugador][2]));
-					return true;
-				}
-				respuesta = "No tienes invitaciones pendientes";
+                        bool emparejado = Planificador.EmparejarAmigos(
+                        Int32.Parse(HistoriaLocal[IDdeljugador][1]),
+                        conversor.ConversorIDaNum(IDdeljugador),
+                        conversor.ConversorIDaNum(invitado),
+                        Int32.Parse(HistoriaLocal[IDdeljugador][2]));
+                        return true;
+                    }
+                    respuesta = "No tienes invitaciones pendientes";
+                    return false;
+                }
                 return false;
             }
-            return false;
+            catch (Exception)
+            {
+                long IDdeljugador = mensaje.Chat.Id;
+                UsersHistory estados = UsersHistory.Instance();
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                estados.ReiniciarEstados(IDdeljugador);
+                return true;
+            }
         }
     }
 }

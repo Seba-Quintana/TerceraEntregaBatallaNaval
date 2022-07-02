@@ -1,6 +1,7 @@
 using Telegram.Bot.Types;
 using System.Collections.Generic;
 using Telegram.Bot;
+using System;
 
 namespace ClassLibrary
 {
@@ -48,59 +49,71 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            long IDDelJugador = mensaje.Chat.Id;
-            if (this.CanHandle(mensaje))
+            try
             {
-                UsersHistory historia = UsersHistory.Instance();
-                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
-                
-                int NumDelJugadorOponente = Planificador.ObtenerNumOponente(numdelJugador);
-                long IDDelOponente = almacenamiento.ConversorNumaID(NumDelJugadorOponente);
+                respuesta = string.Empty;
+                long IDDelJugador = mensaje.Chat.Id;
+                if (this.CanHandle(mensaje))
+                {
+                    UsersHistory historia = UsersHistory.Instance();
+                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                    int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
+                    
+                    int NumDelJugadorOponente = Planificador.ObtenerNumOponente(numdelJugador);
+                    long IDDelOponente = almacenamiento.ConversorNumaID(NumDelJugadorOponente);
 
-                TelegramBotClient bot = SingletonBot.Instance();
-               
-                if (!EstadoLocal.Contains(IDDelJugador))
-                {
-                    EstadoLocal.Add(IDDelJugador);
-                    respuesta += $"\nIndique la casilla que desee atacar o /rendirse cuando lo desee:";
-                    return true;
-                }
-                else
-                {
-                    string mensajeOponente = string.Empty;
-                    string ResultadoAtacar = Planificador.Atacar(mensaje.Text, numdelJugador);
-                    respuesta += ResultadoAtacar;
-                    respuesta += $"\n{Planificador.ObtenerTableroOponente(numdelJugador)}";
-                    if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque.")
-                        if (ResultadoAtacar != "La coordenada enviada fue invalida")
-                        {
-                            mensajeOponente = $"Has sido atacado en {mensaje.Text}\n{Planificador.ObtenerTableroPropio(NumDelJugadorOponente)}";
-                            if (Planificador.PartidaFinalizada(numdelJugador))
+                    TelegramBotClient bot = SingletonBot.Instance();
+                
+                    if (!EstadoLocal.Contains(IDDelJugador))
+                    {
+                        EstadoLocal.Add(IDDelJugador);
+                        respuesta += $"\nIndique la casilla que desee atacar o /rendirse cuando lo desee:";
+                        return true;
+                    }
+                    else
+                    {
+                        string mensajeOponente = string.Empty;
+                        string ResultadoAtacar = Planificador.Atacar(mensaje.Text, numdelJugador);
+                        respuesta += ResultadoAtacar;
+                        respuesta += $"\n{Planificador.ObtenerTableroOponente(numdelJugador)}";
+                        if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque.")
+                            if (ResultadoAtacar != "La coordenada enviada fue invalida")
                             {
-                                respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial e iras al menu principal \nUtiliza el comando /menu para mas información";
-                                mensajeOponente += "\n\nLamentablemente has perdido.";
-                                historia.ReiniciarEstados(IDDelOponente);
-                                historia.ReiniciarEstados(IDDelJugador);
-                                EstadoLocal.Remove(IDDelOponente);
-                                EstadoLocal.Remove(IDDelJugador);
+                                mensajeOponente = $"Has sido atacado en {mensaje.Text}\n{Planificador.ObtenerTableroPropio(NumDelJugadorOponente)}";
+                                if (Planificador.PartidaFinalizada(numdelJugador))
+                                {
+                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial e iras al menu principal \nUtiliza el comando /menu para mas información";
+                                    mensajeOponente += "\n\nLamentablemente has perdido.";
+                                    historia.ReiniciarEstados(IDDelOponente);
+                                    historia.ReiniciarEstados(IDDelJugador);
+                                    EstadoLocal.Remove(IDDelOponente);
+                                    EstadoLocal.Remove(IDDelJugador);
+                                }
+                                else
+                                {
+                                    mensajeOponente += $"Indique la proxima casilla que desea atacar:";
+                                    respuesta += "\n\nLe notificaremos cuando vuelva a ser su turno de atacar, espere el mensaje por favor";
+                                }
+                                bot.SendTextMessageAsync(IDDelOponente, mensajeOponente);
                             }
-                            else
-                            {
-                                mensajeOponente += $"Indique la proxima casilla que desea atacar:";
-                                respuesta += "\n\nLe notificaremos cuando vuelva a ser su turno de atacar, espere el mensaje por favor";
-                            }
-                            bot.SendTextMessageAsync(IDDelOponente, mensajeOponente);
-                        }
-                    return true;
+                        return true;
+                    }
                 }
+                if (EstadoLocal.Contains(IDDelJugador))
+                {
+                    EstadoLocal.Remove(IDDelJugador);
+                }
+                return false;
             }
-            if (EstadoLocal.Contains(IDDelJugador))
+            catch (Exception)
             {
-                EstadoLocal.Remove(IDDelJugador);
+                long IDdeljugador = mensaje.Chat.Id;
+                UsersHistory estados = UsersHistory.Instance();
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                estados.ReiniciarEstados(IDdeljugador);
+                return true;
             }
-            return false;
         }
     }
 }

@@ -26,19 +26,31 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
+            {
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
+                {
+                    long IDdeljugador = mensaje.Chat.Id;
+                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                    int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
+                    Planificador.Remover(jugador);
+                    respuesta += "Su usuario ha sido removido\nSi desea volver a ingresar debe registrarse\n\nUse /Registrar para volver a registrarse";
+                    UsersHistory estados = UsersHistory.Instance();
+                    estados.RetrocederEstados(IDdeljugador,1);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
-                Planificador.Remover(jugador);
-                respuesta += "Su usuario ha sido removido\nSi desea volver a ingresar debe registrarse\n\nUse /Registrar para volver a registrarse";
                 UsersHistory estados = UsersHistory.Instance();
-                estados.RetrocederEstados(IDdeljugador,1);
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }
-            return false;
         }
     }
 }

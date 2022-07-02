@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
 using Telegram.Bot;
+using System;
 
 namespace ClassLibrary
 {
@@ -25,37 +26,49 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-                long IDdeljugadorRendido = mensaje.Chat.Id;
-                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                int jugadorRendido = almacenamiento.ConversorIDaNum(IDdeljugadorRendido);
-                int NumOponente = Planificador.ObtenerNumOponente(jugadorRendido);
-                long IDOponente = almacenamiento.ConversorNumaID(NumOponente);
-                TelegramBotClient bot = SingletonBot.Instance();
-                respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
+                {
+                    long IDdeljugadorRendido = mensaje.Chat.Id;
+                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                    int jugadorRendido = almacenamiento.ConversorIDaNum(IDdeljugadorRendido);
+                    int NumOponente = Planificador.ObtenerNumOponente(jugadorRendido);
+                    long IDOponente = almacenamiento.ConversorNumaID(NumOponente);
+                    TelegramBotClient bot = SingletonBot.Instance();
+                    respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
+                    UsersHistory estados = UsersHistory.Instance();
+                    if (estados.VerEstado(IDdeljugadorRendido) == 3)
+                    {
+                        bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
+                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
+                        estados.RetrocederEstados(IDdeljugadorRendido,1);
+                        estados.RetrocederEstados(IDOponente,1);
+                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
+                    }
+                    
+                    else if (estados.VerEstado(IDdeljugadorRendido) == 4)
+                    {
+                        bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
+                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
+                        estados.RetrocederEstados(IDdeljugadorRendido,2);
+                        estados.RetrocederEstados(IDOponente,2);
+                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                long IDdeljugador = mensaje.Chat.Id;
                 UsersHistory estados = UsersHistory.Instance();
-                if (estados.VerEstado(IDdeljugadorRendido) == 3)
-                {
-                    bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
-                    respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
-                    estados.RetrocederEstados(IDdeljugadorRendido,1);
-                    estados.RetrocederEstados(IDOponente,1);
-                    respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
-                }
-                   
-                else if (estados.VerEstado(IDdeljugadorRendido) == 4)
-                {
-                    bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
-                    respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
-                    estados.RetrocederEstados(IDdeljugadorRendido,2);
-                    estados.RetrocederEstados(IDOponente,2);
-                    respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
-                }
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }
-            return false;
         }
     }
 }

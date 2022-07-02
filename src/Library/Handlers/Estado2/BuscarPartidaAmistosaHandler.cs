@@ -54,28 +54,40 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-			respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-				long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory historia = UsersHistory.Instance();
-                if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
                 {
-                    HistoriaLocal.Add(IDdeljugador, new string[2]);
-                    respuesta = "Indique el numero de jugador de su amigo: \n";
-                    return true;
+                    long IDdeljugador = mensaje.Chat.Id;
+                    UsersHistory historia = UsersHistory.Instance();
+                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                    {
+                        HistoriaLocal.Add(IDdeljugador, new string[2]);
+                        respuesta = "Indique el numero de jugador de su amigo: \n";
+                        return true;
+                    }
+                    else if (HistoriaLocal[IDdeljugador][0] == null)
+                    {
+                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
+                        long idInvitado = conversor.ConversorNumaID(Int32.Parse(mensaje.Text));
+                        Planificador.anadirListaEsperaAmigos(IDdeljugador, idInvitado);
+                        respuesta = "Espere la confirmacion de su amigo...";
+                        return true;
+                    }
                 }
-				else if (HistoriaLocal[IDdeljugador][0] == null)
-				{
-					HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-					AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-					long idInvitado = conversor.ConversorNumaID(Int32.Parse(mensaje.Text));
-					Planificador.anadirListaEsperaAmigos(IDdeljugador, idInvitado);
-					respuesta = "Espere la confirmacion de su amigo...";
-					return true;
-				}
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                long IDdeljugador = mensaje.Chat.Id;
+                UsersHistory estados = UsersHistory.Instance();
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                estados.ReiniciarEstados(IDdeljugador);
+                return true;
+            }
         }
     }
 }
