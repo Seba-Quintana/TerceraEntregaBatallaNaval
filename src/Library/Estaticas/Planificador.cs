@@ -305,32 +305,6 @@ namespace ClassLibrary
             return juego.PosicionamientoFinalizado(jugador);
         }
         /// <summary>
-        /// Responsable de enviar un string que contiene la matriz del tablero a los handlers.
-        /// </summary>
-        /// <param name="jugador"></param>
-        /// <returns></returns>
-        public static string ObtenerTableroPropio(int jugador)
-        {
-            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            IImprimirTablero imprimir = new ImprimirTableroPropio();
-            Tablero tableroPropio = buscador.ObtenerTablero(jugador);
-            string tableroParaImprimir = imprimir.ImprimirTablero(tableroPropio);
-            return tableroParaImprimir;
-        }
-        /// <summary>
-        /// Responsable de enviar un string que contiene la matriz del tablero del oponente a los handlers.
-        /// </summary>
-        /// <param name="jugador"></param>
-        /// <returns></returns>
-        public static string ObtenerTableroOponente(int jugador)
-        {
-            AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            IImprimirTablero imprimir = new ImprimirTableroOponente();
-            Tablero tableroOponente = buscador.ObtenerTableroOponente(jugador);
-            string tableroParaImprimir = imprimir.ImprimirTablero(tableroOponente);
-            return tableroParaImprimir;
-        }
-        /// <summary>
         /// Responsable de enviar el numero de jugador de una partida.
         /// El cual consulta el numero del oponente. Para luego enviarle mensajes en los handlers
         /// </summary>
