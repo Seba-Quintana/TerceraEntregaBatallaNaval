@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
 using System.Collections.Generic;
+using System;
 
 namespace ClassLibrary
 {
@@ -25,19 +26,31 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-				UsersHistory historia = UsersHistory.Instance();
-				AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-                long IDdeljugador = mensaje.Chat.Id;
-				int usuario = conversor.ConversorIDaNum(IDdeljugador);
-				Planificador.removerListaEspera(usuario);
-				respuesta += $"Emparejamiento cancelado \n";
-				historia.ReiniciarEstados(IDdeljugador);
-				return true;
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
+                {
+                    UsersHistory historia = UsersHistory.Instance();
+                    AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
+                    long IDdeljugador = mensaje.Chat.Id;
+                    int usuario = conversor.ConversorIDaNum(IDdeljugador);
+                    Planificador.removerListaEspera(usuario);
+                    respuesta += $"Emparejamiento cancelado \n";
+                    historia.ReiniciarEstados(IDdeljugador);
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                long IDdeljugador = mensaje.Chat.Id;
+                UsersHistory estados = UsersHistory.Instance();
+                respuesta = string.Empty;
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                estados.ReiniciarEstados(IDdeljugador);
+                return true;
+            }
         }
     }
 }

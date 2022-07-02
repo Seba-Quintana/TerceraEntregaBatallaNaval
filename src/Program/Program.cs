@@ -34,7 +34,6 @@ namespace ConsoleApplication
         private static IHandler segundoHandler;
         private static IHandler tercerHandler;
         private static IHandler cuartoHandler;
-        private static IHandler quintoHandler;
         /// <summary>
         /// Punto de entrada al programa.
         /// </summary>
@@ -60,9 +59,9 @@ namespace ConsoleApplication
 
             tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
 
-            cuartoHandler = new PosicionarHandler(new RendirseHandler(null));
+            tercerHandler = new PosicionarHandler(new RendirseHandler(null));
 
-            quintoHandler = new AtacarHandler(new RendirseHandler(null));
+            cuartoHandler = new AtacarHandler(new RendirseHandler(null));
        
 
             var cts = new CancellationTokenSource();
@@ -141,9 +140,6 @@ namespace ConsoleApplication
                         break;
                     case 3:
                         cuartoHandler.Handle(message, out response);
-                        break;
-                    case 4:
-                        quintoHandler.Handle(message, out response);
                         break;
                 }
             }
