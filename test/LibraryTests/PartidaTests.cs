@@ -36,7 +36,7 @@ namespace Tests
             string finalDelBarco = "E6";
             partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
+            char[ , ]tableroActualizado = partida.VerTablero(1).VerTablero();
             Assert.AreEqual(expected, tableroActualizado[4,3]);
             Assert.AreEqual('\u0000', tableroActualizado[4,2]);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
@@ -54,7 +54,7 @@ namespace Tests
             string finalDelBarco = "E6";
             partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
+            char[ , ]tableroActualizado = partida.VerTablero(1).VerTablero();
             Assert.AreEqual(expected, tableroActualizado[4,5]);
             Assert.AreEqual('\u0000', tableroActualizado[4,6]);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
@@ -72,7 +72,7 @@ namespace Tests
             string finalDelBarco = "F8";
             partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
+            char[ , ]tableroActualizado = partida.VerTablero(1).VerTablero();
             Assert.AreEqual(expected, tableroActualizado[1,7]);
             Assert.AreEqual('\u0000', tableroActualizado[0,7]);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
@@ -90,7 +90,7 @@ namespace Tests
             string finalDelBarco = "F8";
             partida.AgregarBarco(inicioDelBarco ,finalDelBarco,1);
             char expected = 'B';
-            char[ , ]tableroActualizado = partida.VerTableroPropio(1);
+            char[ , ]tableroActualizado = partida.VerTablero(1).VerTablero();
             Assert.AreEqual(expected, tableroActualizado[5,7]);
             Assert.AreEqual('\u0000', tableroActualizado[6,7]);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
