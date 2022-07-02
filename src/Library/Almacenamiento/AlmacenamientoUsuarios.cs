@@ -108,7 +108,7 @@ namespace ClassLibrary
         /// pide mostrar el tablero del oponente.
         /// </summary>
         /// <param name="jugador"> jugador en partida </param>
-        public char[,] ObtenerTableroOponente(int jugador)
+        public Tablero ObtenerTableroOponente(int jugador)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace ClassLibrary
             if (partidas.EstaElJugadorEnPartida(jugador))
             {
                 Partida juego = partidas.ObtenerPartida(jugador);
-                return juego.VistaOponente(jugador);
+                return juego.VerTablero(jugador);
             }
             
             return null;
@@ -135,7 +135,7 @@ namespace ClassLibrary
         /// pide mostrar su propio tablero.
         /// </summary>
         /// <param name="jugador"> jugador en partida </param>
-        public char[,] ObtenerTablero(int jugador)
+        public Tablero ObtenerTablero(int jugador)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace ClassLibrary
             if (partidas.EstaElJugadorEnPartida(jugador))
             {
                 Partida juego = partidas.ObtenerPartida(jugador);
-                return juego.VerTableroPropio(jugador);
+                return juego.VerTablero(jugador);
             }
             return null;
         }

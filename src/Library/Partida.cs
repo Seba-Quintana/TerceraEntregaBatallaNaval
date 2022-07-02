@@ -368,182 +368,22 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo para ver el tablero propio por cada jugador.
         /// </summary>
-        /// <param name="jugador"></param>
+        /// <param name="jugador"> numeroDeJugador del jugador que deseo el tablero </param>
         /// <returns></returns>
-        public char[ , ] VerTableroPropio(int jugador)
+        public Tablero VerTablero(int jugador)
         {
             if (!this.jugadores.Contains(jugador))
             {
-                return null;}
+                return null;
+            }
             if (this.tableros[0].DuenodelTablero==jugador)
             {
-                return this.tableros[0].VerTablero();
+                return tableros[0];
             }
             else
             {
-                return this.tableros[1].VerTablero();
+                return tableros[1];
             }
-        }
-        /// <summary>
-        /// Metodo utilizado para ver una copia del tablero del oponente sin barcos y con el ayudante de tiro
-        /// </summary>
-        /// <param name="jugador"></param>
-        /// <returns></returns>   
-        public char[ , ] VistaOponente (int jugador)
-        {
-            if (!this.jugadores.Contains(jugador))
-            {
-                return null;}
-            if (this.tableros[0].DuenodelTablero==jugador)
-            {
-                char[ , ] matrizSinBarcos = this.tableros[1].VerTablero();
-                
-                for (int i = 0; i < this.tableros[1].Tamano; i++)
-                {
-                    for (int j = 0; j < this.tableros[1].Tamano; j++)
-                    {
-                        if (matrizSinBarcos[i,j]== 'B')
-                        {
-                            matrizSinBarcos[i,j]= '\u0000';
-                        }
-                    }
-                }
-                matrizSinBarcos = ayudanteDeTiro(matrizSinBarcos);
-                return matrizSinBarcos; 
-            }
-            else 
-            {
-                char[ , ] matrizSinBarcos = this.tableros[0].VerTablero();
-                for (int i = 0; i < this.tableros[0].Tamano; i++)
-                {
-                    for (int j = 0; j < this.tableros[0].Tamano; j++)
-                    {
-                        if (matrizSinBarcos[i,j]== 'B')
-                        {
-                            matrizSinBarcos[i,j]= '\u0000';
-                        }
-                    }
-                }
-                matrizSinBarcos = ayudanteDeTiro(matrizSinBarcos);
-                return matrizSinBarcos; 
-            }
-        }
-        /// <summary>
-        /// Luego de un ataque a un barco señaliza donde se puede encontrar los otros puntos del barco
-        /// </summary>
-        /// <param name="matriz"></param>
-        public char[ , ] ayudanteDeTiro (char[ , ] matriz)
-        {
-            int tamanoDeFilas =  matriz.GetLength(0);
-            int tamanoDeColumnas = matriz.GetLength(1);
-
-            for (int i = 0; i < tamanoDeFilas; i++)
-            {
-                for (int j = 0; j < tamanoDeColumnas; j++)
-                {
-                    if (matriz[i,j] == 'T')
-                    {
-                        bool casillaIzquierdaDisparada = false;
-                        bool casillaDerechaDisparada = false;
-                        bool casillaInferiorDisparada = false;
-                        bool casillaSuperiorDisparada = false;
-                        char casillaVacia = '\u0000';
-
-                        if (i != 0)//n
-                        {
-                            casillaIzquierdaDisparada = (matriz[i-1,j] == 'T');
-                        }
-                        if(i != tamanoDeFilas-1)//e
-                        {
-                            casillaDerechaDisparada = (matriz[i+1,j] == 'T');
-                        }
-                        if (j != 0)//f
-                        {
-                            casillaSuperiorDisparada = (matriz[i,j-1] == 'T');
-                        }
-                        if (j != tamanoDeColumnas-1)//g
-                        {
-                            casillaInferiorDisparada = (matriz[i,j+1] == 'T');
-                        }
-                        bool sinAlrededoresDanada = !(casillaIzquierdaDisparada || casillaDerechaDisparada || casillaInferiorDisparada || casillaSuperiorDisparada);
-                        bool barcoVertical = (casillaInferiorDisparada ^ casillaSuperiorDisparada);
-                        bool barcoHorizontal = (casillaIzquierdaDisparada ^ casillaDerechaDisparada);
-                        
-                        if (sinAlrededoresDanada)
-                        {
-                            if (i != 0 )//n
-                            {
-                                if (matriz[i-1,j] == casillaVacia)
-                                {
-                                    matriz[i-1,j] = '-';
-                                }
-                                
-                            }
-                            if(i != tamanoDeFilas-1 )//e
-                            {
-                                if (matriz[i+1,j] == casillaVacia)
-                                {
-                                    matriz[i+1,j] = '-';
-                                }
-                                
-                            }
-                            if (j != 0 )//f
-                            {
-                                if (matriz[i,j-1] == casillaVacia)
-                                {
-                                    matriz[i,j-1] = '-';
-                                }
-                            }
-                            if (j != tamanoDeColumnas-1 )//g
-                            {
-                                if (matriz[i,j+1] == casillaVacia)
-                                {
-                                    matriz[i,j+1] = '-';
-                                }
-                            }
-                        }
-                        else 
-                        {
-                            if (barcoVertical)
-                            {
-                                if (j != 0 && !casillaSuperiorDisparada )//f
-                                {
-                                    if (matriz[i,j-1] == casillaVacia)
-                                    {
-                                        matriz[i,j-1] = '-';
-                                    }
-                                }
-                                if (j != tamanoDeColumnas-1  && !casillaInferiorDisparada )//g
-                                {
-                                    if (matriz[i,j+1] == casillaVacia)
-                                    {
-                                        matriz[i,j+1] = '-';
-                                    }
-                                }
-                            }
-                            if (barcoHorizontal)
-                            {
-                                if (i != 0 && !casillaIzquierdaDisparada )//n
-                                {
-                                    if (matriz[i-1,j] == casillaVacia)
-                                    {
-                                        matriz[i-1,j] = '-';
-                                    }
-                                }
-                                if(i != tamanoDeFilas-1 && !casillaDerechaDisparada)//e
-                                {
-                                    if (matriz[i+1,j] == casillaVacia)
-                                    {
-                                        matriz[i+1,j] = '-';
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }
-                }
-            }
-            return matriz;
         }
         /// <summary>
         /// Metodo Utilizado para ver si la etapa de posicionamiento de un jugador a finalizado
