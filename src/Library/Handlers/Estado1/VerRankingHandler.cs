@@ -32,14 +32,9 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    long IDdeljugador = mensaje.Chat.Id;
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                    List <PerfilUsuario> ranking = almacenamiento.ObtenerRanking();
-                    Planificador.VerRanking();
-                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas. ";
-                    return true;
+                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
+                    respuesta += Planificador.VerRanking();
                 }
-
                 respuesta = "No hay jugadores en el Ranking";
                 return false;
             }
