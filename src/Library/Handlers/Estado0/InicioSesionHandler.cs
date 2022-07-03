@@ -21,6 +21,24 @@ namespace ClassLibrary
         }
 
         /// <summary>
+		/// Determina si este "handler" puede procesar el mensaje.
+		/// </summary>
+		/// <param name="message"> mensaje a procesar </param>
+		/// <returns> Devuelve base.CanHandler si el usuario tiene estado,
+        /// de lo contrario devuelve false </returns>
+        protected override bool CanHandle(Message message)
+        {
+            if (!HistoriaLocal.ContainsKey(message.Chat.Id))
+            {
+                return base.CanHandle(message);
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Procesa el mensaje "InicioSesion" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
@@ -39,7 +57,7 @@ namespace ClassLibrary
                     {
                         HistoriaLocal.Add(IDdeljugador, new string[3]);
                         HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-                        respuesta = "Indique su nombre: ";
+                        respuesta += "Indique su nombre: ";
                         return true;
                     }
                     else
