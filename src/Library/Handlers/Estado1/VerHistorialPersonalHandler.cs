@@ -1,6 +1,9 @@
 using Telegram.Bot.Types;
 using System.Text;
+using System.Collections.Generic;
+
 using System;
+
 
 namespace ClassLibrary
 {
@@ -25,7 +28,7 @@ namespace ClassLibrary
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
-        {
+        {  
             try
             {
                 if (this.CanHandle(mensaje))

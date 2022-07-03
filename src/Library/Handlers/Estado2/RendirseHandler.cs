@@ -43,7 +43,7 @@ namespace ClassLibrary
                     Planificador.Rendirse(jugadorRendido);
 
                     respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
-                    
+                    Planificador.Rendirse(jugadorRendido);
                     if (estados.VerEstado(IDdeljugadorRendido) == 2)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");

@@ -45,12 +45,12 @@ namespace ClassLibrary
         /// Permite visualizar el perfil de un usuario.
         /// </summary>
         /// <param name="usuario"> jugador del cual se quiere ver el perfil </param>
-        public static void VerPerfil(int usuario)
+        public static string VerPerfil(int usuario)
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             PerfilUsuario perfilDelUsuario = buscador.ObtenerPerfil(usuario);
             Mensajes imprimir = new Mensajes();
-            imprimir.ImprimirPerfilUsuario(perfilDelUsuario);
+            return imprimir.ImprimirPerfilUsuario(perfilDelUsuario);
         }
 
         /// <summary>
@@ -96,12 +96,12 @@ namespace ClassLibrary
         /// <summary>
         /// Pide mostrar el historial general de todos las partidas jugadas.
         /// </summary>
-        public static void VerHistorial()
+        public static string VerHistorial()
         {
             Mensajes imprimir = new Mensajes();
             Historial historial = Historial.Instance();
             List<DatosdePartida> historialDePartidas = historial.Partidas;
-            imprimir.ImprimirHistorial(historialDePartidas);
+            return imprimir.ImprimirHistorial(historialDePartidas);
         }
 
         /// <summary>
@@ -110,22 +110,22 @@ namespace ClassLibrary
         /// pide mostrar el HistorialPersonal de partidas jugadas de este perfil.
         /// </summary>
         /// <param name="numerodejugador"> historial que se quiere ver</param>
-        public static void VerHistorialPersonal(int numerodejugador)
+        public static string VerHistorialPersonal(int numerodejugador)
         {
             Mensajes imprimir = new Mensajes();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            imprimir.ImprimirHistorial(buscador.ObtenerHistorialPersonal(numerodejugador));
+            return imprimir.ImprimirHistorial(buscador.ObtenerHistorialPersonal(numerodejugador));
         }
 
         /// <summary>
         /// Llama a ObtenerRanking de la clase AlmacenamientoUsuario y le pide a la impresora que lo muestre.
         /// </summary>
-        public static void VerRanking()
+        public static string VerRanking()
         {
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             List<PerfilUsuario> ranking = buscador.ObtenerRanking();
             Mensajes imprimir = new Mensajes();
-            imprimir.ImprimirRanking(ranking);
+            return imprimir.ImprimirRanking(ranking);
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
 using System.Text;
+using System.Collections.Generic;
 using System;
 
 namespace ClassLibrary
@@ -31,15 +32,10 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    long IDdeljugador = mensaje.Chat.Id;
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                    Historial historial = Historial.Instance();
-                    Planificador.VerHistorial();
-                    respuesta = "Este es el historial.";
+                    respuesta = "Este es el historial:\n";
+                    respuesta += Planificador.VerHistorial();
                     return true;
                 }
-
-                respuesta = string.Empty;
                 return false;
             }
             catch (Exception)
@@ -48,5 +44,6 @@ namespace ClassLibrary
                 return true;
             }
         }
+
     }
 }
