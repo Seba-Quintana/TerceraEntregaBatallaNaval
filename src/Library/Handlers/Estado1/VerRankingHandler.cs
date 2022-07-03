@@ -34,8 +34,8 @@ namespace ClassLibrary
                 {
                     respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
                     respuesta += Planificador.VerRanking();
+                    return true;
                 }
-                respuesta = "No hay jugadores en el Ranking";
                 return false;
             }
             catch (Exception)
