@@ -61,7 +61,7 @@ namespace ClassLibrary
                             }
                             else
                             {
-                                respuesta += "Bienvenido, cazador de barcos. Presiona /Menu para ver los comandos disponibles \n";
+                                respuesta += "Bienvenido, cazador de barcos. \n Presiona /Menu para ver los comandos disponibles \n";
                                 historia.AvanzarEstados(IDdeljugador, 1);
                                 HistoriaLocal.Remove(IDdeljugador);
                             }
@@ -73,8 +73,7 @@ namespace ClassLibrary
             }
             catch (Exception)
             {
-                respuesta = string.Empty;
-                respuesta += "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha habido un error. Intente de nuevo \n";
                 return true;
             }
         }

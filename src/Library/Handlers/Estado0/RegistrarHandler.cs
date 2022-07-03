@@ -89,7 +89,6 @@ namespace ClassLibrary
             }
             catch (Exception)
             {
-                respuesta = string.Empty;
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 return true;
             }
