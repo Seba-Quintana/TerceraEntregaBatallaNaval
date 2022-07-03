@@ -30,6 +30,8 @@ namespace ClassLibrary
             this.tiradas[1]=0;
             this.Segundastiradas[0]=0;
             this.Segundastiradas[1]=0;
+            this.posicionamientoTerminado[0]=false;
+            this.posicionamientoTerminado[1]=false;
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.AlmacenarPartida(this);
         }
@@ -70,7 +72,7 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
-                    Char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     this.tiradas[0]+=1;                    
                     return respuesta;
