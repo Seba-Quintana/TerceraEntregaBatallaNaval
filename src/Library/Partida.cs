@@ -354,12 +354,12 @@ namespace ClassLibrary
             {
                 if (this.jugadores[0] == jugador)
                 {
-                    LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
+                    LogicaDeTablero.Finalizar(this.tableros[1]);
                     this.Finalizar();
                 }
                 else
                 {
-                    LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
+                    LogicaDeTablero.Finalizar(this.tableros[0]);
                     this.Finalizar();
                 }
             }

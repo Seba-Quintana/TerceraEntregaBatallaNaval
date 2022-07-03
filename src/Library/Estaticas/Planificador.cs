@@ -58,16 +58,16 @@ namespace ClassLibrary
         /// pide mostrar el tablero del oponente.
         /// </summary>
         /// <param name="jugador"> jugador en partida </param>
-        public static string VerTableroOponente(int jugadorOponente)
+        public static string VerTableroOponente(int jugador)
         {
             IImprimirTablero imprimir = new ImprimirTableroOponente();
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
-            Tablero tableroOponente = buscador.ObtenerTablero(jugadorOponente);
+            Tablero tableroOponente = buscador.ObtenerTablero(jugador);
             string respuesta = "No se pudo imprimir el tablero";
             if(tableroOponente != null)
             {
                 PartidasEnJuego partidas = PartidasEnJuego.Instance();
-                Partida juego = partidas.ObtenerPartida(jugadorOponente);
+                Partida juego = partidas.ObtenerPartida(jugador);
                 if (juego != null)
                 {
                     respuesta = imprimir.ImprimirTablero(tableroOponente);

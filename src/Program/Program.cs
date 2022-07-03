@@ -44,19 +44,19 @@ namespace ConsoleApplication
             AlmacenamientoUsuario UsuariosGuardados = AlmacenamientoUsuario.Instance();
 
             Historial HistorialGuardado = Historial.Instance();
-            SingletonBot.StartBot();
+            Start();
 
-            if (System.IO.File.Exists(@"HistorialGeneral.json"))
-            {
-                
-                HistorialGuardado.LoadFromJson(@"HistorialGeneral.json");
-            }
+
             if (System.IO.File.Exists(@"Usuarios.json"))
             {
                 
                 UsuariosGuardados.LoadFromJson(@"Usuarios.json");
             }
-            
+            if (System.IO.File.Exists(@"HistorialGeneral.json"))
+            {
+                
+                HistorialGuardado.LoadFromJson(@"HistorialGeneral.json");
+            }
 
             inicialHandler = new ComenzarHandler(null);
 
@@ -89,9 +89,9 @@ namespace ConsoleApplication
 
             // Esperamos a que el usuario aprete Enter en la consola para terminar el bot.
             Console.ReadLine();
-            
+
+            System.IO.File.WriteAllText(@"Usuarios.json", UsuariosGuardados.SerializarUsuarios());
             System.IO.File.WriteAllText(@"HistorialGeneral.json", HistorialGuardado.SerializarUsuarios());
-            System.IO.File.WriteAllText(@"Usuarios.json", UsuariosGuardados.SerializarUsuarios());           
 
             // Terminamos el bot.
             cts.Cancel();
