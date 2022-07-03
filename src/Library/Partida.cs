@@ -71,8 +71,7 @@ namespace ClassLibrary
         /// </summary>
         protected void Finalizar()
         {
-            DatosdePartida Almacenaje = new DatosdePartida();
-            Almacenaje.Almacenar(this.tableros, this.tiradas);
+            new DatosdePartida(this.tableros, this.tiradas);
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.RemoverPartida(this);
         }
