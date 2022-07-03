@@ -28,26 +28,16 @@ namespace ClassLibrary
         {
             try
             {
-                long IDdeljugador = mensaje.Chat.Id;
-                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
-                respuesta = "Este es tu perfil, acompañado de sus estadísticas:\n";
-                respuesta += Planificador.VerPerfil(jugador);
-                return true;
-            }
-            return false;
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
                     long IDdeljugador = mensaje.Chat.Id;
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
-                    Planificador.VerPerfil(jugador);
-                    respuesta = "Este es tu perfil, acompañado de sus estadísticas.";
+                    respuesta = "Este es su perfil, acompañado de sus estadísticas:\n";
+                    respuesta += Planificador.VerPerfil(jugador);
                     return true;
                 }
-
-                respuesta = string.Empty;
                 return false;
             }
             catch (Exception)
