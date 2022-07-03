@@ -31,15 +31,20 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    long IDdeljugadorRendido = mensaje.Chat.Id;
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                    TelegramBotClient bot = SingletonBot.Instance();
+                    UsersHistory estados = UsersHistory.Instance();
+                    
+                    long IDdeljugadorRendido = mensaje.Chat.Id;
                     int jugadorRendido = almacenamiento.ConversorIDaNum(IDdeljugadorRendido);
                     int NumOponente = Planificador.ObtenerNumOponente(jugadorRendido);
                     long IDOponente = almacenamiento.ConversorNumaID(NumOponente);
-                    TelegramBotClient bot = SingletonBot.Instance();
+                    
+                    Planificador.Rendirse(jugadorRendido);
+
                     respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
-                    UsersHistory estados = UsersHistory.Instance();
-                    if (estados.VerEstado(IDdeljugadorRendido) == 3)
+                    
+                    if (estados.VerEstado(IDdeljugadorRendido) == 2)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
                         respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
@@ -48,7 +53,7 @@ namespace ClassLibrary
                         respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
                     }
                     
-                    else if (estados.VerEstado(IDdeljugadorRendido) == 4)
+                    else if (estados.VerEstado(IDdeljugadorRendido) == 3)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
                         respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
