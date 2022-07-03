@@ -23,6 +23,7 @@ El ayudante de tiro es una ayuda para el jugador dentro del juego, que muestra l
 
 
 Roles de clases:
+
 - AlmacenamientoUsuario: Information holder
 - DatosDePartidas: Information holder
 - PartidasEnJuego: Information holder
@@ -37,15 +38,67 @@ Roles de clases:
 - EmparejamientoConCola: Service provider
 - Tablero: Service provider
 - PartidaRapida: Controller
-- Jugador: Controller
+- Handlers: Controller
 
 
 Clases:
 
-- Jugador:
-Hecho por Santiago.
-Un jugador es una representación de las acciones posibles que puede tomar un usuario, y a su vez es el punto de contacto entre el código y las decisiones del jugador. Los distintos métodos sirven para realizar las acciones que quiere realizar el jugador, y van desde visualizar datos, posicionar y atacar barcos, hasta rendirse y remover sus datos del sistema. Al construir un jugador automáticamente se agrega al almacenamiento de los usuarios, por lo que necesita registrarse para acceder.
-Esta clase será luego sustituida por los handlers, dado que es el punto de contacto entre el jugador y el programa.
+- IHandler:
+Esta es una interfaz que será implementada por BaseHandler, y se crea en función del principio de inversión de dependencias, "para que los clientes de la cadena de responsabilidad, que pueden ser concretos, no dependan de una clase "handler" que potencialmente es abstracta".
+
+- BaseHander:
+Esta clase se crea para implementar el patrón chain of responsibility con los demas handlers, lo que permite que el usuario se comunique con el subsistema a traves de comandos; estos seran procesados por distintos handlers, quienes heredan de esta clase. Las clases que heredan de BaseHandler cambiarán su accionar en base a sobreescribir el metodo virtual llamdo "InternalHandle", y decidiran que mensajes procesar sobreescribiendo el metodo "CanHandle", ambos metodos presentes en BaseHandler.
+
+- ComenzarHandler:
+ComenzarHandler se encarga de "iniciar" el bot con el comando /Start, y da la opcion de registrarte o de iniciar sesion. Si un usuario se encuentra en esta etapa, tiene estado 0.
+
+- InicioSesionHandler:
+Clase encargada de buscar si un usuario existe o no en AlmacenamientoUsuarios, y de existir le permite acceder al menu. Se accede al mismo con el comando /InicioSesion Si un usuario se encuentra en esta etapa, tiene estado 0.
+
+- RegistrarHandler:
+Handler para registrar a un usuario con el comando /Registrar. Pide los datos de la persona y los almacena en AlmacenamientoUsuario. Si un usuario se encuentra en esta etapa, tiene estado 0.
+
+- MenuHandler:
+Esta clase sirve para indicarle al usuario las acciones disponibles en el estado en el que se encuentra con el comando /Menu. Permite tanto comenzar una partida como ver sus datos. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- AyudaHandler:
+Se accede con /Ayuda, y muestra una breve descripcion de los comandos del menu. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- RemoverUsuarioHandler:
+Esta clase permite remover a una persona del almacenamiento con el comando /Remover. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- VerHistorialHandler:
+Esta clase le permite a un usuario ver el historial de las partidas totales que se han jugado con el comando /VerHistorial. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- VerHistorialPersonalHandler:
+El handler VerHistorialPersonalHandler permite a un usuario ver el historial de las partidas que el mismo ha jugado con el comando /VerHistorialPersonalHandler. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- Verperfilhandler:
+Este handler le permite al usuario ver sus datos con el comando /VerPerfil. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- VerRankingHandler:
+Este handler le permite a un usuario ver el ranking de los usuarios con mas partidas ganadas con el comando /VisualizarRanking. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- BuscarPartidaHandler:
+Esta clase añade a un usuario a la cola de espera para jugar una partida tanto normal como rapida con el comando /BuscarPartida. El que elige el tamaño del tablero es el ultimo jugador en elegir el tamaño del mismo, es decir, la ultima persona en entrar en la partida, por mas de que el primer jugador haya elegido otro tamaño. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- BuscarPartidaAmistosaHandler:
+Esta clase permite a dos jugadores en especifico jugar una partida tanto normal como rapida con el comando /BuscarPartidaAmistosa. Para poder jugar una partida de este tipo es necesario conocer el numero de jugador del otro usuario. El que elige el tamaño del tablero es el ultimo jugador en elegir el tamaño del mismo, es decir, la ultima persona en entrar en la partida, por mas de que el primer jugador haya elegido otro tamaño. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- ConfirmarPartidaHandler:
+Este handler permite a un usuario aceptar una partida de tipo amistoso con el comando /Aceptar. Al utilizar el comando /BuscarPartidaAmistosa, el usuario recibe un mensaje de que ha sido invitado, y es a partir de este handler que el jugador podrá aceptar una partida y jugar con el otro jugador. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- SalirEmparejamientoHandler:
+Este handler le permite a un jugador que esta buscando partida salirse del emparejamiento con le comando /SalirEmparejamiento. Esto hace que el usuario vuelva al menu. Si un usuario se encuentra en esta etapa, tiene estado 1.
+
+- AtacarHandler:
+Este handler le permite a un jugador realizar un ataque con el comando /Atacar. Si un usuario se encuentra en esta etapa, tiene estado 2.
+
+- PosicionarHandler:
+Este handler le permite a un jugador posicionar un barco con el comando /Posicionar. Si un usuario se encuentra en esta etapa, tiene estado 2.
+
+- Bot:
+Esta clase guarda todos los datos necesarios para crear el bot, como la secret token y el singleton para que no exista mas de una instancia del mismo, lo que de darse provocaría un error, ya que no puede haber más de una instancia de un bot con la misma token.
 
 - Planificador:
 Hecho por Santiago.
@@ -133,13 +186,11 @@ Esta excepción fue creada para ser lanzada en caso de que un modo de juego no c
 - TableroInvalidoException:
 Esta excepción fue creada para ser lanzada en caso de que el tamaño de un tablero sea demasiado grande, por lo que el programa debe intentar recuperarse. La misma recupera el tamaño invalido del tablero, junto con un mensaje personalizado que varía dependiendo de la situación en la que se haya ejecutado la excepcion.
 
-Ambas excepciones tienen como objetivo principal satisfacer precondiciones, dado que si a un método le llega un dato que si sigue el código puede afectar negativamente al programa, es conveniente detenerlo para que no arrastre el error. Otra razón es que la creación de una excepción permite visualizar mas fácilmente la razón por la que el programa falló, gracias al mensaje explicativo y al atributo que muestra la razón del fallo.
+Las tres excepciones tienen como objetivo principal satisfacer precondiciones, dado que si a un método le llega un dato que si sigue el código puede afectar negativamente al programa, es conveniente detenerlo para que no arrastre el error. Otra razón es que la creación de una excepción permite visualizar mas fácilmente la razón por la que el programa falló, gracias al mensaje explicativo y al atributo que muestra la razón del fallo.
 
 
 Notas:
-Tuvimos varios desafios mientras estabamos realizando la segunda entrega del proyecto. Desde un principio empezamos a agregar clases nuevas al diagrama de la primera entrega, ya que eran necesarios para aplicar de mejor manera los patrones y principios de diseño dados en clase. Al pasar del diagrama UML al codigo, nos dimos cuenta de que cosas como el manejo de matrices iba a ser mas complicado de como lo habiamos pensado en un inicio, por los que decidimos aislar los posibles problemas que pudieran surgir debido a las mismas. Otro desafio improvisto fue la funcionalidad del ayudante de tiro, el cual habiamos negociado con los docentes del curso. Hizo falta cambiar toda la logica para poder implementar dicha funcion.
-Un tema interesante que fue estudiado fue la propagacion de excepciones, y como era el proceso desde que salta una excepcion en una funcion interna hasta que llega hasta la parte mas externa del mismo. Un problema que tuvimos, sin embargo, fue que el codigo de muestra acerca del tema era en java, y fue necesario traducirlo a c# para poder implementarlo. Fue gracias a este tema que decidimos utilizar un throw en las zonas mas internas del programa, para que luego las atrapara la clase que puede devolver al programa a su rumbo debido, y decidimos que la misma seria el jugador, dado que es la clase que sera sustituida por los handlers, los cuales se encargan de conseguir los datos que no pudieron ser procesados de manera correcta, y hasta delegar la responsabilidad de atrapar ciertas excepciones.
-Otro tema en el cual profundizamos fueron los patrones de diseño, tales como singleton, facade, aunque no implementamos todos los que estudiamos. Estos patrones fueron realmente utiles para implementar las clases.
+La tercer entrega nos resultó más sencilla que las dos anteriores, dado que ya teníamos la base de lo que teníamos que realizar. Lo más complicado fue el uso de los handlers, y aprender como los mismos se comportan, así como encontrar las relaciones entre ellos. Otra razón por las que nos resultó sencillo fue porque teníamos la clase planificador, por lo que los handlers no tenían que hablarse con el subsistema, solamente con el planificador. Por otro lado, además de los handlers, la serializacion también fue uno de los desafios de esta entrega. Encontrar cuales eran las clases a serializar y efectivamente guardar los datos fue complicado, así como deserializarlos.
 
 
 Bibliografía:
