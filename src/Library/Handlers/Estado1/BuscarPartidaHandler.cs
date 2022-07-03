@@ -55,22 +55,49 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
+                    TelegramBotClient bot = SingletonBot.Instance();
                     long IDdeljugador = mensaje.Chat.Id;
                     UsersHistory historia = UsersHistory.Instance();
                     if (!HistoriaLocal.ContainsKey(IDdeljugador))
                     {
                         HistoriaLocal.Add(IDdeljugador, new string[3]);
-                        respuesta = "Indique el modo de juego: \n";
+                        respuesta += $"Elija el modo de juego entre las siguientes opciones:";
+                        respuesta += $"\n0 para jugar en modo normal.";
+                        respuesta += $"\n1 para jugar en modo rapido.";
                         return true;
                     }
                     else if (HistoriaLocal[IDdeljugador][0] == null)
                     {
+                        try{
+                            int modoingresado = Int32.Parse(mensaje.Text);
+                            if ( 0 != modoingresado && 1 != modoingresado)
+                            {
+                                throw (new FormatException());
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            bot.SendTextMessageAsync(IDdeljugador, "Elije entre los modos 0 y 1 por favor");
+                            return true;
+                        }
                         HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-                        respuesta = $"{HistoriaLocal[IDdeljugador][0]} \n" + "Indique el tamaño del tablero: \n";
+                        respuesta = "Indique el tamaño del tablero: \nEntre 2 y 11";
                         return true;
                     }
                     else if (HistoriaLocal[IDdeljugador][1] == null)
                     {
+                        try{
+                            int tamanoingresado = Int32.Parse(mensaje.Text);
+                            if ( 2 > tamanoingresado || tamanoingresado > 11 )
+                            {
+                                throw (new FormatException());
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            bot.SendTextMessageAsync(IDdeljugador, "Los tamaños de tablero solo pueden ser numeros entre 2 y 11");
+                            return true;
+                        }
                         HistoriaLocal[IDdeljugador][1] = mensaje.Text;
                         
                         AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
@@ -79,30 +106,31 @@ namespace ClassLibrary
                         emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDdeljugador][0]), conversor.ConversorIDaNum(IDdeljugador), Int32.Parse(HistoriaLocal[IDdeljugador][1]));
                         if (emparejado==null)
                         {
-                            respuesta = "Buscando partida... \n";
+                            respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
                         }
                         else
                         {
-                            respuesta = "Partida encontrada! \n";
-                            TelegramBotClient bot = SingletonBot.Instance();
+                            respuesta = "Partida encontrada! \nPresione /Posicionar para posicionar un barco";
                             AlmacenamientoUsuario almacenamientodeUsuarios = AlmacenamientoUsuario.Instance();
                             int IntJugadorEnemigo = emparejado[0];
                             long IDJugadorEnemigo = almacenamientodeUsuarios.ConversorNumaID(IntJugadorEnemigo);
-                            bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \n Presione /Posicionar para posicionar un barco");
+                            bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \nPresione /Posicionar para posicionar un barco");
                             HistoriaLocal.Remove(IDdeljugador);
+                            HistoriaLocal.Remove(IDJugadorEnemigo);
                             Estados.AvanzarEstados(IDdeljugador,1);
                             Estados.AvanzarEstados(IDJugadorEnemigo,1);
                         }
+                        
                         return true;
                     }
-                    else if (HistoriaLocal[IDdeljugador][2] == null)
+                    else
                     {
+                        respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
                         if (mensaje.Text == "/SalirEmparejamiento")
                         {
                             HistoriaLocal.Remove(IDdeljugador);
                             return false;
                         }
-                        respuesta = "Buscando partida... \n Si desea salir del emparejamiento, presione /SalirEmparejamiento \n";
                         return true;
                     }
                 }

@@ -13,8 +13,6 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 using System.Text.Json;
-using System.IO;
-using System.Linq;
 
 namespace ConsoleApplication
 {
@@ -45,11 +43,20 @@ namespace ConsoleApplication
 
             AlmacenamientoUsuario UsuariosGuardados = AlmacenamientoUsuario.Instance();
 
+            Historial HistorialGuardado = Historial.Instance();
+            SingletonBot.StartBot();
+
+            if (System.IO.File.Exists(@"HistorialGeneral.json"))
+            {
+                
+                HistorialGuardado.LoadFromJson(@"HistorialGeneral.json");
+            }
             if (System.IO.File.Exists(@"Usuarios.json"))
             {
                 
                 UsuariosGuardados.LoadFromJson(@"Usuarios.json");
             }
+            
 
             inicialHandler = new ComenzarHandler(null);
 
@@ -57,9 +64,8 @@ namespace ConsoleApplication
 
             segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new SalirEmparejamientoHandler(new AyudaHandler(new MenuHandler(null)))));
 
-            tercerHandler = new ComenzarHandler(null); //Temporal tengo que ingresarle un handler para que no de error
-
             tercerHandler = new PosicionarHandler(new RendirseHandler(null));
+
 
             cuartoHandler = new AtacarHandler(new RendirseHandler(null));
        
@@ -83,8 +89,9 @@ namespace ConsoleApplication
 
             // Esperamos a que el usuario aprete Enter en la consola para terminar el bot.
             Console.ReadLine();
-
-            System.IO.File.WriteAllText(@"Usuarios.json", UsuariosGuardados.SerializarUsuarios());
+            
+            System.IO.File.WriteAllText(@"HistorialGeneral.json", HistorialGuardado.SerializarUsuarios());
+            System.IO.File.WriteAllText(@"Usuarios.json", UsuariosGuardados.SerializarUsuarios());           
 
             // Terminamos el bot.
             cts.Cancel();
@@ -141,6 +148,7 @@ namespace ConsoleApplication
                     case 3:
                         cuartoHandler.Handle(message, out response);
                         break;
+
                 }
             }
             else

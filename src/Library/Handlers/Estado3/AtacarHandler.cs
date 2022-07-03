@@ -75,15 +75,15 @@ namespace ClassLibrary
                         string mensajeOponente = string.Empty;
                         string ResultadoAtacar = Planificador.Atacar(mensaje.Text, numdelJugador);
                         respuesta += ResultadoAtacar;
-                        respuesta += $"\n{Planificador.VerTableroOponente(numdelJugador)}";
+                        respuesta += $"\n{Planificador.VerTableroOponente(NumDelJugadorOponente)}";
                         if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque.")
                             if (ResultadoAtacar != "La coordenada enviada fue invalida")
                             {
                                 mensajeOponente = $"Has sido atacado en {mensaje.Text}\n{Planificador.VerTablero(NumDelJugadorOponente)}";
                                 if (Planificador.PartidaFinalizada(numdelJugador))
                                 {
-                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial e iras al menu principal \nUtiliza el comando /menu para mas información";
-                                    mensajeOponente += "\n\nLamentablemente has perdido.";
+                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial e iras al menu principal \nPresiona /menu para mas información";
+                                    mensajeOponente += "\n\nLamentablemente has perdido. \nLa partida se guardara en su historial e iras al menu principal \nPresiona /menu para mas información";
                                     historia.ReiniciarEstados(IDDelOponente);
                                     historia.ReiniciarEstados(IDDelJugador);
                                     EstadoLocal.Remove(IDDelOponente);
@@ -92,7 +92,7 @@ namespace ClassLibrary
                                 else
                                 {
                                     mensajeOponente += $"Indique la proxima casilla que desea atacar:";
-                                    respuesta += "\n\nLe notificaremos cuando vuelva a ser su turno de atacar, espere el mensaje por favor";
+                                    respuesta += $"Le notificaremos cuando vuelva a ser su turno de atacar, espere el mensaje por favor";
                                 }
                                 bot.SendTextMessageAsync(IDDelOponente, mensajeOponente);
                             }

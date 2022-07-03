@@ -14,7 +14,7 @@ namespace ClassLibrary
       /// <summary>
       /// Lista de DatosdePartida
       /// </summary>
-      private List<DatosdePartida> partidas = new List<DatosdePartida>();
+      public List<DatosdePartida> Partidas = new List<DatosdePartida>();
       /// <summary>
       /// Parte de singleton. Atributo donde se guarda la instancia del Historial (o null si no fue creada).
       /// </summary>
@@ -39,17 +39,6 @@ namespace ClassLibrary
             }
             return instance;
         }
-      /// <summary>
-      /// Atributo que funciona para poder ver la lista de partidas desde otras clases, pero no modificarla.
-      /// </summary>
-      /// <value></value>
-      public List<DatosdePartida> Partidas
-      {
-        get
-        {
-          return partidas;
-        }
-      }
 
       /// <summary>
       /// Almacena la partida en el historial general y los historiales personales de los jugadores.
@@ -62,7 +51,7 @@ namespace ClassLibrary
         PerfilUsuario jugador2 = buscador.ObtenerPerfil(partida.Jugadores[1]);
         jugador1.AgregarAlHistorial(partida);
         jugador2.AgregarAlHistorial(partida);
-        partidas.Add(partida);
+        Partidas.Add(partida);
       }
       public string SerializarUsuarios()
         {
@@ -72,7 +61,7 @@ namespace ClassLibrary
                 ReferenceHandler = MyReferenceHandler.Instance,
                 WriteIndented = true
             };
-            string usuarios= JsonSerializer.Serialize<List<DatosdePartida>>(partidas,options);
+            string usuarios= JsonSerializer.Serialize<List<DatosdePartida>>(Partidas,options);
             return usuarios;
         }
         public void LoadFromJson(string rutaDeArchivo)
@@ -84,9 +73,9 @@ namespace ClassLibrary
             };
             string json = System.IO.File.ReadAllText(rutaDeArchivo);
             List<DatosdePartida> listavieja = JsonSerializer.Deserialize<List<DatosdePartida>>(json, options);
-            foreach (DatosdePartida partidasviejas in listavieja)
+            foreach (DatosdePartida Partidasviejas in listavieja)
             {
-              this.partidas.Add(partidasviejas);
+              this.Partidas.Add(Partidasviejas);
             }
         }
     }

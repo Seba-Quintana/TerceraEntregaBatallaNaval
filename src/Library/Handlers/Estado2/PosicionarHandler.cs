@@ -67,7 +67,7 @@ namespace ClassLibrary
                     if (!EstadoLocal.ContainsKey(IDDelJugador))
                     {
                         respuesta += "Bienvenido a la etapa de posicionamiento";
-                        respuesta += "En esta etapa no se pueden posicionar barcos diagonalmente";
+                        respuesta += $"\nEn esta etapa no se pueden posicionar barcos diagonalmente";
                         EstadoLocal.Add(IDDelJugador, new string[3]);
                         respuesta += $"\nIndique la casilla de inicio del barco :";
                         return true;
@@ -85,19 +85,19 @@ namespace ClassLibrary
                             EstadoLocal[IDDelJugador][1] = mensaje.Text;
                             string ResultadoPosicionamiento = Planificador.Posicionar(EstadoLocal[IDDelJugador][0] , EstadoLocal[IDDelJugador][1], numdelJugador);
                             respuesta += ResultadoPosicionamiento;
-                            respuesta += $"\n{almacenamiento.ObtenerTablero(numdelJugador)}";
+                            respuesta += $"\n\n{Planificador.VerTablero(numdelJugador)}";
                             this.EstadoLocal[IDDelJugador][0] = null;
                             this.EstadoLocal[IDDelJugador][1] = null;
                             if (Planificador.PosicionamientoFinalizado(numdelJugador))
                             {
                                 if (Planificador.PosicionamientoFinalizado(NumDelJugadorOponente))
                                 {
-                                    bot.SendTextMessageAsync(IDDelOponente, "El oponente a finalizado su etapa de posicionamiento \nUtiliza /Atacar para poder atacar barcos del tablero enemigo");
-                                    respuesta += $"\n Ha terminado la etapa de posicionamiento, apartir de ahora podras atacar \nUtiliza /Atacar para iniciar tu ofensiva, Buena suerte";
+                                    bot.SendTextMessageAsync(IDDelOponente, $"El oponente a finalizado su etapa de posicionamiento \nUtiliza /Atacar para poder atacar barcos del tablero enemigo.");
+                                    respuesta += $"\nHa terminado la etapa de posicionamiento, apartir de ahora podras atacar \nUtiliza /Atacar para iniciar tu ofensiva, Buena suerte.";
                                 }
                                 else
                                 {
-                                    respuesta += $"\n Ya no podras posicionar mas barcos en esta partida, espera a que tu oponente termine de colocar sus barcos. \n Te notificare cuando suceda"; 
+                                    respuesta += $"\nYa no podras posicionar más barcos en esta partida, espera a que tu oponente termine de colocar sus barcos. \n Te notificare cuando suceda."; 
                                 }
                                 historia.AvanzarEstados(IDDelJugador, 1);
                                 EstadoLocal.Remove(IDDelJugador);

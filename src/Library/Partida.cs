@@ -71,8 +71,7 @@ namespace ClassLibrary
         /// </summary>
         protected void Finalizar()
         {
-            DatosdePartida Almacenaje = new DatosdePartida();
-            Almacenaje.Almacenar(this.tableros, this.tiradas);
+            new DatosdePartida(this.tableros, this.tiradas);
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.RemoverPartida(this);
         }
@@ -355,12 +354,12 @@ namespace ClassLibrary
             {
                 if (this.jugadores[0] == jugador)
                 {
-                    LogicaDeTablero.Finalizar(this.tableros[1]);
+                    LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
                     this.Finalizar();
                 }
                 else
                 {
-                    LogicaDeTablero.Finalizar(this.tableros[0]);
+                    LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
                     this.Finalizar();
                 }
             }

@@ -76,7 +76,7 @@ namespace ClassLibrary
                             int numDeUsuario = Planificador.Registrar(HistoriaLocal[IDdeljugador][1] , IDdeljugador, HistoriaLocal[IDdeljugador][2]);
                             respuesta += "Registro Completado";
                             respuesta += $"\nSu nombre de usuario es {HistoriaLocal[IDdeljugador][1]} y su contraseña {HistoriaLocal[IDdeljugador][2]}.";
-                            respuesta += $"\nEste es tu numero de Usuario {numDeUsuario}. Recuerdelo.";
+                            respuesta += $"\nEste es tu numero de Usuario : {numDeUsuario}. Recuerdelo.";
                             respuesta += $"\nSeras enviado al menu principal,";
                             respuesta += $"\nUtilice /menu para poder obtener mas información.";
                             historia.AvanzarEstados(IDdeljugador, 1);
