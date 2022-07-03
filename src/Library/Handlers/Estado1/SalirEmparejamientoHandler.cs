@@ -36,7 +36,7 @@ namespace ClassLibrary
                     long IDdeljugador = mensaje.Chat.Id;
                     int usuario = conversor.ConversorIDaNum(IDdeljugador);
                     Planificador.removerListaEspera(usuario);
-                    respuesta += $"Emparejamiento cancelado \n";
+                    respuesta += $"Emparejamiento cancelado \n Presione /Menu para volver al menu \n";
                     historia.ReiniciarEstados(IDdeljugador);
                     return true;
                 }
