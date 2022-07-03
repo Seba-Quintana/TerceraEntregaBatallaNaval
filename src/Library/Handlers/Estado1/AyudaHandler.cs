@@ -31,7 +31,8 @@ namespace ClassLibrary
                 respuesta += "Si quieres jugar con un amigo, utiliza /BuscarPartidaAmistosa.\n";
                 respuesta += "Para ver el historial de partidas, escribe /VerHistorial\n";
                 respuesta += "Para ver tu historial, escribe /VerHistorialPersonal.\n";
-                respuesta += "Para ver tu perfil, escribe /VerPerfil";
+                respuesta += "Para ver tu perfil, escribe /VerPerfil\n";
+                respuesta += "Si quieres ver el Ranking de jugadores, escribe /VerRanking";
                 return true;
             }
 

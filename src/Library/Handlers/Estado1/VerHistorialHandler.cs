@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -25,19 +26,19 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-             respuesta = string.Empty;
+            respuesta = string.Empty;
             if (this.CanHandle(mensaje))
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                Historial historial = Historial.Instance();
-                Planificador.VerHistorial();
-                respuesta = "Este es el historial.";
+                respuesta = "Este es el historial:\n";
+                respuesta += Planificador.VerHistorial();
                 return true;
             }
-
             respuesta = string.Empty;
             return false;
         }
+
     }
 }
+

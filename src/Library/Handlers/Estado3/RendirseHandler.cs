@@ -39,7 +39,8 @@ namespace ClassLibrary
                     TelegramBotClient bot = SingletonBot.Instance();
                     respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
                     UsersHistory estados = UsersHistory.Instance();
-                    if (estados.VerEstado(IDdeljugadorRendido) == 3)
+                    Planificador.Rendirse(jugadorRendido);
+                    if (estados.VerEstado(IDdeljugadorRendido) == 2)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
                         respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
@@ -48,7 +49,7 @@ namespace ClassLibrary
                         respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
                     }
                     
-                    else if (estados.VerEstado(IDdeljugadorRendido) == 4)
+                    else if (estados.VerEstado(IDdeljugadorRendido) == 3)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
                         respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";

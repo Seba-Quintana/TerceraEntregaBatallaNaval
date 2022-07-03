@@ -31,9 +31,13 @@ namespace ClassLibrary
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
+                PerfilUsuario perfil = almacenamiento.ObtenerPerfil(jugador);
                 List <PerfilUsuario> ranking = almacenamiento.ObtenerRanking();
+                Mensajes imprimir = new Mensajes();
                 Planificador.VerRanking();
-                respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas. ";
+                respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
+                respuesta += Planificador.VerRanking();
                 return true;
             }
 
