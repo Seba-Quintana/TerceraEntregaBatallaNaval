@@ -28,19 +28,7 @@ namespace ClassLibrary
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
-        {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
-            {
-                long IDdeljugador = mensaje.Chat.Id;
-                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
-                respuesta = "Este es tu Historial Personal:\n";
-                respuesta += Planificador.VerHistorialPersonal(jugador);
-                return true;
-            }
-            return false;
-        
+        {  
             try
             {
                 if (this.CanHandle(mensaje))
