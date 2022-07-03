@@ -1,6 +1,7 @@
 using Telegram.Bot.Types;
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 namespace ClassLibrary
 {
@@ -26,23 +27,27 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
-                long IDdeljugador = mensaje.Chat.Id;
-                AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
-                PerfilUsuario perfil = almacenamiento.ObtenerPerfil(jugador);
-                List <PerfilUsuario> ranking = almacenamiento.ObtenerRanking();
-                Mensajes imprimir = new Mensajes();
-                Planificador.VerRanking();
-                respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
-                respuesta += Planificador.VerRanking();
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
+                {
+                    long IDdeljugador = mensaje.Chat.Id;
+                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                    List <PerfilUsuario> ranking = almacenamiento.ObtenerRanking();
+                    Planificador.VerRanking();
+                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas. ";
+                    return true;
+                }
+
+                respuesta = "No hay jugadores en el Ranking";
+                return false;
+            }
+            catch (Exception)
+            {
+                respuesta = "Ha habido un error. Intente de nuevo \n";
                 return true;
             }
-
-            respuesta = "No hay jugadores en el Ranking";
-            return false;
         }
     }
 }

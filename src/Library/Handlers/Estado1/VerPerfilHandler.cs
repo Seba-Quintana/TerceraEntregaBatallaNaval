@@ -1,5 +1,6 @@
 using Telegram.Bot.Types;
 using System.Text;
+using System;
 
 namespace ClassLibrary
 {
@@ -25,8 +26,7 @@ namespace ClassLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message mensaje, out string respuesta)
         {
-            respuesta = string.Empty;
-            if (this.CanHandle(mensaje))
+            try
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
@@ -36,6 +36,25 @@ namespace ClassLibrary
                 return true;
             }
             return false;
+                respuesta = string.Empty;
+                if (this.CanHandle(mensaje))
+                {
+                    long IDdeljugador = mensaje.Chat.Id;
+                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+                    int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
+                    Planificador.VerPerfil(jugador);
+                    respuesta = "Este es tu perfil, acompañado de sus estadísticas.";
+                    return true;
+                }
+
+                respuesta = string.Empty;
+                return false;
+            }
+            catch (Exception)
+            {
+                respuesta = "Ha habido un error. Intente de nuevo \n";
+                return true;
+            }
         }
     }
 }
