@@ -16,7 +16,7 @@ namespace ClassLibrary
         /// <param name="next">El próximo "handler".</param>
         public VisualizarRankingHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"/VisualizarRanking"};
+            this.Keywords = new string[] {"/VerRanking"};
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
+                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n";
                     respuesta += Planificador.VerRanking();
                     return true;
                 }
