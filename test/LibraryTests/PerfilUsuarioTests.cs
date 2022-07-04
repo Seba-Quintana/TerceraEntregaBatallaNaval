@@ -64,6 +64,10 @@ namespace Tests
 
             Assert.AreNotEqual(historialpersonal.Count,historialpersonal3.Count);
             Assert.AreEqual(historialpersonal.Count,historialpersonal2.Count);
+
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
+            almacenamiento.Remover(numeroDeJugador3);
         }
     }
 }

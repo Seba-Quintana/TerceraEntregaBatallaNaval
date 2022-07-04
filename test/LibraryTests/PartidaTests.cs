@@ -1,3 +1,4 @@
+using System;
 using ClassLibrary;
 using NUnit.Framework;
 
@@ -96,22 +97,69 @@ namespace Tests
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
         }
-        /*
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
         /// </summary>
         [Test]
         public void AtaqueAlAgua()
         {
-            string LugarAAtacar = "A1";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador2,numeroDeJugador1,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("E1","E6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+            
+            partida.Atacar("C1",numeroDeJugador1);
+
             char expected = 'W';
-            Tablero tablero = partida.tableros[1];
-            //char[,] charAct = tablero.VerCasilla(1, 7);
-            Assert.AreEqual(expected, tablero.VerCasilla(0,0));
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(2,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
+        }
+        /// <summary>
+        /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
+        /// </summary>
+        [Test]
+        public void AtaqueAlAguaEnElMismoLugar()
+        {
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador2,numeroDeJugador1,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B7",numeroDeJugador1);
+            partida.AgregarBarco("D1","D7",numeroDeJugador1);
+            partida.AgregarBarco("D1","D6",numeroDeJugador2);
+            partida.AgregarBarco("E1","E7",numeroDeJugador2);
+            partida.AgregarBarco("F1","F7",numeroDeJugador2);
+            
+            partida.Atacar("C1",numeroDeJugador1);
+            partida.Atacar("C1",numeroDeJugador2);
+            partida.Atacar("C1",numeroDeJugador1);
+
+            char expected = 'W';
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(2,0));
+
+            PartidasEnJuego remover = PartidasEnJuego.Instance();
+            remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -119,17 +167,29 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVertical()
         {
-            string inicioDelBarco = "B8";
-            string finalDelBarco = "F8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "F8";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador1,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A7",numeroDeJugador1);
+            partida.AgregarBarco("B1","F1",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+
+            partida.Atacar("C1",numeroDeJugador2);
+
             char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(5,7));
+            Tablero tablero = partida.VerTablero(numeroDeJugador1);
+            Assert.AreEqual(expected, tablero.VerCasilla(2,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
         /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -137,18 +197,34 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVerticalEnElMismoLugar()
         {
-            string inicioDelBarco = "B8";
-            string finalDelBarco = "F8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "F8";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador1,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B7",numeroDeJugador1);
+            partida.AgregarBarco("C1","C7",numeroDeJugador1);
+            partida.AgregarBarco("F1","F7",numeroDeJugador2);
+            partida.AgregarBarco("A2","A7",numeroDeJugador2);
+            partida.AgregarBarco("B2","B4",numeroDeJugador2);
+            partida.AgregarBarco("A1","D1",numeroDeJugador2);
+
+            partida.Atacar("C1",numeroDeJugador1);
+            partida.Atacar("C1",numeroDeJugador2);
+            partida.Atacar("C1",numeroDeJugador1);
+
             char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(5,7));
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(2,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -156,38 +232,63 @@ namespace Tests
         [Test]
         public void AtaqueBarcoHorizontal()
         {
-            string inicioDelBarco = "H4";
-            string finalDelBarco = "H8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "H5";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador2,numeroDeJugador1,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("E1","E6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+            
+            partida.Atacar("A1",numeroDeJugador2);
+
             char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(7,4));
+            Tablero tablero = partida.VerTablero(numeroDeJugador1);
+            Assert.AreEqual(expected, tablero.VerCasilla(0,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
-         /// <summary>
+        /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
         /// </summary>
         [Test]
         public void AtaqueBarcoHorizontalEnElMismoLugar()
         {
-            string inicioDelBarco = "H4";
-            string finalDelBarco = "H8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "H6";
-            partida.Atacar(LugarAAtacar, 2);
-            partida.Atacar(LugarAAtacar, 2);
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador1,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B7",numeroDeJugador1);
+            partida.AgregarBarco("C1","C7",numeroDeJugador1);
+            partida.AgregarBarco("D1","D6",numeroDeJugador2);
+            partida.AgregarBarco("E1","E7",numeroDeJugador2);
+            partida.AgregarBarco("F1","F7",numeroDeJugador2);
+            
+            partida.Atacar("E1",numeroDeJugador1);
+            partida.Atacar("E1",numeroDeJugador2);
+            partida.Atacar("E1",numeroDeJugador1);
+
             char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(7,5));
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(4,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
-        }*/
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
+        }
     }
 }
