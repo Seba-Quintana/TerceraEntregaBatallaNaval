@@ -36,7 +36,7 @@ namespace ClassLibrary
                     int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
                     Planificador.Remover(jugador);
                     respuesta += "Su usuario ha sido removido\nSi desea volver a ingresar debe registrarse\n\nUse /Registrar para volver a registrarse";
-                    UsersHistory estados = UsersHistory.Instance();
+                    EstadosUsuarios estados = EstadosUsuarios.Instance();
                     estados.RetrocederEstados(IDdeljugador,1);
                     return true;
                 }
@@ -45,7 +45,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;

@@ -164,15 +164,15 @@ Hecho por Franco.
 Partida rapida es una subclase de Partida, añade la posibilidad de realizar un segundo tiro por ataque.
 Hereda de partida dado que mantiene todas las características de una partida normal, salvo por el método de ataque y un atributo con las segundas tiradas.
 
-- LogicaDeTablero:
-Hecho por Franco.
-La clase LogicaDeTablero es la que obtiene los datos que Tablero precisa y le delega tareas.
-Esta clase es estática porque como su única responsabilidad es delegar tareas, no necesita almacenar información, y utiliza SRP por la misma razón.
-
 - Tablero:
 Hecho por Franco.
 Es la clase encargada de manejar el espacio de juego, posiciona los barcos y ataques en el tablero, y asigna el ganador.
 Cumple con expert debido a que es el unico que posee el acceso al tablero para poder modificarlo a traves de sus metodos.
+
+- Barco:
+Hecho por Franco.
+Es la clase que almacena los barcos de un tablero.
+Cumple con expert dado que es la clase que tiene la informacion necesaria para poder implementar sus metodos.
 
 
 Excepciones:
