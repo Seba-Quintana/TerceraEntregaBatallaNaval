@@ -24,6 +24,13 @@ namespace ClassLibrary
             return NumeroDeJugador;
         }
 
+        /// <summary>
+        /// Esta clase permite que un usuario pueda iniciar sesion
+        /// </summary>
+        /// <param name="numeroDeJugador"> jugador que quiere iniciar sesion </param>
+        /// <param name="nombre"> nombre del jugador </param>
+        /// <param name="contrasena"> contraseña del jugador </param>
+        /// <returns> Devuelve true si el inicio de sesion se efectuo correctamente </returns>
         public static bool IniciarSesion(int numeroDeJugador, string nombre, string contrasena)
         {
             AlmacenamientoUsuario inicio = AlmacenamientoUsuario.Instance();
@@ -57,7 +64,7 @@ namespace ClassLibrary
         /// Si el numero de jugador ingresado tiene una partida en juego,
         /// pide mostrar el tablero del oponente.
         /// </summary>
-        /// <param name="jugador"> jugador en partida </param>
+        /// <param name="jugadorOponente"> jugador en partida </param>
         public static string VerTableroOponente(int jugadorOponente)
         {
             IImprimirTablero imprimir = new ImprimirTableroOponente();

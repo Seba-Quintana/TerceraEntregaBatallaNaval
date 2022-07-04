@@ -172,7 +172,7 @@ namespace ClassLibrary
         /// <summary>
         /// Metodo encargado de añadir los barcos
         /// </summary>
-        /// <param name="coordenadanUno"></param>
+        /// <param name="coordenadaUno"></param>
         /// <param name="coordenadaDos"></param>
         /// <param name="jugador"></param>
         /// <returns></returns>
