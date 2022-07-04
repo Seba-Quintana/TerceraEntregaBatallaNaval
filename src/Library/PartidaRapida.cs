@@ -72,7 +72,7 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
-                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     this.tiradas[0]+=1;                    
                     return respuesta;
@@ -80,7 +80,7 @@ namespace ClassLibrary
                 else if (this.Segundastiradas[0]==this.Segundastiradas[1])
                 {
                     Tablero tablerobjetivo = this.tableros[1];
-                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     this.Segundastiradas[0]+=1;
                     return respuesta;
@@ -97,7 +97,7 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = tableros[0];
-                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     tiradas[1]+=1;
                     return respuesta;
@@ -106,7 +106,7 @@ namespace ClassLibrary
                 else if (this.Segundastiradas[0] > this.Segundastiradas[1])
                 {
                     Tablero tablerobjetivo = this.tableros[0];
-                    char EstadoDeLaCasilla = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
                     
                     this.Segundastiradas[1]+=1;

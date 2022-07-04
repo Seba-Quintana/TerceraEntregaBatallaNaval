@@ -112,7 +112,7 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
-                    char EstadoDeLaCasillaobjetivo = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasillaobjetivo = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[0]+=1;                    
                     return respuesta;
@@ -130,7 +130,7 @@ namespace ClassLibrary
                 {
                     
                     Tablero tablerobjetivo = this.tableros[0];
-                    char EstadoDeLaCasillaobjetivo = LogicaDeTablero.Atacar(tablerobjetivo,fila,columna);
+                    char EstadoDeLaCasillaobjetivo = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[1]+=1;
                     return respuesta;
@@ -221,7 +221,7 @@ namespace ClassLibrary
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[0])
                 {
                     string respuesta = "";
-                        bool SeAgregoElBarco = LogicaDeTablero.AgregarBarco(this.tableros[0], filainicio, columnainicio, filafinal, columnafinal);
+                        bool SeAgregoElBarco = tableros[0].AgregarBarco(filainicio, columnainicio, filafinal, columnafinal);
 
                         if (SeAgregoElBarco)
                         {
@@ -259,7 +259,7 @@ namespace ClassLibrary
                 {
                     string respuesta = "";
                     
-                        bool SeAgregoElBarco = LogicaDeTablero.AgregarBarco(this.tableros[1], filainicio, columnainicio, filafinal, columnafinal);
+                        bool SeAgregoElBarco = tableros[1].AgregarBarco(filainicio, columnainicio, filafinal, columnafinal);
 
                         if (SeAgregoElBarco)
                         {
@@ -289,7 +289,6 @@ namespace ClassLibrary
                 
             }
         }
-
         /// <summary>
         /// Metodo utilizado para organizar las coordenadas, para que sea lo mismo decir A1 a A5 que A5 a A1
         /// </summary>
@@ -354,12 +353,12 @@ namespace ClassLibrary
             {
                 if (this.jugadores[0] == jugador)
                 {
-                    LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
+                    tableros[1].Victoria();
                     this.Finalizar();
                 }
                 else
                 {
-                    LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
+                    tableros[0].Victoria();
                     this.Finalizar();
                 }
             }
@@ -410,13 +409,13 @@ namespace ClassLibrary
         {
             if (tableros[0].terminado)
             {
-                LogicaDeTablero.PartidaFinalizada(this.tableros[1]);
+                tableros[1].Victoria();
                 this.Finalizar();
                 return true;
             }
             else if (tableros[1].terminado)
             {
-                LogicaDeTablero.PartidaFinalizada(this.tableros[0]);
+                tableros[0].Victoria();
                 this.Finalizar();
                 return true;
             }
