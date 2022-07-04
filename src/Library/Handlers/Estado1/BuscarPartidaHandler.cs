@@ -68,36 +68,24 @@ namespace ClassLibrary
                     }
                     else if (HistoriaLocal[IDdeljugador][0] == null)
                     {
-                        try{
-                            int modoingresado = Int32.Parse(mensaje.Text);
-                            if ( 0 != modoingresado && 1 != modoingresado)
-                            {
-                                throw (new FormatException());
-                            }
-                        }
-                        catch (FormatException)
+                        int modoingresado = Int32.Parse(mensaje.Text);
+                        if ( 0 != modoingresado && 1 != modoingresado)
                         {
-                            bot.SendTextMessageAsync(IDdeljugador, "Elije entre los modos 0 y 1 por favor");
-                            return true;
+                            throw new ModoInvalidoException();
                         }
+
                         HistoriaLocal[IDdeljugador][0] = mensaje.Text;
                         respuesta = "Indique el tamaño del tablero: \nEntre 2 y 11";
                         return true;
                     }
                     else if (HistoriaLocal[IDdeljugador][1] == null)
                     {
-                        try{
-                            int tamanoingresado = Int32.Parse(mensaje.Text);
-                            if ( 2 > tamanoingresado || tamanoingresado > 11 )
-                            {
-                                throw (new FormatException());
-                            }
-                        }
-                        catch (FormatException)
+                        int tamanoingresado = Int32.Parse(mensaje.Text);
+                        if ( 2 > tamanoingresado || tamanoingresado > 11 )
                         {
-                            bot.SendTextMessageAsync(IDdeljugador, "Los tamaños de tablero solo pueden ser numeros entre 2 y 11");
-                            return true;
+                            throw new TableroInvalidoException();
                         }
+                        
                         HistoriaLocal[IDdeljugador][1] = mensaje.Text;
                         
                         AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
@@ -135,6 +123,22 @@ namespace ClassLibrary
                     }
                 }
                 return false;
+            }
+            catch (ModoInvalidoException)
+            {
+                long IDdeljugador = mensaje.Chat.Id;
+                //TelegramBotClient bot = SingletonBot.Instance();
+                //bot.SendTextMessageAsync(IDdeljugador, "Elije entre los modos 0 y 1 por favor");
+                respuesta = "Elije entre los modos 0 y 1 por favor";
+                return true;
+            }
+            catch (TableroInvalidoException)
+            {
+                long IDdeljugador = mensaje.Chat.Id;
+                //TelegramBotClient bot = SingletonBot.Instance();
+                //bot.SendTextMessageAsync(IDdeljugador, "Los tamaños de tablero solo pueden ser numeros entre 2 y 11");
+                respuesta = "Los tamaños de tablero solo pueden ser numeros entre 2 y 11";
+                return true;
             }
             catch (Exception)
             {
