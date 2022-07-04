@@ -52,7 +52,7 @@ namespace ClassLibrary
                 if (this.CanHandle(mensaje))
                 {
                     long IDdeljugador = mensaje.Chat.Id;
-                    UsersHistory historia = UsersHistory.Instance();
+                    EstadosUsuarios historia = EstadosUsuarios.Instance();
                     if (!HistoriaLocal.ContainsKey(IDdeljugador))
                     {
                         HistoriaLocal.Add(IDdeljugador, new string[3]);

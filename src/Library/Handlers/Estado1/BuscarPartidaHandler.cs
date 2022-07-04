@@ -57,7 +57,7 @@ namespace ClassLibrary
                 {
                     TelegramBotClient bot = SingletonBot.Instance();
                     long IDdeljugador = mensaje.Chat.Id;
-                    UsersHistory historia = UsersHistory.Instance();
+                    EstadosUsuarios historia = EstadosUsuarios.Instance();
                     if (!HistoriaLocal.ContainsKey(IDdeljugador))
                     {
                         HistoriaLocal.Add(IDdeljugador, new string[3]);
@@ -89,7 +89,7 @@ namespace ClassLibrary
                         HistoriaLocal[IDdeljugador][1] = mensaje.Text;
                         
                         AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-                        UsersHistory Estados = UsersHistory.Instance();
+                        EstadosUsuarios Estados = EstadosUsuarios.Instance();
                         int[] emparejado; 
                         emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDdeljugador][0]), conversor.ConversorIDaNum(IDdeljugador), Int32.Parse(HistoriaLocal[IDdeljugador][1]));
                         if (emparejado==null)
@@ -143,7 +143,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;

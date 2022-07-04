@@ -55,7 +55,7 @@ namespace ClassLibrary
                 long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
-                    UsersHistory historia = UsersHistory.Instance();
+                    EstadosUsuarios historia = EstadosUsuarios.Instance();
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
                     
@@ -108,7 +108,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
