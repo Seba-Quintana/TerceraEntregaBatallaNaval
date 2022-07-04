@@ -69,6 +69,7 @@ namespace ClassLibrary
                         respuesta += "Bienvenido a la etapa de posicionamiento";
                         respuesta += $"\nEn esta etapa no se pueden posicionar barcos diagonalmente";
                         EstadoLocal.Add(IDDelJugador, new string[3]);
+                        respuesta += $"\n{Planificador.VerTablero(numdelJugador)}";
                         respuesta += $"\nIndique la casilla de inicio del barco :";
                         return true;
                     }
@@ -85,7 +86,7 @@ namespace ClassLibrary
                             EstadoLocal[IDDelJugador][1] = mensaje.Text;
                             string ResultadoPosicionamiento = Planificador.Posicionar(EstadoLocal[IDDelJugador][0] , EstadoLocal[IDDelJugador][1], numdelJugador);
                             respuesta += ResultadoPosicionamiento;
-                            respuesta += $"\n\n{Planificador.VerTablero(numdelJugador)}";
+                            respuesta += $"\n{Planificador.VerTablero(numdelJugador)}";
                             this.EstadoLocal[IDDelJugador][0] = null;
                             this.EstadoLocal[IDDelJugador][1] = null;
                             if (Planificador.PosicionamientoFinalizado(numdelJugador))
