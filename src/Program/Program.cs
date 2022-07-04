@@ -26,7 +26,7 @@ namespace ConsoleApplication
         /// La instancia del bot.
         /// </summary>
         private static TelegramBotClient Bot;
-        private static UsersHistory HistoriaDeUsuarios = UsersHistory.Instance();
+        private static EstadosUsuarios HistoriaDeUsuarios = EstadosUsuarios.Instance();
         private static IHandler inicialHandler;
         private static IHandler primerHandler;
         private static IHandler segundoHandler;
@@ -69,7 +69,7 @@ namespace ConsoleApplication
             tercerHandler = new PosicionarHandler(new RendirseHandler(null));
 
             cuartoHandler = new AtacarHandler(new RendirseHandler(null));
-            
+
 
             var cts = new CancellationTokenSource();
 
