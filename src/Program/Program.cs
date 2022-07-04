@@ -62,7 +62,7 @@ namespace ConsoleApplication
 
             primerHandler = new InicioSesionHandler(new RegistrarHandler(null));
 
-            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new SalirEmparejamientoHandler(new AyudaHandler(new MenuHandler(new VerHistorialHandler(new VerHistorialPersonalHandler(null)))))));
+            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new SalirEmparejamientoHandler(new AyudaHandler(new MenuHandler(new VerHistorialHandler(new VerHistorialPersonalHandler(new VerPerfilHandler(new VisualizarRankingHandler(null)))))))));
 
             tercerHandler = new PosicionarHandler(new RendirseHandler(null));
 
