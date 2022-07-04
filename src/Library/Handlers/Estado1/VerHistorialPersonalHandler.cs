@@ -31,17 +31,16 @@ namespace ClassLibrary
         {  
             try
             {
+                respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
                     long IDdeljugador = mensaje.Chat.Id;
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
-                    Planificador.VerHistorialPersonal(jugador);
-                    respuesta = "Este es tu Historial Personal.";
+                    respuesta = "Este es tu Historial Personal.\n";
+                    respuesta += Planificador.VerHistorialPersonal(jugador);
                     return true;
                 }
-
-                respuesta = "No tienes nada en tu historial personal";
                 return false;
             }
             catch (Exception)

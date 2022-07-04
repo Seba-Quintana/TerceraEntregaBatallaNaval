@@ -30,7 +30,7 @@ namespace ClassLibrary
         /// <param name="partidas"></param>
         public string ImprimirHistorial(List<DatosdePartida> partidas)
         {
-            string respuesta = "";
+            string respuesta = string.Empty;
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             IImprimirTablero imprimir = new ImprimirTableroPropio();
             foreach (DatosdePartida partida in partidas)

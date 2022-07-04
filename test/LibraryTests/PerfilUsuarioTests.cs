@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using ClassLibrary;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -11,8 +11,6 @@ namespace Tests
     [TestFixture]
     public class PerfilUsuarioTests
     {
-        private Jugador jugador;
-
         private int ganadas = 0;
 
         private int perdidas = 0;
@@ -28,46 +26,44 @@ namespace Tests
         [Test]
         public void obtenerHistorialPersonal()
         {
-            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-            Jugador jugador1 = new Jugador("Carlos",67,"player1");
-            Jugador jugador2 = new Jugador("Drake",55,"player2");
-            Jugador jugador3 = new Jugador("LUIS",34,"robgdfodf");
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+            int numeroDeJugador3 = Planificador.Registrar("Fede",70,"player3");
 
-            jugador1.BuscarPartida(0,7);
-            jugador2.BuscarPartida(0,7);
+            Planificador.EmparejarAmigos(0,numeroDeJugador2,numeroDeJugador1,7);
 
-            jugador1.PosicionarBarcos("A1","A6");
-            jugador1.PosicionarBarcos("B1","B6");
-            jugador2.PosicionarBarcos("E1","E6");
-            jugador2.PosicionarBarcos("F1","F6");
+            Planificador.Posicionar("A1","A6",numeroDeJugador1);
+            Planificador.Posicionar("B1","B6",numeroDeJugador1);
+            Planificador.Posicionar("E1","E6",numeroDeJugador2);
+            Planificador.Posicionar("F1","F6",numeroDeJugador2);
             
             int i = 1;
             while(i <= 6)
             {
-                jugador1.Atacar($"G{i}");
-                jugador2.Atacar($"A{i}");
+                Planificador.Atacar($"G{i}",numeroDeJugador1);
+                Planificador.Atacar($"A{i}",numeroDeJugador2);
                 i+=1;
             }
             i = 1;
             while(i < 6)
             {
-                jugador1.Atacar($"C{i}");
-                jugador2.Atacar($"B{i}");
+                Planificador.Atacar($"C{i}",numeroDeJugador1);
+                Planificador.Atacar($"B{i}",numeroDeJugador2);
                 i+=1;
             }
+            Planificador.Rendirse(numeroDeJugador1);
 
-            jugador1.Atacar("C6");
-            jugador2.Atacar("B6"); //Termino la partida
-            PerfilUsuario perfil1 = almacenamiento.ObtenerPerfil(jugador1.NumeroDeJugador);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            PerfilUsuario perfil1 = almacenamiento.ObtenerPerfil(numeroDeJugador1);
             List<DatosdePartida> historialpersonal = perfil1.ObtenerHistorialPersonal();
-            PerfilUsuario perfil3 = almacenamiento.ObtenerPerfil(jugador3.NumeroDeJugador);
+            PerfilUsuario perfil3 = almacenamiento.ObtenerPerfil(numeroDeJugador3);
             List<DatosdePartida> historialpersonal3 = perfil3.ObtenerHistorialPersonal();
-            PerfilUsuario perfil2 = almacenamiento.ObtenerPerfil(jugador2.NumeroDeJugador);
+            PerfilUsuario perfil2 = almacenamiento.ObtenerPerfil(numeroDeJugador2);
             List<DatosdePartida> historialpersonal2 = perfil2.ObtenerHistorialPersonal();
+            List<DatosdePartida> aver= new List<DatosdePartida>();
 
-            Assert.AreNotEqual(historialpersonal,historialpersonal3);
-            Assert.AreEqual(historialpersonal,historialpersonal2);    
+            Assert.AreNotEqual(historialpersonal.Count,historialpersonal3.Count);
+            Assert.AreEqual(historialpersonal.Count,historialpersonal2.Count);
         }
     }
-    
-}*/
+}
