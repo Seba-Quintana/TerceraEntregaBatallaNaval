@@ -176,9 +176,9 @@ namespace ClassLibrary
         /// <param name="coordenadaDos"></param>
         /// <param name="jugador"></param>
         /// <returns></returns>
-        public string AgregarBarco(string coordenadanUno, string coordenadaDos, int jugador)
+        public string AgregarBarco(string coordenadaUno, string coordenadaDos, int jugador)
         {
-            int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadanUno);
+            int [] coordenada1 = TraductorDeCoordenadas.Traducir(coordenadaUno);
             int [] coordenada2 = TraductorDeCoordenadas.Traducir(coordenadaDos);
             if (coordenada1==null || coordenada2==null)
             {
