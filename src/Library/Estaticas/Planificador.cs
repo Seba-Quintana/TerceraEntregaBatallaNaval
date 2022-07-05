@@ -322,21 +322,37 @@ namespace ClassLibrary
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             return partidas.ObtenerNumOponente(JugadorQueConsulta);
         }
+        /// <summary>
+        /// Metodo encargado de ver si una partida debe ser finalizada
+        /// y en caso de ser afirmativo, finalizarla.
+        /// </summary>
+        /// <param name="numeroDeJugador"></param>
+        /// <returns> Devuelve true en caso de que se finalize la partida</returns>
         public static bool PartidaFinalizada(int numeroDeJugador)
         {
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             return partida.EstaTerminada(numeroDeJugador);
         }
+        /// <summary>
+        /// Metodo utilizado para ver si el jugador esta en su turno de atacar.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
         public static bool TurnoDelJugador(int jugador)
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
-            return !juego.TurnoTerminado(jugador);
+            return juego.TurnoEnCurso(jugador);
         }
-        public static int CantidadDeBarcosintactos(int partesdebarco)
+        /// <summary>
+        /// metodo utilizado para ver la cantidad de barcos enteros
+        /// </summary>
+        /// <param name="propietariodelbarco"></param>
+        /// <returns></returns>
+        public static int CantidadDeBarcosintactos(int propietariodelbarco)
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            return partidas.CantidadDeBarcosintactos(partesdebarco);
+            return partidas.CantidadDeBarcosintactos(propietariodelbarco);
         }
     }
 }

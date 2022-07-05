@@ -34,6 +34,10 @@ namespace ClassLibrary
         /// Simboliza la cantidad de barcos que quedan para ubicar
         /// </summary>
         protected int [] cantidadDeBarcosParaPosicionar = new int[2]; 
+         /// <summary>
+        /// Variable encargada de controlar si se puede empezar a atacar (no se puede posicionar mas).
+        /// /// </summary>
+        protected int[] PartesDeBarcoEnteras = new int[2];
         /// <summary>
         ///  Constructor de la clase Partida.
         /// </summary>
@@ -61,6 +65,8 @@ namespace ClassLibrary
             this.tiradas[1]=0;
             this.posicionamientoTerminado[0]=false;
             this.posicionamientoTerminado[1]=false;
+            this.PartesDeBarcoEnteras[0]=0;
+            this.PartesDeBarcoEnteras[1]=0;
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.AlmacenarPartida(this);
         }
@@ -108,7 +114,7 @@ namespace ClassLibrary
 
             if (jugador == this.jugadores[0])
             {
-                if (!this.TurnoTerminado(jugador))
+                if (this.TurnoEnCurso(jugador))
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
@@ -126,7 +132,7 @@ namespace ClassLibrary
             }
             else
             {
-                if (!this.TurnoTerminado(jugador))
+                if (this.TurnoEnCurso(jugador))
                 {
                     
                     Tablero tablerobjetivo = this.tableros[0];
@@ -221,17 +227,18 @@ namespace ClassLibrary
                 if (casillasutilizadas <= this.cantidadDeBarcosParaPosicionar[0])
                 {
                     string respuesta = "";
-                        bool SeAgregoElBarco = tableros[0].AgregarBarco(filainicio, columnainicio, filafinal, columnafinal);
+                    bool SeAgregoElBarco = tableros[0].AgregarBarco(filainicio, columnainicio, filafinal, columnafinal);
 
-                        if (SeAgregoElBarco)
-                        {
-                            respuesta += "Se Agrego correctamente el barco";
-                            this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
-                        }
-                        else
-                        {
-                            respuesta += "Has intentado posicionar un barco sobre otro, Lo cual no esta permitido, envie otra coordenada por favor";
-                        }
+                    if (SeAgregoElBarco)
+                    {
+                        respuesta += "Se Agrego correctamente el barco";
+                        this.PartesDeBarcoEnteras[0]+=casillasutilizadas;
+                        this.cantidadDeBarcosParaPosicionar[0] -= casillasutilizadas;
+                    }
+                    else
+                    {
+                        respuesta += "Has intentado posicionar un barco sobre otro, Lo cual no esta permitido, envie otra coordenada por favor";
+                    }
                     
                     if (this.cantidadDeBarcosParaPosicionar[0] == 0)
                     {
@@ -264,6 +271,7 @@ namespace ClassLibrary
                         if (SeAgregoElBarco)
                         {
                             respuesta += "Se Agrego correctamente el barco";
+                            this.PartesDeBarcoEnteras[1]+=casillasutilizadas;
                             this.cantidadDeBarcosParaPosicionar[1] -= casillasutilizadas;
                         }
                         else
@@ -289,18 +297,24 @@ namespace ClassLibrary
                 
             }
         }
-        public virtual bool TurnoTerminado(int jugador)
+        /// <summary>
+        /// Responsable de ver si un turno a finalizado. Creado para la impresion de mensajes
+        /// de el handler atacar.
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public virtual bool TurnoEnCurso(int jugador)
         {
             if(jugador == jugadores[0] )
             {
-                if (tiradas[0] > tiradas[1])
+                if (this.tiradas[0] > this.tiradas[1])
                     {
                         return false;
                     }
             }
             else if (jugador == jugadores[1])
             {
-                if (tiradas[0]==tiradas[1])
+                if (this.tiradas[0]== this.tiradas[1])
                 {
                     return false;
                 }
@@ -341,7 +355,7 @@ namespace ClassLibrary
 
         }
         /// <summary>
-        /// Metodo encargado de obtener el largo de los barcos.
+        /// Metodo encargado de calcular el largo de los barcos.
         /// </summary>
         /// <param name="filainicio"></param>
         /// <param name="columnainicio"></param>
@@ -409,18 +423,20 @@ namespace ClassLibrary
         /// <returns></returns>
         public bool PosicionamientoFinalizado(int jugadorQueConsulta)
         {
-            if (jugadores[0] == jugadorQueConsulta)
+            if (this.jugadores[0] == jugadorQueConsulta)
             {
-                return posicionamientoTerminado[0];
+                return this.posicionamientoTerminado[0];
             }
             else
             {
-                return posicionamientoTerminado[1];
+                return this.posicionamientoTerminado[1];
             }
             
         }
         /// <summary>
-        /// Se encarga de finalizar la partida y devuelve un bool
+        /// Se encarga de confir si un tablero ha sido terminado
+        /// en caso de ser cierto finaliza la partida y 
+        /// devuelve true si la misma fue terminada
         /// </summary>
         /// <returns></returns>
         public bool PartidaTerminada()
@@ -439,15 +455,20 @@ namespace ClassLibrary
             }
             return false;
         }
+        /// <summary>
+        /// Metodo encargado de ver la cantidad de partes de barco sin dañar
+        /// </summary>
+        /// <param name="dueño"></param>
+        /// <returns></returns>
         public int PartesDeBarcoEnterasEnTablero(int dueño)
         {
             if(dueño == jugadores[0])
             {
-                return tableros[0].Tamano - tableros[0].CantidadPartesBarcoDañadas;
+                return this.PartesDeBarcoEnteras[0] - tableros[0].CantidadPartesBarcoDañadas;
             }
             else
             {
-                return tableros[1].Tamano - tableros[1].CantidadPartesBarcoDañadas;
+                return this.PartesDeBarcoEnteras[1] - tableros[1].CantidadPartesBarcoDañadas;
             }
         }
     }

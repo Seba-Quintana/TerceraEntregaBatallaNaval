@@ -39,6 +39,9 @@ namespace ClassLibrary
         /// </summary>
         /// <returns></returns>
         public List<int[]> CoordenadasDeBarcosPosicionados = new List<int[]>();
+        /// <summary>
+        /// Contador de cuantas partes dañadas hay en el tablero.
+        /// </summary>
         public int CantidadPartesBarcoDañadas = 0;
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
