@@ -29,7 +29,7 @@ namespace ClassLibrary
             {
                 respuesta = "Bienvenido al bot del equipo 9. Esperamos que lo disfrute U_w_U";
                 respuesta += $"\nEscribe '/Registrar' para registrarte, o '/InicioSesion' para iniciar sesion";
-                UsersHistory.Instance().NuevoJugador(mensaje.Chat.Id);
+                EstadosUsuarios.Instance().NuevoJugador(mensaje.Chat.Id);
                 return true;
             }
             respuesta = string.Empty;

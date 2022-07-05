@@ -7,17 +7,17 @@ namespace ClassLibrary
     /// <summary>
     /// Clase encargada de manejar los estados de los diferentes usuarios
     /// </summary>
-    public class UsersHistory
+    public class EstadosUsuarios
     {
-        static UsersHistory instance;
-        private UsersHistory()
+        static EstadosUsuarios instance;
+        private EstadosUsuarios()
         {
         }
-        public static UsersHistory Instance()
+        public static EstadosUsuarios Instance()
         {
             if (instance == null)
             {
-                instance = new UsersHistory();
+                instance = new EstadosUsuarios();
             }
             return instance;
         }

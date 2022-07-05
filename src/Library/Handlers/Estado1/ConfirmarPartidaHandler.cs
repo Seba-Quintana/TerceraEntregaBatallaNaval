@@ -6,9 +6,9 @@ using System;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "BuscarPartidaAmistosa".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ConfirmarPartida".
     /// </summary>
-    public class BuscarPartidaAmistosaHandler : BaseHandler
+    public class ConfirmarPartidaHandler : BaseHandler
     {
 		/// <summary>
         /// El estado del comando.
@@ -16,10 +16,10 @@ namespace ClassLibrary
 		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "BuscarPartidaAmistosa".
+        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "ConfirmarPartida".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public BuscarPartidaAmistosaHandler(BaseHandler next) : base(next)
+        public ConfirmarPartidaHandler(BaseHandler next) : base(next)
         {
             this.Keywords = new string[] {"/Aceptar"};
         }
@@ -42,7 +42,7 @@ namespace ClassLibrary
             }
         }
         /// <summary>
-        /// Procesa el mensaje "BuscarPartidaAmistosa" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "ConfirmarPartida" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
@@ -96,7 +96,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;

@@ -16,7 +16,8 @@ namespace ClassLibrary
         
         public string ImprimirTablero(Tablero tablero)
         {
-            string respuesta = "TABLERO PROPIO\n\n";
+            string respuesta = string.Empty;
+            //string respuesta = string.Empty;
             string filaImprimir = "   ";
             List<string> letras = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", " I", "J", "K", "L", "M", "N", "O" };
             respuesta += "\n";
