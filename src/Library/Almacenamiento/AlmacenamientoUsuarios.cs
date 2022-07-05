@@ -40,6 +40,10 @@ namespace ClassLibrary
             }
             return instance;
         }
+
+        /// <summary>
+        /// inicializa la lista de usuarios
+        /// </summary>
         public void Inicializar()
         {
             ListaDeUsuarios = new List<PerfilUsuario>();
@@ -56,13 +60,20 @@ namespace ClassLibrary
         public int Registrar(string nombre, long id, string contrasena)
         {
             int numeroDeJugador = 1;
-            if (ListaDeUsuarios.Count != 0)
+            if (ConversorIDaNum(id) != 0)
             {
-                numeroDeJugador = ListaDeUsuarios[ListaDeUsuarios.Count - 1].NumeroDeJugador + 1;
-            }    
-            PerfilUsuario usuario = new PerfilUsuario(nombre, id, contrasena, numeroDeJugador);
-            ListaDeUsuarios.Add(usuario);
-            return numeroDeJugador;
+                return ConversorIDaNum(id);
+            }
+            else
+            {
+                if (ListaDeUsuarios.Count != 0)
+                {
+                    numeroDeJugador = ListaDeUsuarios[ListaDeUsuarios.Count - 1].NumeroDeJugador + 1;
+                }    
+                PerfilUsuario usuario = new PerfilUsuario(nombre, id, contrasena, numeroDeJugador);
+                ListaDeUsuarios.Add(usuario);
+                return numeroDeJugador;
+            }
         }
         /// <summary>
         /// Si el numero de usuarios pertenece a un PerfilUsuario existente
@@ -291,6 +302,10 @@ namespace ClassLibrary
             return false;
         }
         
+        /// <summary>
+        /// Metodo para serializar usuarios
+        /// </summary>
+        /// <returns></returns>
         public string SerializarUsuarios()
         {
             
@@ -302,6 +317,11 @@ namespace ClassLibrary
             string usuarios= JsonSerializer.Serialize<List<PerfilUsuario>>(ListaDeUsuarios,options);
             return usuarios;
         }
+
+        /// <summary>
+        /// Metodo para deserializar usuarios
+        /// </summary>
+        /// <param name="rutaDeArchivo"></param>
         public void LoadFromJson(string rutaDeArchivo)
         {
             JsonSerializerOptions options = new()
