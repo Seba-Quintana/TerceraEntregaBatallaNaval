@@ -22,18 +22,12 @@ namespace ClassLibrary
         {
             this.tableros[0] = new Tablero(tamano,jugador1);
             this.jugadores[0]=jugador1; //Simboliza los jugadores, puede cambiarse a futuro
-            this.jugadores[1]=jugador2;
             this.tableros[1] = new Tablero(tamano,jugador2);
-            this.cantidadDeBarcosParaPosicionar[0]= (tamano * tamano*25)/100;
-            this.cantidadDeBarcosParaPosicionar[1]= (tamano * tamano*25)/100;
-            this.tiradas[0]=0;
-            this.tiradas[1]=0;
+            this.jugadores[1]=jugador2;
+            this.cantidadDeBarcosParaPosicionar[0]= (tamano*tamano*25)/100;
+            this.cantidadDeBarcosParaPosicionar[1]= (tamano*tamano*25)/100;
             this.Segundastiradas[0]=0;
             this.Segundastiradas[1]=0;
-            this.posicionamientoTerminado[0]=false;
-            this.posicionamientoTerminado[1]=false;
-            PartidasEnJuego partida = PartidasEnJuego.Instance();
-            partida.AlmacenarPartida(this);
         }
         /// <summary>
         /// Metodo encargado de llamar al metodo Atacar de Logica de Tablero se cambia ya que se debe controlar
@@ -58,7 +52,7 @@ namespace ClassLibrary
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
                 }
-            if (LugarDeAtaque[0] >= this.tableros[0].Tamano || LugarDeAtaque[1] >= this.tableros[0].Tamano)
+            if (LugarDeAtaque[0] >= this.tableros[0].Tamano || LugarDeAtaque[1] >= this.tableros[1].Tamano)
             {
                 return "Las coordenadas enviadas son erroneas";
                 }
@@ -68,7 +62,7 @@ namespace ClassLibrary
 
             if (jugador == this.jugadores[0])
             {
-                if (this.tiradas[0]==this.tiradas[1] && this.Segundastiradas[0] == this.Segundastiradas[1])
+                if (tiradas[0] == tiradas[1] && this.TurnoTerminado(jugador))
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
@@ -77,7 +71,7 @@ namespace ClassLibrary
                     this.tiradas[0]+=1;                    
                     return respuesta;
                 }
-                else if (this.Segundastiradas[0]==this.Segundastiradas[1])
+                else if (this.TurnoTerminado(jugador))
                 {
                     Tablero tablerobjetivo = this.tableros[1];
                     char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
@@ -93,7 +87,7 @@ namespace ClassLibrary
             }
             else if (jugador == jugadores[1])
             {
-                if (this.tiradas[0] > this.tiradas[1] && this.Segundastiradas[0] > this.Segundastiradas[1])
+                if (tiradas[0] > tiradas[1] && this.TurnoTerminado(jugador))
                 {
                     
                     Tablero tablerobjetivo = tableros[0];
@@ -103,12 +97,11 @@ namespace ClassLibrary
                     return respuesta;
 
                 }
-                else if (this.Segundastiradas[0] > this.Segundastiradas[1])
+                else if (this.TurnoTerminado(jugador))
                 {
                     Tablero tablerobjetivo = this.tableros[0];
                     char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
-                    
                     this.Segundastiradas[1]+=1;
                     return respuesta;
                 }
@@ -120,9 +113,27 @@ namespace ClassLibrary
             }
             else
             {
-            return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
+                return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
             }
 
+        }
+        public override bool TurnoTerminado(int jugador)
+        {
+            if (jugador == jugadores[0])
+            {
+                if (this.Segundastiradas[0] > this.Segundastiradas[1] )
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if ( this.Segundastiradas[0] == this.Segundastiradas[1] )
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
