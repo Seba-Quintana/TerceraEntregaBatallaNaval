@@ -33,25 +33,33 @@ namespace ClassLibrary
             string respuesta = string.Empty;
             AlmacenamientoUsuario buscador = AlmacenamientoUsuario.Instance();
             IImprimirTablero imprimir = new ImprimirTableroPropio();
-            
-            foreach (DatosdePartida partida in partidas)
+
+            if (partidas.Count > 0)
             {
-                if (partida.Tableros == null)
+                respuesta = "Este es el Historial.\n";
+                foreach (DatosdePartida partida in partidas)
                 {
-                    respuesta += ($"Tamaño del tablero: {partida.Tamano}\n");
-                    respuesta += ($"Turnos: {partida.Tiradas[0]}\n");
-                }
-                else
-                {
-                    foreach (Tablero tablero in partida.Tableros)
+                    if (partida.Tableros == null)
                     {
-                        respuesta += buscador.ObtenerPerfil(tablero.DuenodelTablero).Nombre;
-                        respuesta += ($"\n{imprimir.ImprimirTablero(tablero)}\n");
+                        respuesta += ($"Tamaño del tablero: {partida.Tamano}\n");
                         respuesta += ($"Turnos: {partida.Tiradas[0]}\n");
                     }
+                    else
+                    {
+                        foreach (Tablero tablero in partida.Tableros)
+                        {
+                            respuesta += buscador.ObtenerPerfil(tablero.DuenodelTablero).Nombre;
+                            respuesta += ($"\n{imprimir.ImprimirTablero(tablero)}\n");
+                            respuesta += ($"Turnos: {partida.Tiradas[0]}\n");
+                        }
+                    }
+                    respuesta += ($"Ganador: {buscador.ObtenerPerfil(partida.Ganador).Nombre}\n");
+                    respuesta += ($"Perdedor: {buscador.ObtenerPerfil(partida.Perdedor).Nombre}\n");
                 }
-                respuesta += ($"Ganador: {buscador.ObtenerPerfil(partida.Ganador).Nombre}\n");
-                respuesta += ($"Perdedor: {buscador.ObtenerPerfil(partida.Perdedor).Nombre}\n");
+            }
+            else 
+            {
+                respuesta = "Aun no hay partidas en el historial.\n";
             }
             return respuesta;
         }

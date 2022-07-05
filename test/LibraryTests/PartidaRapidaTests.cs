@@ -11,6 +11,25 @@ namespace Tests
     public class PartidaRapidaTests
     {
         /// <summary>
+        /// SetUp Creado con el objetivo de tener los elementos necesatios 
+        /// para probar PartidaRapida de diferentes maneras
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+			PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.partidas.Count > 0)
+                partidas.RemoverPartida(partidas.ObtenerPartida(1));
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            int i = 1;
+            int CantidadUsuarios = almacenamiento.ListaDeUsuarios.Count;
+            while (i <= CantidadUsuarios)
+            {
+                almacenamiento.Remover(i);
+                i++;
+            }
+        }
+        /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla fuera de turno no se realiza el ataque.
         /// </summary>
         [Test]
@@ -112,21 +131,21 @@ namespace Tests
             int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
             int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
 
-            Planificador.EmparejarAmigos(0,numeroDeJugador2,numeroDeJugador1,7);
+            Planificador.EmparejarAmigos(1,numeroDeJugador2,numeroDeJugador1,7);
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
 
-            partida.AgregarBarco("A1","A6",numeroDeJugador1);
-            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("A1","A7",numeroDeJugador1);
+            partida.AgregarBarco("B2","F2",numeroDeJugador1);
             partida.AgregarBarco("E1","E6",numeroDeJugador2);
             partida.AgregarBarco("F1","F6",numeroDeJugador2);
             
-            partida.Atacar("E1",numeroDeJugador1);
-            partida.Atacar("E1",numeroDeJugador1);
+            partida.Atacar("C2",numeroDeJugador2);
+            partida.Atacar("C2",numeroDeJugador2);
 
             char expected = 'T';
-            Tablero tablero = partida.VerTablero(numeroDeJugador2);
-            Assert.AreEqual(expected, tablero.VerCasilla(4,0));
+            Tablero tablero = partida.VerTablero(numeroDeJugador1);
+            Assert.AreEqual(expected, tablero.VerCasilla(2,1));
 
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);

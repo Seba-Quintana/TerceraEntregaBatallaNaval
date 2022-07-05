@@ -11,14 +11,25 @@ namespace Tests
     [TestFixture]
     public class PerfilUsuarioTests
     {
-        private int ganadas = 0;
-
-        private int perdidas = 0;
-
-        private List<DatosdePartida> HistorialPersonal = new List<DatosdePartida>();
-
-        List<PerfilUsuario> ListadeUsuarios = new List<PerfilUsuario>();
-
+        /// <summary>
+        /// SetUp Creado con el objetivo de tener los elementos necesatios 
+        /// para probar PerfilUsuario de diferentes maneras
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+			PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            if (partidas.partidas.Count > 0)
+                partidas.RemoverPartida(partidas.ObtenerPartida(1));
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            int i = 1;
+            int CantidadUsuarios = almacenamiento.ListaDeUsuarios.Count;
+            while (i <= CantidadUsuarios)
+            {
+                almacenamiento.Remover(i);
+                i++;
+            }
+        }
         /// <summary>
         /// Pruebo si el historial personal se almacena correctamente
         /// en solo los usuarios que participaron de la partida

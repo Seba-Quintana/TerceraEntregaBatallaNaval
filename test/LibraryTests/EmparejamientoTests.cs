@@ -2,7 +2,7 @@ using System;
 using ClassLibrary;
 using NUnit.Framework;
 
-/*namespace Tests
+namespace Tests
 {
     /// <summary>
     /// Tests de traductor <see cref="Emparejamiento"/>
@@ -192,4 +192,4 @@ using NUnit.Framework;
             remover.RemoverPartida(remover.ObtenerPartida(1));
         }
     }
-}*/
+}
