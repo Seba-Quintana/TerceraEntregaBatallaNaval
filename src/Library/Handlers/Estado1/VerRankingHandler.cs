@@ -6,21 +6,21 @@ using System;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "VisualizarRanking".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "VerRanking".
     /// </summary>
-    public class VisualizarRankingHandler : BaseHandler
+    public class VerRankingHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "VisualizarRanking".
+        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "VerRanking".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public VisualizarRankingHandler(BaseHandler next) : base(next)
+        public VerRankingHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"/VisualizarRanking"};
+            this.Keywords = new string[] {"/VerRanking"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "VisualizarRanking" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "VerRanking" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
@@ -32,7 +32,8 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
+                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n";
+
                     respuesta += Planificador.VerRanking();
                     return true;
                 }

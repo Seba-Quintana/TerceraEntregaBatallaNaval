@@ -56,7 +56,7 @@ namespace ClassLibrary
                 long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
-                    UsersHistory historia = UsersHistory.Instance();
+                    EstadosUsuarios historia = EstadosUsuarios.Instance();
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
                     
@@ -69,6 +69,7 @@ namespace ClassLibrary
                         respuesta += "Bienvenido a la etapa de posicionamiento";
                         respuesta += $"\nEn esta etapa no se pueden posicionar barcos diagonalmente";
                         EstadoLocal.Add(IDDelJugador, new string[3]);
+                        respuesta += $"\n{Planificador.VerTablero(numdelJugador)}";
                         respuesta += $"\nIndique la casilla de inicio del barco :";
                         return true;
                     }
@@ -85,7 +86,7 @@ namespace ClassLibrary
                             EstadoLocal[IDDelJugador][1] = mensaje.Text;
                             string ResultadoPosicionamiento = Planificador.Posicionar(EstadoLocal[IDDelJugador][0] , EstadoLocal[IDDelJugador][1], numdelJugador);
                             respuesta += ResultadoPosicionamiento;
-                            respuesta += $"\n\n{Planificador.VerTablero(numdelJugador)}";
+                            respuesta += $"\n{Planificador.VerTablero(numdelJugador)}";
                             this.EstadoLocal[IDDelJugador][0] = null;
                             this.EstadoLocal[IDDelJugador][1] = null;
                             if (Planificador.PosicionamientoFinalizado(numdelJugador))
@@ -120,7 +121,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;

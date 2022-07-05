@@ -33,7 +33,7 @@ namespace ClassLibrary
                 {
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     TelegramBotClient bot = SingletonBot.Instance();
-                    UsersHistory estados = UsersHistory.Instance();
+                    EstadosUsuarios estados = EstadosUsuarios.Instance();
                     
                     long IDdeljugadorRendido = mensaje.Chat.Id;
                     int jugadorRendido = almacenamiento.ConversorIDaNum(IDdeljugadorRendido);
@@ -68,7 +68,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;

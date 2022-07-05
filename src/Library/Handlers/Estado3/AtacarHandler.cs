@@ -55,7 +55,7 @@ namespace ClassLibrary
                 long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
-                    UsersHistory historia = UsersHistory.Instance();
+                    EstadosUsuarios historia = EstadosUsuarios.Instance();
                     AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
                     
@@ -79,7 +79,7 @@ namespace ClassLibrary
                         if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque.")
                             if (ResultadoAtacar != "La coordenada enviada fue invalida")
                             {
-                                mensajeOponente = $"Has sido atacado en {mensaje.Text}\n{Planificador.VerTablero(NumDelJugadorOponente)}";
+                                mensajeOponente = $"Has sido atacado en {mensaje.Text}\n\nTABLERO PROPIO \n\n{Planificador.VerTablero(NumDelJugadorOponente)}";
                                 if (Planificador.PartidaFinalizada(numdelJugador))
                                 {
                                     respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial e iras al menu principal \nPresiona /menu para mas información";
@@ -108,7 +108,7 @@ namespace ClassLibrary
             catch (Exception)
             {
                 long IDdeljugador = mensaje.Chat.Id;
-                UsersHistory estados = UsersHistory.Instance();
+                EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
