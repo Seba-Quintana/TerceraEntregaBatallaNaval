@@ -92,7 +92,7 @@ namespace ClassLibrary
         {
             int[] LugarDeAtaque = TraductorDeCoordenadas.Traducir(objetivo);
 
-            if (LugarDeAtaque==null)
+            if (LugarDeAtaque==null || LugarDeAtaque[0] >= this.tableros[0].Tamano || LugarDeAtaque[1] >= this.tableros[0].Tamano)
             {
                 return "La coordenada enviada fue invalida";
             }
@@ -100,14 +100,10 @@ namespace ClassLibrary
             {
                 return "Estamos en etapa de posicionamiento, si no le quedan barcos para posicionar, entonces espere a que termine de posicionar su oponente";
             }
-            if (!jugadores.Contains(jugador) )
+            if (!this.jugadores.Contains(jugador) )
             { 
                 return "Ataque no ejecutado ya que quien ataca no es uno de los jugadores de la partida";
             }
-            if (LugarDeAtaque[0] >= this.tableros[0].Tamano || LugarDeAtaque[1] >= this.tableros[0].Tamano)
-            {
-                return "Las coordenadas enviadas son erroneas";
-                }
             
             int fila = LugarDeAtaque[0];
             int columna = LugarDeAtaque[1];
@@ -206,7 +202,6 @@ namespace ClassLibrary
             {
                 return "La segunda coordenada enviada es invalida";
             }
-
             int [] coordenadasOrdenadas = ordenadorDeCoordenadas(coordenada1,coordenada2);
             int filainicio = coordenadasOrdenadas[0];
             int columnainicio = coordenadasOrdenadas[1];

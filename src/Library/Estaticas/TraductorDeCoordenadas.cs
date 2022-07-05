@@ -29,6 +29,10 @@ namespace ClassLibrary
             {
                 return null;
             }
+            if ((coordenada.Length == 2) && coordenada[1] == '0' )
+            {
+                return null;
+            }
             if ((coordenada.Length == 3) && (numeros.Contains(coordenada.Substring(2,1)) == false))
             {
                 return null;
@@ -39,15 +43,21 @@ namespace ClassLibrary
             {
                 i = i + 1;
             }
+            traducido[0] = i;
             if (coordenada.Length == 2)
             {
-                traducido[0] = i;
                 traducido[1] = (int)Char.GetNumericValue(coordenada[1]) - 1;
             }
             else
             {
-                traducido[0] = i;
-                traducido[1] = (int)Char.GetNumericValue(coordenada[1])*10 + (int)Char.GetNumericValue(coordenada[2]) - 1;
+                if (coordenada[2] != 0)
+                {
+                    traducido[1] = (int)Char.GetNumericValue(coordenada[1])*10 + (int)Char.GetNumericValue(coordenada[2]) - 1;
+                }
+                else
+                {
+                    traducido[1] = ((int)Char.GetNumericValue(coordenada[1])-1)*10 + 9;
+                }
             }
             return traducido;
         }
