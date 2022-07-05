@@ -327,5 +327,16 @@ namespace ClassLibrary
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             return partida.EstaTerminada(numeroDeJugador);
         }
+        public static bool TurnoDelJugador(int jugador)
+        {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida juego = partidas.ObtenerPartida(jugador);
+            return juego.TurnoTerminado(jugador);
+        }
+        public static int CantidadDeBarcosintactos(int partesdebarco)
+        {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            return partidas.CantidadDeBarcosintactos(partesdebarco);
+        }
     }
 }
