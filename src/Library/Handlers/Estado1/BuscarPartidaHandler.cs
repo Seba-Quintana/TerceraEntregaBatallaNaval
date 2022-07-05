@@ -33,7 +33,7 @@ namespace ClassLibrary
         /// de lo contrario devuelve false </returns>
 		protected override bool CanHandle(Message message)
         {
-            if (!HistoriaLocal.ContainsKey(message.Chat.Id))
+            if (!HistoriaLocal.ContainsKey(message.Chat.Id) || (message.Text).StartsWith("/"))
             {
                 return base.CanHandle(message);
             }
@@ -53,20 +53,20 @@ namespace ClassLibrary
             try
             {
                 respuesta = string.Empty;
+                long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
                     TelegramBotClient bot = SingletonBot.Instance();
-                    long IDdeljugador = mensaje.Chat.Id;
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
-                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                    if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
-                        HistoriaLocal.Add(IDdeljugador, new string[3]);
+                        HistoriaLocal.Add(IDDelJugador, new string[3]);
                         respuesta += $"Elija el modo de juego entre las siguientes opciones:";
                         respuesta += $"\n0 para jugar en modo normal.";
                         respuesta += $"\n1 para jugar en modo rapido.";
                         return true;
                     }
-                    else if (HistoriaLocal[IDdeljugador][0] == null)
+                    else if (HistoriaLocal[IDDelJugador][0] == null)
                     {
                         int modoingresado = Int32.Parse(mensaje.Text);
                         if ( 0 != modoingresado && 1 != modoingresado)
@@ -74,11 +74,11 @@ namespace ClassLibrary
                             throw new ModoInvalidoException();
                         }
 
-                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        HistoriaLocal[IDDelJugador][0] = mensaje.Text;
                         respuesta = "Indique el tamaño del tablero: \nEntre 2 y 11";
                         return true;
                     }
-                    else if (HistoriaLocal[IDdeljugador][1] == null)
+                    else if (HistoriaLocal[IDDelJugador][1] == null)
                     {
                         int tamanoingresado = Int32.Parse(mensaje.Text);
                         if ( 2 > tamanoingresado || tamanoingresado > 11 )
@@ -86,12 +86,12 @@ namespace ClassLibrary
                             throw new TableroInvalidoException();
                         }
                         
-                        HistoriaLocal[IDdeljugador][1] = mensaje.Text;
+                        HistoriaLocal[IDDelJugador][1] = mensaje.Text;
                         
                         AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
                         EstadosUsuarios Estados = EstadosUsuarios.Instance();
                         int[] emparejado; 
-                        emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDdeljugador][0]), conversor.ConversorIDaNum(IDdeljugador), Int32.Parse(HistoriaLocal[IDdeljugador][1]));
+                        emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDDelJugador][0]), conversor.ConversorIDaNum(IDDelJugador), Int32.Parse(HistoriaLocal[IDDelJugador][1]));
                         if (emparejado==null)
                         {
                             respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
@@ -103,9 +103,9 @@ namespace ClassLibrary
                             int IntJugadorEnemigo = emparejado[0];
                             long IDJugadorEnemigo = almacenamientodeUsuarios.ConversorNumaID(IntJugadorEnemigo);
                             bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \nPresione /Posicionar para posicionar un barco");
-                            HistoriaLocal.Remove(IDdeljugador);
+                            HistoriaLocal.Remove(IDDelJugador);
                             HistoriaLocal.Remove(IDJugadorEnemigo);
-                            Estados.AvanzarEstados(IDdeljugador,1);
+                            Estados.AvanzarEstados(IDDelJugador,1);
                             Estados.AvanzarEstados(IDJugadorEnemigo,1);
                         }
                         
@@ -116,36 +116,35 @@ namespace ClassLibrary
                         respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
                         if (mensaje.Text == "/SalirEmparejamiento")
                         {
-                            HistoriaLocal.Remove(IDdeljugador);
+                            HistoriaLocal.Remove(IDDelJugador);
                             return false;
                         }
                         return true;
                     }
                 }
+                if (HistoriaLocal.ContainsKey(IDDelJugador))
+                {
+                    HistoriaLocal.Remove(IDDelJugador);
+                }
                 return false;
             }
             catch (ModoInvalidoException)
             {
-                long IDdeljugador = mensaje.Chat.Id;
-                //TelegramBotClient bot = SingletonBot.Instance();
-                //bot.SendTextMessageAsync(IDdeljugador, "Elije entre los modos 0 y 1 por favor");
+
                 respuesta = "Elije entre los modos 0 y 1 por favor";
                 return true;
             }
             catch (TableroInvalidoException)
             {
-                long IDdeljugador = mensaje.Chat.Id;
-                //TelegramBotClient bot = SingletonBot.Instance();
-                //bot.SendTextMessageAsync(IDdeljugador, "Los tamaños de tablero solo pueden ser numeros entre 2 y 11");
                 respuesta = "Los tamaños de tablero solo pueden ser numeros entre 2 y 11";
                 return true;
             }
             catch (Exception)
             {
-                long IDdeljugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
+                long IDDelJugador = mensaje.Chat.Id;
                 respuesta = "Ha habido un error. Intente de nuevo \n";
-                estados.ReiniciarEstados(IDdeljugador);
+                estados.ReiniciarEstados(IDDelJugador);
                 return true;
             }
         }
