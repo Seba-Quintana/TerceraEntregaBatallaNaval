@@ -9,9 +9,7 @@ namespace ClassLibrary
     /// </summary>
     public class InicioSesionHandler : BaseHandler
     {
-        /// <summary>
-        /// El estado del comando.
-        /// </summary>
+
 		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
         /// <summary>
