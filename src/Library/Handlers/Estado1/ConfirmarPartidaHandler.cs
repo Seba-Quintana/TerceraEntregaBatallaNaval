@@ -2,6 +2,7 @@ using Telegram.Bot.Types;
 using System.Collections.Generic;
 using System.Text;
 using System;
+using Telegram.Bot;
 
 namespace ClassLibrary
 {
@@ -32,7 +33,7 @@ namespace ClassLibrary
         /// de lo contrario devuelve false </returns>
 		protected override bool CanHandle(Message message)
         {
-            if (!HistoriaLocal.ContainsKey(message.Chat.Id))
+            if (!HistoriaLocal.ContainsKey(message.Chat.Id) || (message.Text).StartsWith("/"))
             {
                 return base.CanHandle(message);
             }
@@ -52,53 +53,67 @@ namespace ClassLibrary
             try
             {
                 respuesta = string.Empty;
+                long IDDelJugador = mensaje.Chat.Id;
+
                 if (this.CanHandle(mensaje))
                 {
                     AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-                    long invitado = Planificador.VerListaEsperaAmigos(mensaje.Chat.Id);
-                    if (!HistoriaLocal.ContainsKey(mensaje.Chat.Id))
+                    long IDinvitado = Planificador.VerListaEsperaAmigos(IDDelJugador);
+                    if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
                         respuesta = $"Desea aceptar la partida?";
-                        HistoriaLocal.Add(mensaje.Chat.Id, new string[3]);
+                        HistoriaLocal.Add(IDDelJugador, new string[3]);
                         return true;
                     }
-                    long IDdeljugador = mensaje.Chat.Id;
-                    if (HistoriaLocal[IDdeljugador][0] == null)
+                    if (HistoriaLocal[IDDelJugador][0] == null)
                     {
-                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
-                        respuesta = $"{HistoriaLocal[IDdeljugador][0]} \n" + "Indique el modo de juego: \n";
+                        HistoriaLocal[IDDelJugador][0] = mensaje.Text;
+                        respuesta = $"{HistoriaLocal[IDDelJugador][0]} \n" + "Indique el modo de juego: \n";
                         return true;
                     }
-                    else if (HistoriaLocal[IDdeljugador][1] == null)
+                    else if (HistoriaLocal[IDDelJugador][1] == null)
                     {
-                        HistoriaLocal[IDdeljugador][1] = mensaje.Text;
-                        respuesta = $"{HistoriaLocal[IDdeljugador][1]} \n" + "Indique el tamaño del tablero: \n";
+                        HistoriaLocal[IDDelJugador][1] = mensaje.Text;
+                        respuesta = $"{HistoriaLocal[IDDelJugador][1]} \n" + "Indique el tamaño del tablero: \n";
                         return true;
                     }
                     
-                    else if (HistoriaLocal[IDdeljugador][2] == null)
+                    else if (HistoriaLocal[IDDelJugador][2] == null)
                     {
-                        HistoriaLocal[IDdeljugador][2] = mensaje.Text;
+                        HistoriaLocal[IDDelJugador][2] = mensaje.Text;
                         
 
                         bool emparejado = Planificador.EmparejarAmigos(
-                        Int32.Parse(HistoriaLocal[IDdeljugador][1]),
-                        conversor.ConversorIDaNum(IDdeljugador),
-                        conversor.ConversorIDaNum(invitado),
-                        Int32.Parse(HistoriaLocal[IDdeljugador][2]));
+                        Int32.Parse(HistoriaLocal[IDDelJugador][1]),
+                        conversor.ConversorIDaNum(IDDelJugador),
+                        conversor.ConversorIDaNum(IDinvitado),
+                        Int32.Parse(HistoriaLocal[IDDelJugador][2]));
+                        if (emparejado)
+                        {
+                            EstadosUsuarios estadosgenerales = EstadosUsuarios.Instance();
+                            TelegramBotClient bot = SingletonBot.Instance();
+                            estadosgenerales.AvanzarEstados(IDDelJugador,1);
+                            estadosgenerales.AvanzarEstados(IDinvitado,1);
+                            bot.SendTextMessageAsync(IDinvitado, $"Emparejamiento completado. \nUtilize /Posicionar para empezar a posicionar sus barcos");
+                            respuesta += $"Emparejamiento completado. \nUtilize /Posicionar para empezar a posicionar sus barcos";
+                        }
+                        HistoriaLocal.Remove(IDDelJugador);
+                        HistoriaLocal.Remove(IDinvitado);
                         return true;
                     }
-                    respuesta = "No tienes invitaciones pendientes";
-                    return false;
+                }
+                if (HistoriaLocal.ContainsKey(IDDelJugador))
+                {
+                    HistoriaLocal.Remove(IDDelJugador);
                 }
                 return false;
             }
             catch (Exception)
             {
-                long IDdeljugador = mensaje.Chat.Id;
+                long IDDelJugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
                 respuesta = "Ha habido un error. Intente de nuevo \n";
-                estados.ReiniciarEstados(IDdeljugador);
+                estados.ReiniciarEstados(IDDelJugador);
                 return true;
             }
         }

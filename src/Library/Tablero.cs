@@ -38,7 +38,8 @@ namespace ClassLibrary
         /// Todas las coordenadas donde hay barcos
         /// </summary>
         /// <returns></returns>
-        public List<int[]> CantidadDeBarcosPosicionados = new List<int[]>();
+        public List<int[]> CoordenadasDeBarcosPosicionados = new List<int[]>();
+        public int CantidadPartesBarcoDañadas = 0;
         /// <summary>
         /// Constructor de tableros, crea una matriz en base al tamaño que le diga quien llame al metodo
         /// </summary>
@@ -66,7 +67,7 @@ namespace ClassLibrary
             {
                 Barco nuevoBarco = new Barco(filaInicio, columnaInicio, filaFinal, columnaFinal, CoordenadasQueSeQuierenUtilizar);
                 this.barcos.Add(nuevoBarco);
-                actualizarCantidadDeBarcosPosicionados(CoordenadasQueSeQuierenUtilizar);
+                actualizarCoordenadasDeBarcosPosicionados(CoordenadasQueSeQuierenUtilizar);
                 return true;
             }
             return false;
@@ -97,6 +98,7 @@ namespace ClassLibrary
                                 coordenadaARemover[0] = fila;
                                 coordenadaARemover[1] = columna;
                                 this.matriz[fila, columna] = 'T';
+                                CantidadPartesBarcoDañadas += 1;
                                 break;
                             case 'T':
                                 //Dejo el caso por si mas adelante queremos que haga algo cuando se ataca una coordenada dañada
@@ -105,6 +107,7 @@ namespace ClassLibrary
                                 coordenadaARemover[0] = fila;
                                 coordenadaARemover[1] = columna;
                                 this.matriz[fila, columna] = 'T';
+                                CantidadPartesBarcoDañadas += 1;
                                 barcoHundido =posibleObjetivo;
                                 break;
                         }
@@ -180,7 +183,7 @@ namespace ClassLibrary
         public char[,] VerTablero()
         {
             char[ , ] MatrizConBarcos = matriz.Clone() as char[ , ];
-            foreach (int[] coordenadas in this.CantidadDeBarcosPosicionados)
+            foreach (int[] coordenadas in this.CoordenadasDeBarcosPosicionados)
             {
                 int i = coordenadas[0];
                 int j = coordenadas[1];
@@ -226,7 +229,7 @@ namespace ClassLibrary
         private bool ExisteBarcoEnEsaPosicion(int fila, int columna)
         {
             int [] posibleBarco = new int[]{fila,columna};
-            foreach(int[] CoordenadasAnteriores in this.CantidadDeBarcosPosicionados)
+            foreach(int[] CoordenadasAnteriores in this.CoordenadasDeBarcosPosicionados)
             {
                 if(posibleBarco[0] == CoordenadasAnteriores[0] && posibleBarco[1] == CoordenadasAnteriores[1])
                 {
@@ -235,11 +238,11 @@ namespace ClassLibrary
             }
             return false;
         }
-        private void actualizarCantidadDeBarcosPosicionados(List<int[]> CoordenadasDeNuevoBarco)
+        private void actualizarCoordenadasDeBarcosPosicionados(List<int[]> CoordenadasDeNuevoBarco)
         {
             foreach (int[] coordenadaDeParteDeBarco in CoordenadasDeNuevoBarco)
             {
-                    this.CantidadDeBarcosPosicionados.Add(coordenadaDeParteDeBarco);
+                    this.CoordenadasDeBarcosPosicionados.Add(coordenadaDeParteDeBarco);
             }
         }
         private bool noHayColisiónDeBarcos(List<int[]> CoordenadasQueSeQuierenUtilizar)

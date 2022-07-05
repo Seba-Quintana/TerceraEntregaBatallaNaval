@@ -2,6 +2,7 @@ using Telegram.Bot.Types;
 using System.Text;
 using System.Collections.Generic;
 using System;
+using Telegram.Bot;
 
 namespace ClassLibrary
 {
@@ -36,7 +37,7 @@ namespace ClassLibrary
         /// de lo contrario devuelve false </returns>
 		protected override bool CanHandle(Message message)
         {
-            if (!HistoriaLocal.ContainsKey(message.Chat.Id))
+            if (!HistoriaLocal.ContainsKey(message.Chat.Id) || (message.Text).StartsWith("/"))
             {
                 return base.CanHandle(message);
             }
@@ -56,26 +57,32 @@ namespace ClassLibrary
         {
             try
             {
+                long IDDelJugador = mensaje.Chat.Id;
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    long IDdeljugador = mensaje.Chat.Id;
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
-                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                    TelegramBotClient bot = SingletonBot.Instance();
+                    if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
-                        HistoriaLocal.Add(IDdeljugador, new string[2]);
+                        HistoriaLocal.Add(IDDelJugador, new string[2]);
                         respuesta = "Indique el numero de jugador de su amigo: \n";
                         return true;
                     }
-                    else if (HistoriaLocal[IDdeljugador][0] == null)
+                    else if (HistoriaLocal[IDDelJugador][0] == null)
                     {
-                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        HistoriaLocal[IDDelJugador][0] = mensaje.Text;
                         AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
                         long idInvitado = conversor.ConversorNumaID(Int32.Parse(mensaje.Text));
-                        Planificador.anadirListaEsperaAmigos(IDdeljugador, idInvitado);
+                        Planificador.anadirListaEsperaAmigos(IDDelJugador, idInvitado);
                         respuesta = "Espere la confirmacion de su amigo...";
+                        bot.SendTextMessageAsync(idInvitado,"Usted a sido invitado a una partida, ingrese /Aceptar para entrar en partida");
                         return true;
                     }
+                }
+                if (HistoriaLocal.ContainsKey(IDDelJugador))
+                {
+                    HistoriaLocal.Remove(IDDelJugador);
                 }
                 return false;
             }

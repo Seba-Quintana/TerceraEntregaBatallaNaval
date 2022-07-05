@@ -146,6 +146,12 @@ namespace ClassLibrary
             }
             return false;
         }
+        public int CantidadDeBarcosintactos (int jugadorQueConsulta)
+        {
+            Partida partida = ObtenerPartida(jugadorQueConsulta);
+            return partida.PartesDeBarcoEnterasEnTablero(jugadorQueConsulta);
+            
+        }
     }
 }
 

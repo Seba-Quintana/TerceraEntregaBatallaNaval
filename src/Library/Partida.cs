@@ -108,7 +108,7 @@ namespace ClassLibrary
 
             if (jugador == this.jugadores[0])
             {
-                if (this.tiradas[0] == this.tiradas[1])
+                if (!this.TurnoTerminado(jugador))
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
@@ -126,7 +126,7 @@ namespace ClassLibrary
             }
             else
             {
-                if (tiradas[0]>tiradas[1])
+                if (!this.TurnoTerminado(jugador))
                 {
                     
                     Tablero tablerobjetivo = this.tableros[0];
@@ -289,6 +289,24 @@ namespace ClassLibrary
                 
             }
         }
+        public virtual bool TurnoTerminado(int jugador)
+        {
+            if(jugador == jugadores[0] )
+            {
+                if (tiradas[0] > tiradas[1])
+                    {
+                        return false;
+                    }
+            }
+            else if (jugador == jugadores[1])
+            {
+                if (tiradas[0]==tiradas[1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         /// <summary>
         /// Metodo utilizado para organizar las coordenadas, para que sea lo mismo decir A1 a A5 que A5 a A1
         /// </summary>
@@ -420,6 +438,17 @@ namespace ClassLibrary
                 return true;
             }
             return false;
+        }
+        public int PartesDeBarcoEnterasEnTablero(int dueño)
+        {
+            if(dueño == jugadores[0])
+            {
+                return tableros[0].Tamano - tableros[0].CantidadPartesBarcoDañadas;
+            }
+            else
+            {
+                return tableros[1].Tamano - tableros[1].CantidadPartesBarcoDañadas;
+            }
         }
     }
 }
