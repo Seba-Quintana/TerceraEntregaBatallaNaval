@@ -197,6 +197,9 @@ Esta excepción fue creada para ser lanzada en caso de que un modo de juego no c
 - TableroInvalidoException:
 Esta excepción fue creada para ser lanzada en caso de que el tamaño de un tablero sea demasiado grande, por lo que el programa debe intentar recuperarse. La misma recupera el tamaño invalido del tablero, junto con un mensaje personalizado que varía dependiendo de la situación en la que se haya ejecutado la excepcion.
 
+- CuentaYaExistenteException:
+Esta excepción fue creada para ser lanzada en caso de que una persona intente registrarse cuando ya tenia una cuenta, por lo que el programa debe intentar recuperarse. La misma recupera el numero del jugador, junto con un mensaje personalizado que varía dependiendo de la situación en la que se haya ejecutado la excepcion.
+
 Las tres excepciones tienen como objetivo principal satisfacer precondiciones, dado que si a un método le llega un dato que si sigue el código puede afectar negativamente al programa, es conveniente detenerlo para que no arrastre el error. Otra razón es que la creación de una excepción permite visualizar mas fácilmente la razón por la que el programa falló, gracias al mensaje explicativo y al atributo que muestra la razón del fallo.
 
 

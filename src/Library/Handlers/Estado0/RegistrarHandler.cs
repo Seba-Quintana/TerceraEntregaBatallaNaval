@@ -92,6 +92,11 @@ namespace ClassLibrary
                 }
                 return false;
             }
+            catch (CuentaYaExistenteException e)
+            {
+                respuesta = e.Message + "\nPresione /InicioSesion para ingresar,\no /Remover si quiere crearse un usuario nuevo";
+                return true;
+            }
             catch (Exception)
             {
                 respuesta = "Ha habido un error. Intente de nuevo \n";

@@ -72,7 +72,7 @@ namespace ClassLibrary
                         HistoriaLocal[IDDelJugador][0] = mensaje.Text;
                         long idInvitado = Planificador.ConversorNumaID(Int32.Parse(mensaje.Text));
                         Planificador.anadirListaEsperaAmigos(IDDelJugador, idInvitado);
-                        respuesta = "Espere la confirmacion de su amigo...";
+                        respuesta = "Espere la confirmacion de su amigo...\nPresione /SalirEmparejamiento para cancelar la solicitud";
                         bot.SendTextMessageAsync(idInvitado,"Usted a sido invitado a una partida, ingrese /Aceptar para entrar en partida");
                         return true;
                     }
