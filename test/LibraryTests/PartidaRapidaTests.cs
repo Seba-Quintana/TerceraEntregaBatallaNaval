@@ -1,5 +1,6 @@
 using ClassLibrary;
 using NUnit.Framework;
+using System;
 
 namespace Tests
 {
@@ -10,51 +11,36 @@ namespace Tests
     public class PartidaRapidaTests
     {
         /// <summary>
-        /// La partida que va a ser utilizada para los tests.
-        /// </summary>
-        private PartidaRapida partida;
-
-        /// <summary>
-        /// SetUp Creado con el objetivo de tener un partida al principio de cada test.
-        /// </summary>
-        [SetUp]
-        public void Setup()
-        {
-            this.partida = new PartidaRapida(9, 1, 2);
-        }
-        /*
-        /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla fuera de turno no se realiza el ataque.
         /// </summary>
         [Test]
         public void AtaqueFueraDeTurno()
         {
-            string LugarAAtacar = "A1";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[0], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.Emparejar(1,numeroDeJugador1,7);
+            Planificador.Emparejar(1,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("E1","E6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+            
+            partida.Atacar("B1",numeroDeJugador2); //Primer tiro autorizado
+            partida.Atacar("B1",numeroDeJugador2); //Segundo tiro autorizado
+            partida.Atacar("E1",numeroDeJugador2); //Tercer tiro fuera de turno
+
             char expected = '\u0000';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(0,0));
-            PartidasEnJuego remover = PartidasEnJuego.Instance();
-            remover.RemoverPartida(partida);
-        }
-        /// <summary>
-        /// Test con el objetivo de ver que al atacar una casilla fuera de turno no se realiza el ataque.
-        /// </summary>
-        [Test]
-        public void AtaqueFueraDeTurno2()
-        {
-            string LugarAAtacar = "A1";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            string LugarAAtacar2 = "A2";
-            int[] ataque2 = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[0], ataque2[0], ataque2[1]);
-            char expected = '\u0000';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(0,1));
-            PartidasEnJuego remover = PartidasEnJuego.Instance();
-            remover.RemoverPartida(partida);
+            Tablero tablero = partida.VerTablero(numeroDeJugador1);
+            Assert.AreEqual(expected, tablero.VerCasilla(4,0));
+
+            partidas.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
@@ -62,14 +48,29 @@ namespace Tests
         [Test]
         public void AtaqueAlAgua()
         {
-            string LugarAAtacar = "A1";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",77,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",56,"player2");
+
+            Planificador.Emparejar(1,numeroDeJugador1,7);
+            Planificador.Emparejar(1,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("E1","E6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+            
+            partida.Atacar("C1",numeroDeJugador1);
+
             char expected = 'W';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(0,0));
-            PartidasEnJuego remover = PartidasEnJuego.Instance();
-            remover.RemoverPartida(partida);
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(2,0));
+
+            partidas.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
@@ -77,17 +78,30 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVertical()
         {
-            string inicioDelBarco = "B8";
-            string finalDelBarco = "F8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "F8";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.Emparejar(1,numeroDeJugador1,7);
+            Planificador.Emparejar(1,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("E1","E6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+            
+            partida.Atacar("E1",numeroDeJugador1);
+
             char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(5,7));
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(4,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
         /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
@@ -95,58 +109,31 @@ namespace Tests
         [Test]
         public void AtaqueBarcoVerticalEnElMismoLugar()
         {
-            string inicioDelBarco = "B8";
-            string finalDelBarco = "F8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "F8";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            Planificador.EmparejarAmigos(0,numeroDeJugador2,numeroDeJugador1,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
+
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("B1","B6",numeroDeJugador1);
+            partida.AgregarBarco("E1","E6",numeroDeJugador2);
+            partida.AgregarBarco("F1","F6",numeroDeJugador2);
+            
+            partida.Atacar("E1",numeroDeJugador1);
+            partida.Atacar("E1",numeroDeJugador1);
+
             char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(5,7));
+            Tablero tablero = partida.VerTablero(numeroDeJugador2);
+            Assert.AreEqual(expected, tablero.VerCasilla(4,0));
+
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
-        /// <summary>
-        /// Se ataca un punto del barco para ver que este cambie por 'T'.
-        /// </summary>
-        [Test]
-        public void AtaqueBarcoHorizontal()
-        {
-            string inicioDelBarco = "H4";
-            string finalDelBarco = "H8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "H5";
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(7,4));
-            PartidasEnJuego remover = PartidasEnJuego.Instance();
-            remover.RemoverPartida(partida);
-        }
-         /// <summary>
-        /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
-        /// </summary>
-        [Test]
-        public void AtaqueBarcoHorizontalEnElMismoLugar()
-        {
-            string inicioDelBarco = "H4";
-            string finalDelBarco = "H8";
-            partida.AgregarBarco(inicioDelBarco ,finalDelBarco,2);
-            string LugarAAtacar = "H6";
-            partida.Atacar(LugarAAtacar, 2);
-            partida.Atacar(LugarAAtacar, 2);
-            int[] ataque = TraductorDeCoordenadas.Traducir(LugarAAtacar);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            LogicaDeTablero.Atacar(partida.tableros[1], ataque[0], ataque[1]);
-            char expected = 'T';
-            Tablero tablero = partida.tableros[1];
-            Assert.AreEqual(expected, tablero.VerCasilla(7,5));
-            PartidasEnJuego remover = PartidasEnJuego.Instance();
-            remover.RemoverPartida(partida);
-        }*/
     }
 }
 
