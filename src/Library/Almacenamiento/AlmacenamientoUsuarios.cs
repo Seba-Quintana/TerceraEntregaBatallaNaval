@@ -62,7 +62,7 @@ namespace ClassLibrary
             int numeroDeJugador = 1;
             if (ConversorIDaNum(id) != 0)
             {
-                return ConversorIDaNum(id);
+                throw new CuentaYaExistenteException("Ya existía una cuenta con su ID", ConversorIDaNum(id));
             }
             else
             {
