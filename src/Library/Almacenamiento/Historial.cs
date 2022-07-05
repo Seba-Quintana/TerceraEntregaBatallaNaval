@@ -53,6 +53,11 @@ namespace ClassLibrary
         jugador2.AgregarAlHistorial(partida);
         Partidas.Add(partida);
       }
+
+      /// <summary>
+      /// Metodo para serializar usuarios
+      /// </summary>
+      /// <returns></returns>
       public string SerializarUsuarios()
         {
             
@@ -64,6 +69,11 @@ namespace ClassLibrary
             string usuarios= JsonSerializer.Serialize<List<DatosdePartida>>(Partidas,options);
             return usuarios;
         }
+
+        /// <summary>
+        /// Metodo para deserializar usuarios
+        /// </summary>
+        /// <param name="rutaDeArchivo"></param>
         public void LoadFromJson(string rutaDeArchivo)
         {
             JsonSerializerOptions options = new()

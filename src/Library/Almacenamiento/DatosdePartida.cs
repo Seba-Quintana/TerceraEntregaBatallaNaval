@@ -10,37 +10,47 @@ namespace ClassLibrary
     /// </summary>
     public class DatosdePartida
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         [JsonConstructor]
         public DatosdePartida(){}
+
         /// <summary>
         /// Lugar donde se almacenan los tableros.
         /// </summary>
         public Tablero[] Tableros;
+
         /// <summary>
         /// Tamaño de las matrices de la partida
         /// </summary>
         [JsonInclude]
         public int Tamano;
+
         /// <summary>
         /// Lugar donde se almacenan los jugadores.
         /// </summary>
         [JsonInclude]
         public int[] Jugadores;
+        
         /// <summary>
         /// Representa el numero de Tiradas que hubo en la partida.
         /// </summary>
         [JsonInclude]
         public int[] Tiradas;
+
         /// <summary>
         /// El int es el número de jugador del perfil de usuario perteneciente al ganador.
         /// </summary>
         [JsonInclude]
         public int Ganador;
+
         /// <summary>
         /// El int es el número de jugador del perfil de usuario perteneciente al perdedor.
         /// </summary>
         [JsonInclude]
         public int Perdedor;
+        
         /// <summary>
         /// Metodo encargado de almacenar los datos.
         /// </summary>
