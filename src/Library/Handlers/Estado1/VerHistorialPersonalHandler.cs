@@ -35,8 +35,7 @@ namespace ClassLibrary
                 if (this.CanHandle(mensaje))
                 {
                     long IDdeljugador = mensaje.Chat.Id;
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                    int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
+                    int jugador = Planificador.ConversorIDaNum(IDdeljugador);
                     respuesta = "Este es tu Historial Personal.\n";
                     respuesta += Planificador.VerHistorialPersonal(jugador);
                     return true;

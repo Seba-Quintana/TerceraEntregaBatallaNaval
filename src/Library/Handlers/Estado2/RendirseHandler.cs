@@ -31,14 +31,13 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
                     TelegramBotClient bot = SingletonBot.Instance();
                     EstadosUsuarios estados = EstadosUsuarios.Instance();
                     
                     long IDdeljugadorRendido = mensaje.Chat.Id;
-                    int jugadorRendido = almacenamiento.ConversorIDaNum(IDdeljugadorRendido);
+                    int jugadorRendido = Planificador.ConversorIDaNum(IDdeljugadorRendido);
                     int NumOponente = Planificador.ObtenerNumOponente(jugadorRendido);
-                    long IDOponente = almacenamiento.ConversorNumaID(NumOponente);
+                    long IDOponente = Planificador.ConversorNumaID(NumOponente);
                     
                     Planificador.Rendirse(jugadorRendido);
 

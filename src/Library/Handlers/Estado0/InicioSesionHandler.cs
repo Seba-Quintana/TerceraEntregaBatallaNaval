@@ -74,8 +74,7 @@ namespace ClassLibrary
                         else if (HistoriaLocal[IDDelJugador][2] == null)
                         {
                             HistoriaLocal[IDDelJugador][2] = mensaje.Text;
-                            AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-                            if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDDelJugador), HistoriaLocal[IDDelJugador][1], HistoriaLocal[IDDelJugador][2]))
+                            if (!Planificador.IniciarSesion(Planificador.ConversorIDaNum(IDDelJugador), HistoriaLocal[IDDelJugador][1], HistoriaLocal[IDDelJugador][2]))
                             {
                                 HistoriaLocal.Remove(IDDelJugador);
                                 respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \nPresione /InicioSesion o /Registrar";

@@ -32,8 +32,7 @@ namespace ClassLibrary
                 if (this.CanHandle(mensaje))
                 {
                     long IDdeljugador = mensaje.Chat.Id;
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                    int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
+                    int jugador = Planificador.ConversorIDaNum(IDdeljugador);
                     respuesta = "Este es su perfil, acompañado de sus estadísticas:\n";
                     respuesta += Planificador.VerPerfil(jugador);
                     return true;
