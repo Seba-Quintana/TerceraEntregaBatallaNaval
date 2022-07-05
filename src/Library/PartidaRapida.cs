@@ -10,7 +10,7 @@ namespace ClassLibrary
         /// <summary>
         /// Atributo con el contador del segundo ataque de cada personaje.
         /// </summary>
-        public int[] Segundastiradas = new int[2];
+        private int[] Segundastiradas = new int[2];
         /// <summary>
         /// En este contructor se asigna el tamaño de la matriz, se crea la misma y se asigna el dueño del Tablero.
         /// </summary>
@@ -62,7 +62,7 @@ namespace ClassLibrary
 
             if (jugador == this.jugadores[0])
             {
-                if (tiradas[0] == tiradas[1] && this.TurnoTerminado(jugador))
+                if (this.tiradas[0] == this.tiradas[1] && this.TurnoEnCurso(jugador))
                 {
                     
                     Tablero tablerobjetivo = this.tableros[1];
@@ -71,7 +71,7 @@ namespace ClassLibrary
                     this.tiradas[0]+=1;                    
                     return respuesta;
                 }
-                else if (this.TurnoTerminado(jugador))
+                else if (this.TurnoEnCurso(jugador))
                 {
                     Tablero tablerobjetivo = this.tableros[1];
                     char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
@@ -87,17 +87,17 @@ namespace ClassLibrary
             }
             else if (jugador == jugadores[1])
             {
-                if (tiradas[0] > tiradas[1] && this.TurnoTerminado(jugador))
+                if (this.tiradas[0] > this.tiradas[1] && this.TurnoEnCurso(jugador))
                 {
                     
-                    Tablero tablerobjetivo = tableros[0];
+                    Tablero tablerobjetivo = this.tableros[0];
                     char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasilla);
-                    tiradas[1]+=1;
+                    this.tiradas[1]+=1;
                     return respuesta;
 
                 }
-                else if (this.TurnoTerminado(jugador))
+                else if (this.TurnoEnCurso(jugador))
                 {
                     Tablero tablerobjetivo = this.tableros[0];
                     char EstadoDeLaCasilla = tablerobjetivo.Atacar(fila,columna);
@@ -117,7 +117,13 @@ namespace ClassLibrary
             }
 
         }
-        public override bool TurnoTerminado(int jugador)
+        /// <summary>
+        /// Metodo encargado de ver si un turno a terminado. 
+        /// Esta cambiado respecto a la partida normal
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public override bool TurnoEnCurso(int jugador)
         {
             if (jugador == jugadores[0])
             {
