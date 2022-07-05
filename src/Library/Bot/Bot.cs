@@ -95,7 +95,6 @@ namespace ClassLibrary
             }
             return instance;
         }
-
         public static void StartBot()
         {
             Start();
