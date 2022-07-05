@@ -75,7 +75,7 @@ namespace ClassLibrary
                             if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDdeljugador), HistoriaLocal[IDdeljugador][1], HistoriaLocal[IDdeljugador][2]))
                             {
                                 HistoriaLocal.Remove(IDdeljugador);
-                                respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \n Presione /InicioSesion";
+                                respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \nPresione /InicioSesion o /Registrar";
                             }
                             else
                             {
