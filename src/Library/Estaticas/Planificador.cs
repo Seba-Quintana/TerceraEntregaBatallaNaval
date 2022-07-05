@@ -226,7 +226,7 @@ namespace ClassLibrary
         {
             Emparejamiento visualizador = Emparejamiento.Instance();
             Tuple<long, long> jugadores = visualizador.VerListaEsperaAmigos(jugador);
-            return jugadores.Item2;
+            return jugadores.Item1;
         }
         /// <summary>
         /// Pide a Emparejamiento remover un usuario de la lista de espera y manda el mensaje correspondiente a impresora.
@@ -331,7 +331,7 @@ namespace ClassLibrary
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             Partida juego = partidas.ObtenerPartida(jugador);
-            return juego.TurnoTerminado(jugador);
+            return !juego.TurnoTerminado(jugador);
         }
         public static int CantidadDeBarcosintactos(int partesdebarco)
         {
