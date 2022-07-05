@@ -114,11 +114,6 @@ namespace ClassLibrary
                     else
                     {
                         respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
-                        if (mensaje.Text == "/SalirEmparejamiento")
-                        {
-                            HistoriaLocal.Remove(IDDelJugador);
-                            return false;
-                        }
                         return true;
                     }
                 }
