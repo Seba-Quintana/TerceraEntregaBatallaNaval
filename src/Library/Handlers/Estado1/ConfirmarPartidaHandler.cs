@@ -2,6 +2,7 @@ using Telegram.Bot.Types;
 using System.Collections.Generic;
 using System.Text;
 using System;
+using Telegram.Bot;
 
 namespace ClassLibrary
 {
@@ -90,9 +91,11 @@ namespace ClassLibrary
                         if (emparejado)
                         {
                             EstadosUsuarios estadosgenerales = EstadosUsuarios.Instance();
+                            TelegramBotClient bot = SingletonBot.Instance();
                             estadosgenerales.AvanzarEstados(IDDelJugador,1);
                             estadosgenerales.AvanzarEstados(IDinvitado,1);
-                            
+                            bot.SendTextMessageAsync(IDinvitado, $"Emparejamiento completado. \nUtilize /Posicionar para empezar a posicionar sus barcos");
+                            respuesta += $"Emparejamiento completado. \nUtilize /Posicionar para empezar a posicionar sus barcos";
                         }
                         HistoriaLocal.Remove(IDDelJugador);
                         HistoriaLocal.Remove(IDinvitado);
