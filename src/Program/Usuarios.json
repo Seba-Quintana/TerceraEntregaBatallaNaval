@@ -1,0 +1,39 @@
+{
+  "$id": "3",
+  "$values": [
+    {
+      "$id": "4",
+      "Nombre": "Hola",
+      "ID": 5546098858,
+      "Contrasena": "A",
+      "NumeroDeJugador": 1,
+      "Ganadas": 0,
+      "Perdidas": 1,
+      "HistorialPersonal": {
+        "$id": "5",
+        "$values": [
+          {
+            "$ref": "2"
+          }
+        ]
+      }
+    },
+    {
+      "$id": "6",
+      "Nombre": "Hol",
+      "ID": 1673933960,
+      "Contrasena": "Hol",
+      "NumeroDeJugador": 2,
+      "Ganadas": 1,
+      "Perdidas": 0,
+      "HistorialPersonal": {
+        "$id": "7",
+        "$values": [
+          {
+            "$ref": "2"
+          }
+        ]
+      }
+    }
+  ]
+}
