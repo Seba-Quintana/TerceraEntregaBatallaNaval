@@ -10,7 +10,7 @@ namespace ClassLibrary
     public class RegistrarHandler : BaseHandler
     {
         /// <summary>
-        /// El estado del comandoP para cada usuario.
+        /// El estado del handler para cada usuario.
         /// </summary>
         public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
