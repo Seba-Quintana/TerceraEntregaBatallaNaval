@@ -26,7 +26,7 @@ namespace ConsoleApplication
         /// La instancia del bot.
         /// </summary>
         private static TelegramBotClient Bot;
-        private static UsersHistory HistoriaDeUsuarios = UsersHistory.Instance();
+        private static EstadosUsuarios HistoriaDeUsuarios = EstadosUsuarios.Instance();
         private static IHandler inicialHandler;
         private static IHandler primerHandler;
         private static IHandler segundoHandler;
@@ -62,13 +62,14 @@ namespace ConsoleApplication
 
             primerHandler = new InicioSesionHandler(new RegistrarHandler(null));
 
-            segundoHandler = new RemoverUsuarioHandler(new BuscarPartidaHandler(new SalirEmparejamientoHandler(new AyudaHandler(new MenuHandler(new VerHistorialHandler(new VerHistorialPersonalHandler(new VerPerfilHandler(new VisualizarRankingHandler(null)))))))));
+            segundoHandler = new MenuHandler(new AyudaHandler(new VerRankingHandler(new VerHistorialHandler(new VerPerfilHandler(new VerHistorialPersonalHandler(new BuscarPartidaHandler(new BuscarPartidaAmistosaHandler(new SalirEmparejamientoHandler(new RemoverUsuarioHandler(null))))))))));
 
+            // El handler para rendirse se encuentra tanto en el tercer como en el cuarto handler
+            // porque el usuario se debe poder rendir en cualquiera de los dos estados
             tercerHandler = new PosicionarHandler(new RendirseHandler(null));
 
-
             cuartoHandler = new AtacarHandler(new RendirseHandler(null));
-       
+
 
             var cts = new CancellationTokenSource();
 
@@ -133,6 +134,9 @@ namespace ConsoleApplication
 
             if(HistoriaDeUsuarios.ContieneId(IdDeUsuario))
             {
+                /* Segun el estado en el que se encuentre el jugador, cambian los handlers que
+                tiene a su disposicion. De esta manera se restringe el acceso al usuario
+                segun las acciones que tiene disponibles en cada estado*/
                 int EstadoActual = HistoriaDeUsuarios.VerEstado(IdDeUsuario);
                 switch(EstadoActual)
                 {
