@@ -28,14 +28,16 @@ Roles de clases:
 - DatosDePartidas: Information holder
 - PartidasEnJuego: Information holder
 - Planificador: Coordinator
-- Iimpresora: Interface
+- IImprimirTablero: Interface
+- ImprimirTableroPropio: Service provider
+- ImprimirTableroOponente: Service provider
+- Mensajes: Service provider
 - perfilUsuario: Information holder
 - Historial: Information holder
 - Partida: Controller
 - TraductorDeCoordenadas: Service provider
 - LogicaDeTablero: Coordinator
 - impresoraConsola: Service provider
-- EmparejamientoConCola: Service provider
 - Tablero: Service provider
 - PartidaRapida: Controller
 - Handlers: Controller
@@ -118,14 +120,23 @@ El perfil de usuario es la clase que almacena los datos de cada jugador. El mism
 Esta clase implementa la interfaz ICloneable, la cual permite realizar clones del objeto a partir del método clone(). Esto sirve para facilitar la manipulación de perfiles de usuario en el ranking, dado que en el mismo se usa un objeto auxiliar de tipo PerfilUsuario, para poder almacenar temporalmente un perfil en el clon, lo cual simplifica el reordenamiento de la lista (para evitar cambiar la referenciación de los objetos dentro de la lista, se optó por una variable que contenga el valor del objeto en lugar de su referencia).
 La clase PerfilUsuario cumple con expert porque es el que tiene el acceso a la informacion que procesa en sus metodos, y tambien cumple con SRP, porque su unica responsabilidad es almacenar perfiles, y solo tiene una razon de cambio, y es que cambien los datos de los perfiles.
 
-- Iimpresora:
+- IImprimirTablero:
 Hecho por Amanda.
-Interfaz que contiene los métodos para imprimir, creada con el objetivo de implementar Liskov y polimorfismo.
+Interfaz que contiene los métodos para crear un string que contiene el tablero listo para mostrarse, creada para implementar polimorfismo al querer mostrar el tablero propio o el tablero del oponente.
 
-- ImpresoraConsola:
+- ImprimirTableroPropio:
 Hecho por Amanda.
-Implementa la interfaz Iimpresora. Imprime por consola.
-Implementa Singleton dado que no se necesita mas de una impresora, y las clases estaticas no pueden implementar interfaces.
+Implementa la interfaz IImprimirTablero. Crea un string que contiene el tablero ingresado como parámetro agregándole índices de coordenadas.
+Se muestra el tablero sin ocultar nada de su contenido.
+
+- ImprimirTableroOponente:
+Hecho por Amanda.
+Implementa la interfaz IImprimirTablero. Crea un string que contiene el tablero ingresado como parámetro agregándole índices de coordenadas.
+Se muestra el tablero sin ocultando sus barcos y agregando el ayudante de tiro.
+
+-Mensajes:
+Hecho por Amanda.
+Tiene metodos para crear string con el historial, el rancking y el PerfilUsuario, con un formato listo para enviarlo a los handlers para ser mostrados.
 
 - Historial:
 Hecho por Santiago.
