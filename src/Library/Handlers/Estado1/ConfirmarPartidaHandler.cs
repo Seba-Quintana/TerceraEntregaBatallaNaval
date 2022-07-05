@@ -70,17 +70,29 @@ namespace ClassLibrary
                     {
                         HistoriaLocal[IDDelJugador][0] = mensaje.Text;
                         respuesta = $"{HistoriaLocal[IDDelJugador][0]} \n" + "Indique el modo de juego: \n";
+                        respuesta += $"0 para jugar en modo normal.\n";
+                        respuesta += $"1 para jugar en modo rapido.\n";
                         return true;
                     }
                     else if (HistoriaLocal[IDDelJugador][1] == null)
                     {
+                        int modoingresado = Int32.Parse(mensaje.Text);
+                        if ( 0 != modoingresado && 1 != modoingresado)
+                        {
+                            throw new ModoInvalidoException();
+                        }
                         HistoriaLocal[IDDelJugador][1] = mensaje.Text;
-                        respuesta = $"{HistoriaLocal[IDDelJugador][1]} \n" + "Indique el tamaño del tablero: \n";
+                        respuesta = $"{HistoriaLocal[IDDelJugador][1]} \n" + "Indique el tamaño del tablero \nEntre 2 y 11:";
                         return true;
                     }
                     
                     else if (HistoriaLocal[IDDelJugador][2] == null)
                     {
+                        int tamanoingresado = Int32.Parse(mensaje.Text);
+                        if ( 2 > tamanoingresado || tamanoingresado > 11 )
+                        {
+                            throw new TableroInvalidoException();
+                        }
                         HistoriaLocal[IDDelJugador][2] = mensaje.Text;
                         
 
@@ -95,8 +107,8 @@ namespace ClassLibrary
                             TelegramBotClient bot = SingletonBot.Instance();
                             estadosgenerales.AvanzarEstados(IDDelJugador,1);
                             estadosgenerales.AvanzarEstados(IDinvitado,1);
-                            bot.SendTextMessageAsync(IDinvitado, $"Emparejamiento completado. \nUtilize /Posicionar para empezar a posicionar sus barcos");
-                            respuesta += $"Emparejamiento completado. \nUtilize /Posicionar para empezar a posicionar sus barcos";
+                            bot.SendTextMessageAsync(IDinvitado, $"Emparejamiento completado. \nPresione /Posicionar para empezar a posicionar sus barcos");
+                            respuesta += $"Emparejamiento completado.\nPresione /Posicionar para empezar a posicionar sus barcos";
                         }
                         HistoriaLocal.Remove(IDDelJugador);
                         HistoriaLocal.Remove(IDinvitado);
@@ -109,11 +121,21 @@ namespace ClassLibrary
                 }
                 return false;
             }
+            catch (ModoInvalidoException)
+            {
+                respuesta = "Elija entre los modos 0 y 1 por favor";
+                return true;
+            }
+            catch (TableroInvalidoException)
+            {
+                respuesta = "Los tamaños de tablero solo pueden ser numeros entre 2 y 11";
+                return true;
+            }
             catch (Exception)
             {
                 long IDDelJugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo\n";
                 estados.ReiniciarEstados(IDDelJugador);
                 return true;
             }
