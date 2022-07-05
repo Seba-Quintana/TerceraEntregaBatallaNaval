@@ -47,19 +47,15 @@ namespace ClassLibrary
                     if (estados.VerEstado(IDdeljugadorRendido) == 2)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
-                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
                         estados.RetrocederEstados(IDdeljugadorRendido,1);
                         estados.RetrocederEstados(IDOponente,1);
-                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
                     }
                     
                     else if (estados.VerEstado(IDdeljugadorRendido) == 3)
                     {
                         bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
-                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
                         estados.RetrocederEstados(IDdeljugadorRendido,2);
                         estados.RetrocederEstados(IDOponente,2);
-                        respuesta += $"\n{estados.VerEstado(IDdeljugadorRendido)}";
                     }
                     return true;
                 }
