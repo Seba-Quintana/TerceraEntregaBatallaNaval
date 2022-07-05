@@ -15,8 +15,6 @@ namespace ClassLibrary
         /// Diccionario que almacena los mensajes ingresados por cada uno
         /// de los jugadores que se encuentran en esta etapa.
         /// </summary>
-        /// <typeparam name="long"> Id del jugador </typeparam>
-        /// <typeparam name="string[]"> ultimo mensaje ingresado </typeparam>
         /// <returns></returns>
 		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
