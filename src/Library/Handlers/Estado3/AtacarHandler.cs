@@ -75,6 +75,7 @@ namespace ClassLibrary
                         string mensajeOponente = string.Empty;
                         string ResultadoAtacar = Planificador.Atacar(mensaje.Text, numdelJugador);
                         respuesta += ResultadoAtacar;
+                        respuesta += $"\nAl oponente le quedan {Planificador.CantidadDeBarcosintactos(NumDelJugadorOponente)} partes de barco enteras";
                         respuesta += $"\n{Planificador.VerTableroOponente(NumDelJugadorOponente)}";
                         if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque.")
                             if (ResultadoAtacar != "La coordenada enviada fue invalida")
@@ -89,10 +90,14 @@ namespace ClassLibrary
                                     EstadoLocal.Remove(IDDelOponente);
                                     EstadoLocal.Remove(IDDelJugador);
                                 }
+                                else if(Planificador.TurnoDelJugador(numdelJugador))
+                                {
+                                    respuesta += "Le queda un disparo, utilizelo sabiamente.";
+                                }
                                 else
                                 {
                                     mensajeOponente += $"Indique la proxima casilla que desea atacar:";
-                                    respuesta += $"Le notificaremos cuando vuelva a ser su turno de atacar, espere el mensaje por favor";
+                                    respuesta += $"Le notificaremos cuando vuelva a ser su turno de atacar, espere el mensaje por favor.";
                                 }
                                 bot.SendTextMessageAsync(IDDelOponente, mensajeOponente);
                             }
