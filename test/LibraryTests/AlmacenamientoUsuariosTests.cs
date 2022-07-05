@@ -94,7 +94,7 @@ namespace Tests
         public void ObtenerRanking()
         {
 			Test.Registrar("jugadorTest", 5, "Test");
-			Test.Registrar("jugadorTest", 5, "Test");
+			Test.Registrar("jugadorTest", 6, "Test");
             Planificador.EmparejarAmigos(0, 1, 2, 7);
             Planificador.Posicionar("A1","A6", 1);
             Planificador.Posicionar("B1","B6", 1);

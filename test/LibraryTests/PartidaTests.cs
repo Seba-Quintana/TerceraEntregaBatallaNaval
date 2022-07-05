@@ -23,6 +23,14 @@ namespace Tests
         public void Setup()
         {
             this.partida = new Partida(9, 1, 2);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            int i = 1;
+            int CantidadUsuarios = almacenamiento.ListaDeUsuarios.Count;
+            while (i <= CantidadUsuarios)
+            {
+                almacenamiento.Remover(i);
+                i++;
+            }
         }
         /// <summary>
         /// Test con el objetivo de ver si se añade correctamente los barcos horizontales al ser asignados al tablero
