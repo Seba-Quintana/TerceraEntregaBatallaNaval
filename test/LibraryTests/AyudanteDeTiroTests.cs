@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using ClassLibrary;
 using NUnit.Framework;
 
@@ -11,128 +11,87 @@ namespace Tests
     [TestFixture]
     public class AyudanteDeTiroTests
     {
-        Jugador jugador1;
-        Jugador jugador2;
-        PartidasEnJuego PartidaSimulada;
-        int NumeroDeJugador1;
-        int NumeroDeJugador2;
-        Partida PartidaTest;
-     
-        /// <summary>
-        /// 
-        /// </summary>
-        [SetUp]
-        public void Setup()
-        {
-            this.jugador1 = new Jugador("test1", 12 , "test");
-            this.jugador2 = new Jugador("test1", 14 , "test");
-            this.NumeroDeJugador1 = this.jugador1.NumeroDeJugador; 
-            this.NumeroDeJugador2 = this.jugador2.NumeroDeJugador;
-            this.PartidaSimulada = PartidasEnJuego.Instance(); 
-            
-
-            this.jugador1.BuscarPartida(0, 6);
-            this.jugador2.BuscarPartida(0, 6);
-            
-            this.PartidaTest = this.PartidaSimulada.ObtenerPartida(NumeroDeJugador1);
-
-            jugador1.PosicionarBarcos("A1","A6");
-            jugador1.PosicionarBarcos("B1","B3");
-            jugador2.PosicionarBarcos("A2","A3");
-            jugador2.PosicionarBarcos("C3","C5");
-            jugador2.PosicionarBarcos("B3","B5");
-            jugador2.PosicionarBarcos("F6","F6");
-
-        }
-
-        /// <summary>
-        /// Testea si se utiliza bien el ayudantede tiro al tener una parte de barco tocada.
+        /*/// <summary>
+        /// Verifica que al tocar un barco en el centro del tablero el ayudante de tiro señalice correctamente.
         /// </summary>
         [Test]
-        public void AyudanteDeTiroEnUnaCasilla()
+        public void BarcoCentralTocado()
         {
-            jugador1.Atacar("C3");
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
 
-            Tablero tableroTest = PartidaTest.VerTablero(NumeroDeJugador1);
-            ImprimirTableroOponente ayudanteTest = new ImprimirTableroOponente();
-            char[,] matrizTest = ayudanteTest.ayudanteDeTiro(tableroTest.VerTablero());
-            
-            int[] coordenadaSuperior = TraductorDeCoordenadas.Traducir("B3");
-            int coordenadaSuperiorFila = coordenadaSuperior[0];
-            int coordenadaSuperiorColumna = coordenadaSuperior[1];
+            Planificador.Emparejar(0,numeroDeJugador1,7);
+            Planificador.Emparejar(0,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
 
-            int[] coordenadaInferior = TraductorDeCoordenadas.Traducir("D3");
-            int coordenadaInferiorFila = coordenadaInferior[0];
-            int coordenadaInferiorColumna = coordenadaInferior[1];
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("C3","C3",numeroDeJugador1);
+            partida.AgregarBarco("F1","F3",numeroDeJugador1);
+            partida.AgregarBarco("F5","F6",numeroDeJugador1);
+            partida.AgregarBarco("A1","F1",numeroDeJugador2);
+            partida.AgregarBarco("A6","F6",numeroDeJugador2);
 
-            int[] coordenadaDeLaIzquierda = TraductorDeCoordenadas.Traducir("C2");
-            int coordenadaDeLaIzquierdaFila = coordenadaDeLaIzquierda[0];
-            int coordenadaDeLaIzquierdaColumna = coordenadaDeLaIzquierda[1];
+            partida.Atacar("A1", numeroDeJugador1);
+            partida.Atacar("C3", numeroDeJugador2);
 
-            int[] coordenadaDeLaDerecha = TraductorDeCoordenadas.Traducir("C4");
-            int coordenadaDeLaDerechaFila = coordenadaDeLaDerecha[0];
-            int coordenadaDeLaDerechaColumna = coordenadaDeLaDerecha[1];
+            ImprimirTableroOponente imprimir = new ImprimirTableroOponente();
+            Tablero tab = partida.VerTablero(numeroDeJugador1);
+            char[,] tablero = imprimir.ayudanteDeTiro(tab.VerTablero());
 
-            Assert.AreEqual('-', matrizTest[coordenadaDeLaDerechaFila,coordenadaDeLaDerechaColumna]);
+            char expected = '-'; 
+            //C3 = 2,2
+            //Verifica lateral izquierdo
+            Assert.AreEqual(expected,tablero[2,1]);
+            //Verifica arriba
+            Assert.AreEqual(expected,tablero[1,1]);
+            //Verifica abajo
+            Assert.AreEqual(expected,tablero[3,1]);
+            //Verifica lateral derecho
+            Assert.AreEqual(expected,tablero[2,3]);
 
-            Assert.AreEqual('-', matrizTest[coordenadaDeLaIzquierdaFila,coordenadaDeLaIzquierdaColumna]);
-
-            Assert.AreEqual('-', matrizTest[coordenadaInferiorFila,coordenadaInferiorColumna]);
-
-            Assert.AreEqual('-', matrizTest[coordenadaSuperiorFila,coordenadaSuperiorColumna]);
+            partidas.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
         }
-            /*
-            Jugador jugador1 = new Jugador("Jugador1", 98, "tonto");
-            Jugador jugador2 = new Jugador("Jugador2",87,"perro");
+        /// <summary>
+        /// Verifica que al tocar un barco en la esquina superior derecha del tablero el ayudante de tiro señalice correctamente.
+        /// </summary>
+        [Test]
+        public void BarcoCentralTocado()
+        {
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
 
-            //jugador1.PartidaAmistosa(0, jugador2.NumeroDeJugador, 7);
-            jugador1.BuscarPartida(0,300);
-            jugador2.BuscarPartida(0,300);
-            jugador1.VisualizarTableros();
-            /*Console.WriteLine(jugador1.PosicionarBarcos("A1","A6"));
-            Console.WriteLine(jugador1.PosicionarBarcos("B1","B3"));
-            Console.WriteLine(jugador2.PosicionarBarcos("A2","A3"));
-            Console.WriteLine(jugador2.PosicionarBarcos("C3","C5"));
-            Console.WriteLine(jugador2.PosicionarBarcos("B3","B5"));
-            Console.WriteLine(jugador2.PosicionarBarcos("F6","F6"));
+            Planificador.Emparejar(0,numeroDeJugador1,7);
+            Planificador.Emparejar(0,numeroDeJugador2,7);
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(numeroDeJugador1);
 
-            Console.WriteLine(jugador1.Atacar("A1"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            jugador1.VisualizarTableros();
+            partida.AgregarBarco("A1","A6",numeroDeJugador1);
+            partida.AgregarBarco("C3","C3",numeroDeJugador1);
+            partida.AgregarBarco("F1","F3",numeroDeJugador1);
+            partida.AgregarBarco("F5","F6",numeroDeJugador1);
+            partida.AgregarBarco("A1","F1",numeroDeJugador2);
+            partida.AgregarBarco("A6","F6",numeroDeJugador2);
 
-            //EsquinaSuperiorizquierda
-            
-            Console.WriteLine(jugador1.Atacar("F1"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            jugador1.VisualizarTableros();
+            partida.Atacar("A1", numeroDeJugador1);
 
-            //EsquinaInferiorizquierda
+            ImprimirTableroOponente imprimir = new ImprimirTableroOponente();
+            Tablero tab = partida.VerTablero(numeroDeJugador2);
+            char[,] tablero = imprimir.ayudanteDeTiro(tab.VerTablero());
 
-            Console.WriteLine(jugador1.Atacar("c1"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            jugador1.VisualizarTableros();
+            char expected = '-';
+            //Verifica abajo
+            Assert.AreEqual(expected,tablero[1,0]);
+            //Verifica lateral derecho
+            Assert.AreEqual(expected,tablero[0,1]);
 
-            //Lateral Izquierdo
-
-            
-            //Centro
-
-            Console.WriteLine(jugador1.Atacar("F6"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            
-            //Esquina inferior izquierda
-            //Final test 1 casilla
-
-            Console.WriteLine(jugador1.Atacar("C3"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            Console.WriteLine(jugador1.Atacar("B3"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            Console.WriteLine(jugador1.Atacar("C4"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            Console.WriteLine(jugador1.Atacar("C5"));
-            Console.WriteLine(jugador2.Atacar("A1"));
-            jugador1.VisualizarTableros();
-
-
+            partidas.RemoverPartida(partida);
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            almacenamiento.Remover(numeroDeJugador1);
+            almacenamiento.Remover(numeroDeJugador2);
+        }*/
     }
-}*/
+}
