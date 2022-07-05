@@ -36,7 +36,10 @@ namespace ClassLibrary
                     Planificador.Remover(jugador);
                     respuesta += "Su usuario ha sido removido\nSi desea volver a ingresar debe registrarse\n\nUse /Registrar para volver a registrarse";
                     EstadosUsuarios estados = EstadosUsuarios.Instance();
-                    estados.RetrocederEstados(IDdeljugador,1);
+                    if (estados.VerEstado(IDdeljugador) !=0)
+                    {
+                        estados.RetrocederEstados(IDdeljugador,1);
+                    }
                     return true;
                 }
                 return false;

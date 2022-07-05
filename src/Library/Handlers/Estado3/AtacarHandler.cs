@@ -82,7 +82,7 @@ namespace ClassLibrary
                                 mensajeOponente = $"Has sido atacado en {mensaje.Text}\n\nTABLERO PROPIO \n\n{Planificador.VerTablero(NumDelJugadorOponente)}";
                                 if (Planificador.PartidaFinalizada(numdelJugador))
                                 {
-                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial y seras al menu principal \nPresiona /menu para mas información";
+                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial y seras enviado al menu principal \nPresiona /menu para mas información";
                                     mensajeOponente += "\n\nLamentablemente has perdido. \nLa partida se guardara en su historial y seras enviado al menu principal \nPresiona /menu para mas información";
                                     historia.ReiniciarEstados(IDDelOponente);
                                     historia.ReiniciarEstados(IDDelJugador);
