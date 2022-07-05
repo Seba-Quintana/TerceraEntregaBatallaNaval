@@ -75,7 +75,8 @@ namespace ClassLibrary
         /// <param name="estadosARetroceder"> cantidad de estados a retroceder </param>
         public void RetrocederEstados(long ID, int estadosARetroceder)
         {
-            this.EstadosDeJugadores[ID]-=estadosARetroceder;
+            if (this.EstadosDeJugadores[ID] - estadosARetroceder >= 0)
+                this.EstadosDeJugadores[ID]-=estadosARetroceder;
         }
 
         /// <summary>
