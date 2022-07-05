@@ -77,11 +77,11 @@ namespace ClassLibrary
                             if (!Planificador.IniciarSesion(Planificador.ConversorIDaNum(IDDelJugador), HistoriaLocal[IDDelJugador][1], HistoriaLocal[IDDelJugador][2]))
                             {
                                 HistoriaLocal.Remove(IDDelJugador);
-                                respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \nPresione /InicioSesion o /Registrar";
+                                respuesta += "Inicio de Sesion fallido, prueba nuevamente. \nPresione /InicioSesion o /Registrar";
                             }
                             else
                             {
-                                respuesta += "Bienvenido, cazador de barcos. \n Presiona /Menu para ver los comandos disponibles \n";
+                                respuesta += "Bienvenido, cazador de barcos. \nPresione /Menu para ver los comandos disponibles \n";
                                 historia.AvanzarEstados(IDDelJugador, 1);
                                 HistoriaLocal.Remove(IDDelJugador);
                             }
@@ -97,7 +97,7 @@ namespace ClassLibrary
             }
             catch (Exception)
             {
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 return true;
             }
         }

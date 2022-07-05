@@ -63,9 +63,9 @@ namespace ClassLibrary
                     if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
                         HistoriaLocal.Add(IDDelJugador, new string[3]);
-                        respuesta += $"Elija el modo de juego entre las siguientes opciones:";
-                        respuesta += $"\n0 para jugar en modo normal.";
-                        respuesta += $"\n1 para jugar en modo rapido.";
+                        respuesta += $"Elija el modo de juego entre las siguientes opciones:\n";
+                        respuesta += $"0 para jugar en modo normal.\n";
+                        respuesta += $"1 para jugar en modo rapido.\n";
                         return true;
                     }
                     else if (HistoriaLocal[IDDelJugador][0] == null)
@@ -77,7 +77,7 @@ namespace ClassLibrary
                         }
 
                         HistoriaLocal[IDDelJugador][0] = mensaje.Text;
-                        respuesta = "Indique el tamaño del tablero: \nEntre 2 y 11";
+                        respuesta = "Indique el tamaño del tablero\nEntre 2 y 11:";
                         return true;
                     }
                     else if (HistoriaLocal[IDDelJugador][1] == null)
@@ -95,14 +95,14 @@ namespace ClassLibrary
                         emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDDelJugador][0]), Planificador.ConversorIDaNum(IDDelJugador), Int32.Parse(HistoriaLocal[IDDelJugador][1]));
                         if (emparejado==null)
                         {
-                            respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
+                            respuesta = "Buscando partida...\nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
                         }
                         else
                         {
-                            respuesta = "Partida encontrada! \nPresione /Posicionar para posicionar un barco";
+                            respuesta = "Partida encontrada!\nPresione /Posicionar para posicionar un barco";
                             int IntJugadorEnemigo = emparejado[0];
                             long IDJugadorEnemigo = Planificador.ConversorNumaID(IntJugadorEnemigo);
-                            bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \nPresione /Posicionar para posicionar un barco");
+                            bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada!\nPresione /Posicionar para posicionar un barco");
                             HistoriaLocal.Remove(IDDelJugador);
                             HistoriaLocal.Remove(IDJugadorEnemigo);
                             Estados.AvanzarEstados(IDDelJugador,1);
@@ -125,8 +125,7 @@ namespace ClassLibrary
             }
             catch (ModoInvalidoException)
             {
-
-                respuesta = "Elije entre los modos 0 y 1 por favor";
+                respuesta = "Elija entre los modos 0 y 1 por favor";
                 return true;
             }
             catch (TableroInvalidoException)
@@ -138,7 +137,7 @@ namespace ClassLibrary
             {
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
                 long IDDelJugador = mensaje.Chat.Id;
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDDelJugador);
                 return true;
             }

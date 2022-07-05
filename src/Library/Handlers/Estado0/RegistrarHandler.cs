@@ -54,7 +54,6 @@ namespace ClassLibrary
                 long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
-                    
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
                     if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
@@ -99,7 +98,7 @@ namespace ClassLibrary
             }
             catch (Exception)
             {
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo\n";
                 return true;
             }
         }

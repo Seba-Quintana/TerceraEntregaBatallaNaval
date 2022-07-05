@@ -73,7 +73,7 @@ namespace ClassLibrary
                         long idInvitado = Planificador.ConversorNumaID(Int32.Parse(mensaje.Text));
                         Planificador.anadirListaEsperaAmigos(IDDelJugador, idInvitado);
                         respuesta = "Espere la confirmacion de su amigo...\nPresione /SalirEmparejamiento para cancelar la solicitud";
-                        bot.SendTextMessageAsync(idInvitado,"Usted a sido invitado a una partida, ingrese /Aceptar para entrar en partida");
+                        bot.SendTextMessageAsync(idInvitado,"Usted a sido invitado a una partida,\npresione /Aceptar para entrar en partida");
                         return true;
                     }
                 }
@@ -87,7 +87,7 @@ namespace ClassLibrary
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }

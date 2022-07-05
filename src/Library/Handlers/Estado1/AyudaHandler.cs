@@ -26,13 +26,13 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
-                respuesta = "Si quieres remover un usuario, escribe /Remover.\n";
-                respuesta += "Si quieres jugar utiliza los comandos /BuscarPartida\n";
-                respuesta += "Si quieres jugar con un amigo, utiliza /BuscarPartidaAmistosa.\n";
-                respuesta += "Para ver el historial de partidas, escribe /VerHistorial\n";
-                respuesta += "Para ver tu historial, escribe /VerHistorialPersonal.\n";
-                respuesta += "Para ver tu perfil, escribe /VerPerfil\n";
-                respuesta += "Si quieres ver el Ranking de jugadores, escribe /VerRanking";
+                respuesta = "Si quieres remover un usuario,\npresione /Remover.\n";
+                respuesta += "Si quieres jugar jugar una partida,\npresione /BuscarPartida\n";
+                respuesta += "Si quieres jugar con un amigo,\npresione /BuscarPartidaAmistosa.\n";
+                respuesta += "Para ver el historial de partidas,\npresione /VerHistorial\n";
+                respuesta += "Para ver tu historial,\npresione /VerHistorialPersonal.\n";
+                respuesta += "Para ver tu perfil,\npresione /VerPerfil\n";
+                respuesta += "Si quieres ver el Ranking de jugadores,\npresione /VerRanking\n";
                 return true;
             }
 
