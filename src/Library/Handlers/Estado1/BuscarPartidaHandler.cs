@@ -90,10 +90,9 @@ namespace ClassLibrary
                         
                         HistoriaLocal[IDDelJugador][1] = mensaje.Text;
                         
-                        AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
                         EstadosUsuarios Estados = EstadosUsuarios.Instance();
                         int[] emparejado; 
-                        emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDDelJugador][0]), conversor.ConversorIDaNum(IDDelJugador), Int32.Parse(HistoriaLocal[IDDelJugador][1]));
+                        emparejado = Planificador.Emparejar(Int32.Parse(HistoriaLocal[IDDelJugador][0]), Planificador.ConversorIDaNum(IDDelJugador), Int32.Parse(HistoriaLocal[IDDelJugador][1]));
                         if (emparejado==null)
                         {
                             respuesta = "Buscando partida... \nSi desea salir del emparejamiento, presione /SalirEmparejamiento \n";
@@ -101,9 +100,8 @@ namespace ClassLibrary
                         else
                         {
                             respuesta = "Partida encontrada! \nPresione /Posicionar para posicionar un barco";
-                            AlmacenamientoUsuario almacenamientodeUsuarios = AlmacenamientoUsuario.Instance();
                             int IntJugadorEnemigo = emparejado[0];
-                            long IDJugadorEnemigo = almacenamientodeUsuarios.ConversorNumaID(IntJugadorEnemigo);
+                            long IDJugadorEnemigo = Planificador.ConversorNumaID(IntJugadorEnemigo);
                             bot.SendTextMessageAsync(IDJugadorEnemigo,"Partida encontrada! \nPresione /Posicionar para posicionar un barco");
                             HistoriaLocal.Remove(IDDelJugador);
                             HistoriaLocal.Remove(IDJugadorEnemigo);

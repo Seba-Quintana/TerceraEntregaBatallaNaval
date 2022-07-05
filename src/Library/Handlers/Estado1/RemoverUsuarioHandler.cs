@@ -32,8 +32,7 @@ namespace ClassLibrary
                 if (this.CanHandle(mensaje))
                 {
                     long IDdeljugador = mensaje.Chat.Id;
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                    int jugador = almacenamiento.ConversorIDaNum(IDdeljugador);
+                    int jugador = Planificador.ConversorIDaNum(IDdeljugador);
                     Planificador.Remover(jugador);
                     respuesta += "Su usuario ha sido removido\nSi desea volver a ingresar debe registrarse\n\nUse /Registrar para volver a registrarse";
                     EstadosUsuarios estados = EstadosUsuarios.Instance();

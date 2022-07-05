@@ -56,11 +56,10 @@ namespace ClassLibrary
                 if (this.CanHandle(mensaje))
                 {
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
-                    AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
-                    int numdelJugador = almacenamiento.ConversorIDaNum(IDDelJugador);
+                    int numdelJugador = Planificador.ConversorIDaNum(IDDelJugador);
                     
                     int NumDelJugadorOponente = Planificador.ObtenerNumOponente(numdelJugador);
-                    long IDDelOponente = almacenamiento.ConversorNumaID(NumDelJugadorOponente);
+                    long IDDelOponente = Planificador.ConversorNumaID(NumDelJugadorOponente);
 
                     TelegramBotClient bot = SingletonBot.Instance();
                 

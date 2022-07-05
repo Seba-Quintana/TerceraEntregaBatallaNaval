@@ -59,7 +59,6 @@ namespace ClassLibrary
 
                 if (this.CanHandle(mensaje))
                 {
-                    AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
                     long IDinvitado = Planificador.VerListaEsperaAmigos(IDDelJugador);
                     if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
@@ -87,8 +86,8 @@ namespace ClassLibrary
 
                         bool emparejado = Planificador.EmparejarAmigos(
                         Int32.Parse(HistoriaLocal[IDDelJugador][1]),
-                        conversor.ConversorIDaNum(IDDelJugador),
-                        conversor.ConversorIDaNum(IDinvitado),
+                        Planificador.ConversorIDaNum(IDDelJugador),
+                        Planificador.ConversorIDaNum(IDinvitado),
                         Int32.Parse(HistoriaLocal[IDDelJugador][2]));
                         if (emparejado)
                         {

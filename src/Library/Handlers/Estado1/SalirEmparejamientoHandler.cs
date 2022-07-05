@@ -32,9 +32,8 @@ namespace ClassLibrary
                 if (this.CanHandle(mensaje))
                 {
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
-                    AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
                     long IDdeljugador = mensaje.Chat.Id;
-                    int usuario = conversor.ConversorIDaNum(IDdeljugador);
+                    int usuario = Planificador.ConversorIDaNum(IDdeljugador);
                     Planificador.removerListaEspera(usuario);
                     respuesta += $"Emparejamiento cancelado \n Presione /Menu para volver al menu \n";
                     historia.ReiniciarEstados(IDdeljugador);

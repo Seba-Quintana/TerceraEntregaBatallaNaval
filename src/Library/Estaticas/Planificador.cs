@@ -354,5 +354,29 @@ namespace ClassLibrary
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
             return partidas.CantidadDeBarcosintactos(propietariodelbarco);
         }
+        /// <summary>
+        /// Metodo intermedio entre planificador y almacenamiento de usuario.
+        /// Ya que nuestro objetivo es que solo se pueda acceder a la logica por
+        /// planificador desde los handlers
+        /// </summary>
+        /// <param name="IDaConvertir"></param>
+        /// <returns></returns>
+        public static int ConversorIDaNum(long IDaConvertir)
+        {
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            return almacenamiento.ConversorIDaNum(IDaConvertir);
+        }
+        /// <summary>
+        /// Metodo intermedio entre planificador y almacenamiento de usuario.
+        /// Ya que nuestro objetivo es que solo se pueda acceder a la logica por
+        /// planificador desde los handlers
+        /// </summary>
+        /// <param name="numDeJugadoraConvertir"></param>
+        /// <returns></returns>
+        public static long ConversorNumaID(int numDeJugadoraConvertir)
+        {
+            AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
+            return almacenamiento.ConversorNumaID(numDeJugadoraConvertir);
+        }
     }
 }
