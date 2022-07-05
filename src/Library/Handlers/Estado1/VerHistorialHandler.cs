@@ -32,7 +32,6 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    respuesta = "Este es el historial:\n";
                     respuesta += Planificador.VerHistorial();
                     return true;
                 }

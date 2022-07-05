@@ -23,7 +23,7 @@ namespace ClassLibrary
             respuesta += ($"Perdidas: {perfil.Perdidas}\n");
             return respuesta;
         }
-        
+            
         /// <summary>
         /// Este método se encarga de crear un string que contenga el historial de todas las partidas en la lista de partidas ingresada como parametro.
         /// </summary>
@@ -36,9 +36,12 @@ namespace ClassLibrary
 
             if (partidas.Count > 0)
             {
+                int contador = 1;
                 respuesta = "Este es el Historial.\n";
                 foreach (DatosdePartida partida in partidas)
                 {
+                    respuesta += ($"Parida numero {contador}\n");
+
                     if (partida.Tableros == null)
                     {
                         respuesta += ($"Tamaño del tablero: {partida.Tamano}\n");
@@ -55,6 +58,8 @@ namespace ClassLibrary
                     }
                     respuesta += ($"Ganador: {buscador.ObtenerPerfil(partida.Ganador).Nombre}\n");
                     respuesta += ($"Perdedor: {buscador.ObtenerPerfil(partida.Perdedor).Nombre}\n");
+                    respuesta += ($"\n\n");
+                    contador += 1;
                 }
             }
             else 

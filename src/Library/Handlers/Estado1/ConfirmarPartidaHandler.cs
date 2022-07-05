@@ -62,9 +62,7 @@ namespace ClassLibrary
                     long IDinvitado = Planificador.VerListaEsperaAmigos(IDDelJugador);
                     if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
-                        respuesta = $"Desea aceptar la partida?";
                         HistoriaLocal.Add(IDDelJugador, new string[3]);
-                        return true;
                     }
                     if (HistoriaLocal[IDDelJugador][0] == null)
                     {

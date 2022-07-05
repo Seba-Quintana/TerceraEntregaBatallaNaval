@@ -81,7 +81,8 @@ namespace ClassLibrary
                             }
                             else
                             {
-                                respuesta += "Bienvenido, cazador de barcos. \nPresione /Menu para ver los comandos disponibles \n";
+
+                                respuesta += "Bienvenido, cazador de barcos. \nPresiona /Menu para ver los comandos disponibles \n";
                                 historia.AvanzarEstados(IDDelJugador, 1);
                                 HistoriaLocal.Remove(IDDelJugador);
                             }
