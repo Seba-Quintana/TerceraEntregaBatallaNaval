@@ -60,7 +60,7 @@ namespace ConsoleApplication
 
             inicialHandler = new ComenzarHandler(null);
 
-            primerHandler = new InicioSesionHandler(new RegistrarHandler(null));
+            primerHandler = new InicioSesionHandler(new RegistrarHandler(new RemoverUsuarioHandler(null)));
 
             segundoHandler = new MenuHandler(new AyudaHandler(new VerRankingHandler(new VerHistorialHandler(new VerPerfilHandler(new VerHistorialPersonalHandler(new BuscarPartidaHandler(new BuscarPartidaAmistosaHandler(new ConfirmarPartidaHandler(new SalirEmparejamientoHandler(new RemoverUsuarioHandler(null)))))))))));
 
