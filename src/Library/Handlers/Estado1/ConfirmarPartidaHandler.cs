@@ -12,8 +12,10 @@ namespace ClassLibrary
     public class ConfirmarPartidaHandler : BaseHandler
     {
 		/// <summary>
-        /// El estado del comando.
+        /// Diccionario que almacena los mensajes ingresados por cada uno
+        /// de los jugadores que se encuentran en esta etapa.
         /// </summary>
+        /// <returns></returns>
 		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace ClassLibrary
     public class RegistrarHandler : BaseHandler
     {
         /// <summary>
-        /// El estado del comando.
+        /// El estado del comandoP para cada usuario.
         /// </summary>
         public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
@@ -31,7 +31,7 @@ namespace ClassLibrary
         /// de lo contrario devuelve false </returns>
         protected override bool CanHandle(Message message)
         {
-            if (!HistoriaLocal.ContainsKey(message.Chat.Id))
+            if (!HistoriaLocal.ContainsKey(message.Chat.Id) || (message.Text).StartsWith("/"))
             {
                 return base.CanHandle(message);
             }
@@ -51,39 +51,44 @@ namespace ClassLibrary
             try
             {
                 respuesta = string.Empty;
+                long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
-                    long IDdeljugador = mensaje.Chat.Id;
+                    
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
-                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                    if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
-                        HistoriaLocal.Add(IDdeljugador, new string[3]);
-                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        HistoriaLocal.Add(IDDelJugador, new string[3]);
+                        HistoriaLocal[IDDelJugador][0] = mensaje.Text;
                         respuesta = "Indique su nombre :";
                         return true;
                     }
                     else
                     {
-                        if (HistoriaLocal[IDdeljugador][1] == null)
+                        if (HistoriaLocal[IDDelJugador][1] == null)
                         {
-                            HistoriaLocal[IDdeljugador][1] = mensaje.Text;
-                            respuesta = $"{HistoriaLocal[IDdeljugador][1]} \n" + "Indique su contraseña :";
+                            HistoriaLocal[IDDelJugador][1] = mensaje.Text;
+                            respuesta = $"{HistoriaLocal[IDDelJugador][1]} \n" + "Indique su contraseña :";
                             return true;
                         }
-                        else if (HistoriaLocal[IDdeljugador][2] == null)
+                        else if (HistoriaLocal[IDDelJugador][2] == null)
                         {
-                            HistoriaLocal[IDdeljugador][2] = mensaje.Text;
-                            int numDeUsuario = Planificador.Registrar(HistoriaLocal[IDdeljugador][1] , IDdeljugador, HistoriaLocal[IDdeljugador][2]);
+                            HistoriaLocal[IDDelJugador][2] = mensaje.Text;
+                            int numDeUsuario = Planificador.Registrar(HistoriaLocal[IDDelJugador][1] , IDDelJugador, HistoriaLocal[IDDelJugador][2]);
                             respuesta += "Registro Completado";
-                            respuesta += $"\nSu nombre de usuario es {HistoriaLocal[IDdeljugador][1]} y su contraseña {HistoriaLocal[IDdeljugador][2]}.";
+                            respuesta += $"\nSu nombre de usuario es {HistoriaLocal[IDDelJugador][1]} y su contraseña {HistoriaLocal[IDDelJugador][2]}.";
                             respuesta += $"\nEste es tu numero de Usuario : {numDeUsuario}. Recuerdelo.";
                             respuesta += $"\nSeras enviado al menu principal,";
                             respuesta += $"\nUtilice /menu para poder obtener mas información.";
-                            historia.AvanzarEstados(IDdeljugador, 1);
-                            HistoriaLocal.Remove(IDdeljugador);
+                            historia.AvanzarEstados(IDDelJugador, 1);
+                            HistoriaLocal.Remove(IDDelJugador);
                             return true;
                         }
                     }
+                }
+                if (HistoriaLocal.ContainsKey(IDDelJugador))
+                {
+                    HistoriaLocal.Remove(IDDelJugador);
                 }
                 return false;
             }

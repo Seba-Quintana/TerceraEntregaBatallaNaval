@@ -9,7 +9,11 @@ namespace ClassLibrary
     /// </summary>
     public class InicioSesionHandler : BaseHandler
     {
-		public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
+
+        /// <summary>
+        /// El estado del comandoP para cada usuario.
+        /// </summary>		
+        public Dictionary<long, string[]> HistoriaLocal = new Dictionary<long, string[]>();
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>. Esta clase procesa el mensaje "InicioSesion".
@@ -28,7 +32,7 @@ namespace ClassLibrary
         /// de lo contrario devuelve false </returns>
         protected override bool CanHandle(Message message)
         {
-            if (!HistoriaLocal.ContainsKey(message.Chat.Id))
+            if (!HistoriaLocal.ContainsKey(message.Chat.Id) || (message.Text).StartsWith("/"))
             {
                 return base.CanHandle(message);
             }
@@ -49,43 +53,47 @@ namespace ClassLibrary
             try
             {
                 respuesta = string.Empty;
+                long IDDelJugador = mensaje.Chat.Id;
                 if (this.CanHandle(mensaje))
                 {
-                    long IDdeljugador = mensaje.Chat.Id;
                     EstadosUsuarios historia = EstadosUsuarios.Instance();
-                    if (!HistoriaLocal.ContainsKey(IDdeljugador))
+                    if (!HistoriaLocal.ContainsKey(IDDelJugador))
                     {
-                        HistoriaLocal.Add(IDdeljugador, new string[3]);
-                        HistoriaLocal[IDdeljugador][0] = mensaje.Text;
+                        HistoriaLocal.Add(IDDelJugador, new string[3]);
+                        HistoriaLocal[IDDelJugador][0] = mensaje.Text;
                         respuesta += "Indique su nombre: ";
                         return true;
                     }
                     else
                     {
-                        if (HistoriaLocal[IDdeljugador][1] == null)
+                        if (HistoriaLocal[IDDelJugador][1] == null)
                         {
-                            HistoriaLocal[IDdeljugador][1] = mensaje.Text;
+                            HistoriaLocal[IDDelJugador][1] = mensaje.Text;
                             respuesta = "Indique su contraseña: ";
                             return true;
                         }
-                        else if (HistoriaLocal[IDdeljugador][2] == null)
+                        else if (HistoriaLocal[IDDelJugador][2] == null)
                         {
-                            HistoriaLocal[IDdeljugador][2] = mensaje.Text;
+                            HistoriaLocal[IDDelJugador][2] = mensaje.Text;
                             AlmacenamientoUsuario conversor = AlmacenamientoUsuario.Instance();
-                            if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDdeljugador), HistoriaLocal[IDdeljugador][1], HistoriaLocal[IDdeljugador][2]))
+                            if (!Planificador.IniciarSesion(conversor.ConversorIDaNum(IDDelJugador), HistoriaLocal[IDDelJugador][1], HistoriaLocal[IDDelJugador][2]))
                             {
-                                HistoriaLocal.Remove(IDdeljugador);
+                                HistoriaLocal.Remove(IDDelJugador);
                                 respuesta += "Inicio de Sesion fallido. Prueba nuevamente. \nPresione /InicioSesion o /Registrar";
                             }
                             else
                             {
                                 respuesta += "Bienvenido, cazador de barcos. \n Presiona /Menu para ver los comandos disponibles \n";
-                                historia.AvanzarEstados(IDdeljugador, 1);
-                                HistoriaLocal.Remove(IDdeljugador);
+                                historia.AvanzarEstados(IDDelJugador, 1);
+                                HistoriaLocal.Remove(IDDelJugador);
                             }
                             return true;
                         }
                     }
+                }
+                if (HistoriaLocal.ContainsKey(IDDelJugador))
+                {
+                    HistoriaLocal.Remove(IDDelJugador);
                 }
                 return false;
             }
