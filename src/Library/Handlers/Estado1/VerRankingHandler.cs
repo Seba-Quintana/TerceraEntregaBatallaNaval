@@ -32,8 +32,8 @@ namespace ClassLibrary
                 respuesta = string.Empty;
                 if (this.CanHandle(mensaje))
                 {
-                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n ";
-                    
+                    respuesta = "Este es el ranking donde están los jugadores con sus posiciones, dependiendo de sus partidas ganadas y perdidas:\n";
+
                     respuesta += Planificador.VerRanking();
                     return true;
                 }
