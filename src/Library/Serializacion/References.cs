@@ -12,9 +12,18 @@ using System.Text.Json.Serialization;
 
 namespace ClassLibrary
 {
+    /// <summary>
+    /// Clase para ordenar serializacion
+    /// </summary>
     public class MyReferenceHandler : ReferenceHandler
     {
         private static MyReferenceHandler instance;
+
+        /// <summary>
+        /// singleton
+        /// </summary>
+        /// <value> crea una instancia de no existir una,
+        /// de lo contrario devuelve la instancia ya creada </value>
         public static MyReferenceHandler Instance
         {
             get
