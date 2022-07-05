@@ -9,7 +9,6 @@ namespace ClassLibrary
     /// </summary>
     public class InicioSesionHandler : BaseHandler
     {
-
         /// <summary>
         /// El estado del handler para cada usuario.
         /// </summary>		

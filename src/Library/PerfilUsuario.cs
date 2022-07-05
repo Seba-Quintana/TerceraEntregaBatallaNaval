@@ -58,6 +58,10 @@ namespace ClassLibrary
         {
             return this.MemberwiseClone();
         }
+
+        /// <summary>
+        /// Constructor de perfilUsuario
+        /// </summary>
         [JsonConstructor]
         public PerfilUsuario ()
         {
