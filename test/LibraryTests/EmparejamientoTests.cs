@@ -40,23 +40,26 @@ namespace Tests
         [Test]
         public void RemoverFilaEsperaEmparejamientoAleatorioModoNormal()
         {
-            Jugador jugador1 = new Jugador("Jugador1",1,"contraseña");
-            Jugador jugador2 = new Jugador("Jugador2",2,"contraseña");
-            Jugador jugador3 = new Jugador("Jugador3",3,"contraseña");
-            int[] emparejados1 = emparejamiento.EmparejarAleatorio(0,jugador1.NumeroDeJugador);
-            emparejamiento.RemoverListaEspera(jugador1.NumeroDeJugador);
-            int[] emparejados2 = emparejamiento.EmparejarAleatorio(0,jugador2.NumeroDeJugador);
-            int[] emparejados3 = emparejamiento.EmparejarAleatorio(0,jugador3.NumeroDeJugador);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+            int numeroDeJugador3 = Planificador.Registrar("Raul",85,"player3");
+
+            int[] emparejados1 = emparejamiento.EmparejarAleatorio(0,numeroDeJugador1);
+            emparejamiento.RemoverListaEspera(numeroDeJugador1);
+            int[] emparejados2 = emparejamiento.EmparejarAleatorio(0,numeroDeJugador2);
+            int[] emparejados3 = emparejamiento.EmparejarAleatorio(0,numeroDeJugador3);
+
             int[] verificar = new int[2];
-            verificar[0] = jugador2.NumeroDeJugador;
-            verificar[1] = jugador3.NumeroDeJugador;
+            verificar[0] = numeroDeJugador2;
+            verificar[1] = numeroDeJugador3;
             Assert.AreEqual(emparejados1,null);
             Assert.AreEqual(emparejados2,null);
             Assert.AreEqual(emparejados3[0],verificar[0]);
             Assert.AreEqual(emparejados3[1],verificar[1]);
-            removedor.Remover(1);
-            removedor.Remover(2);
-            removedor.Remover(3);
+
+            removedor.Remover(numeroDeJugador1);
+            removedor.Remover(numeroDeJugador2);
+            removedor.Remover(numeroDeJugador3);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(remover.ObtenerPartida(2));
         }
@@ -66,20 +69,26 @@ namespace Tests
         [Test]
         public void RemoverFilaEsperaEmparejamientoAleatorioModoRapido()
         {
-            Jugador jugador1 = new Jugador("Jugador1",1,"contraseña");
-            Jugador jugador2 = new Jugador("Jugador2",2,"contraseña");
-            Jugador jugador3 = new Jugador("Jugador3",3,"contraseña");
-            int[] emparejados1 = emparejamiento.EmparejarAleatorio(1,jugador1.NumeroDeJugador);
-            emparejamiento.RemoverListaEspera(jugador1.NumeroDeJugador);
-            int[] emparejados2 = emparejamiento.EmparejarAleatorio(1,jugador2.NumeroDeJugador);
-            int[] emparejados3 = emparejamiento.EmparejarAleatorio(1,jugador3.NumeroDeJugador);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+            int numeroDeJugador3 = Planificador.Registrar("Raul",85,"player3");
+
+            int[] emparejados1 = emparejamiento.EmparejarAleatorio(1,numeroDeJugador1);
+            emparejamiento.RemoverListaEspera(numeroDeJugador1);
+            int[] emparejados2 = emparejamiento.EmparejarAleatorio(1,numeroDeJugador2);
+            int[] emparejados3 = emparejamiento.EmparejarAleatorio(1,numeroDeJugador3);
+
             int[] verificar = new int[2];
-            verificar[0] = jugador2.NumeroDeJugador;
-            verificar[1] = jugador3.NumeroDeJugador;
+            verificar[0] = numeroDeJugador2;
+            verificar[1] = numeroDeJugador3;
             Assert.AreEqual(emparejados1,null);
             Assert.AreEqual(emparejados2,null);
             Assert.AreEqual(emparejados3[0],verificar[0]);
             Assert.AreEqual(emparejados3[1],verificar[1]);
+
+            removedor.Remover(numeroDeJugador1);
+            removedor.Remover(numeroDeJugador2);
+            removedor.Remover(numeroDeJugador3);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(remover.ObtenerPartida(2));
         }
@@ -89,20 +98,25 @@ namespace Tests
         [Test]
         public void EmparejamientoAleatorioModoNormal()
         {
-            Jugador jugador1 = new Jugador("Jugador1",1,"contraseña");
-            Jugador jugador2 = new Jugador("Jugador2",2,"contraseña");
-            Jugador jugador3 = new Jugador("Jugador3",3,"contraseña");
-            int[] emparejados1 = emparejamiento.EmparejarAleatorio(0,jugador1.NumeroDeJugador);
-            int[] emparejados2 = emparejamiento.EmparejarAleatorio(0,jugador2.NumeroDeJugador);
-            int[] emparejados3 = emparejamiento.EmparejarAleatorio(0,jugador3.NumeroDeJugador);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+            int numeroDeJugador3 = Planificador.Registrar("Raul",85,"player3");
+
+            int[] emparejados1 = emparejamiento.EmparejarAleatorio(0,numeroDeJugador1);
+            int[] emparejados2 = emparejamiento.EmparejarAleatorio(0,numeroDeJugador2);
+            int[] emparejados3 = emparejamiento.EmparejarAleatorio(0,numeroDeJugador3);
             int[] verificar = new int[2];
-            verificar[0] = jugador1.NumeroDeJugador;
-            verificar[1] = jugador2.NumeroDeJugador;
+            verificar[0] = numeroDeJugador1;
+            verificar[1] = numeroDeJugador2;
             Assert.AreEqual(emparejados1,null);
             Assert.AreEqual(emparejados2[0],verificar[0]);
             Assert.AreEqual(emparejados2[1],verificar[1]);
             Assert.AreEqual(emparejados3,null);
-            emparejamiento.RemoverListaEspera(jugador3.NumeroDeJugador);
+
+            emparejamiento.RemoverListaEspera(numeroDeJugador3);
+            removedor.Remover(numeroDeJugador1);
+            removedor.Remover(numeroDeJugador2);
+            removedor.Remover(numeroDeJugador3);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(remover.ObtenerPartida(1));
         }
@@ -112,20 +126,25 @@ namespace Tests
         [Test]
         public void EmparejamientoAleatorioModoRapido()
         {
-            Jugador jugador1 = new Jugador("Jugador1",1,"contraseña");
-            Jugador jugador2 = new Jugador("Jugador2",2,"contraseña");
-            Jugador jugador3 = new Jugador("Jugador3",3,"contraseña");
-            int[] emparejados1 = emparejamiento.EmparejarAleatorio(1,jugador1.NumeroDeJugador);
-            int[] emparejados2 = emparejamiento.EmparejarAleatorio(1,jugador2.NumeroDeJugador);
-            int[] emparejados3 = emparejamiento.EmparejarAleatorio(1,jugador3.NumeroDeJugador);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+            int numeroDeJugador3 = Planificador.Registrar("Raul",85,"player3");
+            int[] emparejados1 = emparejamiento.EmparejarAleatorio(1,numeroDeJugador1);
+            int[] emparejados2 = emparejamiento.EmparejarAleatorio(1,numeroDeJugador2);
+            int[] emparejados3 = emparejamiento.EmparejarAleatorio(1,numeroDeJugador3);
+
             int[] verificar = new int[2];
-            verificar[0] = jugador1.NumeroDeJugador;
-            verificar[1] = jugador2.NumeroDeJugador;
+            verificar[0] = numeroDeJugador1;
+            verificar[1] = numeroDeJugador2;
             Assert.AreEqual(emparejados1,null);
             Assert.AreEqual(emparejados2[0],verificar[0]);
             Assert.AreEqual(emparejados2[1],verificar[1]);
             Assert.AreEqual(emparejados3,null);
-            emparejamiento.RemoverListaEspera(jugador3.NumeroDeJugador);
+
+            emparejamiento.RemoverListaEspera(numeroDeJugador3);
+            removedor.Remover(numeroDeJugador1);
+            removedor.Remover(numeroDeJugador2);
+            removedor.Remover(numeroDeJugador3);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(remover.ObtenerPartida(1));
         }
@@ -135,14 +154,19 @@ namespace Tests
         [Test]
         public void EmparejarAmigosModoNormal()
         {
-            Jugador jugador1 = new Jugador("Jugador1",1,"contraseña");
-            Jugador jugador2 = new Jugador("Jugador2",2,"contraseña");
-            int[] emparejados = emparejamiento.EmparejarAmigos(0,jugador1.NumeroDeJugador,jugador2.NumeroDeJugador);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+
+            int[] emparejados = emparejamiento.EmparejarAmigos(0,numeroDeJugador1,numeroDeJugador2);
+            
             int[] verificar = new int[2];
-            verificar[0] = jugador1.NumeroDeJugador;
-            verificar[1] = jugador2.NumeroDeJugador;
+            verificar[0] = numeroDeJugador1;
+            verificar[1] = numeroDeJugador2;
             Assert.AreEqual(emparejados[0],verificar[0]);
-            Assert.AreEqual(emparejados[1],verificar[1]); 
+            Assert.AreEqual(emparejados[1],verificar[1]);
+
+            removedor.Remover(numeroDeJugador1);
+            removedor.Remover(numeroDeJugador2);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(remover.ObtenerPartida(1));     
         }
@@ -152,14 +176,18 @@ namespace Tests
         [Test]
         public void EmparejarAmigosModoRapido()
         {
-            Jugador jugador1 = new Jugador("Jugador1",1,"contraseña");
-            Jugador jugador2 = new Jugador("Jugador2",2,"contraseña");
-            int[] emparejados = emparejamiento.EmparejarAmigos(1,jugador1.NumeroDeJugador,jugador2.NumeroDeJugador);
+            int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
+            int numeroDeJugador2 = Planificador.Registrar("Drake",55,"player2");
+            int[] emparejados = emparejamiento.EmparejarAmigos(1,numeroDeJugador1,numeroDeJugador2);
+            
             int[] verificar = new int[2];
-            verificar[0] = jugador1.NumeroDeJugador;
-            verificar[1] = jugador2.NumeroDeJugador;
+            verificar[0] = numeroDeJugador1;
+            verificar[1] = numeroDeJugador2;
             Assert.AreEqual(emparejados[0],verificar[0]);
             Assert.AreEqual(emparejados[1],verificar[1]);
+
+            removedor.Remover(numeroDeJugador1);
+            removedor.Remover(numeroDeJugador2);
             PartidasEnJuego remover = PartidasEnJuego.Instance();
             remover.RemoverPartida(remover.ObtenerPartida(1));
         }
