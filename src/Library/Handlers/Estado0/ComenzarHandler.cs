@@ -27,7 +27,7 @@ namespace ClassLibrary
         {
             if (this.CanHandle(mensaje))
             {
-                respuesta = "Bienvenido al bot del equipo 9. Esperamos que lo disfrute U_w_U";
+                respuesta = "Bienvenido al bot del equipo 9. Esperamos que lo disfrute";
                 respuesta += $"\nEscribe '/Registrar' para registrarte, o '/InicioSesion' para iniciar sesion";
                 EstadosUsuarios.Instance().NuevoJugador(mensaje.Chat.Id);
                 return true;
