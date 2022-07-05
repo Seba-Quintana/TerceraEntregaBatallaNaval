@@ -39,7 +39,7 @@ namespace ClassLibrary
             }
             catch (Exception)
             {
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 return true;
             }
         }

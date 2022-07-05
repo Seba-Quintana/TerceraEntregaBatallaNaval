@@ -69,7 +69,7 @@ namespace ClassLibrary
                         respuesta += $"\nEn esta etapa no se pueden posicionar barcos diagonalmente";
                         EstadoLocal.Add(IDDelJugador, new string[3]);
                         respuesta += $"\n{Planificador.VerTablero(numdelJugador)}";
-                        respuesta += $"\nIndique la casilla de inicio del barco :";
+                        respuesta += $"\nIndique la casilla de inicio del barco: ";
                         return true;
                     }
                     else
@@ -77,7 +77,7 @@ namespace ClassLibrary
                         if (EstadoLocal[IDDelJugador][0] == null)
                         {
                             EstadoLocal[IDDelJugador][0] = mensaje.Text;
-                            respuesta = "Indique la casilla final del barco :";
+                            respuesta = "Indique la casilla final del barco: ";
                             return true;
                         }
                         else if (EstadoLocal[IDDelJugador][1] == null)
@@ -92,19 +92,19 @@ namespace ClassLibrary
                             {
                                 if (Planificador.PosicionamientoFinalizado(NumDelJugadorOponente))
                                 {
-                                    bot.SendTextMessageAsync(IDDelOponente, $"El oponente a finalizado su etapa de posicionamiento \nUtiliza /Atacar para poder atacar barcos del tablero enemigo.");
-                                    respuesta += $"\nHa terminado la etapa de posicionamiento, apartir de ahora podras atacar \nUtiliza /Atacar para iniciar tu ofensiva, Buena suerte.";
+                                    bot.SendTextMessageAsync(IDDelOponente, $"El oponente a finalizado su etapa de posicionamiento. \nPresione /Atacar para poder atacar barcos del tablero enemigo.");
+                                    respuesta += $"\nHa terminado la etapa de posicionamiento, a partir de ahora podras atacar \nPresione /Atacar para iniciar su ofensiva, Buena suerte.";
                                 }
                                 else
                                 {
-                                    respuesta += $"\nYa no podras posicionar más barcos en esta partida, espera a que tu oponente termine de colocar sus barcos. \n Te notificare cuando suceda."; 
+                                    respuesta += $"\nYa no podras posicionar más barcos en esta partida, espera a que tu oponente termine de colocar sus barcos. \nSe te notificara cuando eso suceda."; 
                                 }
                                 historia.AvanzarEstados(IDDelJugador, 1);
                                 EstadoLocal.Remove(IDDelJugador);
                             }
                             else
                             {
-                                respuesta += "Indique la casilla de inicio del proximo barco :";
+                                respuesta += "Indique la casilla de inicio del proximo barco: ";
                             }
                             return true;
                         }
@@ -121,7 +121,7 @@ namespace ClassLibrary
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }

@@ -66,7 +66,7 @@ namespace ClassLibrary
                     if (!EstadoLocal.Contains(IDDelJugador))
                     {
                         EstadoLocal.Add(IDDelJugador);
-                        respuesta += $"\nIndique la casilla que desee atacar o /rendirse cuando lo desee:";
+                        respuesta += $"\nIndique la casilla que desee atacar,\no presione /rendirse cuando lo desee:";
                         return true;
                     }
                     else
@@ -76,14 +76,14 @@ namespace ClassLibrary
                         respuesta += ResultadoAtacar;
                         respuesta += $"\nAl oponente le quedan {Planificador.CantidadDeBarcosintactos(NumDelJugadorOponente)} partes de barco enteras";
                         respuesta += $"\n{Planificador.VerTableroOponente(NumDelJugadorOponente)}";
-                        if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque.")
+                        if (ResultadoAtacar != "Debe esperar a que el otro jugador lo ataque")
                             if (ResultadoAtacar != "La coordenada enviada fue invalida")
                             {
                                 mensajeOponente = $"Has sido atacado en {mensaje.Text}\n\nTABLERO PROPIO \n\n{Planificador.VerTablero(NumDelJugadorOponente)}";
                                 if (Planificador.PartidaFinalizada(numdelJugador))
                                 {
-                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial y seras enviado al menu principal \nPresiona /menu para mas información";
-                                    mensajeOponente += "\n\nLamentablemente has perdido. \nLa partida se guardara en su historial y seras enviado al menu principal \nPresiona /menu para mas información";
+                                    respuesta += $"\n\nFelicitaciones!!, has ganado la partida. \nLa partida se guardara en su historial y seras enviado al menu principal \nPresione /menu para mas información";
+                                    mensajeOponente += "\n\nLamentablemente has perdido. \nLa partida se guardara en su historial y seras enviado al menu principal \nPresione /menu para mas información";
                                     historia.ReiniciarEstados(IDDelOponente);
                                     historia.ReiniciarEstados(IDDelJugador);
                                     EstadoLocal.Remove(IDDelOponente);
@@ -113,7 +113,7 @@ namespace ClassLibrary
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }

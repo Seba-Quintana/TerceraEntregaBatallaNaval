@@ -41,18 +41,18 @@ namespace ClassLibrary
                     
                     Planificador.Rendirse(jugadorRendido);
 
-                    respuesta += "Rendicion Completada, la partida ha sido guardada. Usted volvera al menu principal. \n Utilize /menu para mas información";
+                    respuesta += "Rendicion Completada, la partida ha sido guardada.\nUsted volvera al menu principal. \nPresione /menu para mas información";
                     Planificador.Rendirse(jugadorRendido);
                     if (estados.VerEstado(IDdeljugadorRendido) == 2)
                     {
-                        bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
+                        bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones, has ganado la partida \nUsted volvera al menu principal. \nPresione /menu para mas información");
                         estados.RetrocederEstados(IDdeljugadorRendido,1);
                         estados.RetrocederEstados(IDOponente,1);
                     }
                     
                     else if (estados.VerEstado(IDdeljugadorRendido) == 3)
                     {
-                        bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \n  Usted volvera al menu principal. \n Utilize /menu para mas información");
+                        bot.SendTextMessageAsync(IDOponente, "Su oponente se ha rendido. Felicitaciones has ganado la partida \nUsted volvera al menu principal. \nPresione /menu para mas información");
                         estados.RetrocederEstados(IDdeljugadorRendido,2);
                         estados.RetrocederEstados(IDOponente,2);
                     }
@@ -64,7 +64,7 @@ namespace ClassLibrary
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }

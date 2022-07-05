@@ -35,7 +35,7 @@ namespace ClassLibrary
                     long IDdeljugador = mensaje.Chat.Id;
                     int usuario = Planificador.ConversorIDaNum(IDdeljugador);
                     Planificador.removerListaEspera(usuario);
-                    respuesta += $"Emparejamiento cancelado \n Presione /Menu para volver al menu \n";
+                    respuesta += $"Emparejamiento cancelado \nPresione /Menu para volver al menu \n";
                     historia.ReiniciarEstados(IDdeljugador);
                     return true;
                 }
@@ -45,7 +45,7 @@ namespace ClassLibrary
             {
                 long IDdeljugador = mensaje.Chat.Id;
                 EstadosUsuarios estados = EstadosUsuarios.Instance();
-                respuesta = "Ha habido un error. Intente de nuevo \n";
+                respuesta = "Ha ocurrido un error. Intente de nuevo \n";
                 estados.ReiniciarEstados(IDdeljugador);
                 return true;
             }
