@@ -32,7 +32,7 @@ Roles de clases:
 - ImprimirTableroPropio: Service provider
 - ImprimirTableroOponente: Service provider
 - Mensajes: Service provider
-- perfilUsuario: Information holder
+- PerfilUsuario: Information holder
 - Historial: Information holder
 - Partida: Controller
 - TraductorDeCoordenadas: Service provider
@@ -41,6 +41,10 @@ Roles de clases:
 - Tablero: Service provider
 - PartidaRapida: Controller
 - Handlers: Controller
+- Emparejamiento: Service provider
+- Barco: Information holder
+- EstadosUsuario: Information holder
+- References : Service provider
 
 
 Clases:
@@ -52,55 +56,82 @@ Esta es una interfaz que será implementada por BaseHandler, y se crea en funci�
 Esta clase se crea para implementar el patrón chain of responsibility con los demas handlers, lo que permite que el usuario se comunique con el subsistema a traves de comandos; estos seran procesados por distintos handlers, quienes heredan de esta clase. Las clases que heredan de BaseHandler cambiarán su accionar en base a sobreescribir el metodo virtual llamdo "InternalHandle", y decidiran que mensajes procesar sobreescribiendo el metodo "CanHandle", ambos metodos presentes en BaseHandler.
 
 - ComenzarHandler:
-ComenzarHandler se encarga de "iniciar" el bot con el comando /Start, y da la opcion de registrarte o de iniciar sesion. Si un usuario se encuentra en esta etapa, tiene estado 0.
+Hecho por Sebastian.
+ComenzarHandler se encarga de "iniciar" el bot con el comando /Start, y da la opcion de registrarte o de iniciar sesion. Se utiliza cuando el usuario no tiene ningun estado.
 
 - InicioSesionHandler:
+Hecho por Sebastian.
 Clase encargada de buscar si un usuario existe o no en AlmacenamientoUsuarios, y de existir le permite acceder al menu. Se accede al mismo con el comando /InicioSesion Si un usuario se encuentra en esta etapa, tiene estado 0.
 
 - RegistrarHandler:
+Hecho por Franco.
 Handler para registrar a un usuario con el comando /Registrar. Pide los datos de la persona y los almacena en AlmacenamientoUsuario. Si un usuario se encuentra en esta etapa, tiene estado 0.
 
 - MenuHandler:
+Hecho por Santiago.
 Esta clase sirve para indicarle al usuario las acciones disponibles en el estado en el que se encuentra con el comando /Menu. Permite tanto comenzar una partida como ver sus datos. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - AyudaHandler:
+Hecho por Santiago.
 Se accede con /Ayuda, y muestra una breve descripcion de los comandos del menu. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - RemoverUsuarioHandler:
-Esta clase permite remover a una persona del almacenamiento con el comando /Remover. Si un usuario se encuentra en esta etapa, tiene estado 1.
+Hecho por Amanda.
+Esta clase permite remover a una persona del almacenamiento con el comando /Remover. Si un usuario se encuentra en esta etapa, puede estar en estado 0 o en estado 1.
 
 - VerHistorialHandler:
+Hecho por Santiago.
 Esta clase le permite a un usuario ver el historial de las partidas totales que se han jugado con el comando /VerHistorial. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - VerHistorialPersonalHandler:
+Hecho por Santiago.
 El handler VerHistorialPersonalHandler permite a un usuario ver el historial de las partidas que el mismo ha jugado con el comando /VerHistorialPersonalHandler. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
-- Verperfilhandler:
+- VerPerfilHandler:
+Hecho por Santiago.
 Este handler le permite al usuario ver sus datos con el comando /VerPerfil. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - VerRankingHandler:
+Hecho por Santiago.
 Este handler le permite a un usuario ver el ranking de los usuarios con mas partidas ganadas con el comando /VisualizarRanking. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - BuscarPartidaHandler:
+Hecho por Sebastian.
 Esta clase añade a un usuario a la cola de espera para jugar una partida tanto normal como rapida con el comando /BuscarPartida. El que elige el tamaño del tablero es el ultimo jugador en elegir el tamaño del mismo, es decir, la ultima persona en entrar en la partida, por mas de que el primer jugador haya elegido otro tamaño. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - BuscarPartidaAmistosaHandler:
+Hecho por Sebastian.
 Esta clase permite a dos jugadores en especifico jugar una partida tanto normal como rapida con el comando /BuscarPartidaAmistosa. Para poder jugar una partida de este tipo es necesario conocer el numero de jugador del otro usuario. El que elige el tamaño del tablero es el ultimo jugador en elegir el tamaño del mismo, es decir, la ultima persona en entrar en la partida, por mas de que el primer jugador haya elegido otro tamaño. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - ConfirmarPartidaHandler:
+Hecho por Sebastian.
 Este handler permite a un usuario aceptar una partida de tipo amistoso con el comando /Aceptar. Al utilizar el comando /BuscarPartidaAmistosa, el usuario recibe un mensaje de que ha sido invitado, y es a partir de este handler que el jugador podrá aceptar una partida y jugar con el otro jugador. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
 - SalirEmparejamientoHandler:
+Hecho por Sebastian.
 Este handler le permite a un jugador que esta buscando partida salirse del emparejamiento con le comando /SalirEmparejamiento. Esto hace que el usuario vuelva al menu. Si un usuario se encuentra en esta etapa, tiene estado 1.
 
-- AtacarHandler:
-Este handler le permite a un jugador realizar un ataque con el comando /Atacar. Si un usuario se encuentra en esta etapa, tiene estado 2.
-
 - PosicionarHandler:
+Hecho por Franco.
 Este handler le permite a un jugador posicionar un barco con el comando /Posicionar. Si un usuario se encuentra en esta etapa, tiene estado 2.
 
-- Bot:
+- RendirseHandler:
+Hecho por Franco.
+Este handler le permite a un jugador rendirse con el comando /Rendirse. Si un usuario se encuentra en esta etapa, puede estar en el estado 2 o en el 3.
+
+- AtacarHandler:
+Hecho por Amanda.
+Este handler le permite a un jugador realizar un ataque con el comando /Atacar. Si un usuario se encuentra en esta etapa, tiene estado 3.
+
+- BotUtilities:
 Esta clase guarda todos los datos necesarios para crear el bot, como la secret token y el singleton para que no exista mas de una instancia del mismo, lo que de darse provocaría un error, ya que no puede haber más de una instancia de un bot con la misma token.
+
+- References:
+Esta clase fue creada con el proposito de guardar las referencias a la hora de serializar. Su objetivo principal es facilitar la deserializacion ya que lee referencias que guardo al serializar. Se implementa singleton dado que no necesita que mas de una instancia serialice a la vez.
+
+- EstadosUsuarios:
+Hecho por Franco.
+Esta clase sirve para llevar un registro del estado en el que se encuentran las personas. Los estados diferencian las distintas etapas disponibles para las personas. Implementa singleton porque solamente se necesita una instancia para que funcione de manera correcta.
 
 - Planificador:
 Hecho por Santiago.
@@ -182,7 +213,7 @@ Cumple con expert debido a que es el unico que posee el acceso al tablero para p
 
 - Barco:
 Hecho por Franco.
-Es la clase que almacena los barcos de un tablero.
+Esta clase almacena las posiciones en las que se encuentran los barcos.
 Cumple con expert dado que es la clase que tiene la informacion necesaria para poder implementar sus metodos.
 
 
