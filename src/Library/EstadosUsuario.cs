@@ -27,7 +27,7 @@ namespace ClassLibrary
             }
             return instance;
         }
-        private Dictionary<long, int> EstadosDeJugadores = new Dictionary<long, int>();
+        private Dictionary<long, int> estadosDeJugadores = new Dictionary<long, int>();
         
         /// <summary>
         /// Verifica si el jugador ya tiene estado
@@ -36,7 +36,7 @@ namespace ClassLibrary
         /// <returns> true si se encuentra, false de lo contrario </returns>
         public bool ContieneId(long ID)
         {
-            return this.EstadosDeJugadores.ContainsKey(ID);
+            return this.estadosDeJugadores.ContainsKey(ID);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ClassLibrary
         /// <returns> Devuelve el estado del jugador </returns>
         public int VerEstado(long ID)
         {
-            return this.EstadosDeJugadores[ID];
+            return this.estadosDeJugadores[ID];
         }
         
         /// <summary>
@@ -55,7 +55,7 @@ namespace ClassLibrary
         /// <param name="ID"> id del jugador </param>
         public void ReiniciarEstados(long ID)
         {
-            this.EstadosDeJugadores[ID]=1;
+            this.estadosDeJugadores[ID]=1;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace ClassLibrary
         /// <param name="estadosAAvanzar"> cantidad de estados a avanzar </param>
         public void AvanzarEstados(long ID, int estadosAAvanzar)
         {
-            this.EstadosDeJugadores[ID]+=estadosAAvanzar;
+            this.estadosDeJugadores[ID]+=estadosAAvanzar;
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace ClassLibrary
         /// <param name="estadosARetroceder"> cantidad de estados a retroceder </param>
         public void RetrocederEstados(long ID, int estadosARetroceder)
         {
-            if (this.EstadosDeJugadores[ID] - estadosARetroceder >= 0)
-                this.EstadosDeJugadores[ID]-=estadosARetroceder;
+            if (this.estadosDeJugadores[ID] - estadosARetroceder >= 0)
+                this.estadosDeJugadores[ID]-=estadosARetroceder;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ClassLibrary
         /// <param name="ID"> id del jugador </param>
         public void NuevoJugador(long ID)
         {
-            EstadosDeJugadores.Add(ID,0);
+            estadosDeJugadores.Add(ID,0);
         }
     }
 }

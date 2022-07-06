@@ -72,10 +72,10 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Metodo llamado para finalizar, guarda los datos mas importantes de 
+        /// Metodo llamado para inalizar, guarda los datos mas importantes de 
         /// la partida en la clase DatosDePartida
         /// </summary>
-        protected void Finalizar()
+        protected void inalizar()
         {
             new DatosdePartida(this.tableros, this.tiradas);
             PartidasEnJuego partida = PartidasEnJuego.Instance();
@@ -381,12 +381,12 @@ namespace ClassLibrary
                 if (this.jugadores[0] == jugador)
                 {
                     tableros[1].Victoria();
-                    this.Finalizar();
+                    this.inalizar();
                 }
                 else
                 {
                     tableros[0].Victoria();
-                    this.Finalizar();
+                    this.inalizar();
                 }
             }
         }
@@ -439,13 +439,13 @@ namespace ClassLibrary
             if (tableros[0].terminado)
             {
                 tableros[1].Victoria();
-                this.Finalizar();
+                this.inalizar();
                 return true;
             }
             else if (tableros[1].terminado)
             {
                 tableros[0].Victoria();
-                this.Finalizar();
+                this.inalizar();
                 return true;
             }
             return false;
