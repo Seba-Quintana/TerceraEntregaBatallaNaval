@@ -231,11 +231,13 @@ Esta excepción fue creada para ser lanzada en caso de que el tamaño de un tabl
 - CuentaYaExistenteException:
 Esta excepción fue creada para ser lanzada en caso de que una persona intente registrarse cuando ya tenia una cuenta, por lo que el programa debe intentar recuperarse. La misma recupera el numero del jugador, junto con un mensaje personalizado que varía dependiendo de la situación en la que se haya ejecutado la excepcion.
 
-Las tres excepciones tienen como objetivo principal satisfacer precondiciones, dado que si a un método le llega un dato que si sigue el código puede afectar negativamente al programa, es conveniente detenerlo para que no arrastre el error. Otra razón es que la creación de una excepción permite visualizar mas fácilmente la razón por la que el programa falló, gracias al mensaje explicativo y al atributo que muestra la razón del fallo.
+Estas excepciones tienen como objetivo principal satisfacer precondiciones, dado que si a un método le llega un dato que si sigue el código puede afectar negativamente al programa, es conveniente detenerlo para que no arrastre el error. Otra razón es que la creación de una excepción permite visualizar mas fácilmente la razón por la que el programa falló, gracias al mensaje explicativo y al atributo que muestra la razón del fallo.
 
 
 Notas:
 La tercer entrega nos resultó más sencilla que las dos anteriores, dado que ya teníamos la base de lo que teníamos que realizar. Lo más complicado fue el uso de los handlers, y aprender como los mismos se comportan, así como encontrar las relaciones entre ellos. Otra razón por las que nos resultó sencillo fue porque teníamos la clase planificador, por lo que los handlers no tenían que hablarse con el subsistema, solamente con el planificador. Por otro lado, además de los handlers, la serializacion también fue uno de los desafios de esta entrega. Encontrar cuales eran las clases a serializar y efectivamente guardar los datos fue complicado, así como deserializarlos.
+En terminos de patrones, intentamos aplicar la mayor cantidad de patrones posibles, siempre y cuando tuvieran sentido en su contexto. Un ejemplo de esto es el patrón demeter, el cual buscamos aplicar a lo largo del programa, haciendo que las distintas clases no conozcan las estructuras de las demas, bajando el acoplamiento de las mismas. Los patrones resultaron ser utiles en la practica, ya que facilitan el entendimiento del programa, y a su vez ayudan a que el codigo sea mas seguro.
+En terminos generales, el proyecto nos brindo mucho aprendizaje, desde manejo de excepciones hasta uso de patrones y principios de diseño, desde un punto de vista más práctico.
 
 
 Bibliografía:
