@@ -243,3 +243,4 @@ Wirfs-Brock, Rebeca y McKean, Alan; "Object Design: Roles, Responsibilities, and
 (309) Cómo HACER Una MATRIZ En C# - MATRICES | Desarrollo en CSharp (C#) #28 - YouTube
 (309) Cómo RELLENAR Y LEER MATRICES En C# - Ejercicio | Desarrollo en CSharp (C#) #29 - YouTube
 es.wikipedia.org/wiki/GRASP
+https://dofactory.com/net/design-patterns
