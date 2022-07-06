@@ -87,7 +87,7 @@ namespace ClassLibrary
         /// un jugador esta en alguna partida en curso.
         /// </summary>
         /// <param name="numeroDeJugador"></param>
-        /// <returns></returns>
+        /// <returns> Devuelve true si el jugador se encuentra en partida </returns>
         public bool EstaElJugadorEnPartida(int numeroDeJugador)
         {
             foreach (Partida partida in partidas)
@@ -109,7 +109,7 @@ namespace ClassLibrary
         /// de un jugador que consulta.
         /// </summary>
         /// <param name="numeroDeJugador"></param>
-        /// <returns></returns>
+        /// <returns> devuelve el numero del oponente </returns>
         public int ObtenerNumOponente (int numeroDeJugador)
         {
             foreach (Partida partida in partidas)
@@ -146,6 +146,12 @@ namespace ClassLibrary
             }
             return false;
         }
+
+        /// <summary>
+        /// Devuelve la cantidad de barcos intactos de un jugador
+        /// </summary>
+        /// <param name="jugadorQueConsulta"> jugador </param>
+        /// <returns> Devuelve la cantidad de barcos intactos </returns>
         public int CantidadDeBarcosintactos (int jugadorQueConsulta)
         {
             Partida partida = ObtenerPartida(jugadorQueConsulta);
