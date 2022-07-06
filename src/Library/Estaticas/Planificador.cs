@@ -352,7 +352,7 @@ namespace ClassLibrary
         public static int CantidadDeBarcosintactos(int propietariodelbarco)
         {
             PartidasEnJuego partidas = PartidasEnJuego.Instance();
-            return partidas.CantidadDeBarcosintactos(propietariodelbarco);
+            return partidas.CantidadDeBarcosIntactos(propietariodelbarco);
         }
         /// <summary>
         /// Metodo intermedio entre planificador y almacenamiento de usuario.
