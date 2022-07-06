@@ -14,7 +14,8 @@ namespace ClassLibrary
       /// <summary>
       /// Lista de DatosdePartida
       /// </summary>
-      public List<DatosdePartida> Partidas = new List<DatosdePartida>();
+      private List<DatosdePartida> partidas = new List<DatosdePartida>();
+      public List<DatosdePartida> Partidas{get {return partidas;}}
       /// <summary>
       /// Parte de singleton. Atributo donde se guarda la instancia del Historial (o null si no fue creada).
       /// </summary>
