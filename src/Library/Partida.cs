@@ -30,6 +30,17 @@ namespace ClassLibrary
         /// Cantidad de ataques hechos por cada jugador
         /// </summary>
         protected int [] tiradas = new int[2];
+
+        /// <summary>
+        /// Cantidad de ataques que han sido agua
+        /// </summary>
+        public int[] tiradasAgua = new int [2];
+
+        /// <summary>
+        /// Cantidad de ataques que han sido barco
+        /// </summary>
+        public int[] tiradasBarco = new int [2];
+
         /// <summary>
         /// Simboliza la cantidad de barcos que quedan para ubicar
         /// </summary>
@@ -63,6 +74,10 @@ namespace ClassLibrary
             this.cantidadDeBarcosParaPosicionar[1]= (tamano*tamano*25)/100;
             this.tiradas[0]=0;
             this.tiradas[1]=0;
+            this.tiradasAgua[0]=0;
+            this.tiradasAgua[1]=0;
+            this.tiradasBarco[0]=0;
+            this.tiradasBarco[1]=0;
             this.posicionamientoTerminado[0]=false;
             this.posicionamientoTerminado[1]=false;
             this.PartesDeBarcoEnteras[0]=0;
@@ -115,6 +130,10 @@ namespace ClassLibrary
                     
                     Tablero tablerobjetivo = this.tableros[1];
                     char EstadoDeLaCasillaobjetivo = tablerobjetivo.Atacar(fila,columna);
+                    if ((EstadoDeLaCasillaobjetivo == 'W') || (EstadoDeLaCasillaobjetivo == 'w'))
+                        this.tiradasAgua[0]++;
+                    else if (((EstadoDeLaCasillaobjetivo == 'T') || (EstadoDeLaCasillaobjetivo == 't')) || (EstadoDeLaCasillaobjetivo == 'H') || (EstadoDeLaCasillaobjetivo == 'h'))
+                        this.tiradasBarco[0]++;
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[0]+=1;                    
                     return respuesta;
@@ -133,6 +152,10 @@ namespace ClassLibrary
                     
                     Tablero tablerobjetivo = this.tableros[0];
                     char EstadoDeLaCasillaobjetivo = tablerobjetivo.Atacar(fila,columna);
+                    if ((EstadoDeLaCasillaobjetivo == 'W') || (EstadoDeLaCasillaobjetivo == 'w'))
+                        this.tiradasAgua[1]++;
+                    else if (((EstadoDeLaCasillaobjetivo == 'T') || (EstadoDeLaCasillaobjetivo == 't')) || (EstadoDeLaCasillaobjetivo == 'H') || (EstadoDeLaCasillaobjetivo == 'h'))
+                        this.tiradasBarco[1]++;
                     string respuesta = respuestaDeAtaque(EstadoDeLaCasillaobjetivo);
                     this.tiradas[1]+=1;
                     return respuesta;

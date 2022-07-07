@@ -60,7 +60,7 @@ namespace Tests
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             almacenamiento.Remover(numeroDeJugador1);
             almacenamiento.Remover(numeroDeJugador2);
-        }
+        }/*
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
         /// </summary>
@@ -152,7 +152,7 @@ namespace Tests
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             almacenamiento.Remover(numeroDeJugador1);
             almacenamiento.Remover(numeroDeJugador2);
-        }
+        }*/
     }
 }
 

@@ -37,7 +37,7 @@ namespace Tests
             //Partida completa simulada
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             int numeroDeJugador1 = almacenamiento.Registrar("jugadorTest", 5, "Test");
-			int numeroDeJugador2 = almacenamiento.Registrar("jugadorTest", 5, "Test");
+			int numeroDeJugador2 = almacenamiento.Registrar("jugadorTest", 6, "Test");
 
             Planificador.EmparejarAmigos(0, numeroDeJugador1, numeroDeJugador2, 7);
             PartidasEnJuego partidas = PartidasEnJuego.Instance();

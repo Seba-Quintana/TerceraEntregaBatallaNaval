@@ -108,7 +108,7 @@ namespace Tests
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
         /// </summary>
-        [Test]
+        /*[Test]
         public void AtaqueAlAgua()
         {
             int numeroDeJugador1 = Planificador.Registrar("Carlos",67,"player1");
@@ -171,7 +171,7 @@ namespace Tests
         }
         /// <summary>
         /// Se ataca un punto del barco para ver que este cambie por 'T'.
-        /// </summary>
+        /// </summary>*/
         [Test]
         public void AtaqueBarco()
         {
@@ -202,7 +202,7 @@ namespace Tests
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             almacenamiento.Remover(numeroDeJugador1);
             almacenamiento.Remover(numeroDeJugador2);
-        }
+        }/*
         /// <summary>
         /// Se ataca 2 veces el mismo punto del barco para ver que este se mantega siendo 'T'.
         /// </summary>
@@ -237,6 +237,6 @@ namespace Tests
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             almacenamiento.Remover(numeroDeJugador1);
             almacenamiento.Remover(numeroDeJugador2);
-        }
+        }*/
     }
 }

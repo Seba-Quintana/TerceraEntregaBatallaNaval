@@ -378,5 +378,31 @@ namespace ClassLibrary
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             return almacenamiento.ConversorNumaID(numDeJugadoraConvertir);
         }
+
+        /// <summary>
+        /// Cantidad de tiradas totales que han sido agua
+        /// </summary>
+        /// <param name="numeroDeJugador"> Jugador que solicita </param>
+        /// <returns> cantidad total de tiradas en agua </returns>
+        public static int TiradasAguaTotales(int numeroDeJugador)
+        {
+            PartidasEnJuego partida = PartidasEnJuego.Instance();
+            int TiradasTotalesAgua1 = partida.ObtenerPartida(numeroDeJugador).tiradasAgua[0];
+            int TiradasTotalesAgua2 = partida.ObtenerPartida(numeroDeJugador).tiradasAgua[1];
+            return TiradasTotalesAgua1 + TiradasTotalesAgua2;
+        }
+
+        /// <summary>
+        /// Cantidad de tiradas totales que han sido barco
+        /// </summary>
+        /// <param name="numeroDeJugador"> Jugador que solicita </param>
+        /// <returns> cantidad total de tiradas en barcos </returns>
+        public static int TiradasBarcoTotales(int numeroDeJugador)
+        {
+            PartidasEnJuego partida = PartidasEnJuego.Instance();
+            int TiradasTotalesBarco1 = partida.ObtenerPartida(numeroDeJugador).tiradasBarco[0];
+            int TiradasTotalesBarco2 = partida.ObtenerPartida(numeroDeJugador).tiradasBarco[1];
+            return TiradasTotalesBarco1 + TiradasTotalesBarco2;
+        }
     }
 }
