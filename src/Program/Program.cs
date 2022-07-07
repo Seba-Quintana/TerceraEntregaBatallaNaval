@@ -66,9 +66,9 @@ namespace ConsoleApplication
 
             // El handler para rendirse se encuentra tanto en el tercer como en el cuarto handler
             // porque el usuario se debe poder rendir en cualquiera de los dos estados
-            tercerHandler = new PosicionarHandler(new RendirseHandler(null));
+            tercerHandler = new PosicionarHandler(new RendirseHandler(new VerTiradasAguaHandler(new VerTiradasBarcoHandler(null))));
 
-            cuartoHandler = new AtacarHandler(new RendirseHandler(null));
+            cuartoHandler = new AtacarHandler(new RendirseHandler(new VerTiradasAguaHandler(new VerTiradasBarcoHandler(null))));
 
 
             var cts = new CancellationTokenSource();

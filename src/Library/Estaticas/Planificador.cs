@@ -378,5 +378,27 @@ namespace ClassLibrary
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             return almacenamiento.ConversorNumaID(numDeJugadoraConvertir);
         }
+        /// <summary>
+        /// Accede a la cantidad de tiradas al agua en una partida y lo devuelve
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static int VerAtaquesAlAgua(int jugador)
+        {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(jugador);
+            return partida.TiradasAlAgua;
+        }
+        /// <summary>
+        /// Accede a la cantidad de tiradas a barcos en una partida y lo devuelve
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
+        public static int VerAtaquesABarcos(int jugador)
+        {
+            PartidasEnJuego partidas = PartidasEnJuego.Instance();
+            Partida partida = partidas.ObtenerPartida(jugador);
+            return partida.TiradasABarco;
+        }
     }
 }

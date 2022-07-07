@@ -58,6 +58,8 @@ namespace ClassLibrary
                     }
                     respuesta += ($"Ganador: {buscador.ObtenerPerfil(partida.Ganador).Nombre}\n");
                     respuesta += ($"Perdedor: {buscador.ObtenerPerfil(partida.Perdedor).Nombre}\n");
+                    respuesta += ($"Cantidad de tiradas al agua: {partida.AtaquesAlAgua}");
+                    respuesta += ($"Cantidad de tiradas a barcos: {partida.AtaquesABarco}");
                     respuesta += ($"\n\n");
                     contador += 1;
                 }

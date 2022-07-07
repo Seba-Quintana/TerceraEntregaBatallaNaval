@@ -29,7 +29,15 @@ namespace ClassLibrary
         /// <summary>
         /// Cantidad de ataques hechos por cada jugador
         /// </summary>
-        protected int [] tiradas = new int[2];
+        protected int [] tiradas = new int[2];/////////////////////////////
+        /// <summary>
+        /// Cantidad de ataques al agua
+        /// </summary>
+        public int TiradasAlAgua;
+        /// <summary>
+        /// Cantidad de ataques a barcos
+        /// </summary>
+        public int TiradasABarco;
         /// <summary>
         /// Simboliza la cantidad de barcos que quedan para ubicar
         /// </summary>
@@ -61,8 +69,10 @@ namespace ClassLibrary
             this.jugadores[1]=jugador2;
             this.cantidadDeBarcosParaPosicionar[0]= (tamano*tamano*25)/100;
             this.cantidadDeBarcosParaPosicionar[1]= (tamano*tamano*25)/100;
-            this.tiradas[0]=0;
-            this.tiradas[1]=0;
+            this.tiradas[0] = 0;
+            this.tiradas[1] = 0;
+            this.TiradasAlAgua = 0;
+            this.TiradasABarco = 0;
             this.posicionamientoTerminado[0]=false;
             this.posicionamientoTerminado[1]=false;
             this.PartesDeBarcoEnteras[0]=0;
@@ -77,7 +87,7 @@ namespace ClassLibrary
         /// </summary>
         protected void inalizar()
         {
-            new DatosdePartida(this.tableros, this.tiradas);
+            new DatosdePartida(this.tableros, this.tiradas, this.TiradasABarco, this.TiradasAlAgua);
             PartidasEnJuego partida = PartidasEnJuego.Instance();
             partida.RemoverPartida(this);
         }
@@ -155,17 +165,35 @@ namespace ClassLibrary
             switch (EstadoDeLaCasilla)
             {
                 case 'W':
+                {
+                    this.TiradasAlAgua += 1;
                     return "Que lastima! has desperdiciado una bala en el agua";
+                }
                 case 'T':
+                {
+                    this.TiradasABarco += 1;
                     return "Buen tiro, has atacado a un barco";
+                }
                 case 'H':
+                {
+                    this.TiradasABarco +=1;
                     return "Felicitaciones has hundido un barco";
+                }
                 case 'w':
+                {
+                    this.TiradasAlAgua += 1;
                     return "La casilla ya había sido atacada y contiene agua"; 
+                }
                 case 't': 
+                {
+                    this.TiradasABarco += 1;
                     return "Has atacado una casilla donde que había sido atacada anteriormente y contenía una parte de un barco dañado";
+                }
                 case 'h':
+                {
+                    this.TiradasABarco += 1;
                     return "Has atacado una casilla donde que había sido atacada anteriormente y contenía una parte de un barco Hundido";
+                }
                 default:
                     return "Ha habido un error";
             }

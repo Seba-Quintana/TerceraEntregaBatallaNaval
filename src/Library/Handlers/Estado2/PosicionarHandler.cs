@@ -66,7 +66,7 @@ namespace ClassLibrary
                     if (!EstadoLocal.ContainsKey(IDDelJugador))
                     {
                         respuesta += "Bienvenido a la etapa de posicionamiento";
-                        respuesta += $"\nEn esta etapa no se pueden posicionar barcos diagonalmente";
+                        respuesta += $"\nEn esta etapa no se pueden posicionar barcos diagonalmente \n\nEn cualquier momento de la partida puedes utilizar /VerAtaquesABarcos o /VerAtaquesAlAgua para ver la cantidad de tiros efectuados hasta el momento.\n";
                         EstadoLocal.Add(IDDelJugador, new string[3]);
                         respuesta += $"\n{Planificador.VerTablero(numdelJugador)}";
                         respuesta += $"\nIndique la casilla de inicio del barco: ";

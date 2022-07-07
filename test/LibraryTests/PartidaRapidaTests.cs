@@ -1,4 +1,4 @@
-using ClassLibrary;
+/*using ClassLibrary;
 using NUnit.Framework;
 using System;
 
@@ -154,5 +154,5 @@ namespace Tests
             almacenamiento.Remover(numeroDeJugador2);
         }
     }
-}
+}*/
 

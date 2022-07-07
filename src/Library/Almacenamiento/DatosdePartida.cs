@@ -38,6 +38,14 @@ namespace ClassLibrary
         /// </summary>
         [JsonInclude]
         public int[] Tiradas;
+        /// <summary>
+        /// Cantidad de tiradas al agua.
+        /// </summary>
+        public int AtaquesAlAgua;
+        /// <summary>
+        /// Cantidad de tiradas a barco.
+        /// </summary>
+        public int AtaquesABarco;
 
         /// <summary>
         /// El int es el número de jugador del perfil de usuario perteneciente al ganador.
@@ -55,8 +63,10 @@ namespace ClassLibrary
         /// Metodo encargado de almacenar los datos.
         /// </summary>
         /// <param name="tablerosParaAgregar"></param>
-        /// <param name="jugadas"></param>
-        public DatosdePartida(Tablero[] tablerosParaAgregar, int[] jugadas)
+        /// <param name="jugadas"> la cantidad de tiradas que cada jugador hizo </param>
+        /// <param name="TiradasABarco"> la cantidad de ataques a barcos durante el juego </param>
+        /// <param name="TiradasAlAgua"> la cantidad de ataques al agua durante el juego </param>
+        public DatosdePartida(Tablero[] tablerosParaAgregar, int[] jugadas, int TiradasABarco, int TiradasAlAgua)
         {
             almacenarTableros(tablerosParaAgregar);
             almacenarJugador(tablerosParaAgregar[0].DuenodelTablero);
@@ -65,6 +75,8 @@ namespace ClassLibrary
             Jugadores[0] = tablerosParaAgregar[0].DuenodelTablero;
             Jugadores[1] = tablerosParaAgregar[1].DuenodelTablero;
             Tiradas = jugadas;
+            AtaquesABarco = TiradasABarco;
+            AtaquesAlAgua = TiradasAlAgua;
             Tamano = tablerosParaAgregar[0].Tamano;
 
             if (tablerosParaAgregar[0].Ganada)
