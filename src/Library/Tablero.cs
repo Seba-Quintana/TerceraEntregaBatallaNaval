@@ -10,6 +10,22 @@ namespace ClassLibrary
     public class Tablero
     {
         /// <summary>
+        /// Int que representa la cantidad de disparos realizados a lugares donde habian barcos
+        /// </summary>
+        protected int cantidadDeDisparosAlAgua{get;set;} = 0;
+        /// <summary>
+        /// Int que representa la cantidad de disparos realizados al agua por ambos jugadores
+        /// </summary>
+        public int CantidadDeDisparosAlAgua{get{return cantidadDeDisparosAlAgua;}}
+        /// <summary>
+        /// Int que representa la cantidad de disparos realizados a lugares donde habian barcos
+        /// </summary>
+        protected int cantidadDeDisparosABarcos{get;set;} = 0;
+        /// <summary>
+        /// Int que representa la cantidad de disparos realizados a lugares donde habian barcos
+        /// </summary>
+        public int CantidadDeDisparosABarcos{get{return cantidadDeDisparosABarcos;}}
+        /// <summary>
         /// Este atributo sirve para saber el tamaño de la matriz sin tener que recurrir a metodos que midan su tamaño
         /// </summary>
         public int Tamano{get;}
@@ -123,8 +139,11 @@ namespace ClassLibrary
             }
             else
             {
+                this.cantidadDeDisparosAlAgua+=1;
                 matriz[fila,columna] = 'W';
             }
+            if (matriz[fila,columna] == 'H' || matriz[fila,columna] == 'T')
+                this.cantidadDeDisparosABarcos+=1;
             if (objetivoCasillaVacia)
             {
                 
