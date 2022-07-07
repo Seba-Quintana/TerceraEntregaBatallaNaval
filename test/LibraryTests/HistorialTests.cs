@@ -31,7 +31,7 @@ namespace Tests
         /// <summary>
         /// Verifica que un DatosdePartida se agregue correctamente a la lista de Historial
         /// </summary>
-        [Test]
+        /*[Test]
         public void AgregarUnDatosdePartida()
         {
             //Partida completa simulada
@@ -70,6 +70,6 @@ namespace Tests
             partidas.RemoverPartida(partida);
             almacenamiento.Remover(numeroDeJugador1);
             almacenamiento.Remover(numeroDeJugador2);
-        }
+        }*/
     }
 }

@@ -64,7 +64,7 @@ namespace Tests
         /// <summary>
         /// Test con el objetivo de ver que al atacar una casilla vacia cambia su contenido a 'W' Lo cual simboliza agua.
         /// </summary>
-        [Test]
+       /* [Test]
         public void AtaqueAlAgua()
         {
             int numeroDeJugador1 = Planificador.Registrar("Carlos",77,"player1");
@@ -152,7 +152,7 @@ namespace Tests
             AlmacenamientoUsuario almacenamiento = AlmacenamientoUsuario.Instance();
             almacenamiento.Remover(numeroDeJugador1);
             almacenamiento.Remover(numeroDeJugador2);
-        }
+        }*/
     }
 }
 
