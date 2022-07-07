@@ -466,5 +466,21 @@ namespace ClassLibrary
                 return this.PartesDeBarcoEnteras[1] - tableros[1].CantidadPartesBarcoDañadas;
             }
         }
+        /// <summary>
+        /// Encargado de calcular la cantidad de disparos a barcos que efectuaron entre los 2 jugadores
+        /// </summary>
+        /// <returns></returns>
+        public int CantidadDeDisparosABarcos()
+        {
+            return this.tableros[0].CantidadDeDisparosABarcos + this.tableros[1].CantidadDeDisparosABarcos;
+        }
+        /// <summary>
+        /// Encargado de calcular la cantidad de disparos al agua que efectuaron entre los 2 jugadores
+        /// </summary>
+        /// <returns></returns>
+        public int CantidadDeDisparosAlAgua()
+        {
+            return this.tableros[0].CantidadDeDisparosAlAgua + this.tableros[1].CantidadDeDisparosAlAgua;
+        }
     }
 }
